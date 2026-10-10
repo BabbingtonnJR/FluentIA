@@ -127,6 +127,17 @@ export function Today() {
         </Link>
       )}
 
+      <div className="section-title">Games · 遊び</div>
+      <Link to="/wordle" className="card link" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div className="jp" style={{ fontSize: '2rem', color: 'var(--good)', lineHeight: 1 }} aria-hidden="true">
+          言
+        </div>
+        <div style={{ flex: 1 }}>
+          <strong>Wordle</strong>
+          <div className="faint">Guess the 4-kana word of the day, with hints</div>
+        </div>
+      </Link>
+
       <div className="section-title">Daily activities · 毎日</div>
       <div className="card" style={{ paddingTop: 6, paddingBottom: 6 }}>
         {quests.map((q, n) => (
