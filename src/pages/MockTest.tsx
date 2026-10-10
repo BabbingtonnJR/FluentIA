@@ -1,0 +1,352 @@
+import { useLiveQuery } from 'dexie-react-hooks';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { Link, useNavigate } from 'react-router';
+import { CountUp } from '../components/CountUp';
+import { Icon } from '../components/Icon';
+import { Petals } from '../components/Petals';
+import { Ruby } from '../components/Ruby';
+import { loadSentences } from '../content/packs';
+import type { Sentence } from '../content/types';
+import { db } from '../db/db';
+import { logActivity } from '../db/repo';
+import { usePack, useSettings } from '../hooks';
+import { afterMotion } from '../lib/motion';
+import { generateMock, likelyPass, scoreMock, SECONDS_PER_QUESTION, SECTIONS, type MockQuestion } from '../quiz/mock';
+import { speak, stopSpeaking } from '../speech/tts';
+
+type Phase = 'setup' | 'running' | 'done';
+
+const sectionInfo = (id: string) => SECTIONS.find((s) => s.id === id)!;
+const formatTime = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+
+/**
+ * A short JLPT-style mock exam for one level, timed, with no feedback until the end —
+ * then a score per section, a pass estimate and a review of every mistake.
+ */
+export function MockTest() {
+  const pack = usePack();
+  const settings = useSettings();
+  const navigate = useNavigate();
+  const lang = pack.manifest.id;
+
+  // Levels that have grammar content; default to the hardest one the learner studies.
+  const levels = pack.manifest.levels.filter((l) => pack.grammar.some((g) => g.level === l.id));
+  const [level, setLevel] = useState(() => {
+    const enabled = levels.filter((l) => settings.levels.includes(l.id)).map((l) => l.id);
+    return enabled.length ? Math.min(...enabled) : (levels.at(-1)?.id ?? 4);
+  });
+
+  const [sentences, setSentences] = useState<Sentence[] | null>(null);
+  const [phase, setPhase] = useState<Phase>('setup');
+  const [questions, setQuestions] = useState<MockQuestion[]>([]);
+  const [picks, setPicks] = useState<(number | null)[]>([]);
+  const [index, setIndex] = useState(0);
+  const [chosen, setChosen] = useState<number | null>(null);
+  const [startedAt, setStartedAt] = useState(0);
+  const [now, setNow] = useState(Date.now());
+  const [usedSeconds, setUsedSeconds] = useState(0);
+  const finished = useRef(false);
+
+  useEffect(() => {
+    loadSentences(lang).then(setSentences, () => setSentences([]));
+    return () => stopSpeaking();
+  }, [lang]);
+
+  const history = useLiveQuery(
+    () =>
+      db.activities
+        .where('[lang+day]')
+        .between([lang, ''], [lang, '￿'])
+        .filter((a) => a.type === 'mock')
+        .sortBy('createdAt')
+        .then((all) => all.reverse().slice(0, 5)),
+    [lang],
+  );
+
+  const limit = questions.length * SECONDS_PER_QUESTION;
+  const timeLeft = Math.max(0, limit - Math.floor((now - startedAt) / 1000));
+  const q = questions[index];
+
+  const say = (text: string) => speak(text, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate });
+
+  function start() {
+    if (!sentences) return;
+    finished.current = false;
+    const qs = generateMock({ pack, sentences, level });
+    setQuestions(qs);
+    setPicks(qs.map(() => null));
+    setIndex(0);
+    setChosen(null);
+    setStartedAt(Date.now());
+    setNow(Date.now());
+    setPhase('running');
+  }
+
+  function finish(finalPicks: (number | null)[]) {
+    if (finished.current) return;
+    finished.current = true;
+    stopSpeaking();
+    const result = scoreMock(questions, finalPicks);
+    setUsedSeconds(Math.min(limit, Math.round((Date.now() - startedAt) / 1000)));
+    void logActivity(
+      lang,
+      'mock',
+      {
+        score: result.correct,
+        total: result.total,
+        minutes: Math.round((Date.now() - startedAt) / 60_000),
+        detail: { level, sections: Object.fromEntries(result.sections.map((s) => [s.section, [s.correct, s.total]])) },
+      },
+      settings,
+    );
+    setPhase('done');
+  }
+
+  // Clock: ticks every second while running and ends the test when time is up.
+  useEffect(() => {
+    if (phase !== 'running') return;
+    const t = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(t);
+  }, [phase]);
+  useEffect(() => {
+    if (phase === 'running' && timeLeft === 0) finish(picks);
+  }, [phase, timeLeft]); // picks are read at the moment time runs out
+
+  // Listening questions play once automatically.
+  useEffect(() => {
+    if (phase === 'running' && q?.speak) void say(q.speak);
+  }, [phase, index]); // only when the question changes
+
+  async function pick(n: number) {
+    if (chosen !== null) return;
+    setChosen(n);
+    const next = picks.map((p, i) => (i === index ? n : p));
+    setPicks(next);
+    await afterMotion(220);
+    setChosen(null);
+    if (index + 1 >= questions.length) finish(next);
+    else setIndex(index + 1);
+  }
+
+  if (!sentences) return null;
+
+  // --- Setup ---------------------------------------------------------------------
+  if (phase === 'setup') {
+    return (
+      <div className="stack">
+        <div className="topbar">
+          <button className="icon-btn" onClick={() => navigate('/')} aria-label="Close">
+            <Icon name="close" />
+          </button>
+          <h1 style={{ margin: 0, fontSize: '1.4rem' }}>
+            Mock test<span className="kanji-mark">模試</span>
+          </h1>
+        </div>
+
+        <div className="card stack">
+          <div className="segmented" role="group" aria-label="Level">
+            {levels.map((l) => (
+              <button key={l.id} className={level === l.id ? 'on' : ''} onClick={() => setLevel(l.id)}>
+                {l.label}
+              </button>
+            ))}
+          </div>
+          <ul className="mock-sections">
+            {SECTIONS.map((s) => (
+              <li key={s.id} className="spread">
+                <span>
+                  <span className="jp" lang="ja">
+                    {s.jp}
+                  </span>{' '}
+                  <span className="faint">{s.label}</span>
+                </span>
+                <span className="faint">{s.count} questions</span>
+              </li>
+            ))}
+          </ul>
+          <p className="faint" style={{ margin: 0 }}>
+            {SECTIONS.reduce((n, s) => n + s.count, 0)} questions in{' '}
+            {(SECTIONS.reduce((n, s) => n + s.count, 0) * SECONDS_PER_QUESTION) / 60} minutes. No answers are shown until the end, like the
+            real exam. Questions cover the whole level, not just what you have studied.
+          </p>
+          <button className="btn primary block" onClick={start} disabled={!sentences.length}>
+            Start the {levels.find((l) => l.id === level)?.label} mock
+          </button>
+        </div>
+
+        {history && history.length > 0 && (
+          <>
+            <div className="section-title">Recent results</div>
+            <div className="list">
+              {history.map((h) => {
+                const label = pack.manifest.levels.find((l) => l.id === h.detail?.level)?.label ?? '';
+                return (
+                  <div key={h.id} className="list-item" style={{ cursor: 'default' }}>
+                    <span className="badge">{label}</span>
+                    <span className="gloss">
+                      {new Date(h.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} ·{' '}
+                      {h.detail &&
+                        SECTIONS.filter((s) => h.detail!.sections[s.id])
+                          .map((s) => `${s.jp} ${h.detail!.sections[s.id][0]}/${h.detail!.sections[s.id][1]}`)
+                          .join(' · ')}
+                    </span>
+                    <strong>{Math.round((h.score / Math.max(1, h.total)) * 100)}%</strong>
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }
+
+  // --- Results -------------------------------------------------------------------
+  if (phase === 'done') {
+    const result = scoreMock(questions, picks);
+    const pass = likelyPass(level, result);
+    const pct = Math.round((result.correct / Math.max(1, result.total)) * 100);
+    const mistakes = questions.map((question, i) => ({ question, pick: picks[i] })).filter(({ question, pick }) => pick !== question.answer);
+    return (
+      <div className="stack">
+        {pass && <Petals />}
+        <div className="empty" style={{ paddingBottom: 8 }}>
+          <span className="jp stamp mock-stamp" data-pass={pass}>
+            {pass ? '合格' : 'もう少し'}
+          </span>
+          <div className="big-number">
+            <CountUp value={pct} suffix="%" />
+          </div>
+          <p style={{ margin: '4px 0 0' }}>
+            {result.correct} / {result.total} correct · {formatTime(usedSeconds)} used
+          </p>
+          <p className="faint" style={{ margin: '4px 0 0' }}>
+            {pass ? 'You would likely pass at this level.' : 'Not quite at the pass mark yet — keep going.'} (Estimate based on the JLPT pass
+            mark and section minimums.)
+          </p>
+        </div>
+
+        <div className="card stack">
+          {result.sections.map((s, n) => {
+            const info = sectionInfo(s.section);
+            return (
+              <div key={s.section} className="stack" style={{ gap: 4 }}>
+                <div className="spread">
+                  <span>
+                    <span className="jp" lang="ja">
+                      {info.jp}
+                    </span>{' '}
+                    <span className="faint">{info.label}</span>
+                  </span>
+                  <strong>
+                    {s.correct}/{s.total}
+                  </strong>
+                </div>
+                <div className="xp-track">
+                  <div className="xp-fill" style={{ width: `${(s.correct / s.total) * 100}%`, animationDelay: `${300 + n * 120}ms` }} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {mistakes.length > 0 && (
+          <>
+            <div className="section-title">Review your mistakes · 復習</div>
+            <div className="stack" style={{ gap: 8 }}>
+              {mistakes.map(({ question, pick: p }, i) => (
+                <div key={i} className="card example" style={{ '--i': i } as CSSProperties}>
+                  <div className="faint">
+                    {sectionInfo(question.section).jp} · {question.title}
+                  </div>
+                  {question.prompt ? (
+                    <p className="sentence small" lang="ja">
+                      <Ruby markup={question.prompt.markup} cloze={question.prompt.mark} mode={question.prompt.furigana ? 'all' : 'none'} />
+                    </p>
+                  ) : (
+                    <div className="row" style={{ margin: '6px 0' }}>
+                      <button className="icon-btn" onClick={() => question.speak && void say(question.speak)} aria-label="Play audio">
+                        <Icon name="speaker" />
+                      </button>
+                      <span className="jp" lang="ja">
+                        {question.speak}
+                      </span>
+                    </div>
+                  )}
+                  <div className="review-answer wrong" lang={question.optionsJp ? 'ja' : 'en'}>
+                    ✗ {p === null ? '(no answer)' : question.options[p]}
+                  </div>
+                  <div className="review-answer right" lang={question.optionsJp ? 'ja' : 'en'}>
+                    ✓ {question.options[question.answer]}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        <button className="btn primary block" onClick={() => setPhase('setup')}>
+          Another mock
+        </button>
+        <Link to="/" className="btn block">
+          Back to Today
+        </Link>
+      </div>
+    );
+  }
+
+  // --- Running -------------------------------------------------------------------
+  if (!q) return null;
+  const info = sectionInfo(q.section);
+  const lowTime = timeLeft <= 60;
+  return (
+    <div className="stack">
+      <div className="topbar">
+        <button className="icon-btn" onClick={() => finish(picks)} aria-label="End the test now">
+          <Icon name="close" />
+        </button>
+        <div className="progress-track" aria-hidden="true">
+          <div className="progress-fill" style={{ width: `${(index / questions.length) * 100}%` }} />
+        </div>
+        <span className={`mock-timer${lowTime ? ' low' : ''}`} aria-label={`${formatTime(timeLeft)} left`}>
+          {formatTime(timeLeft)}
+        </span>
+      </div>
+
+      <div key={index} className="card center stack question-card" style={{ padding: '22px 16px' }}>
+        <div className="faint">
+          <span className="jp" lang="ja">
+            {info.jp}
+          </span>{' '}
+          · {index + 1}/{questions.length}
+        </div>
+        <div className="muted" style={{ fontWeight: 600 }}>
+          {q.title}
+        </div>
+        {q.prompt ? (
+          <p className="sentence" lang="ja" style={{ margin: '0 auto' }}>
+            <Ruby markup={q.prompt.markup} cloze={q.prompt.mark} blank={q.prompt.blank} mode={q.prompt.furigana && settings.furigana !== 'none' ? 'all' : 'none'} />
+          </p>
+        ) : (
+          <button className="icon-btn pulse-ring" style={{ margin: '12px auto', width: 72, height: 72 }} onClick={() => q.speak && void say(q.speak)} aria-label="Play again">
+            <Icon name="speaker" />
+          </button>
+        )}
+      </div>
+
+      <div key={`o${index}`} className="options">
+        {q.options.map((o, n) => (
+          <button
+            key={o}
+            className={`option${q.optionsJp ? ' jp' : ''}${chosen === n ? ' chosen' : ''}`}
+            style={{ '--i': n } as CSSProperties}
+            lang={q.optionsJp ? 'ja' : 'en'}
+            onClick={() => void pick(n)}
+          >
+            {o}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}

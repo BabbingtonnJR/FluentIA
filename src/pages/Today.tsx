@@ -115,6 +115,18 @@ export function Today() {
         </Link>
       </div>
 
+      {pack.grammar.length > 0 && (
+        <Link to="/mock" className="card link" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <div className="jp" style={{ fontSize: '2rem', color: 'var(--indigo)', lineHeight: 1 }} aria-hidden="true">
+            模
+          </div>
+          <div style={{ flex: 1 }}>
+            <strong>JLPT mock test</strong>
+            <div className="faint">Timed practice exam with all four sections</div>
+          </div>
+        </Link>
+      )}
+
       <div className="section-title">Daily activities · 毎日</div>
       <div className="card" style={{ paddingTop: 6, paddingBottom: 6 }}>
         {quests.map((q, n) => (

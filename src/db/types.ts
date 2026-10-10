@@ -38,7 +38,7 @@ export interface ReviewRecord extends Synced {
   durationMs: number;
 }
 
-export type ActivityType = 'quiz' | 'handsfree' | 'reading';
+export type ActivityType = 'quiz' | 'handsfree' | 'reading' | 'mock';
 
 export interface ActivityRecord extends Synced {
   lang: string;
@@ -48,6 +48,8 @@ export interface ActivityRecord extends Synced {
   total: number;
   minutes: number;
   createdAt: number;
+  /** Mock tests: level and correct/total per section. */
+  detail?: { level: number; sections: Record<string, [number, number]> };
 }
 
 export interface KvRecord extends Synced {

@@ -153,7 +153,8 @@ a {
   letter-spacing: -0.01em;
 }
 
-.page-head .kanji-mark {
+.page-head .kanji-mark,
+.topbar .kanji-mark {
   font-family: var(--font-jp);
   color: var(--accent);
   font-size: 1.1rem;
@@ -1055,6 +1056,55 @@ details summary {
   min-height: 32px;
   padding: 4px 10px;
   font-size: 0.8rem;
+}
+
+/* ---- Mock test ---------------------------------------------------------------- */
+
+.mock-sections {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mock-timer {
+  flex: none;
+  min-width: 52px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.mock-timer.low {
+  color: var(--again);
+  animation: breathe 1s ease-in-out infinite;
+}
+
+.option.chosen {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: scale(0.98);
+}
+
+.mock-stamp[data-pass='false'] {
+  color: var(--ink-2);
+}
+
+.review-answer {
+  font-size: 0.95rem;
+  padding: 2px 0;
+}
+
+.review-answer.wrong {
+  color: var(--again);
+}
+
+.review-answer.right {
+  color: var(--good);
+  font-weight: 600;
 }
 
 /* ---- Motion ----------------------------------------------------------------

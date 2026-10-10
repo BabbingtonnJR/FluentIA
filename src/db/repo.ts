@@ -108,7 +108,7 @@ export async function markItemKnown(ref: CardRef, now = Date.now(), d: FluentiaD
 export async function logActivity(
   lang: string,
   type: ActivityType,
-  data: { score?: number; total?: number; minutes?: number },
+  data: { score?: number; total?: number; minutes?: number; detail?: ActivityRecord['detail'] },
   settings: Settings,
   now = Date.now(),
   d: FluentiaDB = db,
@@ -121,6 +121,7 @@ export async function logActivity(
     score: data.score ?? 0,
     total: data.total ?? 0,
     minutes: data.minutes ?? 0,
+    ...(data.detail ? { detail: data.detail } : {}),
     createdAt: now,
     updatedAt: now,
   };

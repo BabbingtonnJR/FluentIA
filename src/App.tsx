@@ -7,6 +7,7 @@ import { Listen } from './pages/Listen';
 import { Quiz } from './pages/Quiz';
 import { Read } from './pages/Read';
 import { GrammarDetail } from './pages/GrammarDetail';
+import { MockTest } from './pages/MockTest';
 import { Library } from './pages/Library';
 import { KanjiDetail } from './pages/KanjiDetail';
 import { Progress } from './pages/Progress';
@@ -20,7 +21,7 @@ const TABS = [
 ];
 
 /** Full-screen activities hide the tab bar so nothing distracts from studying. */
-const FOCUS_ROUTES = ['/study', '/listen', '/quiz', '/read'];
+const FOCUS_ROUTES = ['/study', '/listen', '/quiz', '/read', '/mock'];
 
 export function App() {
   const settings = useLiveSettings();
@@ -54,6 +55,7 @@ export function App() {
                 <Route path="/listen" element={<Listen />} />
                 <Route path="/quiz" element={<Quiz />} />
                 <Route path="/read" element={<Read />} />
+                <Route path="/mock" element={<MockTest />} />
                 <Route path="/library" element={<Library />} />
                 <Route path="/kanji/:char" element={<KanjiDetail />} />
                 <Route path="/grammar/:id" element={<GrammarDetail />} />
