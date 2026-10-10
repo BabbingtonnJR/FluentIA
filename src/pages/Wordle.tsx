@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState, type CSSProperties, type FormEvent } from 'react';
 import { useNavigate } from 'react-router';
 import { Icon } from '../components/Icon';
+import { KanaKeyboard } from '../components/KanaKeyboard';
 import { Petals } from '../components/Petals';
 import { logActivity } from '../db/repo';
 import {
@@ -19,17 +20,9 @@ import {
   type WordleWord,
 } from '../games/wordle';
 import { usePack, useSettings } from '../hooks';
+import { loadLocal, saveLocal } from '../lib/local';
 import { dayKey } from '../lib/time';
 import { speak, stopSpeaking } from '../speech/tts';
-
-/**
- * Kana chart, column by column (あいうえお down each column), as on a gojūon table. The gaps in
- * the や and わ columns hold phone-keyboard modifiers for the last kana: 小 (small), ゛ and ゜.
- */
-const COLUMNS = ['あいうえお', 'かきくけこ', 'さしすせそ', 'たちつてと', 'なにぬねの', 'はひふへほ', 'まみむめも', 'や小ゆーよ', 'らりるれろ', 'わ゛を゜ん'];
-type Modifier = '小' | '゛' | '゜';
-const MODIFIER_LABEL: Record<Modifier, string> = { 小: 'Small kana', '゛': 'Add dakuten', '゜': 'Add handakuten' };
-const isModifier = (k: string): k is Modifier => k in MODIFIER_LABEL;
 
 interface Hints {
   meaning: boolean;
@@ -45,21 +38,8 @@ interface SavedGame {
 const NO_HINTS: Hints = { meaning: false, kanji: false, kana: [] };
 
 // The daily game is kept per browser so leaving and coming back resumes it.
-function load<T>(key: string): T | null {
-  try {
-    const raw = localStorage.getItem(key);
-    return raw ? (JSON.parse(raw) as T) : null;
-  } catch {
-    return null;
-  }
-}
-function save(key: string, value: unknown) {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-  } catch {
-    /* storage unavailable: the game still works, it just won't resume */
-  }
-}
+const load = loadLocal;
+const save = saveLocal;
 
 const SQUARE: Record<Mark, string> = { hit: '🟩', near: '🟨', miss: '⬜' };
 
@@ -323,32 +303,13 @@ export function Wordle() {
             />
           </form>
 
-          <div className="kana-keys" lang="ja">
-            <div className="kana-block">
-              {COLUMNS.flatMap((col, ci) =>
-                [...col].map((k, ri) => (
-                  <button
-                    key={k}
-                    type="button"
-                    className={`kana-key ${isModifier(k) ? 'mod' : (marksByKey.get(k) ?? '')}`}
-                    style={{ gridColumn: ci + 1, gridRow: ri + 1 }}
-                    onClick={() => setTyping(isModifier(k) ? modifyLast(current, k) : current + k)}
-                    aria-label={isModifier(k) ? MODIFIER_LABEL[k] : undefined}
-                  >
-                    {k}
-                  </button>
-                )),
-              )}
-            </div>
-            <div className="kana-actions">
-              <button type="button" className="btn" onClick={backspace} aria-label="Delete">
-                ⌫
-              </button>
-              <button type="button" className="btn primary" onClick={() => submit()}>
-                Enter
-              </button>
-            </div>
-          </div>
+          <KanaKeyboard
+            marks={marksByKey}
+            onKana={(k) => setTyping(current + k)}
+            onModifier={(m) => setTyping(modifyLast(current, m))}
+            onBackspace={backspace}
+            onEnter={() => submit()}
+          />
         </>
       )}
     </div>

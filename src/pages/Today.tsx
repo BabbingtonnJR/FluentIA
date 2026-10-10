@@ -128,15 +128,22 @@ export function Today() {
       )}
 
       <div className="section-title">Games · 遊び</div>
-      <Link to="/wordle" className="card link" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-        <div className="jp" style={{ fontSize: '2rem', color: 'var(--good)', lineHeight: 1 }} aria-hidden="true">
-          言
-        </div>
-        <div style={{ flex: 1 }}>
+      <div className="grid-2">
+        <Link to="/wordle" className="card link">
+          <div className="jp" style={{ fontSize: '1.6rem', color: 'var(--good)' }}>
+            言
+          </div>
           <strong>Wordle</strong>
-          <div className="faint">Guess the 4-kana word of the day, with hints</div>
-        </div>
-      </Link>
+          <div className="faint">Guess the 4-kana word, with hints</div>
+        </Link>
+        <Link to="/crossword" className="card link">
+          <div className="jp" style={{ fontSize: '1.6rem', color: 'var(--good)' }}>
+            交
+          </div>
+          <strong>Crossword</strong>
+          <div className="faint">Daily kana crossword by level</div>
+        </Link>
+      </div>
 
       <div className="section-title">Daily activities · 毎日</div>
       <div className="card" style={{ paddingTop: 6, paddingBottom: 6 }}>

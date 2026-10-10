@@ -979,6 +979,153 @@ select.input {
   gap: 8px;
 }
 
+/* ---- Crossword ------------------------------------------------------------- */
+
+.cw-grid {
+  display: grid;
+  gap: 3px;
+  justify-content: center;
+}
+
+.cw-block {
+  visibility: hidden;
+}
+
+.cw-cell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1.5px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  font-family: var(--font-jp);
+  font-size: 1.25rem;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.cw-cell.in-word {
+  background: color-mix(in srgb, var(--indigo) 10%, var(--surface));
+  border-color: color-mix(in srgb, var(--indigo) 35%, var(--line));
+}
+
+.cw-cell.cursor {
+  border-color: var(--indigo);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--indigo) 35%, transparent);
+}
+
+.cw-cell.revealed {
+  color: var(--indigo);
+}
+
+.cw-cell.right {
+  background: color-mix(in srgb, var(--good) 18%, var(--surface));
+  border-color: var(--good);
+}
+
+.cw-cell.wrong {
+  background: color-mix(in srgb, var(--again) 18%, var(--surface));
+  border-color: var(--again);
+  color: var(--again);
+  animation: shake 0.45s ease;
+}
+
+.cw-cell.solved {
+  background: color-mix(in srgb, var(--good) 16%, var(--surface));
+  border-color: var(--good);
+  animation: pop 0.4s var(--ease-spring) backwards;
+  animation-delay: calc(var(--d, 0) * 40ms);
+}
+
+.cw-number {
+  position: absolute;
+  top: 1px;
+  left: 3px;
+  font-family: var(--font-ui);
+  font-size: 0.55rem;
+  line-height: 1;
+  color: var(--ink-3);
+}
+
+.cw-clue {
+  display: grid;
+  gap: 4px;
+  padding: 10px 14px;
+}
+
+.cw-clue-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cw-kanji {
+  margin-left: 10px;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.cw-clue-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.cw-clue-actions .chip {
+  min-height: 30px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+}
+
+.cw-clue-actions .chip:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.cw-clues {
+  display: grid;
+  gap: 8px;
+}
+
+.cw-clue-item {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  text-align: left;
+  font-size: 0.95rem;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.cw-clue-item.on {
+  background: color-mix(in srgb, var(--indigo) 10%, var(--surface));
+}
+
+.cw-clue-item.done {
+  color: var(--ink-3);
+  text-decoration: line-through;
+}
+
+.kana-actions.single {
+  grid-template-columns: 1fr;
+}
+
+.stack.crossword {
+  gap: 12px;
+}
+
+/* On touch screens the kana keyboard is the input; the text field would push it off screen. */
+@media (pointer: coarse) {
+  .cw-type {
+    display: none;
+  }
+}
+
 /* ---- Charts ---------------------------------------------------------------- */
 
 .chart {
