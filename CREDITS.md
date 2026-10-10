@@ -14,3 +14,7 @@ and derived data (`public/packs/ja/*.json`) stays under the same terms.
 | Word segmentation (build time only, not shipped) | [kuromoji.js](https://github.com/takuyaa/kuromoji.js) with the IPADIC dictionary | Apache 2.0; IPADIC license |
 
 WaniKani fields present in the kanji-data source are not used.
+
+The grammar points in `content/ja/grammar/` (explanations and their own example sentences) were
+written for Fluentia and are under the project's MIT license. Extra grammar examples marked with a
+Tatoeba ID come from Tatoeba under CC BY 2.0 FR.
