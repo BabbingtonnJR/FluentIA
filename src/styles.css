@@ -765,6 +765,44 @@ select.input {
   background: color-mix(in srgb, var(--again) 14%, var(--surface));
 }
 
+.option-note {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  color: var(--ink-3);
+  animation: fade-in 0.3s var(--ease-out) backwards;
+}
+
+.option:not(.jp) .option-note {
+  font-family: var(--font-jp);
+}
+
+.answer-detail {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+}
+
+.answer-word {
+  font-family: var(--font-jp);
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+.answer-word rt {
+  font-size: 0.45em;
+  color: var(--ink-3);
+}
+
+.answer-body {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
 /* ---- Charts ---------------------------------------------------------------- */
 
 .chart {

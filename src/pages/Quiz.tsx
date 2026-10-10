@@ -1,11 +1,12 @@
 import { useEffect, useState, type CSSProperties } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link, useNavigate, useSearchParams } from 'react-router';
 import { Icon } from '../components/Icon';
 import { Petals } from '../components/Petals';
+import type { Pack } from '../content/types';
 import { db } from '../db/db';
 import { logActivity } from '../db/repo';
 import { usePack, useSettings } from '../hooks';
-import { generateQuiz, QUESTION_TITLES, type Question } from '../quiz/generate';
+import { generateQuiz, QUESTION_TITLES, REVIEW_MIN, type Question, type QuizMode } from '../quiz/generate';
 import { speak, stopSpeaking } from '../speech/tts';
 import { State } from '../srs/scheduler';
 
@@ -13,6 +14,10 @@ export function Quiz() {
   const pack = usePack();
   const settings = useSettings();
   const navigate = useNavigate();
+  // Review (studied words only) is the default; challenge mixes in words not studied yet.
+  const [params, setParams] = useSearchParams();
+  const mode: QuizMode = params.get('mode') === 'challenge' ? 'challenge' : 'review';
+  const setMode = (m: QuizMode) => setParams(m === 'review' ? {} : { mode: m }, { replace: true });
   const [questions, setQuestions] = useState<Question[] | null>(null);
   const [i, setI] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
@@ -29,12 +34,15 @@ export function Quiz() {
       .filter((c) => c.direction === 'recognition' && c.state !== State.New)
       .toArray()
       .then((cards) => {
+        // Best known first, so review rounds open with easy wins.
+        cards.sort((a, b) => b.stability - a.stability);
         setQuestions(
           generateQuiz({
             pack,
             studiedVocab: cards.filter((c) => c.kind === 'vocab').map((c) => c.itemId),
             studiedKanji: cards.filter((c) => c.kind === 'kanji').map((c) => c.itemId),
             levels,
+            mode,
           }),
         );
         setI(0);
@@ -42,7 +50,7 @@ export function Quiz() {
         setScore(0);
       });
     return () => stopSpeaking();
-  }, [pack, levelsKey, round]);
+  }, [pack, levelsKey, round, mode]);
 
   const q = questions?.[i];
   const say = (text: string) => speak(text, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate });
@@ -53,6 +61,39 @@ export function Quiz() {
   }, [q]); // only when the question changes
 
   if (!questions) return null;
+
+  const topbar = (
+    <div className="topbar">
+      <button className="icon-btn" onClick={() => navigate('/')} aria-label="Close quiz">
+        <Icon name="close" />
+      </button>
+      <div className="progress-track" aria-hidden="true">
+        <div className="progress-fill" style={{ width: `${(i / Math.max(questions.length, 1)) * 100}%` }} />
+      </div>
+      <span className="faint">
+        {Math.min(i + 1, questions.length)}/{questions.length}
+      </span>
+    </div>
+  );
+
+  if (mode === 'review' && questions.length < REVIEW_MIN) {
+    return (
+      <div className="stack">
+        {topbar}
+        <div className="empty">
+          <span className="jp">学</span>
+          <p>The review quiz asks about words you have already studied. Study a few cards first, then come back.</p>
+          <p className="faint">Or try a challenge round: it uses new words too, and shows the meaning after each answer.</p>
+        </div>
+        <Link to="/study" className="btn primary block">
+          Study now
+        </Link>
+        <button className="btn block" onClick={() => setMode('challenge')}>
+          Challenge round
+        </button>
+      </div>
+    );
+  }
 
   function pick(n: number) {
     if (!q || picked !== null) return;
@@ -72,6 +113,7 @@ export function Quiz() {
 
   if (!q) {
     const pct = Math.round((score / questions.length) * 100);
+    const other: QuizMode = mode === 'review' ? 'challenge' : 'review';
     return (
       <div className="stack">
         {pct >= 50 && <Petals count={pct >= 80 ? 28 : 14} />}
@@ -85,6 +127,9 @@ export function Quiz() {
         <button className="btn primary block" onClick={() => setRound((r) => r + 1)}>
           Another round
         </button>
+        <button className="btn block" onClick={() => setMode(other)}>
+          {other === 'challenge' ? 'Challenge round · new words' : 'Review round · studied words'}
+        </button>
         <Link to="/" className="btn block">
           Back to Today
         </Link>
@@ -94,20 +139,13 @@ export function Quiz() {
 
   return (
     <div className="stack">
-      <div className="topbar">
-        <button className="icon-btn" onClick={() => navigate('/')} aria-label="Close quiz">
-          <Icon name="close" />
-        </button>
-        <div className="progress-track" aria-hidden="true">
-          <div className="progress-fill" style={{ width: `${(i / questions.length) * 100}%` }} />
-        </div>
-        <span className="faint">
-          {i + 1}/{questions.length}
-        </span>
-      </div>
+      {topbar}
 
       <div key={`q${round}-${i}`} className="card center stack question-card" style={{ padding: '28px 16px' }}>
-        <div className="faint">{QUESTION_TITLES[q.type]}</div>
+        <div className="faint">
+          {QUESTION_TITLES[q.type]}
+          {mode === 'challenge' && ' · Challenge'}
+        </div>
         {q.type === 'listening' ? (
           <button className="icon-btn pulse-ring" style={{ margin: '12px auto', width: 72, height: 72 }} onClick={() => q.speak && void say(q.speak)} aria-label="Play again">
             <Icon name="speaker" />
@@ -131,16 +169,83 @@ export function Quiz() {
               onClick={() => pick(n)}
             >
               {o}
+              {/* after answering, every option says what it is, so the wrong ones teach too */}
+              {picked !== null && (
+                <span className="option-note" lang={q.optionsJp ? 'en' : 'ja'}>
+                  {q.notes[n]}
+                </span>
+              )}
             </button>
           );
         })}
       </div>
 
       {picked !== null && (
-        <button className="btn primary block rise-in" onClick={next}>
-          {i + 1 >= questions.length ? 'See results' : 'Next'}
-        </button>
+        <>
+          <AnswerDetail key={`a${round}-${i}`} pack={pack} q={q} onSpeak={say} />
+          <button className="btn primary block rise-in" onClick={next}>
+            {i + 1 >= questions.length ? 'See results' : 'Next'}
+          </button>
+        </>
       )}
+    </div>
+  );
+}
+
+/** The answer in full after picking: word with furigana, meaning, audio, and the kanji in it. */
+function AnswerDetail({ pack, q, onSpeak }: { pack: Pack; q: Question; onSpeak: (text: string) => unknown }) {
+  if (q.type === 'kanji') {
+    const k = pack.kanjiById.get(q.itemId);
+    if (!k) return null;
+    return (
+      <div className="card answer-detail rise-in">
+        <div className="answer-word" lang="ja">
+          {k.id}
+        </div>
+        <div className="answer-body">
+          <div>{k.meanings.join(', ')}</div>
+          {k.on.length > 0 && (
+            <div className="faint">
+              On <span lang="ja">{k.on.join('、')}</span>
+            </div>
+          )}
+          {k.kun.length > 0 && (
+            <div className="faint">
+              Kun <span lang="ja">{k.kun.join('、')}</span>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  const v = pack.vocabById.get(q.itemId);
+  if (!v) return null;
+  const kanji = [...new Set(v.word)].flatMap((c) => pack.kanjiById.get(c) ?? []);
+  const withKanji = /\p{Script=Han}/u.test(v.word);
+  return (
+    <div className="card answer-detail rise-in">
+      <div className="answer-word" lang="ja">
+        {withKanji ? (
+          <ruby>
+            {v.word}
+            <rt>{v.reading}</rt>
+          </ruby>
+        ) : (
+          v.word
+        )}
+      </div>
+      <div className="answer-body">
+        <div>{v.meaning}</div>
+        {kanji.map((k) => (
+          <div key={k.id} className="faint">
+            <span lang="ja">{k.id}</span> {k.meanings.slice(0, 3).join(', ')}
+          </div>
+        ))}
+      </div>
+      <button className="icon-btn" onClick={() => void onSpeak(v.reading)} aria-label="Play audio">
+        <Icon name="speaker" />
+      </button>
     </div>
   );
 }
