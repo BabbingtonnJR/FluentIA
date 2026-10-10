@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties } from 're
 import { Link, useNavigate } from 'react-router';
 import { Icon } from '../components/Icon';
 import { Petals } from '../components/Petals';
+import { Ruby } from '../components/Ruby';
 import { cardFace } from '../content/faces';
 import { db } from '../db/db';
 import { answerCard, buildSession, markItemKnown, startCard } from '../db/repo';
@@ -69,7 +70,7 @@ export function Study() {
     };
   }, [entry]);
 
-  const face = card ? cardFace(pack, card.kind, card.direction, card.itemId) : null;
+  const face = card ? cardFace(pack, card.kind, card.direction, card.itemId, card.reps) : null;
   const say = useCallback(
     (text: string) => speak(text, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate }),
     [pack, settings.voiceURI, settings.speechRate],
@@ -189,15 +190,50 @@ export function Study() {
           {isNew && <span className="badge new">New</span>}
           <span className="badge">
             {pack.manifest.levels.find((l) => l.id === card.level)?.label} ·{' '}
-            {isKanji ? 'Kanji' : card.direction === 'production' ? 'Say it in Japanese' : 'Word'}
+            {face.cloze ? 'Grammar' : isKanji ? 'Kanji' : card.direction === 'production' ? 'Say it in Japanese' : 'Word'}
           </span>
         </div>
 
-        <div className={face.promptIsTarget ? (isKanji ? 'prompt-kanji' : 'prompt-jp') : 'prompt-en'} lang={face.promptIsTarget ? 'ja' : 'en'}>
-          {face.prompt}
-        </div>
+        {face.cloze ? (
+          <>
+            <p className="sentence" lang="ja">
+              <Ruby
+                markup={face.cloze.example.r}
+                cloze={face.cloze.example.c}
+                blank={!revealed}
+                mode={settings.furigana === 'none' ? 'none' : 'all'}
+              />
+            </p>
+            <div className="muted">{face.cloze.example.e}</div>
+          </>
+        ) : (
+          <div className={face.promptIsTarget ? (isKanji ? 'prompt-kanji' : 'prompt-jp') : 'prompt-en'} lang={face.promptIsTarget ? 'ja' : 'en'}>
+            {face.prompt}
+          </div>
+        )}
 
-        {revealed ? (
+        {revealed && face.cloze ? (
+          <div className="answer">
+            <div className="grammar-pattern" lang="ja">
+              {face.cloze.pattern}
+            </div>
+            <div className="meaning">{face.meaning}</div>
+            <button
+              className="icon-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                void say(face.speak);
+              }}
+              aria-label="Play audio"
+              style={{ marginTop: 8 }}
+            >
+              <Icon name="speaker" />
+            </button>
+            <Link to={`/grammar/${encodeURIComponent(card.itemId)}`} className="faint" onClick={(e) => e.stopPropagation()}>
+              Grammar notes & examples →
+            </Link>
+          </div>
+        ) : revealed ? (
           <div className="answer">
             {!face.promptIsTarget && (
               <div className="prompt-jp" lang="ja" style={{ fontSize: '2.4rem' }}>

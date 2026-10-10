@@ -1,8 +1,28 @@
-import type { KanjiItem, Pack, VocabItem } from '../content/types';
+import type { GrammarPoint, KanjiItem, Pack, VocabItem } from '../content/types';
 
-export function makePack(vocabCount = { 5: 10, 4: 10 }, kanjiCount = { 5: 3, 4: 3 }): Pack {
+export function makePack(
+  vocabCount = { 5: 10, 4: 10 },
+  kanjiCount = { 5: 3, 4: 3 },
+  grammarCount: Record<number, number> = {},
+): Pack {
   const vocab: VocabItem[] = [];
   const kanji: KanjiItem[] = [];
+  const grammar: GrammarPoint[] = [];
+  for (const [level, n] of Object.entries(grammarCount)) {
+    for (let i = 0; i < n; i++) {
+      grammar.push({
+        id: `n${level}-g${i}`,
+        level: Number(level),
+        pattern: `〜g${i}`,
+        meaning: `grammar ${level}-${i}`,
+        formation: [],
+        examples: [
+          { r: `例${i}たら`, e: `example ${i}`, c: [2, 4] },
+          { r: `文${i}たら`, e: `sentence ${i}`, c: [2, 4] },
+        ],
+      });
+    }
+  }
   for (const [level, n] of Object.entries(vocabCount)) {
     for (let i = 0; i < n; i++) {
       vocab.push({ id: `w${level}-${i}|r${level}-${i}`, word: `語${level}${i}`, reading: `よみ${level}の${i}`, meaning: `meaning ${level}-${i}`, level: Number(level) });
@@ -28,8 +48,10 @@ export function makePack(vocabCount = { 5: 10, 4: 10 }, kanjiCount = { 5: 3, 4: 
     },
     vocab,
     kanji,
+    grammar,
     vocabById: new Map(vocab.map((v) => [v.id, v])),
     kanjiById: new Map(kanji.map((k) => [k.id, k])),
+    grammarById: new Map(grammar.map((g) => [g.id, g])),
   };
 }
 

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type CSSProperties } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { Icon } from '../components/Icon';
 import { Petals } from '../components/Petals';
+import { Ruby } from '../components/Ruby';
 import { loadSentences } from '../content/packs';
 import type { Sentence } from '../content/types';
 import { db } from '../db/db';
@@ -10,7 +11,7 @@ import type { Settings } from '../db/types';
 import { usePack, useSettings } from '../hooks';
 import { afterMotion } from '../lib/motion';
 import { dayKey } from '../lib/time';
-import { FURIGANA_LABEL, parseRuby, plainText, showRuby } from '../reading/furigana';
+import { FURIGANA_LABEL, plainText } from '../reading/furigana';
 import { pickReading, unknownWords } from '../reading/select';
 import { speak, stopSpeaking } from '../speech/tts';
 import { State } from '../srs/scheduler';
@@ -262,25 +263,5 @@ export function Read() {
         )}
       </div>
     </div>
-  );
-}
-
-function Ruby({ markup, mode, knownKanji }: { markup: string; mode: Settings['furigana']; knownKanji: ReadonlySet<string> }) {
-  const segments = useMemo(() => parseRuby(markup), [markup]);
-  return (
-    <>
-      {segments.map((seg, i) =>
-        showRuby(seg, mode, knownKanji) ? (
-          <ruby key={i}>
-            {seg.text}
-            <rp>(</rp>
-            <rt>{seg.ruby}</rt>
-            <rp>)</rp>
-          </ruby>
-        ) : (
-          <span key={i}>{seg.text}</span>
-        ),
-      )}
-    </>
   );
 }

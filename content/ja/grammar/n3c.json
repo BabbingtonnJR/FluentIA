@@ -1,0 +1,683 @@
+[
+  {
+    "id": "ippouda",
+    "pattern": "〜一方だ",
+    "meaning": "more and more; keeps (getting worse)",
+    "formation": [
+      "Verb dictionary form + 一方だ"
+    ],
+    "notes": "A change that keeps going in one direction, usually a bad one: 物価は上がる一方だ (Prices just keep rising).",
+    "match": "(?<=[るうくすつぬむぶぐ])(一方)(?=だ|です)",
+    "examples": [
+      [
+        "物価は上がる{一方だ}。",
+        "Prices just keep going up."
+      ],
+      [
+        "この町の人口は減る{一方です}。",
+        "This town's population keeps on falling."
+      ],
+      [
+        "仕事が増える{一方で}、休む時間がない。",
+        "My work keeps increasing, and I have no time to rest."
+      ]
+    ]
+  },
+  {
+    "id": "bakarida",
+    "pattern": "〜ばかりだ",
+    "meaning": "keeps (getting); only gets",
+    "formation": [
+      "Verb dictionary form + ばかりだ"
+    ],
+    "notes": "Like 一方だ: a change only in a bad direction: 病気は悪くなるばかりだ.",
+    "match": "(?<=[るうくすつぬむぶぐ])(ばかり)(?=だ|です)",
+    "examples": [
+      [
+        "父の病気は悪くなる{ばかりだ}。",
+        "My father's illness just keeps getting worse."
+      ],
+      [
+        "練習しないと、下手になる{ばかりです}よ。",
+        "If you don't practise, you'll only get worse."
+      ],
+      [
+        "心配は増える{ばかりだ}。",
+        "My worries only grow."
+      ]
+    ]
+  },
+  {
+    "id": "tebakari",
+    "pattern": "〜てばかりいる",
+    "meaning": "do nothing but; always doing",
+    "formation": [
+      "Verb て-form + ばかりいる",
+      "Noun + ばかり + Verb (only ...)"
+    ],
+    "notes": "Usually a complaint: 弟はゲームをしてばかりいる (My brother does nothing but play games).",
+    "match": "([てで]ばかり(?:いる|いた|います|いない|いないで))",
+    "examples": [
+      [
+        "弟は毎日ゲームをし{てばかりいる}。",
+        "My little brother does nothing but play games every day."
+      ],
+      [
+        "泣い{てばかりいない}で、話してごらん。",
+        "Stop crying and tell me about it."
+      ],
+      [
+        "彼は文句を言っ{てばかりいます}。",
+        "He's always complaining."
+      ]
+    ]
+  },
+  {
+    "id": "gachi",
+    "pattern": "〜がち",
+    "meaning": "tend to; be prone to (bad)",
+    "formation": [
+      "Verb ます-stem + がち",
+      "Noun + がち (病気がち, 留守がち)"
+    ],
+    "notes": "A frequent, usually undesirable tendency: 冬は風邪をひきがちだ, 遅れがちな電車.",
+    "match": "(がち)(?=だ|です|な|で|に|。)",
+    "examples": [
+      [
+        "冬は家にこもり{がちだ}。",
+        "In winter I tend to stay indoors."
+      ],
+      [
+        "最近、仕事が忙しくて、寝不足になり{がちです}。",
+        "Work's busy lately, so I tend not to get enough sleep."
+      ],
+      [
+        "彼は子どもの頃、病気{がちだった}。",
+        "He was often ill as a child."
+      ]
+    ]
+  },
+  {
+    "id": "gimi",
+    "pattern": "〜気味",
+    "meaning": "a touch of; slightly; -ish (bad)",
+    "formation": [
+      "Noun / Verb ます-stem + 気味"
+    ],
+    "notes": "A slight sign of an unwanted state: 風邪気味 (a slight cold), 疲れ気味 (a bit tired).",
+    "match": "(気味)(?=だ|です|な|で|。)",
+    "examples": [
+      [
+        "今日はちょっと風邪{気味}です。",
+        "I have a bit of a cold today."
+      ],
+      [
+        "最近、太り{気味}なので、運動を始めた。",
+        "I've been putting on a bit of weight, so I started exercising."
+      ],
+      [
+        "疲れ{気味}だから、早く寝よう。",
+        "I'm a bit tired, so I'll go to bed early."
+      ]
+    ]
+  },
+  {
+    "id": "ppoi",
+    "pattern": "〜っぽい",
+    "meaning": "-ish; like; tends to (casual)",
+    "formation": [
+      "Noun / い-adj stem / Verb ます-stem + っぽい"
+    ],
+    "notes": "Casual. Can mean 'looks like' (子どもっぽい, childish) or 'tends to' (忘れっぽい, forgetful).",
+    "match": "(っぽ(?:い|く|かっ))",
+    "examples": [
+      [
+        "彼は子ども{っぽい}ところがある。",
+        "He has a childish side."
+      ],
+      [
+        "最近、忘れ{っぽく}なった。",
+        "I've become forgetful lately."
+      ],
+      [
+        "この料理は油{っぽい}。",
+        "This dish is a bit greasy."
+      ]
+    ]
+  },
+  {
+    "id": "rashii-typical",
+    "pattern": "Noun + らしい (typical)",
+    "meaning": "typical of; like a true ~",
+    "formation": [
+      "Noun + らしい",
+      "Negative: 〜らしくない (unlike ~)"
+    ],
+    "notes": "Having the qualities expected of X: 男らしい (manly), 春らしい天気 (real spring weather). 彼らしくない means 'not like him'.",
+    "match": "(?<=男|女|春|夏|秋|冬|子ども|子供|学生|先生|彼|君|自分|日本|大人|母親|父親)(らし(?:い|く|さ))",
+    "examples": [
+      [
+        "今日は春{らしい}暖かい日ですね。",
+        "It's a warm, spring-like day today."
+      ],
+      [
+        "文句を言うなんて、彼{らしくない}。",
+        "Complaining isn't like him."
+      ],
+      [
+        "もっと学生{らしい}服を着なさい。",
+        "Wear clothes more suitable for a student."
+      ]
+    ]
+  },
+  {
+    "id": "darake",
+    "pattern": "〜だらけ",
+    "meaning": "full of; covered in (unpleasant)",
+    "formation": [
+      "Noun + だらけ"
+    ],
+    "notes": "Something is covered or filled with too much of something unwanted: 間違いだらけ, 泥だらけ.",
+    "match": "(だらけ)",
+    "examples": [
+      [
+        "この作文は間違い{だらけ}だ。",
+        "This essay is full of mistakes."
+      ],
+      [
+        "子どもたちは泥{だらけ}になって遊んでいた。",
+        "The children were playing, covered in mud."
+      ],
+      [
+        "部屋がごみ{だらけ}です。",
+        "The room is full of rubbish."
+      ]
+    ]
+  },
+  {
+    "id": "buri",
+    "pattern": "〜ぶり",
+    "meaning": "for the first time in (a period)",
+    "formation": [
+      "Time period + ぶり (に)",
+      "久しぶり (after a long time)"
+    ],
+    "notes": "Something happens again after a gap: 三年ぶりに国に帰った (I went home for the first time in three years).",
+    "match": "(?<=年|月|日|間|週)(ぶり)",
+    "examples": [
+      [
+        "三年{ぶり}に国へ帰りました。",
+        "I went back to my country for the first time in three years."
+      ],
+      [
+        "[一|いっ]か[月|げつ]{ぶり}に[雨|あめ]が[降|ふ]った。",
+        "It rained for the first time in a month."
+      ],
+      [
+        "十年{ぶり}に友達に会った。",
+        "I saw my friend for the first time in ten years."
+      ]
+    ]
+  },
+  {
+    "id": "oki",
+    "pattern": "〜おきに",
+    "meaning": "every other; at intervals of",
+    "formation": [
+      "Number + counter + おきに"
+    ],
+    "notes": "With days, 一日おき means every other day. With distances or short times it's the interval: 五分おきにバスが来る (a bus every five minutes).",
+    "match": "(おきに)",
+    "examples": [
+      [
+        "バスは[十分|じゅっぷん]{おきに}[来|き]ます。",
+        "Buses come every ten minutes."
+      ],
+      [
+        "[一日|いちにち]{おきに}ジムに[行|い]っている。",
+        "I go to the gym every other day."
+      ],
+      [
+        "道に五メートル{おきに}木が植えてある。",
+        "Trees are planted every five metres along the road."
+      ]
+    ]
+  },
+  {
+    "id": "gotoni",
+    "pattern": "〜ごとに",
+    "meaning": "each; every",
+    "formation": [
+      "Noun / Verb dictionary form + ごとに"
+    ],
+    "notes": "Every single X: 一時間ごとに (every hour), 会うごとに (every time we meet). Unlike おきに, 一日ごとに is every day.",
+    "match": "(ごとに)",
+    "examples": [
+      [
+        "この[薬|くすり]は[四時間|よじかん]{ごとに}[飲|の]んでください。",
+        "Please take this medicine every four hours."
+      ],
+      [
+        "季節{ごとに}景色が変わる。",
+        "The scenery changes with each season."
+      ],
+      [
+        "会う{ごとに}、彼は大きくなっている。",
+        "Every time I see him, he's grown."
+      ]
+    ]
+  },
+  {
+    "id": "nitsurete",
+    "pattern": "〜につれて",
+    "meaning": "as (one thing changes, so does another)",
+    "formation": [
+      "Verb dictionary form + につれて",
+      "Noun (of change) + につれて"
+    ],
+    "notes": "Proportional change: 年をとるにつれて、体が弱くなる. Both clauses describe gradual change.",
+    "match": "(につれて)(?![い行き来])|(につれ)(?=、)",
+    "examples": [
+      [
+        "年をとる{につれて}、記憶力が落ちてきた。",
+        "As I get older, my memory has been getting worse."
+      ],
+      [
+        "時間がたつ{につれて}、悲しみも薄れていった。",
+        "As time passed, the sadness faded."
+      ],
+      [
+        "日本語が上手になる{につれて}、日本の生活が楽しくなった。",
+        "As my Japanese improved, life in Japan became more fun."
+      ]
+    ]
+  },
+  {
+    "id": "nishitagatte",
+    "pattern": "〜にしたがって",
+    "meaning": "as; in accordance with",
+    "formation": [
+      "Verb dictionary form / Noun + にしたがって (従って)"
+    ],
+    "notes": "Two uses: proportional change like につれて (上に行くにしたがって寒くなる), and following rules or instructions (説明書に従って組み立てる).",
+    "match": "(に(?:したがっ|従っ)て)(?!いる|いた|います)",
+    "examples": [
+      [
+        "山を登る{にしたがって}、空気が薄くなる。",
+        "The higher you climb the mountain, the thinner the air."
+      ],
+      [
+        "説明書{に従って}、組み立ててください。",
+        "Please assemble it following the instructions."
+      ],
+      [
+        "先生の指示{にしたがって}行動した。",
+        "We acted according to the teacher's instructions."
+      ]
+    ]
+  },
+  {
+    "id": "karanikakete",
+    "pattern": "〜から〜にかけて",
+    "meaning": "from ... through ...; over (a span)",
+    "formation": [
+      "Noun (time / place) + から + Noun + にかけて"
+    ],
+    "notes": "A rough span of time or area, less exact than から〜まで: 夜から朝にかけて雨が降る.",
+    "match": "(?<=から[^、。]{1,12})(にかけて)",
+    "examples": [
+      [
+        "今夜から明日の朝{にかけて}、雪が降るでしょう。",
+        "It will snow from tonight through tomorrow morning."
+      ],
+      [
+        "九月から十月{にかけて}、台風が多い。",
+        "There are a lot of typhoons from September into October."
+      ],
+      [
+        "関東から東北{にかけて}、大雨になった。",
+        "Heavy rain fell from the Kanto region through Tohoku."
+      ]
+    ]
+  },
+  {
+    "id": "wochuushinni",
+    "pattern": "〜を中心に",
+    "meaning": "centred on; mainly",
+    "formation": [
+      "Noun + を中心に / を中心として"
+    ],
+    "notes": "X is the core or main part: 若者を中心に人気がある (popular mainly with young people).",
+    "match": "(を中心に|を中心として)",
+    "examples": [
+      [
+        "このゲームは若者{を中心に}人気がある。",
+        "This game is popular, mainly among young people."
+      ],
+      [
+        "駅{を中心に}、町が広がっている。",
+        "The town spreads out around the station."
+      ],
+      [
+        "今日は文法{を中心に}勉強します。",
+        "Today we'll mainly study grammar."
+      ]
+    ]
+  },
+  {
+    "id": "wotooshite",
+    "pattern": "〜を通して",
+    "meaning": "through; via; throughout",
+    "formation": [
+      "Noun + を通して / を通じて"
+    ],
+    "notes": "The means or intermediary (友達を通して知り合った), or a whole period (一年を通して暖かい).",
+    "match": "(を通(?:して|じて))(?!くだ|下さ|あげ|やっ|くれ)",
+    "examples": [
+      [
+        "友達{を通して}、彼女と知り合いました。",
+        "I got to know her through a friend."
+      ],
+      [
+        "この[島|しま]は[一年|いちねん]{を[通|とお]して}[暖|あたた]かい。",
+        "This island is warm throughout the year."
+      ],
+      [
+        "インターネット{を通じて}、世界中の人と話せる。",
+        "Through the internet you can talk to people all over the world."
+      ]
+    ]
+  },
+  {
+    "id": "muke",
+    "pattern": "〜向け",
+    "meaning": "aimed at; intended for",
+    "formation": [
+      "Noun + 向け / 向けの / 向けに"
+    ],
+    "notes": "Made or designed for a particular audience: 子ども向けの本 (a book for children).",
+    "match": "(向け)(?=の|に|だ|です)",
+    "examples": [
+      [
+        "これは子ども{向けの}本です。",
+        "This is a book for children."
+      ],
+      [
+        "外国人{向けに}、英語の案内を作った。",
+        "We made guides in English for foreign visitors."
+      ],
+      [
+        "この番組は高校生{向けだ}。",
+        "This programme is aimed at high-school students."
+      ]
+    ]
+  },
+  {
+    "id": "muki",
+    "pattern": "〜向き",
+    "meaning": "suitable for",
+    "formation": [
+      "Noun + 向き / 向きの / 向きに"
+    ],
+    "notes": "Something happens to suit someone, whether intended or not: 初心者向きのコース. Also means 'facing': 南向きの部屋 (a south-facing room).",
+    "match": "(?<!東|西|南|北)(向き)(?=の|だ|です|じゃ|で)",
+    "examples": [
+      [
+        "このコースは初心者{向きです}。",
+        "This course is suitable for beginners."
+      ],
+      [
+        "この仕事は私には{向き}ません。",
+        "I'm not suited to this job."
+      ],
+      [
+        "南{向きの}部屋は明るい。",
+        "South-facing rooms are bright."
+      ]
+    ]
+  },
+  {
+    "id": "tate",
+    "pattern": "〜たて",
+    "meaning": "freshly; just (made / done)",
+    "formation": [
+      "Verb ます-stem + たて (の)"
+    ],
+    "notes": "Only with a limited set of verbs, mostly about food and new things: 焼きたて, できたて, 塗りたて (wet paint).",
+    "match": "(?<=[きぎしちびみりえけげせてねべめれ])(たて)(?=の|だ|です|で)",
+    "examples": [
+      [
+        "焼き{たての}パンはおいしい。",
+        "Freshly baked bread is delicious."
+      ],
+      [
+        "でき{たての}料理を食べましょう。",
+        "Let's eat the food while it's freshly made."
+      ],
+      [
+        "ペンキ塗り{たて}。触らないでください。",
+        "Wet paint. Please don't touch."
+      ]
+    ]
+  },
+  {
+    "id": "au",
+    "pattern": "〜合う",
+    "meaning": "do to each other; together",
+    "formation": [
+      "Verb ます-stem + 合う"
+    ],
+    "notes": "Mutual action: 話し合う (discuss), 助け合う (help each other), 見つめ合う (gaze at each other).",
+    "match": "(?<=[きぎしちびみりえけげせてねべめれ])(?<!ったり|ぴったり)(合(?:う|っ|い|わ|え))",
+    "examples": [
+      [
+        "困ったときは、助け{合いましょう}。",
+        "Let's help each other when we're in trouble."
+      ],
+      [
+        "家族で旅行の計画を話し{合った}。",
+        "The family discussed plans for the trip."
+      ],
+      [
+        "[二人|ふたり]は[顔|かお]を[見|み]{[合|あ]わせて}[笑|わら]った。",
+        "The two of them looked at each other and laughed."
+      ]
+    ]
+  },
+  {
+    "id": "naosu",
+    "pattern": "〜直す",
+    "meaning": "to redo; to do again (properly)",
+    "formation": [
+      "Verb ます-stem + 直す"
+    ],
+    "notes": "Doing something again to correct or improve it: 書き直す (rewrite), 考え直す (reconsider), やり直す (start over).",
+    "match": "(?<=[きぎしちびみりえけげせてねべめれ])(直(?:す|し|さ|せ))",
+    "examples": [
+      [
+        "間違いが多いので、レポートを書き{直しました}。",
+        "There were lots of mistakes, so I rewrote the report."
+      ],
+      [
+        "もう一度考え{直して}ください。",
+        "Please reconsider."
+      ],
+      [
+        "最初からやり{直そう}。",
+        "Let's start over from the beginning."
+      ]
+    ]
+  },
+  {
+    "id": "komu",
+    "pattern": "〜込む",
+    "meaning": "into; thoroughly",
+    "formation": [
+      "Verb ます-stem + 込む"
+    ],
+    "notes": "Moving into something (飛び込む, jump in) or doing something deeply and completely (考え込む, be lost in thought; 思い込む, be convinced).",
+    "match": "(?<=[きぎしちびみりえけげせてねべめれ])(込(?:む|ん|み|ま|め))",
+    "examples": [
+      [
+        "子どもがプールに飛び{込んだ}。",
+        "The child jumped into the pool."
+      ],
+      [
+        "彼は何か考え{込んでいる}。",
+        "He's lost in thought about something."
+      ],
+      [
+        "申し{込み}は明日までです。",
+        "Applications close tomorrow."
+      ]
+    ]
+  },
+  {
+    "id": "sae",
+    "pattern": "〜さえ",
+    "meaning": "even",
+    "formation": [
+      "Noun + さえ",
+      "With particles: Noun + でさえ / にさえ"
+    ],
+    "notes": "Stresses an extreme example: 先生でさえ分からない (Even the teacher doesn't know). Similar to も but stronger.",
+    "match": "(さえ)(?![^、。]{0,10}ば)",
+    "examples": [
+      [
+        "忙しくて、ご飯を食べる時間{さえ}ない。",
+        "I'm so busy I don't even have time to eat."
+      ],
+      [
+        "この問題は先生で{さえ}解けなかった。",
+        "Even the teacher couldn't solve this problem."
+      ],
+      [
+        "ひらがな{さえ}読めない。",
+        "I can't even read hiragana."
+      ]
+    ]
+  },
+  {
+    "id": "saeba",
+    "pattern": "〜さえ〜ば",
+    "meaning": "if only; as long as",
+    "formation": [
+      "Noun + さえ + ば-form",
+      "Verb ます-stem + さえすれば",
+      "Verb て-form + さえいれば"
+    ],
+    "notes": "Only one condition is needed: お金さえあれば、何でもできる (As long as you have money, you can do anything).",
+    "match": "(さえ)(?=[^、。]{0,10}ば)",
+    "examples": [
+      [
+        "時間{さえ}あれば、旅行に行きたい。",
+        "If only I had the time, I'd like to travel."
+      ],
+      [
+        "この薬を飲み{さえ}すれば、治ります。",
+        "As long as you take this medicine, you'll get better."
+      ],
+      [
+        "あなた{さえ}よければ、明日行きましょう。",
+        "As long as it's OK with you, let's go tomorrow."
+      ]
+    ]
+  },
+  {
+    "id": "koso",
+    "pattern": "〜こそ",
+    "meaning": "precisely; this (one) above all",
+    "formation": [
+      "Noun + こそ",
+      "Reason: 〜からこそ (precisely because)"
+    ],
+    "notes": "Strong emphasis: 今年こそ合格したい (This year, for sure, I want to pass). こちらこそ is 'the pleasure is mine / likewise'.",
+    "match": "(こそ)",
+    "examples": [
+      [
+        "今年{こそ}、日本語能力試験に合格したい。",
+        "This year, for sure, I want to pass the JLPT."
+      ],
+      [
+        "「よろしくお願いします。」「こちら{こそ}。」",
+        "'Nice to meet you.' 'Likewise.'"
+      ],
+      [
+        "好きだから{こそ}、厳しく言うんだ。",
+        "It's precisely because I care that I'm strict."
+      ]
+    ]
+  },
+  {
+    "id": "nanka",
+    "pattern": "〜なんか / 〜など",
+    "meaning": "things like; such as (often dismissive)",
+    "formation": [
+      "Noun + なんか (casual) / など (neutral)"
+    ],
+    "notes": "Gives an example, or makes light of something: 私なんか、まだまだです (Someone like me still has a long way to go). In negatives it shows dislike: 野菜なんか嫌いだ.",
+    "match": "(なんか)(?=[はをもにがじ、])",
+    "examples": [
+      [
+        "飲み物は、お茶{なんか}どうですか。",
+        "As for drinks, how about something like tea?"
+      ],
+      [
+        "私{なんか}、まだまだ下手です。",
+        "Someone like me is still bad at it."
+      ],
+      [
+        "宿題{なんか}やりたくない。",
+        "I don't want to do stupid homework."
+      ]
+    ]
+  },
+  {
+    "id": "nante",
+    "pattern": "〜なんて",
+    "meaning": "such a thing as; how (surprising)",
+    "formation": [
+      "Noun / plain form + なんて"
+    ],
+    "notes": "Shows surprise, disbelief or contempt: 彼が結婚するなんて、信じられない. Also introduces exclamations: なんてきれいなんだろう (How beautiful!).",
+    "match": "(?<=[るいただの]|\\p{Script=Han})(なんて)(?![いう])",
+    "examples": [
+      [
+        "彼が結婚する{なんて}、信じられない。",
+        "I can't believe he's getting married."
+      ],
+      [
+        "[一日|いちにち]で[全部|ぜんぶ][覚|おぼ]える{なんて}[無理|むり]だよ。",
+        "Memorising it all in one day? That's impossible."
+      ],
+      [
+        "宿題を忘れる{なんて}、珍しいね。",
+        "It's unusual for you to forget your homework."
+      ]
+    ]
+  },
+  {
+    "id": "bahodo",
+    "pattern": "〜ば〜ほど",
+    "meaning": "the more ..., the more ...",
+    "formation": [
+      "ば-form + same verb / adj dictionary form + ほど",
+      "な-adj: 〜なら〜なほど"
+    ],
+    "notes": "Proportional relationship: 練習すればするほど上手になる (The more you practise, the better you get).",
+    "examples": [
+      [
+        "練習すれば{するほど}、上手になります。",
+        "The more you practise, the better you get."
+      ],
+      [
+        "考えれば{考えるほど}、分からなくなる。",
+        "The more I think about it, the less I understand."
+      ],
+      [
+        "駅に近ければ{近いほど}、家賃が高い。",
+        "The closer to the station, the higher the rent."
+      ]
+    ]
+  }
+]

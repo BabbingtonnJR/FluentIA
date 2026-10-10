@@ -112,6 +112,7 @@ export function levelBreakdown(pack: Pack, cards: CardRecord[]): LevelBreakdown[
     const ids = [
       ...pack.vocab.filter((v) => v.level === level).map((v) => `${pack.manifest.id}:vocab:recognition:${v.id}`),
       ...pack.kanji.filter((k) => k.level === level).map((k) => `${pack.manifest.id}:kanji:recognition:${k.id}`),
+      ...pack.grammar.filter((g) => g.level === level).map((g) => `${pack.manifest.id}:grammar:recognition:${g.id}`),
     ];
     const row: LevelBreakdown = { level, label, total: ids.length, unseen: 0, learning: 0, young: 0, mature: 0 };
     for (const id of ids) row[cardStatus(recognition.get(id))]++;

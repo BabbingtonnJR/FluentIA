@@ -1,0 +1,737 @@
+[
+  {
+    "id": "potential",
+    "pattern": "Potential form (〜える / 〜られる)",
+    "meaning": "can; be able to",
+    "formation": [
+      "う-verb: u → e + る (書く → 書ける, 話す → 話せる)",
+      "る-verb: 〜られる (食べる → 食べられる)",
+      "する → できる, 来る → 来られる",
+      "The object usually takes が: 日本語が話せる"
+    ],
+    "notes": "In casual speech る-verbs often drop ら: 食べれる, 見れる (ら抜き言葉). It is common, but write 〜られる in formal text.",
+    "examples": [
+      [
+        "私は漢字が少し{読めます}。",
+        "I can read a few kanji."
+      ],
+      [
+        "納豆は{食べられません}。",
+        "I can't eat natto."
+      ],
+      [
+        "ここから富士山が{見られる}。",
+        "You can see Mt Fuji from here."
+      ]
+    ]
+  },
+  {
+    "id": "kotogadekiru",
+    "pattern": "〜ことができる",
+    "meaning": "can; be able to (more formal)",
+    "formation": [
+      "Verb dictionary form + ことができる"
+    ],
+    "notes": "Means the same as the potential form but sounds more formal and is common in writing, rules and explanations.",
+    "match": "(ことが(?:でき|出来))",
+    "examples": [
+      [
+        "このカードで電車に乗る{ことができます}。",
+        "You can ride the train with this card."
+      ],
+      [
+        "彼は百メートルを十二秒で走る{ことができる}。",
+        "He can run 100 metres in twelve seconds."
+      ],
+      [
+        "図書館では本を三冊まで借りる{ことができます}。",
+        "You can borrow up to three books at the library."
+      ]
+    ]
+  },
+  {
+    "id": "volitional-omou",
+    "pattern": "〜(よ)うと思う",
+    "meaning": "I'm thinking of doing; I intend to",
+    "formation": [
+      "Volitional form + と思う",
+      "う-verb: o-row + う (行く → 行こう)",
+      "る-verb: 〜よう (食べる → 食べよう)",
+      "する → しよう, 来る → 来よう"
+    ],
+    "notes": "Shares a plan or intention. 〜と思っています suggests the plan has been on your mind for a while.",
+    "match": "(?:(?<=[おこそとのもろごぼ])(うと(?:思|おも)[うっいわ])|(ようと(?:思|おも)[うっいわ]))",
+    "examples": [
+      [
+        "夏休みに北海道へ行こ{うと思います}。",
+        "I'm thinking of going to Hokkaido in the summer holidays."
+      ],
+      [
+        "今日は早く寝{ようと思う}。",
+        "I think I'll go to bed early today."
+      ],
+      [
+        "来年から日本語を教え{ようと思っています}。",
+        "I'm planning to teach Japanese from next year."
+      ]
+    ]
+  },
+  {
+    "id": "tsumori",
+    "pattern": "〜つもりだ",
+    "meaning": "intend to; plan to",
+    "formation": [
+      "Verb dictionary form + つもりだ",
+      "Verb ない-form + つもりだ (intend not to)"
+    ],
+    "notes": "A firmer plan than 〜ようと思う. Asking a superior 〜つもりですか can sound blunt; use 〜予定ですか instead.",
+    "match": "(つもり)",
+    "examples": [
+      [
+        "来年、日本に留学する{つもりです}。",
+        "I intend to study in Japan next year."
+      ],
+      [
+        "今日はお酒を飲まない{つもりだ}。",
+        "I don't intend to drink today."
+      ],
+      [
+        "週末は何をする{つもりですか}。",
+        "What do you plan to do this weekend?"
+      ]
+    ]
+  },
+  {
+    "id": "yotei",
+    "pattern": "〜予定だ",
+    "meaning": "be scheduled to; plan to",
+    "formation": [
+      "Verb dictionary form + 予定だ",
+      "Noun + の予定だ"
+    ],
+    "notes": "An arranged schedule rather than a personal intention, so it sounds more objective and polite than つもり.",
+    "match": "(予定)(?=だ|です|で)",
+    "examples": [
+      [
+        "会議は三時に始まる{予定です}。",
+        "The meeting is scheduled to start at three."
+      ],
+      [
+        "来月、引っ越す{予定です}。",
+        "I'm planning to move next month."
+      ],
+      [
+        "明日は出張の{予定だ}。",
+        "I'm scheduled to go on a business trip tomorrow."
+      ]
+    ]
+  },
+  {
+    "id": "kotonisuru",
+    "pattern": "〜ことにする",
+    "meaning": "to decide to",
+    "formation": [
+      "Verb dictionary form + ことにする",
+      "Verb ない-form + ことにする (decide not to)"
+    ],
+    "notes": "The speaker makes the decision. 〜ことにした is the usual way to announce a decision.",
+    "match": "(ことに(?:する|した|します|しました|しよう))",
+    "examples": [
+      [
+        "毎朝走る{ことにしました}。",
+        "I've decided to run every morning."
+      ],
+      [
+        "今年は海外旅行に行かない{ことにした}。",
+        "I've decided not to travel abroad this year."
+      ],
+      [
+        "タクシーで行く{ことにしよう}。",
+        "Let's go by taxi."
+      ]
+    ]
+  },
+  {
+    "id": "kotoninaru",
+    "pattern": "〜ことになる",
+    "meaning": "it has been decided that; it turns out that",
+    "formation": [
+      "Verb dictionary form + ことになる",
+      "Verb ない-form + ことになる"
+    ],
+    "notes": "The decision is made by circumstances or someone else (the company, a committee). Often used to report your own news modestly: 来月から大阪で働くことになりました.",
+    "match": "(ことにな(?:る|った|りま|って(?!い)))",
+    "examples": [
+      [
+        "来月から大阪で働く{ことになりました}。",
+        "It's been decided that I'll work in Osaka from next month."
+      ],
+      [
+        "会議は中止する{ことになった}。",
+        "The meeting has been called off."
+      ],
+      [
+        "私が発表をする{ことになりました}。",
+        "It turns out I'll be giving the presentation."
+      ]
+    ]
+  },
+  {
+    "id": "kotogaaru",
+    "pattern": "〜ことがある",
+    "meaning": "sometimes; there are times when",
+    "formation": [
+      "Verb dictionary form + ことがある",
+      "Verb ない-form + ことがある"
+    ],
+    "notes": "With the dictionary form it means 'sometimes'. With the past form (行ったことがある) it means 'have done before', which you know from N5.",
+    "examples": [
+      [
+        "忙しいときは、朝ご飯を食べない{ことがあります}。",
+        "When I'm busy, I sometimes skip breakfast."
+      ],
+      [
+        "この道は夜、とても暗くなる{ことがある}。",
+        "This road sometimes gets very dark at night."
+      ],
+      [
+        "電車が遅れる{こともあります}。",
+        "Sometimes the trains are late, too."
+      ]
+    ]
+  },
+  {
+    "id": "sou-looks",
+    "pattern": "〜そうだ (looks like)",
+    "meaning": "looks like; seems about to",
+    "formation": [
+      "Verb ます-stem + そうだ (降りそうだ)",
+      "い-adj stem + そうだ (おいしそうだ)",
+      "な-adj + そうだ (元気そうだ)",
+      "Irregular: いい → よさそう, ない → なさそう"
+    ],
+    "notes": "Your impression from what you see. With verbs it means something is about to happen: 雨が降りそうだ. Before nouns it becomes そうな: おいしそうなケーキ.",
+    "match": "(?<=[きぎしちにびみりえけげせてねべめれ]|\\p{Script=Han})(そう)(?=だ|です|な|に|で|。)",
+    "examples": [
+      [
+        "空が暗いですね。雨が降り{そうです}。",
+        "The sky is dark. It looks like it's going to rain."
+      ],
+      [
+        "このケーキはおいし{そうだ}。",
+        "This cake looks delicious."
+      ],
+      [
+        "お母さんは元気{そうでした}。",
+        "Your mother looked well."
+      ]
+    ]
+  },
+  {
+    "id": "sou-hearsay",
+    "pattern": "〜そうだ (I hear)",
+    "meaning": "I heard that; apparently (reporting)",
+    "formation": [
+      "Plain form + そうだ (降るそうだ, 高いそうだ)",
+      "な-adj / Noun + だそうだ",
+      "Source: 〜によると、〜そうだ"
+    ],
+    "notes": "Reports information from someone else. Unlike the 'looks like' そうだ it attaches to the full plain form and has no negative or past form of its own.",
+    "match": "(?<=[るうくすつぬむぐいた]|だ)(?<!じょう)(そう)(?=だ|です)",
+    "examples": [
+      [
+        "天気予報によると、明日は雨が降る{そうです}。",
+        "According to the forecast, it will rain tomorrow."
+      ],
+      [
+        "田中さんは来月結婚する{そうだ}。",
+        "I heard Tanaka is getting married next month."
+      ],
+      [
+        "あの店のラーメンはおいしい{そうですよ}。",
+        "Apparently the ramen at that shop is good."
+      ]
+    ]
+  },
+  {
+    "id": "rashii",
+    "pattern": "〜らしい",
+    "meaning": "apparently; it seems (based on what I've heard)",
+    "formation": [
+      "Plain form + らしい",
+      "な-adj / Noun + らしい (no だ)"
+    ],
+    "notes": "A guess based on information from outside (something heard or read). Less direct than そうだ (I hear) and more distant than ようだ.",
+    "match": "(?<=[るうくすつぬむぶぐいただ])(らし(?:い|く|かっ))",
+    "examples": [
+      [
+        "山田さんは会社を辞める{らしい}。",
+        "Apparently Yamada is quitting the company."
+      ],
+      [
+        "あのレストランは高い{らしい}です。",
+        "That restaurant is apparently expensive."
+      ],
+      [
+        "明日は台風が来る{らしい}よ。",
+        "It seems a typhoon is coming tomorrow."
+      ]
+    ]
+  },
+  {
+    "id": "youda",
+    "pattern": "〜ようだ / 〜みたいだ",
+    "meaning": "it seems; it looks as if; like",
+    "formation": [
+      "Plain form + ようだ / みたいだ",
+      "Noun + のようだ / Noun + みたいだ",
+      "な-adj + なようだ / な-adj + みたいだ"
+    ],
+    "notes": "A guess from your own observation. みたいだ is the casual version. Both also mean 'like' in comparisons: 夢のようだ (It's like a dream).",
+    "match": "(?<=[るうくすつぬむぶぐいただの])((?:よう|みたい)(?:だ|です))",
+    "examples": [
+      [
+        "誰もいない{ようです}。",
+        "It seems nobody is here."
+      ],
+      [
+        "風邪をひいた{みたいだ}。",
+        "I think I've caught a cold."
+      ],
+      [
+        "まるで夢の{ようです}。",
+        "It's just like a dream."
+      ]
+    ]
+  },
+  {
+    "id": "hazu",
+    "pattern": "〜はずだ",
+    "meaning": "should be; is expected to (logically)",
+    "formation": [
+      "Plain form + はずだ",
+      "な-adj + なはずだ",
+      "Noun + のはずだ",
+      "Negative: 〜はずがない (it can't be)"
+    ],
+    "notes": "A conclusion based on facts or reasoning, not a duty (that is べき). 〜はずだった means it was supposed to happen but didn't.",
+    "match": "(はず)(?=だ|です|で|が|は)",
+    "examples": [
+      [
+        "電車は十時に着く{はずです}。",
+        "The train should arrive at ten."
+      ],
+      [
+        "彼は今日休みだから、家にいる{はずだ}。",
+        "He's off today, so he should be at home."
+      ],
+      [
+        "鍵はかばんに入れた{はずなのに}、ない。",
+        "I'm sure I put the key in my bag, but it's not there."
+      ]
+    ]
+  },
+  {
+    "id": "kamoshirenai",
+    "pattern": "〜かもしれない",
+    "meaning": "might; may; perhaps",
+    "formation": [
+      "Plain form + かもしれない",
+      "な-adj / Noun + かもしれない (no だ)",
+      "Casual: 〜かも"
+    ],
+    "notes": "About 50% certainty, less sure than でしょう. 〜かもしれません is the polite form.",
+    "match": "(かも(?:しれ|知れ))",
+    "examples": [
+      [
+        "午後から雨が降る{かもしれません}。",
+        "It might rain in the afternoon."
+      ],
+      [
+        "彼はもう帰った{かもしれない}。",
+        "He may have gone home already."
+      ],
+      [
+        "その話は本当{かもしれない}。",
+        "That story might be true."
+      ]
+    ]
+  },
+  {
+    "id": "darou",
+    "pattern": "〜でしょう / 〜だろう",
+    "meaning": "probably; I suppose; right?",
+    "formation": [
+      "Plain form + でしょう / だろう",
+      "な-adj / Noun + でしょう (no だ)"
+    ],
+    "notes": "A fairly confident guess; weather forecasts use でしょう. With rising intonation it asks for agreement: 疲れたでしょう？ (You must be tired, right?).",
+    "match": "(?<=[るうくすつぬむぶぐいた])(でしょう|だろう)(?![か？?])",
+    "examples": [
+      [
+        "明日は晴れる{でしょう}。",
+        "It will probably be sunny tomorrow."
+      ],
+      [
+        "彼はたぶん来ない{だろう}。",
+        "He probably won't come."
+      ],
+      [
+        "長い旅行で疲れた{でしょう}。",
+        "You must be tired after the long trip."
+      ]
+    ]
+  },
+  {
+    "id": "sugiru",
+    "pattern": "〜すぎる",
+    "meaning": "too much; overly",
+    "formation": [
+      "Verb ます-stem + すぎる (食べすぎる)",
+      "い-adj stem + すぎる (高すぎる)",
+      "な-adj + すぎる (静かすぎる)",
+      "Irregular: いい → よすぎる, ない → なさすぎる"
+    ],
+    "notes": "Conjugates like a る-verb. The noun form すぎ is common too: 飲みすぎに注意 (Careful not to drink too much).",
+    "match": "(?<=[きぎしちにびみりえけげせてねべめれ]|\\p{Script=Han})((?:すぎ|過ぎ)(?:る|た|ます|まし|て|ない))",
+    "examples": [
+      [
+        "昨日、食べ{すぎました}。",
+        "I ate too much yesterday."
+      ],
+      [
+        "この靴は高{すぎて}買えません。",
+        "These shoes are too expensive for me to buy."
+      ],
+      [
+        "この部屋は静か{すぎる}。",
+        "This room is too quiet."
+      ]
+    ]
+  },
+  {
+    "id": "yasui",
+    "pattern": "〜やすい",
+    "meaning": "easy to; tends to",
+    "formation": [
+      "Verb ます-stem + やすい"
+    ],
+    "notes": "Conjugates like an い-adjective. Also used for things that happen easily: このコップは割れやすい (This glass breaks easily).",
+    "match": "(?<=[きぎしちにびみりえけげせてねべめれ])(やす(?:い|く|かっ))",
+    "examples": [
+      [
+        "この本は字が大きくて読み{やすい}。",
+        "This book has big print and is easy to read."
+      ],
+      [
+        "先生の説明は分かり{やすかった}。",
+        "The teacher's explanation was easy to understand."
+      ],
+      [
+        "冬は風邪をひき{やすい}です。",
+        "It's easy to catch a cold in winter."
+      ]
+    ]
+  },
+  {
+    "id": "nikui",
+    "pattern": "〜にくい",
+    "meaning": "hard to; difficult to",
+    "formation": [
+      "Verb ます-stem + にくい"
+    ],
+    "notes": "The opposite of 〜やすい. Used for things that are physically or practically hard to do, not for skills you lack (that is できない).",
+    "match": "(?<=[きぎしちにびみりえけげせてねべめれ])(にく(?:い|く|かっ))",
+    "examples": [
+      [
+        "この魚は骨が多くて食べ{にくい}。",
+        "This fish has a lot of bones and is hard to eat."
+      ],
+      [
+        "彼の字は読み{にくい}です。",
+        "His handwriting is hard to read."
+      ],
+      [
+        "このペンは書き{にくい}。",
+        "This pen is hard to write with."
+      ]
+    ]
+  },
+  {
+    "id": "kata",
+    "pattern": "〜方 (かた)",
+    "meaning": "the way of doing; how to",
+    "formation": [
+      "Verb ます-stem + 方 (食べ方, 使い方)",
+      "する-verbs: Noun + の仕方 (運転の仕方)"
+    ],
+    "notes": "Makes a noun meaning 'way of ~ing'. The object takes の: 漢字の書き方 (how to write kanji).",
+    "match": "(?<=[きぎしちにびみりえけげせてねべめれ])(方)(?=が|を|は|も|で|に|。|、)",
+    "examples": [
+      [
+        "この機械の使い{方}を教えてください。",
+        "Please show me how to use this machine."
+      ],
+      [
+        "お箸の持ち{方}が上手ですね。",
+        "You hold your chopsticks well."
+      ],
+      [
+        "駅への行き{方}が分かりません。",
+        "I don't know how to get to the station."
+      ]
+    ]
+  },
+  {
+    "id": "nagara",
+    "pattern": "〜ながら",
+    "meaning": "while (doing two things at once)",
+    "formation": [
+      "Verb ます-stem + ながら"
+    ],
+    "notes": "The same person does both actions. The main action comes last: 音楽を聞きながら勉強する (study while listening to music).",
+    "match": "(ながら)",
+    "examples": [
+      [
+        "音楽を聞き{ながら}勉強します。",
+        "I study while listening to music."
+      ],
+      [
+        "歩き{ながら}スマホを見ないでください。",
+        "Please don't look at your phone while walking."
+      ],
+      [
+        "コーヒーを飲み{ながら}話しましょう。",
+        "Let's talk over coffee."
+      ]
+    ]
+  },
+  {
+    "id": "shi",
+    "pattern": "〜し、〜し",
+    "meaning": "and also; what's more (listing reasons)",
+    "formation": [
+      "Plain form + し",
+      "Polite: 〜ですし / 〜ますし"
+    ],
+    "notes": "Lists several reasons or points, often implying 'so...'. Even a single し hints that there are more reasons.",
+    "match": "(?<=[いだすたる])(し)(?=、)",
+    "examples": [
+      [
+        "この部屋は広い{し}、駅にも近いです。",
+        "This room is spacious, and it's close to the station too."
+      ],
+      [
+        "お金もない{し}、時間もない。",
+        "I have no money, and no time either."
+      ],
+      [
+        "雨も降っている{し}、今日は家にいよう。",
+        "It's raining too, so let's stay home today."
+      ]
+    ]
+  },
+  {
+    "id": "noni",
+    "pattern": "〜のに",
+    "meaning": "even though; despite; and yet (frustration)",
+    "formation": [
+      "Plain form + のに",
+      "な-adj / Noun + なのに"
+    ],
+    "notes": "Shows surprise, disappointment or complaint about a result that goes against expectations. At the end of a sentence it expresses regret: 来ればよかったのに (You should have come).",
+    "match": "(?<=[るうくすつぬむぶぐいただな])(のに)(?=[、。！])",
+    "examples": [
+      [
+        "たくさん勉強した{のに}、試験に落ちた。",
+        "Even though I studied a lot, I failed the exam."
+      ],
+      [
+        "日曜日な{のに}、仕事に行かなければならない。",
+        "Even though it's Sunday, I have to go to work."
+      ],
+      [
+        "約束した{のに}、彼は来なかった。",
+        "He didn't come, even though he promised."
+      ]
+    ]
+  },
+  {
+    "id": "node",
+    "pattern": "〜ので",
+    "meaning": "because; since (softer than から)",
+    "formation": [
+      "Plain form + ので",
+      "な-adj / Noun + なので"
+    ],
+    "notes": "Presents the reason as an objective fact, so it sounds softer and more polite than から. Common when giving excuses or asking permission. Casual speech: 〜んで.",
+    "match": "(ので)(?![はす])",
+    "examples": [
+      [
+        "頭が痛い{ので}、早く帰ります。",
+        "I have a headache, so I'll go home early."
+      ],
+      [
+        "明日は休みな{ので}、ゆっくり寝られます。",
+        "Tomorrow is a day off, so I can sleep in."
+      ],
+      [
+        "電車が遅れた{ので}、遅刻しました。",
+        "I was late because the train was delayed."
+      ]
+    ]
+  },
+  {
+    "id": "kadouka",
+    "pattern": "〜かどうか",
+    "meaning": "whether or not",
+    "formation": [
+      "Plain form + かどうか",
+      "な-adj / Noun + かどうか (no だ)"
+    ],
+    "notes": "Embeds a yes/no question in a sentence. For questions with a question word, use just か: 何時に来るか分からない.",
+    "match": "(かどうか)",
+    "examples": [
+      [
+        "明日行ける{かどうか}分かりません。",
+        "I don't know whether I can go tomorrow."
+      ],
+      [
+        "この答えが正しい{かどうか}確かめてください。",
+        "Please check whether this answer is correct."
+      ],
+      [
+        "彼が来る{かどうか}聞いてみます。",
+        "I'll ask whether he's coming."
+      ]
+    ]
+  },
+  {
+    "id": "baai",
+    "pattern": "〜場合は",
+    "meaning": "in the case that; if",
+    "formation": [
+      "Plain form + 場合",
+      "な-adj + な場合 / Noun + の場合"
+    ],
+    "notes": "Formal; common in instructions, rules and announcements. Not used for one-time past events.",
+    "match": "(場合)(?=は|に|、)",
+    "examples": [
+      [
+        "火事の{場合は}、エレベーターを使わないでください。",
+        "In case of fire, do not use the lift."
+      ],
+      [
+        "遅れる{場合は}、連絡してください。",
+        "If you're going to be late, please let us know."
+      ],
+      [
+        "雨の{場合は}、試合は中止です。",
+        "In the event of rain, the match is cancelled."
+      ]
+    ]
+  },
+  {
+    "id": "tameni",
+    "pattern": "〜ために",
+    "meaning": "in order to; for (the sake of)",
+    "formation": [
+      "Verb dictionary form + ために",
+      "Noun + のために"
+    ],
+    "notes": "Purpose with an action you control: 家を買うために貯金する. For a goal you can't directly control (potential or ない verbs), use 〜ように instead.",
+    "match": "(?<=[るうくすつぬむぶぐの])(ために)",
+    "examples": [
+      [
+        "日本の大学に入る{ために}、日本語を勉強しています。",
+        "I'm studying Japanese in order to get into a Japanese university."
+      ],
+      [
+        "家族の{ために}、一生懸命働きます。",
+        "I work hard for my family."
+      ],
+      [
+        "健康の{ために}、毎日歩いています。",
+        "I walk every day for my health."
+      ]
+    ]
+  },
+  {
+    "id": "youni",
+    "pattern": "〜ように",
+    "meaning": "so that; in order that",
+    "formation": [
+      "Verb dictionary form + ように",
+      "Verb ない-form + ように",
+      "Usually with potential verbs or verbs not under your control"
+    ],
+    "notes": "Purpose where the result isn't directly controlled: 聞こえるように大きい声で話す (speak loudly so people can hear). Compare ために with a deliberate action.",
+    "match": "(?<=[るうくすつぬむぶぐい])(?<!ます)(ように)(?![なしす言いお願])",
+    "examples": [
+      [
+        "忘れない{ように}、メモしておきます。",
+        "I'll make a note so that I don't forget."
+      ],
+      [
+        "後ろの人にも聞こえる{ように}、大きい声で話してください。",
+        "Please speak loudly so the people at the back can hear."
+      ],
+      [
+        "風邪をひかない{ように}、気をつけてください。",
+        "Take care not to catch a cold."
+      ]
+    ]
+  },
+  {
+    "id": "younisuru",
+    "pattern": "〜ようにする",
+    "meaning": "to try to; to make sure to (as a habit)",
+    "formation": [
+      "Verb dictionary form + ようにする",
+      "Verb ない-form + ようにする",
+      "Ongoing effort: 〜ようにしている"
+    ],
+    "notes": "An effort to build or keep a habit, not a single attempt. Requests: 〜ようにしてください (Please make sure to...).",
+    "match": "(?<!どの|この|その|あの)(ように(?:する|して|しま|した))",
+    "examples": [
+      [
+        "毎日野菜を食べる{ようにしています}。",
+        "I make a point of eating vegetables every day."
+      ],
+      [
+        "夜はコーヒーを飲まない{ようにしている}。",
+        "I try not to drink coffee at night."
+      ],
+      [
+        "遅れない{ようにしてください}。",
+        "Please make sure you're not late."
+      ]
+    ]
+  },
+  {
+    "id": "youninaru",
+    "pattern": "〜ようになる",
+    "meaning": "to come to; to become able to (change)",
+    "formation": [
+      "Verb dictionary form + ようになる",
+      "Potential verb + ようになる (can now...)",
+      "Verb ない-form + なくなる (no longer)"
+    ],
+    "notes": "Describes a gradual change in ability or habit. For 'no longer', use 〜なくなる: 甘いものを食べなくなった.",
+    "match": "(ようにな(?:る|った|りま|って))",
+    "examples": [
+      [
+        "日本語が話せる{ようになりました}。",
+        "I've become able to speak Japanese."
+      ],
+      [
+        "[子|こ]どもが[一人|ひとり]で[寝|ね]る{ようになった}。",
+        "My child has started sleeping alone."
+      ],
+      [
+        "毎朝早く起きる{ようになりました}。",
+        "I've got into the habit of getting up early every morning."
+      ]
+    ]
+  }
+]

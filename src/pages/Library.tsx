@@ -1,6 +1,6 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useMemo, useState, type CSSProperties } from 'react';
-import { Link } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 import { Icon } from '../components/Icon';
 import type { VocabItem } from '../content/types';
 import { db } from '../db/db';
@@ -10,6 +10,8 @@ import { speak } from '../speech/tts';
 import { cardStatus, type CardStatus } from '../stats/stats';
 
 const PAGE = 80;
+const TABS = ['vocab', 'kanji', 'grammar'] as const;
+type Tab = (typeof TABS)[number];
 const STATUS_LABEL: Record<CardStatus, string> = {
   unseen: 'Not studied',
   learning: 'Learning',
@@ -21,7 +23,10 @@ export function Library() {
   const pack = usePack();
   const settings = useSettings();
   const lang = pack.manifest.id;
-  const [tab, setTab] = useState<'vocab' | 'kanji'>('vocab');
+  // The tab lives in the URL so "back" from a grammar or kanji page returns to it.
+  const [params, setParams] = useSearchParams();
+  const tab = TABS.find((t) => t === params.get('tab')) ?? 'vocab';
+  const setTab = (t: Tab) => setParams(t === 'vocab' ? {} : { tab: t }, { replace: true });
   const [level, setLevel] = useState<number | null>(null);
   const [query, setQuery] = useState('');
   const [limit, setLimit] = useState(PAGE);
@@ -61,6 +66,14 @@ export function Library() {
     [pack, level, q],
   );
 
+  const grammar = useMemo(
+    () =>
+      pack.grammar.filter(
+        (g) => (level === null || g.level === level) && (!q || g.pattern.includes(q) || g.meaning.toLowerCase().includes(q)),
+      ),
+    [pack, level, q],
+  );
+
   const say = (v: VocabItem) => speak(v.reading, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate });
 
   return (
@@ -78,6 +91,11 @@ export function Library() {
         <button role="tab" aria-selected={tab === 'kanji'} className={tab === 'kanji' ? 'on' : ''} onClick={() => setTab('kanji')}>
           Kanji · {pack.kanji.length}
         </button>
+        {pack.grammar.length > 0 && (
+          <button role="tab" aria-selected={tab === 'grammar'} className={tab === 'grammar' ? 'on' : ''} onClick={() => setTab('grammar')}>
+            Grammar · {pack.grammar.length}
+          </button>
+        )}
       </div>
 
       <input
@@ -162,6 +180,22 @@ export function Library() {
             </button>
           )}
         </>
+      ) : tab === 'grammar' ? (
+        <div className="list">
+          {grammar.map((g) => {
+            const status = cardStatus(cards.get(`grammar:${g.id}`));
+            return (
+              <Link key={g.id} className="list-item" to={`/grammar/${encodeURIComponent(g.id)}`}>
+                <span className={`dot ${status}`} title={STATUS_LABEL[status]} />
+                <span className="term" lang="ja">
+                  {g.pattern}
+                </span>
+                <span className="gloss">{g.meaning}</span>
+              </Link>
+            );
+          })}
+          {!grammar.length && <div className="empty">No matches.</div>}
+        </div>
       ) : (
         <div className="kanji-grid">
           {kanji.map((k) => {

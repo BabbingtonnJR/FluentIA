@@ -1,0 +1,538 @@
+[
+  {
+    "id": "tara",
+    "pattern": "〜たら",
+    "meaning": "if; when; once (X happens, then Y)",
+    "formation": [
+      "Verb た-form + ら",
+      "い-adj: 〜かった + ら",
+      "な-adj / Noun + だったら"
+    ],
+    "notes": "The most flexible conditional. Y happens after X is complete, so it also means 'when/once'. It can also describe a one-time discovery in the past: 家に帰ったら、手紙が来ていた (When I got home, a letter had come).",
+    "match": "(?<=[っんいしちりきぎびみえけせてねべめれ])(たら|だら)(?![けし？?]|どう|いかが|いい|よい|なあ|な。)",
+    "examples": [
+      [
+        "雨が降っ{たら}、試合は中止です。",
+        "If it rains, the match will be called off."
+      ],
+      [
+        "駅に着い{たら}、電話してください。",
+        "Please call me once you arrive at the station."
+      ],
+      [
+        "安かっ{たら}、買います。",
+        "If it's cheap, I'll buy it."
+      ]
+    ]
+  },
+  {
+    "id": "ba",
+    "pattern": "〜ば",
+    "meaning": "if (condition → result)",
+    "formation": [
+      "る-verb: 食べる → 食べれば",
+      "う-verb: e-row + ば (行く → 行けば, 読む → 読めば)",
+      "い-adj: 〜ければ (安い → 安ければ)",
+      "Negative: 〜なければ",
+      "な-adj / Noun: 〜なら(ば) / 〜であれば"
+    ],
+    "notes": "Focuses on the condition itself: if X is true, Y follows. Common in advice and general truths. The result is usually not a command or request when the subject of both clauses is the same.",
+    "match": "(?<=[えけげせてねべめれ])(ば)(?!なら|いけ|いい|よい|よかっ|かり)",
+    "examples": [
+      [
+        "この薬を飲め{ば}、すぐ治りますよ。",
+        "If you take this medicine, you'll get better soon."
+      ],
+      [
+        "時間があれ{ば}、手伝います。",
+        "If I have time, I'll help."
+      ],
+      [
+        "安けれ{ば}、二つ買いたいです。",
+        "If it's cheap, I'd like to buy two."
+      ]
+    ]
+  },
+  {
+    "id": "to",
+    "pattern": "〜と (conditional)",
+    "meaning": "when; whenever; if (X, then Y always/naturally follows)",
+    "formation": [
+      "Verb dictionary form + と",
+      "Verb ない-form + と",
+      "い-adj + と",
+      "な-adj / Noun + だと"
+    ],
+    "notes": "Used for natural or automatic results, habits, directions and machines: this button → that happens. Y cannot be a request, wish or intention.",
+    "examples": [
+      [
+        "春になる{と}、桜が咲きます。",
+        "When spring comes, the cherry blossoms bloom."
+      ],
+      [
+        "このボタンを押す{と}、ドアが開きます。",
+        "When you press this button, the door opens."
+      ],
+      [
+        "まっすぐ行く{と}、右に駅があります。",
+        "If you go straight, the station is on the right."
+      ]
+    ]
+  },
+  {
+    "id": "nara",
+    "pattern": "〜なら",
+    "meaning": "if (it's the case that); if you're talking about",
+    "formation": [
+      "Verb / い-adj plain form + なら",
+      "な-adj / Noun + なら"
+    ],
+    "notes": "Picks up a situation (often something the other person said) and gives advice or an opinion about it: 'If you're going to Kyoto, ...'. Unlike たら, Y can happen before X: 京都に行くなら、この本を読んでおくといい.",
+    "match": "(?<!よう)(なら)(?![なずばれうべ])",
+    "examples": [
+      [
+        "京都に行く{なら}、秋がいいですよ。",
+        "If you're going to Kyoto, autumn is a good time."
+      ],
+      [
+        "日本料理{なら}、寿司が一番好きです。",
+        "When it comes to Japanese food, I like sushi best."
+      ],
+      [
+        "疲れている{なら}、早く寝たほうがいい。",
+        "If you're tired, you should go to bed early."
+      ]
+    ]
+  },
+  {
+    "id": "temo",
+    "pattern": "〜ても",
+    "meaning": "even if; even though; no matter (how/what...)",
+    "formation": [
+      "Verb て-form + も",
+      "い-adj: 〜くても",
+      "な-adj / Noun + でも"
+    ],
+    "notes": "Y happens regardless of X. With question words it means 'no matter...': いくら食べても太らない (No matter how much I eat, I don't gain weight).",
+    "match": "(?:(?<=[っいしきぎりびみちえけせねべめれく])(?<!なく)(ても)|(?<=ん)(でも))(?![のうしい、よ良]|かまわ|構わ)",
+    "examples": [
+      [
+        "雨が降っ{ても}、行きます。",
+        "Even if it rains, I'll go."
+      ],
+      [
+        "いくら練習し{ても}、上手になりません。",
+        "No matter how much I practise, I don't get better."
+      ],
+      [
+        "高く{ても}、この時計が欲しいです。",
+        "Even if it's expensive, I want this watch."
+      ]
+    ]
+  },
+  {
+    "id": "temoii",
+    "pattern": "〜てもいい",
+    "meaning": "may; it's OK to (permission)",
+    "formation": [
+      "Verb て-form + もいい",
+      "Polite: 〜てもいいですか (May I...?)",
+      "Also: 〜てもかまわない (it's fine if...)"
+    ],
+    "notes": "Asks for or gives permission. 〜てもかまいません is a little more formal and sounds like 'I don't mind if...'.",
+    "match": "(?<!なく)([てで]も(?:いい|よい|良い|かまわ|構わ))",
+    "examples": [
+      [
+        "ここで写真を撮っ{てもいい}ですか。",
+        "May I take photos here?"
+      ],
+      [
+        "もう帰っ{てもいい}ですよ。",
+        "You can go home now."
+      ],
+      [
+        "窓を開け{てもかまいません}か。",
+        "Do you mind if I open the window?"
+      ]
+    ]
+  },
+  {
+    "id": "tewaikenai",
+    "pattern": "〜てはいけない",
+    "meaning": "must not; not allowed to",
+    "formation": [
+      "Verb て-form + はいけない",
+      "Casual: 〜ちゃだめ / 〜ちゃいけない",
+      "Formal signs: 〜てはならない"
+    ],
+    "notes": "Prohibition. Teachers, parents and rules use it; to a superior it sounds strong, so 〜ないでください is softer.",
+    "match": "([てで]は(?:いけ|だめ|ダメ|なら))",
+    "examples": [
+      [
+        "ここでたばこを吸っ{てはいけません}。",
+        "You must not smoke here."
+      ],
+      [
+        "試験中に話し{てはいけない}。",
+        "You are not allowed to talk during the exam."
+      ],
+      [
+        "この川で泳い{ではいけません}。",
+        "You must not swim in this river."
+      ]
+    ]
+  },
+  {
+    "id": "nakereba",
+    "pattern": "〜なければならない",
+    "meaning": "must; have to",
+    "formation": [
+      "Verb ない-stem + なければならない / なければいけない",
+      "Also: 〜なくてはいけない / 〜ないといけない",
+      "Casual: 〜なきゃ / 〜なくちゃ"
+    ],
+    "notes": "Literally 'if (I) don't, it won't do'. ならない is more about rules and duty, いけない about personal need. In speech the second half is often dropped: もう行かなきゃ (I've got to go).",
+    "match": "(なければ(?:なら|いけ)|なくては(?:なら|いけ)|ないと(?:いけ|だめ))",
+    "examples": [
+      [
+        "明日までにレポートを出さ{なければなりません}。",
+        "I have to hand in the report by tomorrow."
+      ],
+      [
+        "毎日薬を飲ま{なくてはいけない}。",
+        "I must take medicine every day."
+      ],
+      [
+        "もう帰ら{ないといけない}。",
+        "I have to go home now."
+      ]
+    ]
+  },
+  {
+    "id": "nakutemoii",
+    "pattern": "〜なくてもいい",
+    "meaning": "don't have to; it's not necessary to",
+    "formation": [
+      "Verb ない-stem + なくてもいい",
+      "Formal: 〜なくてもかまいません"
+    ],
+    "notes": "The opposite of 〜なければならない: there is no obligation.",
+    "match": "(なくても(?:いい|よい|良い|かまわ|構わ))",
+    "examples": [
+      [
+        "明日は来{なくてもいい}ですよ。",
+        "You don't have to come tomorrow."
+      ],
+      [
+        "全部食べ{なくてもいい}です。",
+        "You don't have to eat all of it."
+      ],
+      [
+        "急が{なくてもかまいません}。",
+        "There's no need to hurry."
+      ]
+    ]
+  },
+  {
+    "id": "teshimau",
+    "pattern": "〜てしまう",
+    "meaning": "to do completely; to do by accident or with regret",
+    "formation": [
+      "Verb て-form + しまう",
+      "Casual: 〜ちゃう / 〜じゃう"
+    ],
+    "notes": "Two nuances: finishing something completely (宿題をしてしまった), or something regrettable or unintended (財布をなくしてしまった). In speech it shortens to 〜ちゃう: 食べちゃった.",
+    "match": "([てで]しま(?:った|いました|います|う))",
+    "examples": [
+      [
+        "財布をなくし{てしまいました}。",
+        "I (unfortunately) lost my wallet."
+      ],
+      [
+        "ケーキを全部食べ{てしまった}。",
+        "I ate the whole cake."
+      ],
+      [
+        "電車の中で寝{てしまった}。",
+        "I fell asleep on the train."
+      ]
+    ]
+  },
+  {
+    "id": "teoku",
+    "pattern": "〜ておく",
+    "meaning": "to do in advance; to leave something as it is",
+    "formation": [
+      "Verb て-form + おく",
+      "Casual: 〜とく / 〜どく (やっとく, 読んどく)"
+    ],
+    "notes": "Doing something now in preparation for later, or leaving something in a state on purpose: 窓を開けておいてください (Please leave the window open).",
+    "match": "([てで]お(?:く|き|い|け|こ)(?![しか]))",
+    "examples": [
+      [
+        "旅行の前にホテルを予約し{ておきます}。",
+        "I'll book the hotel before the trip."
+      ],
+      [
+        "パーティーの飲み物を買っ{ておいた}。",
+        "I bought drinks for the party in advance."
+      ],
+      [
+        "使ったら、元の場所に戻し{ておいて}ください。",
+        "After using it, please put it back where it was."
+      ]
+    ]
+  },
+  {
+    "id": "tearu",
+    "pattern": "〜てある",
+    "meaning": "has been done (and the result remains)",
+    "formation": [
+      "Transitive verb て-form + ある",
+      "Object usually takes が: 窓が開けてある"
+    ],
+    "notes": "Describes a state left by someone's deliberate action, without saying who did it. Compare 窓が開いている (the window is open) with 窓が開けてある (the window has been opened, on purpose).",
+    "match": "(?<=[っいしきぎりえけせねべめれ])(てあ(?:る|り|っ))",
+    "examples": [
+      [
+        "壁にカレンダーが貼っ{てあります}。",
+        "A calendar has been put up on the wall."
+      ],
+      [
+        "テーブルに花が飾っ{てある}。",
+        "Flowers have been arranged on the table."
+      ],
+      [
+        "ノートに名前が書い{てあります}。",
+        "A name is written in the notebook."
+      ]
+    ]
+  },
+  {
+    "id": "temiru",
+    "pattern": "〜てみる",
+    "meaning": "to try doing (to see what it's like)",
+    "formation": [
+      "Verb て-form + みる"
+    ],
+    "notes": "Trying something out of curiosity, not 'attempting something hard' (that is 〜ようとする).",
+    "match": "([てで]み(?:る|た|ます|まし|よう|て|ない|れ)(?!な))",
+    "examples": [
+      [
+        "日本語で手紙を書い{てみました}。",
+        "I tried writing a letter in Japanese."
+      ],
+      [
+        "一度日本に行っ{てみたい}です。",
+        "I'd like to go to Japan once."
+      ],
+      [
+        "新しいラーメン屋に行っ{てみました}。",
+        "I tried the new ramen shop."
+      ]
+    ]
+  },
+  {
+    "id": "teiku-tekuru",
+    "pattern": "〜ていく / 〜てくる",
+    "meaning": "change continuing into the future / change up to now; go and do / come having done",
+    "formation": [
+      "Verb て-form + いく",
+      "Verb て-form + くる"
+    ],
+    "notes": "With change verbs, 〜ていく points from now into the future and 〜てくる from the past up to now: 寒くなってきた (It has started getting cold). With movement they mean doing something on the way: 傘を持っていく (take an umbrella).",
+    "examples": [
+      [
+        "だんだん寒くなっ{てきました}。",
+        "It's gradually got colder."
+      ],
+      [
+        "これから人口は減っ{ていく}でしょう。",
+        "The population will probably keep falling from now on."
+      ],
+      [
+        "雨が降りそうだから、傘を持っ{ていって}ください。",
+        "It looks like rain, so please take an umbrella."
+      ]
+    ]
+  },
+  {
+    "id": "teageru",
+    "pattern": "〜てあげる",
+    "meaning": "to do something for someone (as a favour)",
+    "formation": [
+      "Verb て-form + あげる",
+      "Humble: 〜てさしあげる",
+      "To animals / younger family: 〜てやる"
+    ],
+    "notes": "The speaker (or their side) does a favour for someone else. Saying it directly to the person can sound condescending, so 手伝いましょうか is often better than 手伝ってあげます.",
+    "match": "([てで](?:あげ|上げ)(?:る|た|ます|まし|よう|て|ない))",
+    "examples": [
+      [
+        "妹に本を読ん{であげました}。",
+        "I read a book to my little sister."
+      ],
+      [
+        "友達に駅までの道を教え{てあげた}。",
+        "I showed my friend the way to the station."
+      ],
+      [
+        "おばあさんの荷物を持っ{てあげました}。",
+        "I carried an elderly woman's bags for her."
+      ]
+    ]
+  },
+  {
+    "id": "tekureru",
+    "pattern": "〜てくれる",
+    "meaning": "someone does something for me / us",
+    "formation": [
+      "Verb て-form + くれる",
+      "Respectful: 〜てくださる",
+      "Request: 〜てくれませんか"
+    ],
+    "notes": "The favour comes toward the speaker's side, and the speaker is grateful. The giver is the subject (marked with が or は).",
+    "match": "([てで]くれ(?:る|た|ます|まし|ない|て))",
+    "examples": [
+      [
+        "友達が引っ越しを手伝っ{てくれました}。",
+        "My friend helped me move."
+      ],
+      [
+        "母が弁当を作っ{てくれた}。",
+        "My mother made me a packed lunch."
+      ],
+      [
+        "ちょっと待っ{てくれません}か。",
+        "Could you wait a moment?"
+      ]
+    ]
+  },
+  {
+    "id": "temorau",
+    "pattern": "〜てもらう",
+    "meaning": "to have someone do something (for me); to get someone to do",
+    "formation": [
+      "Verb て-form + もらう",
+      "Humble: 〜ていただく",
+      "Request: 〜ていただけませんか"
+    ],
+    "notes": "The receiver is the subject and the person who does the favour takes に: 友達に手伝ってもらった (I had my friend help me). 〜ていただけませんか is one of the politest requests.",
+    "match": "([てで](?:もら|いただ|頂)(?:う|っ|い|え|わ))",
+    "examples": [
+      [
+        "友達に宿題を手伝っ{てもらいました}。",
+        "I had my friend help me with my homework."
+      ],
+      [
+        "医者に診{てもらった}ほうがいいですよ。",
+        "You should get a doctor to look at it."
+      ],
+      [
+        "もう一度説明し{ていただけません}か。",
+        "Could you explain it once more, please?"
+      ]
+    ]
+  },
+  {
+    "id": "tehoshii",
+    "pattern": "〜てほしい",
+    "meaning": "I want (someone) to do",
+    "formation": [
+      "Person に + Verb て-form + ほしい",
+      "Negative: 〜ないでほしい (I don't want you to...)"
+    ],
+    "notes": "Expresses the speaker's wish about someone else's action. Said directly to a superior it can be too strong; use a request instead.",
+    "match": "([てで](?:ほし|欲し)(?:い|く|か))",
+    "examples": [
+      [
+        "もっとゆっくり話し{てほしい}です。",
+        "I'd like you to speak more slowly."
+      ],
+      [
+        "子どもには元気に育っ{てほしい}。",
+        "I want my children to grow up healthy."
+      ],
+      [
+        "このことは誰にも言わ{ないでほしい}。",
+        "I don't want you to tell anyone about this."
+      ]
+    ]
+  },
+  {
+    "id": "taradou",
+    "pattern": "〜たらどうですか",
+    "meaning": "why don't you...? (suggestion)",
+    "formation": [
+      "Verb た-form + らどうですか",
+      "More polite: 〜たらいかがですか",
+      "Casual: 〜たら？ / 〜たらどう？"
+    ],
+    "notes": "A gentle suggestion. The casual version is just 〜たら？ with rising intonation: 休んだら？",
+    "match": "([ただ]ら(?:どう(?!し)|いかが))",
+    "examples": [
+      [
+        "少し休ん{だらどうですか}。",
+        "Why don't you rest a little?"
+      ],
+      [
+        "先生に聞い{たらどうですか}。",
+        "Why don't you ask the teacher?"
+      ],
+      [
+        "こちらの席に座っ{たらいかがですか}。",
+        "Would you like to sit in this seat?"
+      ]
+    ]
+  },
+  {
+    "id": "hougaii",
+    "pattern": "〜ほうがいい",
+    "meaning": "had better; should",
+    "formation": [
+      "Verb た-form + ほうがいい",
+      "Verb ない-form + ほうがいい"
+    ],
+    "notes": "Advice. The past た-form is usual for the positive (行ったほうがいい), but the negative uses ない (行かないほうがいい).",
+    "match": "((?:方|ほう)が(?:いい|よい|よかっ))",
+    "examples": [
+      [
+        "熱があるなら、病院に行った{ほうがいい}ですよ。",
+        "If you have a fever, you'd better go to the hospital."
+      ],
+      [
+        "夜遅くまでゲームをしない{ほうがいい}。",
+        "You shouldn't play games until late at night."
+      ],
+      [
+        "傘を持っていった{ほうがいい}と思います。",
+        "I think you should take an umbrella."
+      ]
+    ]
+  },
+  {
+    "id": "baii",
+    "pattern": "〜ばいい",
+    "meaning": "should just; all you have to do is; what should I...?",
+    "formation": [
+      "Verb ば-form + いい",
+      "Question: どうすればいいですか (What should I do?)"
+    ],
+    "notes": "Gives (or asks for) the simplest way to get a result. どうすればいいですか is the standard way to ask for advice.",
+    "match": "(ばいい|ばよい)",
+    "examples": [
+      [
+        "どうすれ{ばいい}ですか。",
+        "What should I do?"
+      ],
+      [
+        "分からなければ、先生に聞け{ばいい}。",
+        "If you don't understand, just ask the teacher."
+      ],
+      [
+        "何時に来れ{ばいい}ですか。",
+        "What time should I come?"
+      ]
+    ]
+  }
+]

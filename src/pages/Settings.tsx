@@ -7,6 +7,7 @@ import { speak, voicesFor } from '../speech/tts';
 import { signIn, signOut, signUp, syncNow, useSyncStatus } from '../sync/sync';
 
 const NEW_PER_DAY = [10, 15, 20, 25, 30, 40];
+const GRAMMAR_PER_DAY = [0, 1, 2, 3, 5];
 const RATES = [
   { value: 0.7, label: 'Slow' },
   { value: 0.9, label: 'Normal' },
@@ -92,6 +93,20 @@ export function SettingsPage() {
           </div>
           <span className="faint">Each new card adds about 5–10 reviews over the following weeks.</span>
         </div>
+
+        {pack.grammar.length > 0 && (
+          <div className="field">
+            <span className="label">New grammar points per day</span>
+            <div className="segmented" role="group">
+              {GRAMMAR_PER_DAY.map((n) => (
+                <button key={n} className={settings.grammarPerDay === n ? 'on' : ''} onClick={() => void saveSettings({ grammarPerDay: n })}>
+                  {n === 0 ? 'Off' : n}
+                </button>
+              ))}
+            </div>
+            <span className="faint">On top of the new cards above. Each review shows the pattern in a different sentence.</span>
+          </div>
+        )}
 
         <label className="switch-row">
           <span>

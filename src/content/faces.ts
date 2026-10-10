@@ -1,8 +1,28 @@
 import type { Direction } from '../db/types';
+import { plainText } from '../reading/furigana';
 import { formatKun } from './packs';
 import type { CardFace, ItemKind, Pack } from './types';
 
-export function cardFace(pack: Pack, kind: ItemKind, direction: Direction, itemId: string): CardFace | null {
+/**
+ * `variant` picks between a grammar point's example sentences (Study passes the review
+ * count), so each review shows the pattern in a different sentence.
+ */
+export function cardFace(pack: Pack, kind: ItemKind, direction: Direction, itemId: string, variant = 0): CardFace | null {
+  if (kind === 'grammar') {
+    const g = pack.grammarById.get(itemId);
+    if (!g?.examples.length) return null;
+    const example = g.examples[variant % g.examples.length];
+    const plain = plainText(example.r);
+    return {
+      prompt: plain.slice(0, example.c[0]) + '＿＿' + plain.slice(example.c[1]),
+      promptIsTarget: true,
+      answer: `${g.pattern} — ${g.meaning}`,
+      speak: plain,
+      meaning: g.meaning,
+      cloze: { example, pattern: g.pattern },
+    };
+  }
+
   if (kind === 'vocab') {
     const v = pack.vocabById.get(itemId);
     if (!v) return null;

@@ -1,0 +1,603 @@
+[
+  {
+    "id": "okagede",
+    "pattern": "〜おかげで",
+    "meaning": "thanks to (good result)",
+    "formation": [
+      "Plain form + おかげで",
+      "な-adj + なおかげで",
+      "Noun + のおかげで"
+    ],
+    "notes": "The cause led to a good result and the speaker is grateful. Used sarcastically for bad results: 君のおかげで遅刻したよ (Thanks to you, I was late).",
+    "match": "(おかげ)(?=で|だ|です|さま)",
+    "examples": [
+      [
+        "先生の{おかげで}、試験に合格しました。",
+        "Thanks to my teacher, I passed the exam."
+      ],
+      [
+        "薬を飲んだ{おかげで}、すっかり元気になった。",
+        "Thanks to the medicine, I'm completely better."
+      ],
+      [
+        "天気がよかった{おかげで}、楽しい旅行になった。",
+        "Thanks to the good weather, it was a fun trip."
+      ]
+    ]
+  },
+  {
+    "id": "seide",
+    "pattern": "〜せいで",
+    "meaning": "because of; due to (bad result, blame)",
+    "formation": [
+      "Plain form + せいで",
+      "な-adj + なせいで",
+      "Noun + のせいで",
+      "〜せいか: perhaps because of"
+    ],
+    "notes": "The opposite of おかげで: the cause is blamed for a bad result. 〜せいか softens it to 'maybe because...'.",
+    "match": "(?<=[のたいな])(せい)(?=で|だ|です|か)",
+    "examples": [
+      [
+        "雨の{せいで}、試合が中止になった。",
+        "The match was cancelled because of the rain."
+      ],
+      [
+        "寝坊した{せいで}、電車に乗り遅れた。",
+        "I overslept, so I missed the train."
+      ],
+      [
+        "年の{せいか}、最近疲れやすい。",
+        "Maybe it's my age, but I get tired easily these days."
+      ]
+    ]
+  },
+  {
+    "id": "tame-cause",
+    "pattern": "〜ため(に) (cause)",
+    "meaning": "because of; owing to (formal)",
+    "formation": [
+      "Plain past / ない-form + ため(に)",
+      "な-adj + なため",
+      "Noun + のため(に)"
+    ],
+    "notes": "A formal way of giving a cause, common in news, notices and writing: 事故のため、電車が遅れています. With a dictionary-form verb, ために usually means 'in order to'.",
+    "match": "(?<=た)(ため)(?=、|に、|で)",
+    "examples": [
+      [
+        "[事故|じこ]の{ため}、[電車|でんしゃ]が[三十分|さんじゅっぷん][遅|おく]れました。",
+        "Owing to an accident, the train was thirty minutes late."
+      ],
+      [
+        "大雪が降った{ため}、学校が休みになった。",
+        "Because of the heavy snow, school was closed."
+      ],
+      [
+        "病気の{ために}、会議を欠席しました。",
+        "I missed the meeting due to illness."
+      ]
+    ]
+  },
+  {
+    "id": "niyotte",
+    "pattern": "〜によって",
+    "meaning": "by (means / agent); depending on; due to",
+    "formation": [
+      "Noun + によって / により",
+      "Before a noun: Noun + による + Noun"
+    ],
+    "notes": "Four common uses: the agent of a passive (この絵はピカソによって描かれた), means (話し合いによって決める), variation (人によって違う: differs from person to person) and cause (台風によって被害が出た).",
+    "match": "(?<!店|所|家|寄)(によって|による(?!と)|により)",
+    "examples": [
+      [
+        "この小説は有名な作家{によって}書かれた。",
+        "This novel was written by a famous author."
+      ],
+      [
+        "考え方は人{によって}違います。",
+        "Ways of thinking differ from person to person."
+      ],
+      [
+        "台風{による}被害は大きかった。",
+        "The damage caused by the typhoon was great."
+      ]
+    ]
+  },
+  {
+    "id": "nitaishite",
+    "pattern": "〜に対して",
+    "meaning": "toward; against; in contrast to",
+    "formation": [
+      "Noun + に対して",
+      "Before a noun: Noun + に対する + Noun",
+      "Plain form + のに対して (whereas)"
+    ],
+    "notes": "Marks the target of an action or feeling (お客様に対して丁寧に話す). 〜のに対して contrasts two things: 兄は背が高いのに対して、弟は低い.",
+    "match": "(に対し(?:て|ては)|に対する)",
+    "examples": [
+      [
+        "お客様{に対して}は、丁寧な言葉を使ってください。",
+        "Please use polite language toward customers."
+      ],
+      [
+        "彼の意見{に対して}、反対する人が多かった。",
+        "Many people were against his opinion."
+      ],
+      [
+        "兄が明るいの{に対して}、弟はおとなしい。",
+        "Whereas my older brother is outgoing, my younger brother is quiet."
+      ]
+    ]
+  },
+  {
+    "id": "nitsuite",
+    "pattern": "〜について",
+    "meaning": "about; concerning",
+    "formation": [
+      "Noun + について",
+      "Before a noun: Noun + についての + Noun"
+    ],
+    "notes": "The topic of speaking, thinking, research and so on. 〜に関して (regarding) is the more formal equivalent.",
+    "match": "(について|についての)",
+    "examples": [
+      [
+        "日本の歴史{について}調べています。",
+        "I'm researching Japanese history."
+      ],
+      [
+        "その問題{について}、もう一度話し合いましょう。",
+        "Let's discuss that problem once more."
+      ],
+      [
+        "環境{についての}本を読んだ。",
+        "I read a book about the environment."
+      ]
+    ]
+  },
+  {
+    "id": "nitotte",
+    "pattern": "〜にとって",
+    "meaning": "for; from the standpoint of",
+    "formation": [
+      "Noun (person / group) + にとって"
+    ],
+    "notes": "Followed by a judgement or evaluation from that person's point of view: 私にとって、家族が一番大切だ. Not used for actions done for someone (that is ために).",
+    "match": "(にとって)(?!おこ|おい|おく|おき|ある|あっ)",
+    "examples": [
+      [
+        "私{にとって}、家族は一番大切なものです。",
+        "For me, family is the most important thing."
+      ],
+      [
+        "子ども{にとって}、この問題は難しすぎる。",
+        "This problem is too hard for children."
+      ],
+      [
+        "留学は彼{にとって}いい経験になった。",
+        "Studying abroad was a good experience for him."
+      ]
+    ]
+  },
+  {
+    "id": "toshite",
+    "pattern": "〜として",
+    "meaning": "as; in the role of",
+    "formation": [
+      "Noun + として",
+      "Emphasis: 〜としては (as far as ... is concerned)"
+    ],
+    "notes": "States a role, status or category: 通訳として働く (work as an interpreter). 一人として〜ない means 'not a single one'.",
+    "match": "(?<!う)(として)",
+    "examples": [
+      [
+        "彼は通訳{として}働いています。",
+        "He works as an interpreter."
+      ],
+      [
+        "留学生{として}日本に来ました。",
+        "I came to Japan as an international student."
+      ],
+      [
+        "この部屋は会議室{として}使われている。",
+        "This room is used as a meeting room."
+      ]
+    ]
+  },
+  {
+    "id": "nikanshite",
+    "pattern": "〜に関して",
+    "meaning": "regarding; in relation to (formal)",
+    "formation": [
+      "Noun + に関して",
+      "Before a noun: Noun + に関する + Noun"
+    ],
+    "notes": "A formal version of について, common in business and academic language.",
+    "match": "(に関し(?:て|ては)|に関する)",
+    "examples": [
+      [
+        "この件{に関して}、ご質問はありますか。",
+        "Do you have any questions regarding this matter?"
+      ],
+      [
+        "環境問題{に関する}会議が開かれた。",
+        "A conference on environmental issues was held."
+      ],
+      [
+        "新しい計画{に関して}説明します。",
+        "I will explain about the new plan."
+      ]
+    ]
+  },
+  {
+    "id": "nikurabete",
+    "pattern": "〜に比べて",
+    "meaning": "compared with",
+    "formation": [
+      "Noun + に比べて / に比べると",
+      "Plain form + のに比べて"
+    ],
+    "notes": "Compares two things or two times: 去年に比べて、今年は雨が多い.",
+    "match": "(に比べ(?:て|ると|れば))",
+    "examples": [
+      [
+        "去年{に比べて}、今年は雨が多い。",
+        "Compared with last year, there's been a lot of rain this year."
+      ],
+      [
+        "東京{に比べると}、この町は物価が安い。",
+        "Compared with Tokyo, prices in this town are low."
+      ],
+      [
+        "兄{に比べて}、私は背が低い。",
+        "Compared with my older brother, I'm short."
+      ]
+    ]
+  },
+  {
+    "id": "nishitewa",
+    "pattern": "〜にしては",
+    "meaning": "for (someone / something that is ...)",
+    "formation": [
+      "Noun / plain form + にしては"
+    ],
+    "notes": "The result is different from what you'd expect given X: 初めてにしては上手だ (Pretty good for a first time). Compare わりに, which is more general.",
+    "match": "(にしては)(?!いけ|だめ|なら)",
+    "examples": [
+      [
+        "初めて{にしては}、上手にできましたね。",
+        "That was well done for a first time."
+      ],
+      [
+        "彼は日本に十年住んでいる{にしては}、日本語が下手だ。",
+        "For someone who's lived in Japan ten years, his Japanese is poor."
+      ],
+      [
+        "この店は駅の近く{にしては}、静かだ。",
+        "For somewhere so close to the station, this shop is quiet."
+      ]
+    ]
+  },
+  {
+    "id": "warini",
+    "pattern": "〜わりに",
+    "meaning": "considering; for (unexpectedly)",
+    "formation": [
+      "Plain form + わりに(は)",
+      "な-adj + なわりに / Noun + のわりに"
+    ],
+    "notes": "The result doesn't match what X would suggest: 値段のわりにおいしい (Delicious for the price). Can be positive or negative.",
+    "match": "(わりに|割に|割には|わりには)(?!合)",
+    "examples": [
+      [
+        "この店は値段の{わりに}おいしい。",
+        "This restaurant is good for the price."
+      ],
+      [
+        "彼はたくさん食べる{わりに}、太らない。",
+        "He doesn't put on weight, considering how much he eats."
+      ],
+      [
+        "よく勉強した{わりには}、点数が悪かった。",
+        "My score was bad considering how much I studied."
+      ]
+    ]
+  },
+  {
+    "id": "dakedenaku",
+    "pattern": "〜だけでなく",
+    "meaning": "not only ... but also",
+    "formation": [
+      "Plain form / Noun + だけでなく (〜も)",
+      "Also: 〜だけではなく"
+    ],
+    "notes": "Usually followed by も: 英語だけでなく、中国語も話せる.",
+    "match": "(だけで(?:なく|はなく))",
+    "examples": [
+      [
+        "彼は英語{だけでなく}、中国語も話せる。",
+        "He speaks not only English but also Chinese."
+      ],
+      [
+        "この店は安い{だけでなく}、とてもおいしい。",
+        "This place isn't just cheap — it's really good too."
+      ],
+      [
+        "子ども{だけでなく}、大人も楽しめる映画だ。",
+        "It's a film that adults can enjoy as well as children."
+      ]
+    ]
+  },
+  {
+    "id": "bakaridenaku",
+    "pattern": "〜ばかりでなく",
+    "meaning": "not only ... but also (more formal)",
+    "formation": [
+      "Plain form / Noun + ばかりでなく (〜も)"
+    ],
+    "notes": "Means the same as だけでなく but is slightly more formal and written.",
+    "match": "(ばかりで(?:なく|はなく))",
+    "examples": [
+      [
+        "彼女は歌{ばかりでなく}、ダンスも上手だ。",
+        "She is good not only at singing but also at dancing."
+      ],
+      [
+        "この町は交通が便利な{ばかりでなく}、自然も多い。",
+        "This town not only has good transport, it also has lots of nature."
+      ],
+      [
+        "学生{ばかりでなく}、先生も参加した。",
+        "Not only the students but also the teachers took part."
+      ]
+    ]
+  },
+  {
+    "id": "hamochiron",
+    "pattern": "〜はもちろん",
+    "meaning": "not to mention; of course ... and also",
+    "formation": [
+      "Noun + はもちろん (〜も)"
+    ],
+    "notes": "X is obvious, and even Y is included: 週末はもちろん、平日も混んでいる (It's busy on weekdays, never mind weekends).",
+    "match": "(はもちろん)",
+    "examples": [
+      [
+        "この店は週末{はもちろん}、平日も混んでいる。",
+        "This shop is crowded on weekdays, never mind weekends."
+      ],
+      [
+        "彼は英語{はもちろん}、フランス語も話せる。",
+        "He speaks French, not to mention English."
+      ],
+      [
+        "この料理は大人{はもちろん}、子どもにも人気だ。",
+        "This dish is popular with children as well as adults, of course."
+      ]
+    ]
+  },
+  {
+    "id": "kawarini",
+    "pattern": "〜かわりに",
+    "meaning": "instead of; in exchange for",
+    "formation": [
+      "Verb dictionary form + かわりに",
+      "Noun + のかわりに (代わりに)"
+    ],
+    "notes": "Substitution (母のかわりに私が行く) or exchange: 英語を教えるかわりに、日本語を教えてもらう (I teach English in return for Japanese lessons).",
+    "match": "(?<=[のるた])(かわりに|代わりに)",
+    "examples": [
+      [
+        "母の{代わりに}、私が会議に出ました。",
+        "I attended the meeting in place of my mother."
+      ],
+      [
+        "英語を教える{かわりに}、日本語を教えてもらっている。",
+        "In exchange for teaching English, I get taught Japanese."
+      ],
+      [
+        "今日はご飯の{かわりに}、パンを食べた。",
+        "I had bread instead of rice today."
+      ]
+    ]
+  },
+  {
+    "id": "tsuideni",
+    "pattern": "〜ついでに",
+    "meaning": "while you're at it; on the way",
+    "formation": [
+      "Verb dictionary / た-form + ついでに",
+      "Noun + のついでに"
+    ],
+    "notes": "Taking the opportunity of doing X to also do Y: 買い物のついでに郵便局に寄った.",
+    "match": "(ついでに)",
+    "examples": [
+      [
+        "買い物の{ついでに}、郵便局に寄ってきた。",
+        "I dropped by the post office while I was out shopping."
+      ],
+      [
+        "コンビニに行く{ついでに}、牛乳を買ってきてくれる？",
+        "Since you're going to the convenience store, could you get some milk?"
+      ],
+      [
+        "東京に出張した{ついでに}、友達に会った。",
+        "While I was in Tokyo on business, I met a friend."
+      ]
+    ]
+  },
+  {
+    "id": "kuseni",
+    "pattern": "〜くせに",
+    "meaning": "even though (criticism)",
+    "formation": [
+      "Plain form + くせに",
+      "な-adj + なくせに / Noun + のくせに"
+    ],
+    "notes": "Like のに but with clear criticism or contempt for the person: 知っているくせに教えてくれない (He knows, but he won't tell me).",
+    "match": "(くせに)",
+    "examples": [
+      [
+        "知っている{くせに}、教えてくれない。",
+        "He knows, yet he won't tell me."
+      ],
+      [
+        "子どもの{くせに}、生意気なことを言うな。",
+        "Don't be cheeky, you're just a kid."
+      ],
+      [
+        "下手な{くせに}、歌うのが好きだ。",
+        "He loves singing, even though he's bad at it."
+      ]
+    ]
+  },
+  {
+    "id": "tabini",
+    "pattern": "〜たびに",
+    "meaning": "every time; whenever",
+    "formation": [
+      "Verb dictionary form + たびに",
+      "Noun + のたびに"
+    ],
+    "notes": "Every time X happens, Y happens too, often something emotional or habitual.",
+    "match": "(?<!一)(たびに|度に)",
+    "examples": [
+      [
+        "この歌を聞く{たびに}、子どもの頃を思い出す。",
+        "Every time I hear this song, I remember my childhood."
+      ],
+      [
+        "旅行の{たびに}、お土産を買ってきてくれる。",
+        "Every time she travels, she brings me back a souvenir."
+      ],
+      [
+        "会う{たびに}、彼女はきれいになる。",
+        "Each time I see her, she's prettier."
+      ]
+    ]
+  },
+  {
+    "id": "uchini",
+    "pattern": "〜うちに",
+    "meaning": "while (still); before (it changes)",
+    "formation": [
+      "Verb ている / dictionary form + うちに",
+      "Verb ない-form + うちに (before ... happens)",
+      "い-adj + うちに / な-adj + なうちに / Noun + のうちに"
+    ],
+    "notes": "Do it while the situation lasts: 温かいうちに食べて (Eat it while it's hot). Also for changes that happen unnoticed: 話しているうちに、仲良くなった.",
+    "match": "(?<=[るいな]|ない|の)(?<!近い)(うちに)(?!は)",
+    "examples": [
+      [
+        "温かい{うちに}、食べてください。",
+        "Please eat it while it's hot."
+      ],
+      [
+        "暗くならない{うちに}、帰りましょう。",
+        "Let's go home before it gets dark."
+      ],
+      [
+        "話している{うちに}、仲良くなった。",
+        "As we talked, we became friends."
+      ]
+    ]
+  },
+  {
+    "id": "saichuu",
+    "pattern": "〜最中に",
+    "meaning": "right in the middle of",
+    "formation": [
+      "Verb ている + 最中に",
+      "Noun + の最中に"
+    ],
+    "notes": "Something interrupts at the busiest point of an action: 食事の最中に電話が鳴った.",
+    "match": "(最中)",
+    "examples": [
+      [
+        "食事の{最中に}、電話が鳴った。",
+        "The phone rang right in the middle of the meal."
+      ],
+      [
+        "会議の{最中に}、地震があった。",
+        "There was an earthquake in the middle of the meeting."
+      ],
+      [
+        "シャワーを浴びている{最中に}、お湯が出なくなった。",
+        "The hot water stopped while I was in the middle of a shower."
+      ]
+    ]
+  },
+  {
+    "id": "totan",
+    "pattern": "〜たとたん(に)",
+    "meaning": "just as; the moment (something unexpected)",
+    "formation": [
+      "Verb た-form + とたん(に)"
+    ],
+    "notes": "Y happens immediately after X and is usually surprising. Not used for your own deliberate actions in Y.",
+    "match": "(?<=[たっだ]た|た|だ)(とたん|途端)",
+    "examples": [
+      [
+        "家を出た{とたん}、雨が降り出した。",
+        "The moment I left the house, it started to rain."
+      ],
+      [
+        "立ち上がった{とたんに}、めまいがした。",
+        "As soon as I stood up, I felt dizzy."
+      ],
+      [
+        "ドアを開けた{とたん}、猫が飛び出した。",
+        "The instant I opened the door, the cat jumped out."
+      ]
+    ]
+  },
+  {
+    "id": "kakeru",
+    "pattern": "〜かける / 〜かけの",
+    "meaning": "half-done; about to; start to (and stop)",
+    "formation": [
+      "Verb ます-stem + かける",
+      "Before a noun: 〜かけの + Noun (読みかけの本)"
+    ],
+    "notes": "An action started but not finished: 食べかけのパン (half-eaten bread), 言いかけてやめた (started to say something and stopped).",
+    "match": "(?<=[きぎしちびみりえけげせてねべめれ])(?<!話し|呼び|笑い|問い|働き|追い|見せ|出|微笑み|ほほえみ)(かけ(?:の|て|た|る))",
+    "examples": [
+      [
+        "机の上に読み{かけの}本がある。",
+        "There's a half-read book on the desk."
+      ],
+      [
+        "何か言い{かけて}、やめた。",
+        "He started to say something, then stopped."
+      ],
+      [
+        "食べ{かけの}パンを捨てないで。",
+        "Don't throw away the half-eaten bread."
+      ]
+    ]
+  },
+  {
+    "id": "kiru",
+    "pattern": "〜きる / 〜きれない",
+    "meaning": "to do completely / cannot do all of",
+    "formation": [
+      "Verb ます-stem + きる (切る)",
+      "Verb ます-stem + きれない"
+    ],
+    "notes": "Doing something to the very end: 走りきった (ran the whole way). The negative is very common: 食べきれない (too much to finish).",
+    "match": "(?<=[きぎしちびみりえけげせてねべめれ])((?:切|き)(?:れない|れなかっ|れません|った|る|って))",
+    "examples": [
+      [
+        "こんなにたくさん、食べ{きれない}よ。",
+        "I can't eat all of this!"
+      ],
+      [
+        "マラソンを最後まで走り{きった}。",
+        "I ran the whole marathon."
+      ],
+      [
+        "この[本|ほん]は[一日|いちにち]で[読|よ]み{きりました}。",
+        "I read this whole book in a single day."
+      ]
+    ]
+  }
+]

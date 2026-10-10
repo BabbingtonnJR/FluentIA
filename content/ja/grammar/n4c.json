@@ -1,0 +1,825 @@
+[
+  {
+    "id": "passive",
+    "pattern": "Passive form (〜れる / 〜られる)",
+    "meaning": "be done (to); have something done to you",
+    "formation": [
+      "う-verb: a-row + れる (書く → 書かれる, 言う → 言われる)",
+      "る-verb: 〜られる (食べる → 食べられる)",
+      "する → される, 来る → 来られる",
+      "The doer takes に: 先生に褒められた"
+    ],
+    "notes": "Besides the plain passive (この寺は800年前に建てられた), Japanese has the 'suffering passive' where something happens to you and you are affected: 雨に降られた (I got rained on).",
+    "examples": [
+      [
+        "先生に{褒められました}。",
+        "I was praised by the teacher."
+      ],
+      [
+        "電車で足を{踏まれた}。",
+        "Someone stepped on my foot on the train."
+      ],
+      [
+        "この[寺|てら]は[八百年|はっぴゃくねん][前|まえ]に{[建|た]てられました}。",
+        "This temple was built eight hundred years ago."
+      ]
+    ]
+  },
+  {
+    "id": "causative",
+    "pattern": "Causative form (〜せる / 〜させる)",
+    "meaning": "make or let (someone) do",
+    "formation": [
+      "う-verb: a-row + せる (行く → 行かせる, 待つ → 待たせる)",
+      "る-verb: 〜させる (食べる → 食べさせる)",
+      "する → させる, 来る → 来させる",
+      "The person made to act takes に or を"
+    ],
+    "notes": "Context decides between 'make' and 'let': 子どもに野菜を食べさせる (make the child eat vegetables) vs 好きなだけ遊ばせる (let them play as much as they like). お待たせしました: Sorry to have kept you waiting.",
+    "examples": [
+      [
+        "母は弟に部屋を掃除{させました}。",
+        "My mother made my little brother clean his room."
+      ],
+      [
+        "長い間{待たせて}、ごめんね。",
+        "Sorry I kept you waiting so long."
+      ],
+      [
+        "子どもに好きなだけ{遊ばせた}。",
+        "I let the children play as much as they liked."
+      ]
+    ]
+  },
+  {
+    "id": "causative-passive",
+    "pattern": "Causative-passive (〜させられる)",
+    "meaning": "be made to do (against your will)",
+    "formation": [
+      "う-verb: a-row + される (飲む → 飲まされる)",
+      "る-verb: 〜させられる (食べる → 食べさせられる)",
+      "する → させられる, 来る → 来させられる"
+    ],
+    "notes": "You were forced to do something you didn't want to. The person who forced you takes に: 先輩にお酒を飲まされた.",
+    "examples": [
+      [
+        "子どもの時、毎日ピアノを練習{させられました}。",
+        "As a child I was made to practise the piano every day."
+      ],
+      [
+        "先輩にお酒を{飲まされた}。",
+        "I was made to drink by my senior colleague."
+      ],
+      [
+        "一時間も{待たされた}。",
+        "I was kept waiting for a whole hour."
+      ]
+    ]
+  },
+  {
+    "id": "sasetekudasai",
+    "pattern": "〜させてください",
+    "meaning": "please let me (do)",
+    "formation": [
+      "Causative て-form + ください",
+      "Politer: 〜させていただけませんか",
+      "Humble statement: 〜させていただきます"
+    ],
+    "notes": "Asks permission to do something yourself. 〜させていただきます is a very common humble way to announce what you are going to do.",
+    "match": "(せて(?:ください|下さい|もらえ|いただけ))",
+    "examples": [
+      [
+        "私にも手伝わ{せてください}。",
+        "Please let me help too."
+      ],
+      [
+        "今日は早く帰ら{せてください}。",
+        "Please let me go home early today."
+      ],
+      [
+        "少し考え{させていただけません}か。",
+        "Could you let me think about it a little?"
+      ]
+    ]
+  },
+  {
+    "id": "tagaru",
+    "pattern": "〜たがる",
+    "meaning": "(someone else) wants to",
+    "formation": [
+      "Verb ます-stem + たがる",
+      "Usually 〜たがっている for a current wish"
+    ],
+    "notes": "You can't say directly what someone else feels, so for third persons 〜たい becomes 〜たがる (shows signs of wanting). The object takes を.",
+    "match": "(?<=[きぎしちにびみりえけげせてねべめれ])(たが(?:る|っ|ら|り))",
+    "examples": [
+      [
+        "弟は新しいゲームを買い{たがっています}。",
+        "My little brother wants to buy a new game."
+      ],
+      [
+        "子どもは何でも知り{たがる}。",
+        "Children want to know everything."
+      ],
+      [
+        "彼は日本へ行き{たがっている}。",
+        "He wants to go to Japan."
+      ]
+    ]
+  },
+  {
+    "id": "garu",
+    "pattern": "〜がる",
+    "meaning": "(someone else) shows signs of feeling",
+    "formation": [
+      "い-adj stem + がる (寒がる, 欲しがる)",
+      "な-adj + がる (残念がる)"
+    ],
+    "notes": "Describes another person's feelings from how they act: 寒がる (act cold), 怖がる (be scared). Like たがる, it is not used for yourself.",
+    "examples": [
+      [
+        "妹は犬を怖{がります}。",
+        "My little sister is scared of dogs."
+      ],
+      [
+        "子どもが新しいおもちゃを欲し{がっている}。",
+        "The child wants the new toy."
+      ],
+      [
+        "みんなが彼の話を面白{がった}。",
+        "Everyone found his story amusing."
+      ]
+    ]
+  },
+  {
+    "id": "tabakari",
+    "pattern": "〜たばかり",
+    "meaning": "just did; have only just",
+    "formation": [
+      "Verb た-form + ばかりだ",
+      "Before nouns: 〜たばかりの + Noun"
+    ],
+    "notes": "Feels recent to the speaker, even if objectively some time has passed: 先月日本に来たばかりです (I only came to Japan last month).",
+    "match": "(?<=[たっだ])(ばかり)",
+    "examples": [
+      [
+        "さっき昼ご飯を食べた{ばかり}です。",
+        "I've only just had lunch."
+      ],
+      [
+        "先月日本に来た{ばかり}です。",
+        "I only came to Japan last month."
+      ],
+      [
+        "買った{ばかりの}傘をなくしてしまった。",
+        "I lost the umbrella I'd just bought."
+      ]
+    ]
+  },
+  {
+    "id": "tokoro",
+    "pattern": "〜ところだ",
+    "meaning": "about to / in the middle of / just finished",
+    "formation": [
+      "Dictionary form + ところだ (about to)",
+      "〜ているところだ (in the middle of)",
+      "た-form + ところだ (just did)"
+    ],
+    "notes": "Pinpoints the moment of an action. 〜たところ is 'just now' in a precise, physical sense; 〜たばかり is more subjective.",
+    "match": "(?<=(?:ちょうど|今|いま)[^、。]{0,15}(?:ている|てる|[たる]))(ところ)(?=だ|です|でし)",
+    "examples": [
+      [
+        "今から出かける{ところです}。",
+        "I'm just about to go out."
+      ],
+      [
+        "今、晩ご飯を作っている{ところです}。",
+        "I'm in the middle of making dinner."
+      ],
+      [
+        "ちょうど駅に着いた{ところです}。",
+        "I've just arrived at the station."
+      ]
+    ]
+  },
+  {
+    "id": "mama",
+    "pattern": "〜まま",
+    "meaning": "as it is; leaving (something) unchanged",
+    "formation": [
+      "Verb た-form + まま",
+      "Verb ない-form + まま",
+      "Noun + のまま / な-adj + なまま"
+    ],
+    "notes": "A state continues when it normally wouldn't: 電気をつけたまま寝た (I fell asleep with the light on).",
+    "match": "(まま)",
+    "examples": [
+      [
+        "電気をつけた{まま}寝てしまった。",
+        "I fell asleep with the light on."
+      ],
+      [
+        "靴を履いた{まま}入らないでください。",
+        "Please don't come in with your shoes on."
+      ],
+      [
+        "この{まま}にしておいてください。",
+        "Please leave it as it is."
+      ]
+    ]
+  },
+  {
+    "id": "hajimeru",
+    "pattern": "〜はじめる / 〜だす",
+    "meaning": "to start doing / to suddenly start",
+    "formation": [
+      "Verb ます-stem + はじめる (始める)",
+      "Verb ます-stem + だす (出す)"
+    ],
+    "notes": "〜はじめる is a neutral start. 〜だす is sudden and unexpected, often for things you don't control: 急に雨が降り出した.",
+    "match": "(?<=[きぎしちびみりえけげせてねべめれ])((?:始め|はじめ)(?:る|た|ます|まし|て))",
+    "examples": [
+      [
+        "去年から日本語を習い{はじめました}。",
+        "I started learning Japanese last year."
+      ],
+      [
+        "急に雨が降り{だした}。",
+        "It suddenly started to rain."
+      ],
+      [
+        "赤ちゃんが泣き{だしました}。",
+        "The baby burst into tears."
+      ]
+    ]
+  },
+  {
+    "id": "owaru",
+    "pattern": "〜おわる",
+    "meaning": "to finish doing",
+    "formation": [
+      "Verb ます-stem + おわる (終わる)"
+    ],
+    "notes": "Used with actions that have a clear end: reading a book, eating a meal, writing a report.",
+    "match": "(?<=[きぎしちびみりえけげせてねべめれ])((?:終わ|おわ)(?:る|っ|り|ら))",
+    "examples": [
+      [
+        "この本はもう読み{終わりました}。",
+        "I've finished reading this book."
+      ],
+      [
+        "ご飯を食べ{終わったら}、散歩に行こう。",
+        "Once we've finished eating, let's go for a walk."
+      ],
+      [
+        "レポートを書き{終わった}。",
+        "I finished writing the report."
+      ]
+    ]
+  },
+  {
+    "id": "tsuzukeru",
+    "pattern": "〜つづける",
+    "meaning": "to keep doing; to continue",
+    "formation": [
+      "Verb ます-stem + つづける (続ける)"
+    ],
+    "notes": "Something continues without stopping, or is kept up over a long time.",
+    "match": "(?<=[きぎしちびみりえけげせてねべめれ])((?:続け|つづけ)(?:る|た|ます|まし|て|よう))",
+    "examples": [
+      [
+        "三時間も歩き{続けた}。",
+        "We kept walking for three whole hours."
+      ],
+      [
+        "[雨|あめ]が[一週間|いっしゅうかん][降|ふ]り{[続|つづ]けています}。",
+        "It has kept raining for a week."
+      ],
+      [
+        "これからも日本語を勉強し{続けます}。",
+        "I'll keep studying Japanese from now on."
+      ]
+    ]
+  },
+  {
+    "id": "na-prohibitive",
+    "pattern": "〜な (prohibition)",
+    "meaning": "don't! (strong command)",
+    "formation": [
+      "Verb dictionary form + な"
+    ],
+    "notes": "Very blunt; used by men in casual speech, on signs, in sports and in emergencies. Politer: 〜ないでください.",
+    "match": "(?<=[るうくすつぬむぶぐ])(な)(?=[。！!])",
+    "examples": [
+      [
+        "ここで遊ぶ{な}。",
+        "Don't play here!"
+      ],
+      [
+        "危ない！触る{な}！",
+        "It's dangerous! Don't touch it!"
+      ],
+      [
+        "諦める{な}。",
+        "Don't give up."
+      ]
+    ]
+  },
+  {
+    "id": "nasai",
+    "pattern": "〜なさい",
+    "meaning": "do ~ (command from a superior)",
+    "formation": [
+      "Verb ます-stem + なさい"
+    ],
+    "notes": "Used by parents to children, teachers to students, and in test instructions (答えなさい). Not used to superiors.",
+    "match": "(?<!ごめん|御免)(なさい)",
+    "examples": [
+      [
+        "早く寝{なさい}。",
+        "Go to bed now."
+      ],
+      [
+        "次の質問に答え{なさい}。",
+        "Answer the following questions."
+      ],
+      [
+        "野菜もちゃんと食べ{なさい}。",
+        "Eat your vegetables properly, too."
+      ]
+    ]
+  },
+  {
+    "id": "o-ninaru",
+    "pattern": "お〜になる (honorific)",
+    "meaning": "(respectful) does",
+    "formation": [
+      "お + Verb ます-stem + になる",
+      "Special verbs: いらっしゃる (be/go/come), 召し上がる (eat), おっしゃる (say), ご覧になる (see)"
+    ],
+    "notes": "Raises the other person's action. Not used for your own actions, and not for one-syllable stems (見る → ご覧になる, いる → いらっしゃる).",
+    "examples": [
+      [
+        "社長はもう{お帰りになりました}。",
+        "The company president has already gone home."
+      ],
+      [
+        "この本を{お読みになりました}か。",
+        "Have you read this book?"
+      ],
+      [
+        "先生は何と{おっしゃいました}か。",
+        "What did the teacher say?"
+      ]
+    ]
+  },
+  {
+    "id": "o-suru",
+    "pattern": "お〜する (humble)",
+    "meaning": "(humble) I do (for you)",
+    "formation": [
+      "お + Verb ます-stem + する",
+      "ご + する-noun + する (ご案内する)",
+      "Special verbs: 参る (go/come), いただく (eat/receive), 申す (say), 拝見する (see)"
+    ],
+    "notes": "Lowers your own action toward the other person. Only for actions that affect them: お持ちします (I'll carry it for you).",
+    "examples": [
+      [
+        "荷物を{お持ちします}。",
+        "I'll carry your bags."
+      ],
+      [
+        "会議室に{ご案内します}。",
+        "I'll show you to the meeting room."
+      ],
+      [
+        "後でこちらから{お電話します}。",
+        "I'll call you later."
+      ]
+    ]
+  },
+  {
+    "id": "o-kudasai",
+    "pattern": "お〜ください",
+    "meaning": "please (do) (polite request)",
+    "formation": [
+      "お + Verb ます-stem + ください",
+      "ご + する-noun + ください (ご注意ください)"
+    ],
+    "notes": "A polite request heard in shops, stations and announcements. More respectful than 〜てください.",
+    "examples": [
+      [
+        "少々{お待ちください}。",
+        "Please wait a moment."
+      ],
+      [
+        "こちらに{お座りください}。",
+        "Please have a seat here."
+      ],
+      [
+        "足元に{ご注意ください}。",
+        "Please watch your step."
+      ]
+    ]
+  },
+  {
+    "id": "madeni",
+    "pattern": "〜までに",
+    "meaning": "by (a deadline)",
+    "formation": [
+      "Time noun + までに",
+      "Verb dictionary form + までに"
+    ],
+    "notes": "までに is a deadline (something happens once, before then). まで is 'until' (something continues up to then): 五時まで働く vs 五時までに帰る.",
+    "match": "(?<!これ|今|いま|それ)(までに)",
+    "examples": [
+      [
+        "金曜日{までに}レポートを出してください。",
+        "Please hand in the report by Friday."
+      ],
+      [
+        "五時{までに}帰ります。",
+        "I'll be back by five."
+      ],
+      [
+        "結婚する{までに}お金を貯めたい。",
+        "I want to save money before I get married."
+      ]
+    ]
+  },
+  {
+    "id": "aidani",
+    "pattern": "〜間に",
+    "meaning": "while; during (something happens at one point)",
+    "formation": [
+      "Verb ている / dictionary form + 間に",
+      "Noun + の間に",
+      "い-adj + 間に"
+    ],
+    "notes": "間に is a point within a period: 寝ている間に泥棒が入った. Without に, 間 means 'the whole time': 寝ている間、ずっと雨だった.",
+    "match": "(?<=[のるいた])(?<!と[^、。]{0,10}の)(間に)(?!合)",
+    "examples": [
+      [
+        "寝ている{間に}、地震があった。",
+        "There was an earthquake while I was asleep."
+      ],
+      [
+        "夏休みの{間に}、運転免許を取りたい。",
+        "I want to get a driving licence during the summer holidays."
+      ],
+      [
+        "母が買い物をしている{間に}、部屋を掃除した。",
+        "While my mother was out shopping, I cleaned the room."
+      ]
+    ]
+  },
+  {
+    "id": "shikanai",
+    "pattern": "〜しか〜ない",
+    "meaning": "only; nothing but (emphasising how little)",
+    "formation": [
+      "Noun + しか + negative verb",
+      "Replaces が and を; other particles stay: 東京にしか"
+    ],
+    "notes": "Always used with a negative. Compared with だけ, しか stresses that it's not enough: 千円しかない (I only have 1,000 yen).",
+    "match": "(しか)(?!し)(?=.{0,12}(?:ない|ません|なかっ))",
+    "examples": [
+      [
+        "財布に千円{しか}ありません。",
+        "I only have 1,000 yen in my wallet."
+      ],
+      [
+        "日本語は少し{しか}話せない。",
+        "I can only speak a little Japanese."
+      ],
+      [
+        "この店は日曜日{しか}開いていない。",
+        "This shop is only open on Sundays."
+      ]
+    ]
+  },
+  {
+    "id": "hodonai",
+    "pattern": "〜ほど〜ない",
+    "meaning": "not as ... as",
+    "formation": [
+      "A は B ほど + negative"
+    ],
+    "notes": "A negative comparison: 'A is not as X as B'. It often sounds softer than saying B is better.",
+    "match": "(ほど)(?=.{0,10}(?:ない|ません|なかっ))",
+    "examples": [
+      [
+        "今年の夏は去年{ほど}暑くない。",
+        "This summer isn't as hot as last year."
+      ],
+      [
+        "私は兄{ほど}背が高くありません。",
+        "I'm not as tall as my older brother."
+      ],
+      [
+        "日本語は思った{ほど}難しくなかった。",
+        "Japanese wasn't as hard as I thought."
+      ]
+    ]
+  },
+  {
+    "id": "nominalizer",
+    "pattern": "〜の (が / を / は)",
+    "meaning": "turns a verb phrase into a noun ('-ing')",
+    "formation": [
+      "Plain form + の + が / を / は",
+      "Also: 〜こと (more formal and abstract)"
+    ],
+    "notes": "Used with likes and skills (見るのが好き), perception (歌っているのを聞いた), and 〜のは... で (It's ... that...). こと is used instead with です-statements of fact and in set phrases like ことができる.",
+    "match": "(?<=[るうくすつぬむぶぐいた])(の)(?=が(?:好き|嫌い|上手|下手|得意|苦手|大好き|楽し)|を(?:忘れ|やめ|止め|手伝)|は(?:難し|大変|楽し|簡単|無理))",
+    "examples": [
+      [
+        "私は絵を描く{の}が好きです。",
+        "I like drawing."
+      ],
+      [
+        "宿題を出す{の}を忘れました。",
+        "I forgot to hand in my homework."
+      ],
+      [
+        "毎朝早く起きる{の}は大変です。",
+        "Getting up early every morning is hard."
+      ]
+    ]
+  },
+  {
+    "id": "toiu",
+    "pattern": "〜という",
+    "meaning": "called; named; that says",
+    "formation": [
+      "Noun + という + Noun",
+      "Clause + という + Noun (the fact that...)"
+    ],
+    "notes": "Introduces a name the listener may not know: 「さくら」という店. Also links a clause to a noun of content: 試験に合格したという知らせ (the news that I passed).",
+    "match": "(という)(?=名前|人|店|所|町|意味|本|映画|歌|会社|ニュース|話|こと)",
+    "examples": [
+      [
+        "「さくら」{という}店を知っていますか。",
+        "Do you know a shop called Sakura?"
+      ],
+      [
+        "これは何{という}花ですか。",
+        "What is this flower called?"
+      ],
+      [
+        "彼が結婚した{という}ニュースを聞いた。",
+        "I heard the news that he got married."
+      ]
+    ]
+  },
+  {
+    "id": "ndesu",
+    "pattern": "〜んです / 〜のです",
+    "meaning": "explaining; asking for or giving the background",
+    "formation": [
+      "Plain form + んです",
+      "な-adj / Noun + なんです",
+      "Written: 〜のです; casual: 〜んだ / 〜の？"
+    ],
+    "notes": "Adds an 'explanation' nuance: どうしたんですか (What happened? — I can see something's up). Overusing it with simple facts can sound pushy.",
+    "match": "(?<=[るうくすつぬむぶぐいただな])(?<!あなた|わた|誰)(んです|のです)",
+    "examples": [
+      [
+        "どうした{んですか}。",
+        "What's the matter?"
+      ],
+      [
+        "すみません、道に迷った{んです}が…。",
+        "Excuse me, I'm lost..."
+      ],
+      [
+        "明日は試験な{んです}。",
+        "(You see,) I have an exam tomorrow."
+      ]
+    ]
+  },
+  {
+    "id": "kana",
+    "pattern": "〜かな",
+    "meaning": "I wonder (if)",
+    "formation": [
+      "Plain form + かな",
+      "な-adj / Noun + かな (no だ)",
+      "Polite: 〜でしょうか"
+    ],
+    "notes": "Mostly said to yourself or in casual speech. 〜ないかな often expresses a wish: 早く来ないかな (I wish he'd hurry up and come).",
+    "match": "(かな)(?=[。？?！]|$)",
+    "examples": [
+      [
+        "明日は晴れる{かな}。",
+        "I wonder if it'll be sunny tomorrow."
+      ],
+      [
+        "この答えで正しい{かな}。",
+        "I wonder if this answer is right."
+      ],
+      [
+        "早く夏休みにならない{かな}。",
+        "I wish the summer holidays would hurry up and come."
+      ]
+    ]
+  },
+  {
+    "id": "toka",
+    "pattern": "〜とか〜とか",
+    "meaning": "things like; such as (examples)",
+    "formation": [
+      "Noun + とか + Noun + とか",
+      "Verb + とか + Verb + とか"
+    ],
+    "notes": "A casual way to give examples from a longer list, similar to や…など. Also used in casual speech to soften a statement.",
+    "match": "(とか)(?=.{1,15}とか)",
+    "examples": [
+      [
+        "休みの日は映画{とか}買い物とかに行きます。",
+        "On days off I go to see films, go shopping and so on."
+      ],
+      [
+        "果物は、りんご{とか}みかんとかが好きです。",
+        "As for fruit, I like apples, mandarins and the like."
+      ],
+      [
+        "掃除する{とか}料理するとか、少しは手伝って。",
+        "Help out a little — clean, cook, something."
+      ]
+    ]
+  },
+  {
+    "id": "niyoruto",
+    "pattern": "〜によると",
+    "meaning": "according to",
+    "formation": [
+      "Noun (source) + によると / によれば",
+      "Often ends with 〜そうだ or 〜らしい"
+    ],
+    "notes": "Names the source of what you heard, read or saw: news, forecasts, a friend.",
+    "match": "(によると|によれば)",
+    "examples": [
+      [
+        "天気予報{によると}、明日は雪だそうです。",
+        "According to the weather forecast, it will snow tomorrow."
+      ],
+      [
+        "ニュース{によると}、事故で三人がけがをしたそうだ。",
+        "According to the news, three people were hurt in the accident."
+      ],
+      [
+        "友達の話{によれば}、あの店はもう閉まったらしい。",
+        "According to my friend, that shop has already closed."
+      ]
+    ]
+  },
+  {
+    "id": "zuni",
+    "pattern": "〜ずに",
+    "meaning": "without doing",
+    "formation": [
+      "Verb ない-stem + ずに",
+      "する → せずに"
+    ],
+    "notes": "A more formal and written version of 〜ないで (without doing).",
+    "match": "(?<=[あかがさたなばまらわせ])(ずに)(?!いられ|は)",
+    "examples": [
+      [
+        "朝ご飯を食べ{ずに}学校へ行った。",
+        "I went to school without eating breakfast."
+      ],
+      [
+        "辞書を使わ{ずに}読めますか。",
+        "Can you read it without using a dictionary?"
+      ],
+      [
+        "何も言わ{ずに}帰ってしまった。",
+        "He went home without saying anything."
+      ]
+    ]
+  },
+  {
+    "id": "naide",
+    "pattern": "〜ないで (without)",
+    "meaning": "without doing; instead of doing",
+    "formation": [
+      "Verb ない-form + で"
+    ],
+    "notes": "Describes how something is done: 傘を持たないで出かけた (I went out without an umbrella). Also 'instead of': バスに乗らないで歩いた (I walked instead of taking the bus).",
+    "examples": [
+      [
+        "傘を持た{ないで}出かけた。",
+        "I went out without an umbrella."
+      ],
+      [
+        "宿題をし{ないで}寝てしまった。",
+        "I fell asleep without doing my homework."
+      ],
+      [
+        "バスに乗ら{ないで}歩いて帰った。",
+        "I walked home instead of taking the bus."
+      ]
+    ]
+  },
+  {
+    "id": "sa",
+    "pattern": "〜さ",
+    "meaning": "-ness (turns an adjective into a noun)",
+    "formation": [
+      "い-adj stem + さ (高い → 高さ)",
+      "な-adj + さ (静か → 静かさ)",
+      "いい → よさ"
+    ],
+    "notes": "Makes a measurable or describable quality: 高さ (height), 大きさ (size), 便利さ (convenience).",
+    "match": "(?<=\\p{Script=Han}|[しきか])(さ)(?=は|が|を|に|で|も)",
+    "examples": [
+      [
+        "この[山|やま]の[高|たか]{さ}は[三千|さんぜん]メートルです。",
+        "The height of this mountain is 3,000 metres."
+      ],
+      [
+        "日本の夏の暑{さ}には驚きました。",
+        "I was surprised by the heat of the Japanese summer."
+      ],
+      [
+        "この町の便利{さ}が気に入っています。",
+        "I like how convenient this town is."
+      ]
+    ]
+  },
+  {
+    "id": "youtosuru",
+    "pattern": "〜(よ)うとする",
+    "meaning": "to try to; to be about to",
+    "formation": [
+      "Volitional form + とする",
+      "Past: 〜ようとしたが (tried but failed)",
+      "Negative: 〜ようとしない (won't even try)"
+    ],
+    "notes": "An attempt (often unsuccessful) or the moment just before something: 出かけようとしたとき、電話が鳴った (Just as I was about to go out, the phone rang).",
+    "match": "(?:(?<=[おこそとのもろごぼ])(うと(?:する|し))|(ようと(?:する|し)))",
+    "examples": [
+      [
+        "出かけ{ようとした}とき、電話が鳴った。",
+        "Just as I was about to go out, the phone rang."
+      ],
+      [
+        "思い出そ{うとしました}が、思い出せなかった。",
+        "I tried to remember, but I couldn't."
+      ],
+      [
+        "彼は人の話を聞こ{うとしない}。",
+        "He won't even try to listen to others."
+      ]
+    ]
+  },
+  {
+    "id": "keredo",
+    "pattern": "〜けど / 〜けれど",
+    "meaning": "but; although; (softening)",
+    "formation": [
+      "Plain or polite form + けど / けれど(も)"
+    ],
+    "notes": "Casual 'but'. Often used just to introduce a topic or soften a request: すみません、ちょっと聞きたいんですけど… (Excuse me, I'd like to ask something...).",
+    "match": "(けど|けれど(?:も)?)",
+    "examples": [
+      [
+        "高かった{けど}、買いました。",
+        "It was expensive, but I bought it."
+      ],
+      [
+        "行きたい{けれど}、時間がない。",
+        "I want to go, but I don't have time."
+      ],
+      [
+        "すみません、ちょっと聞きたいんです{けど}…。",
+        "Excuse me, I'd like to ask something..."
+      ]
+    ]
+  },
+  {
+    "id": "gasuru",
+    "pattern": "〜がする",
+    "meaning": "(a sound / smell / taste) can be sensed",
+    "formation": [
+      "音 / 声 / におい / 味 + がする"
+    ],
+    "notes": "For sensations that reach you on their own: いいにおいがする (Something smells good). 気がする (have a feeling) is the N3 extension.",
+    "match": "(?<=音|声|におい|匂い|味)(が(?:する|します|した|しました|して))",
+    "examples": [
+      [
+        "台所からいいにおい{がします}。",
+        "Something smells good from the kitchen."
+      ],
+      [
+        "隣の部屋で変な音{がした}。",
+        "There was a strange noise in the next room."
+      ],
+      [
+        "このスープはしょうがの味{がする}。",
+        "This soup tastes of ginger."
+      ]
+    ]
+  }
+]

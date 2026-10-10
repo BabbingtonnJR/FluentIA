@@ -1,0 +1,466 @@
+[
+  {
+    "id": "toshitara",
+    "pattern": "〜としたら / 〜とすれば",
+    "meaning": "supposing that; if (hypothetically)",
+    "formation": [
+      "Plain form + としたら / とすれば / とすると"
+    ],
+    "notes": "Imagines a situation that may not be true: 宝くじが当たったとしたら、何をしますか (Supposing you won the lottery, what would you do?).",
+    "match": "(としたら|とすれば)",
+    "examples": [
+      [
+        "宝くじが当たった{としたら}、何をしますか。",
+        "Supposing you won the lottery, what would you do?"
+      ],
+      [
+        "もし生まれ変われる{としたら}、鳥になりたい。",
+        "If I could be born again, I'd like to be a bird."
+      ],
+      [
+        "その話が本当だ{とすれば}、大変なことだ。",
+        "If that story is true, it's a serious matter."
+      ]
+    ]
+  },
+  {
+    "id": "tatoe",
+    "pattern": "たとえ〜ても",
+    "meaning": "even if (strong)",
+    "formation": [
+      "たとえ + Verb て-form + も",
+      "たとえ + Noun / な-adj + でも"
+    ],
+    "notes": "たとえ strengthens 〜ても: 'no matter what happens': たとえ雨が降っても、行きます.",
+    "match": "(たとえ|例え)(?=[^、。]{1,15}(?:ても|でも))",
+    "examples": [
+      [
+        "{たとえ}雨が降っても、試合は行われます。",
+        "Even if it rains, the match will go ahead."
+      ],
+      [
+        "{たとえ}親に反対されても、彼と結婚したい。",
+        "Even if my parents are against it, I want to marry him."
+      ],
+      [
+        "{たとえ}冗談でも、そんなことを言ってはいけない。",
+        "Even as a joke, you mustn't say things like that."
+      ]
+    ]
+  },
+  {
+    "id": "tehajimete",
+    "pattern": "〜てはじめて",
+    "meaning": "only after (doing); not until",
+    "formation": [
+      "Verb て-form + はじめて (初めて)"
+    ],
+    "notes": "You only realise or achieve something after an experience: 病気になってはじめて、健康の大切さが分かった.",
+    "match": "([てで](?:はじめて|初めて))",
+    "examples": [
+      [
+        "病気になっ{てはじめて}、健康の大切さが分かった。",
+        "It was only after I got ill that I understood the value of health."
+      ],
+      [
+        "一人暮らしをし{てはじめて}、親のありがたさを知った。",
+        "Only after living alone did I appreciate my parents."
+      ],
+      [
+        "実際に行っ{てはじめて}、その国の良さが分かる。",
+        "You only really see a country's good points once you go there."
+      ]
+    ]
+  },
+  {
+    "id": "tekaradenaito",
+    "pattern": "〜てからでないと",
+    "meaning": "not until (first); unless (first)",
+    "formation": [
+      "Verb て-form + からでないと / からでなければ + negative or difficulty"
+    ],
+    "notes": "X must happen first, otherwise Y is impossible: 親に聞いてからでないと、決められない.",
+    "match": "([てで]から(?:でないと|でなければ|じゃないと))",
+    "examples": [
+      [
+        "両親に相談し{てからでないと}、決められません。",
+        "I can't decide until I've talked to my parents."
+      ],
+      [
+        "お金を払っ{てからでないと}、入れません。",
+        "You can't enter until you've paid."
+      ],
+      [
+        "実物を見{てからでなければ}、買うかどうか分からない。",
+        "I won't know whether to buy it until I've seen the real thing."
+      ]
+    ]
+  },
+  {
+    "id": "tokorodatta",
+    "pattern": "〜ところだった",
+    "meaning": "almost; nearly (but didn't); was just about to",
+    "formation": [
+      "Verb dictionary form + ところだった",
+      "Often with もう少しで"
+    ],
+    "notes": "Something (often bad) nearly happened: もう少しで車にひかれるところだった (I was nearly hit by a car). With ちょうど it simply means you were about to do something when something else happened: 出かけるところだった.",
+    "match": "(?<=[るうくすつぬむぶぐ])(ところだった|ところでした)",
+    "examples": [
+      [
+        "もう少しで車にひかれる{ところだった}。",
+        "I was nearly hit by a car."
+      ],
+      [
+        "寝坊して、飛行機に乗り遅れる{ところでした}。",
+        "I overslept and almost missed the plane."
+      ],
+      [
+        "大事な約束を忘れる{ところだった}。",
+        "I nearly forgot an important appointment."
+      ]
+    ]
+  },
+  {
+    "id": "toori",
+    "pattern": "〜とおり(に)",
+    "meaning": "as; just as; in the way that",
+    "formation": [
+      "Verb dictionary / た-form + とおり(に)",
+      "Noun + のとおり / Noun + どおり"
+    ],
+    "notes": "Doing exactly as shown or said: 先生が言ったとおりにする. After a noun it becomes どおり: 予定どおり (as planned).",
+    "match": "(?<=[たるの])(?<!この|その|あの|大)(とおり|通り)(?=に|、|だ|です)",
+    "examples": [
+      [
+        "先生が言った{とおりに}、やってみてください。",
+        "Please try doing it just as the teacher said."
+      ],
+      [
+        "説明書の{とおりに}組み立てた。",
+        "I put it together following the instructions."
+      ],
+      [
+        "思った{とおり}、彼は来なかった。",
+        "Just as I thought, he didn't come."
+      ]
+    ]
+  },
+  {
+    "id": "youni-as",
+    "pattern": "〜ように (as)",
+    "meaning": "as (mentioned / shown)",
+    "formation": [
+      "Verb dictionary / た-form + ように",
+      "Noun + のように"
+    ],
+    "notes": "Refers back to something known: 前にも言ったように (as I said before), 次の図のように (as in the following figure).",
+    "match": "(?<=た|の)(ように)(?=、)",
+    "examples": [
+      [
+        "前にも言った{ように}、明日は休みです。",
+        "As I said before, tomorrow is a holiday."
+      ],
+      [
+        "ご存じの{ように}、会議は来週に変わりました。",
+        "As you know, the meeting has been moved to next week."
+      ],
+      [
+        "次の図の{ように}、線を引いてください。",
+        "Please draw lines as in the following figure."
+      ]
+    ]
+  },
+  {
+    "id": "marude",
+    "pattern": "まるで〜ようだ",
+    "meaning": "just like; as if",
+    "formation": [
+      "まるで + Noun のようだ / Plain form + ようだ / みたいだ"
+    ],
+    "notes": "まるで strengthens a comparison or something that seems unreal: まるで夢のようだ (It's just like a dream).",
+    "match": "(まるで)",
+    "examples": [
+      [
+        "{まるで}夢のようです。",
+        "It's just like a dream."
+      ],
+      [
+        "彼女は{まるで}何も知らないかのように話した。",
+        "She talked as if she knew nothing."
+      ],
+      [
+        "今日は{まるで}夏みたいに暑い。",
+        "It's as hot as summer today."
+      ]
+    ]
+  },
+  {
+    "id": "toiuyori",
+    "pattern": "〜というより",
+    "meaning": "rather than; more than",
+    "formation": [
+      "Plain form / Noun + というより"
+    ],
+    "notes": "A more accurate description: 涼しいというより寒い (It's not so much cool as cold).",
+    "match": "(というより|と言うより)",
+    "examples": [
+      [
+        "今日は涼しい{というより}、寒い。",
+        "Today is cold rather than cool."
+      ],
+      [
+        "彼は友達{というより}、家族のような存在だ。",
+        "He's more like family than a friend."
+      ],
+      [
+        "この料理はおいしい{というより}、珍しい味だ。",
+        "This dish isn't so much delicious as unusual."
+      ]
+    ]
+  },
+  {
+    "id": "toiunowa",
+    "pattern": "〜というのは",
+    "meaning": "what is meant by; the thing called",
+    "formation": [
+      "Noun + というのは + 〜ことだ / 〜という意味だ"
+    ],
+    "notes": "Introduces a word or idea to define it: 「積ん読」というのは、本を買っても読まないことです.",
+    "match": "(?<=[^。、？！s])(というのは|と言うのは)",
+    "examples": [
+      [
+        "「花見」{というのは}、桜を見ながら楽しむことです。",
+        "'Hanami' means enjoying yourself while looking at cherry blossoms."
+      ],
+      [
+        "健康{というのは}、お金で買えないものだ。",
+        "Health is something money can't buy."
+      ],
+      [
+        "ATM{というのは}、現金自動預け払い機のことです。",
+        "ATM means automated teller machine."
+      ]
+    ]
+  },
+  {
+    "id": "toiukotoda",
+    "pattern": "〜ということだ",
+    "meaning": "I hear that; it means that",
+    "formation": [
+      "Plain form + ということだ"
+    ],
+    "notes": "Two uses: reporting what you heard (more formal than そうだ), or concluding what something means: つまり、明日は来なくていいということですね.",
+    "match": "(ということ(?:だ|です))",
+    "examples": [
+      [
+        "ニュースによると、来年から消費税が上がる{ということだ}。",
+        "According to the news, consumption tax will go up from next year."
+      ],
+      [
+        "つまり、明日は来なくてもいい{ということですね}。",
+        "So that means I don't need to come tomorrow, right?"
+      ],
+      [
+        "返事がないのは、興味がない{ということだ}ろう。",
+        "No reply probably means they're not interested."
+      ]
+    ]
+  },
+  {
+    "id": "toka-hearsay",
+    "pattern": "〜とか (I hear)",
+    "meaning": "I heard something like; apparently",
+    "formation": [
+      "Plain form + とか"
+    ],
+    "notes": "Casual, vague hearsay: 来週は寒くなるとか (I heard it'll get cold next week, or something).",
+    "match": "(?<=[るいただ])(とか)(?=。|よ|で|ね)",
+    "examples": [
+      [
+        "田中さん、来月結婚する{とか}。",
+        "I heard Tanaka is getting married next month or something."
+      ],
+      [
+        "明日は雪が降る{とか}言っていたよ。",
+        "They were saying it might snow tomorrow."
+      ],
+      [
+        "あの店、閉店した{とか}聞きました。",
+        "I heard that shop has closed down."
+      ]
+    ]
+  },
+  {
+    "id": "kke",
+    "pattern": "〜っけ",
+    "meaning": "was it...? (checking something you forgot)",
+    "formation": [
+      "Plain form / past + っけ",
+      "Polite: 〜でしたっけ / 〜ましたっけ"
+    ],
+    "notes": "Casual way of asking about something you should know or have forgotten: 会議は何時だっけ？ (What time was the meeting again?).",
+    "match": "(っけ)",
+    "examples": [
+      [
+        "会議は何時からだ{っけ}？",
+        "What time does the meeting start again?"
+      ],
+      [
+        "あの人の名前、何でした{っけ}。",
+        "What was that person's name again?"
+      ],
+      [
+        "宿題、もう出した{っけ}？",
+        "Did I already hand in the homework?"
+      ]
+    ]
+  },
+  {
+    "id": "janaika",
+    "pattern": "〜じゃないか",
+    "meaning": "isn't it?; I told you!; let's",
+    "formation": [
+      "Plain form + じゃないか / ではないか",
+      "Volitional + じゃないか (let's!)"
+    ],
+    "notes": "Mild reproach or surprise (だから言ったじゃないか: I told you so!), or encouragement: やろうじゃないか (Let's do it!).",
+    "match": "(?<!の)(じゃないか|ではないか)(?!と)",
+    "examples": [
+      [
+        "だから言った{じゃないか}。",
+        "I told you so, didn't I!"
+      ],
+      [
+        "なんだ、田中さん{じゃないか}。久しぶり。",
+        "Oh, it's you, Tanaka! Long time no see."
+      ],
+      [
+        "みんなで頑張ろう{じゃないか}。",
+        "Let's all do our best!"
+      ]
+    ]
+  },
+  {
+    "id": "toittemo",
+    "pattern": "〜といっても",
+    "meaning": "although I say; even though (it's called)",
+    "formation": [
+      "Plain form / Noun + といっても"
+    ],
+    "notes": "Limits what was just said: 料理ができるといっても、簡単なものだけです (I can cook, but only simple things).",
+    "match": "(と言っても|といっても)(?!いい|よい|過言)",
+    "examples": [
+      [
+        "料理ができる{といっても}、簡単なものだけです。",
+        "I can cook, but only simple things."
+      ],
+      [
+        "[旅行|りょこう]{といっても}、[一泊|いっぱく]だけです。",
+        "It's a trip, but only for one night."
+      ],
+      [
+        "日本語が話せる{といっても}、日常会話くらいです。",
+        "I speak Japanese, but only everyday conversation."
+      ]
+    ]
+  },
+  {
+    "id": "temoraitai",
+    "pattern": "〜てもらいたい",
+    "meaning": "I'd like (someone) to do",
+    "formation": [
+      "Person に + Verb て-form + もらいたい",
+      "Humble: 〜ていただきたい"
+    ],
+    "notes": "A polite version of 〜てほしい, common in requests to groups: 皆さんにも協力していただきたい.",
+    "match": "([てで](?:もらいたい|いただきたい))",
+    "examples": [
+      [
+        "この書類をチェックし{てもらいたい}んですが。",
+        "I'd like you to check these documents."
+      ],
+      [
+        "皆さんにも協力し{ていただきたい}と思います。",
+        "I would like everyone to cooperate as well."
+      ],
+      [
+        "子どもには自由に育っ{てもらいたい}。",
+        "I want my children to grow up freely."
+      ]
+    ]
+  },
+  {
+    "id": "baiinoni",
+    "pattern": "〜ばいいのに",
+    "meaning": "I wish; it would be nice if",
+    "formation": [
+      "ば-form + いいのに",
+      "Also: 〜たらいいのに"
+    ],
+    "notes": "A wish about something that isn't so, or advice tinged with frustration: もっと早く言えばいいのに (You should have just said so earlier).",
+    "match": "((?:ば|たら)いいのに)",
+    "examples": [
+      [
+        "毎日が休みだっ{たらいいのに}。",
+        "I wish every day were a holiday."
+      ],
+      [
+        "分からないなら、聞け{ばいいのに}。",
+        "If you don't understand, you should just ask."
+      ],
+      [
+        "もっと家が広けれ{ばいいのに}。",
+        "I wish our house were bigger."
+      ]
+    ]
+  },
+  {
+    "id": "noni-purpose",
+    "pattern": "〜のに (purpose)",
+    "meaning": "for; in order to (use, need, take)",
+    "formation": [
+      "Verb dictionary form + のに + 使う / 必要だ / 便利だ / かかる / いい"
+    ],
+    "notes": "Purpose with a limited set of words: この箱は本を入れるのに使う; 家を建てるのにお金がかかる.",
+    "match": "(?<=[るうくすつぬむぶぐ])(のに)(?=使|必要|便利|いい|役|時間|お金|かか)",
+    "examples": [
+      [
+        "このはさみは紙を切る{のに}使います。",
+        "These scissors are used for cutting paper."
+      ],
+      [
+        "この辞書は漢字を調べる{のに}便利だ。",
+        "This dictionary is handy for looking up kanji."
+      ],
+      [
+        "[駅|えき]まで[歩|ある]く{のに}[二十分|にじゅっぷん]かかる。",
+        "It takes twenty minutes to walk to the station."
+      ]
+    ]
+  },
+  {
+    "id": "naiuchini",
+    "pattern": "〜ないうちに",
+    "meaning": "before (something happens)",
+    "formation": [
+      "Verb ない-form + うちに"
+    ],
+    "notes": "Do it before a situation changes (often for the worse): 雨が降らないうちに帰ろう (Let's go home before it rains).",
+    "match": "(ないうちに)",
+    "examples": [
+      [
+        "雨が降ら{ないうちに}、帰りましょう。",
+        "Let's go home before it rains."
+      ],
+      [
+        "忘れ{ないうちに}、メモしておこう。",
+        "Let me write it down before I forget."
+      ],
+      [
+        "冷め{ないうちに}、どうぞ召し上がってください。",
+        "Please eat it before it gets cold."
+      ]
+    ]
+  }
+]

@@ -6,12 +6,13 @@ export type QueueEntry = { type: 'review'; cardId: string } | { type: 'new'; ref
 
 export interface NewSelectionInput {
   pack: Pack;
-  settings: Pick<Settings, 'levels' | 'newPerDay' | 'production'>;
+  settings: Pick<Settings, 'levels' | 'newPerDay' | 'production'> & Partial<Pick<Settings, 'grammarPerDay'>>;
   /** Ids of every card that already exists (any state). */
   existing: Set<string>;
   /** Item ids whose vocab recognition card has graduated to Review. */
   graduatedVocab: Set<string>;
-  introducedToday: { recognition: number; production: number };
+  /** New cards studied today; grammar is counted apart since it has its own daily budget. */
+  introducedToday: { recognition: number; production: number; grammar?: number };
   /** One kanji is introduced for every this many words. */
   vocabPerKanji?: number;
 }
@@ -54,6 +55,17 @@ export function selectNew(input: NewSelectionInput): CardRef[] {
         w++;
       }
       recognitionLeft--;
+    }
+  }
+
+  // Grammar points, in teaching order within each level, from their own daily budget.
+  let grammarLeft = Math.max(0, (settings.grammarPerDay ?? 0) - (introducedToday.grammar ?? 0));
+  for (const level of levels) {
+    for (const g of pack.grammar) {
+      if (grammarLeft === 0) break;
+      if (g.level !== level || existing.has(cardId(lang, 'grammar', 'recognition', g.id))) continue;
+      out.push({ lang, kind: 'grammar', direction: 'recognition', itemId: g.id, level });
+      grammarLeft--;
     }
   }
 

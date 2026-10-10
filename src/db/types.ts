@@ -75,6 +75,8 @@ export interface Settings {
   dayStartHour: number;
   /** Readings over kanji: always, only over kanji not studied yet, or never. */
   furigana: 'all' | 'unknown' | 'none';
+  /** New grammar points per day, on top of newPerDay (grammar is slower to absorb than words). */
+  grammarPerDay: number;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -88,4 +90,5 @@ export const DEFAULT_SETTINGS: Settings = {
   theme: 'auto',
   dayStartHour: 4,
   furigana: 'unknown',
+  grammarPerDay: 2,
 };

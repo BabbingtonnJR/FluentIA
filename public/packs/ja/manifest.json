@@ -19,11 +19,13 @@
   ],
   "kinds": [
     "vocab",
-    "kanji"
+    "kanji",
+    "grammar"
   ],
   "counts": {
     "vocab": 3526,
-    "kanji": 612
+    "kanji": 612,
+    "grammar": 179
   },
   "builtAt": "2026-10-10"
 }

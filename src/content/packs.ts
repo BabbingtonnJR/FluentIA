@@ -1,4 +1,4 @@
-import type { KanjiItem, Pack, PackManifest, Sentence, VocabItem } from './types';
+import type { GrammarPoint, KanjiItem, Pack, PackManifest, Sentence, VocabItem } from './types';
 
 export const AVAILABLE_PACKS = ['ja'] as const;
 export type PackId = (typeof AVAILABLE_PACKS)[number];
@@ -17,17 +17,21 @@ export function loadPack(id: string): Promise<Pack> {
   let p = cache.get(id);
   if (!p) {
     const base = `/packs/${id}`;
-    p = Promise.all([
-      getJson<PackManifest>(`${base}/manifest.json`),
-      getJson<VocabItem[]>(`${base}/vocab.json`),
-      getJson<KanjiItem[]>(`${base}/kanji.json`),
-    ]).then(([manifest, vocab, kanji]) => ({
-      manifest,
-      vocab,
-      kanji,
-      vocabById: new Map(vocab.map((v) => [v.id, v])),
-      kanjiById: new Map(kanji.map((k) => [k.id, k])),
-    }));
+    p = getJson<PackManifest>(`${base}/manifest.json`).then((manifest) =>
+      Promise.all([
+        getJson<VocabItem[]>(`${base}/vocab.json`),
+        getJson<KanjiItem[]>(`${base}/kanji.json`),
+        manifest.kinds.includes('grammar') ? getJson<GrammarPoint[]>(`${base}/grammar.json`) : Promise.resolve([]),
+      ]).then(([vocab, kanji, grammar]) => ({
+        manifest,
+        vocab,
+        kanji,
+        grammar,
+        vocabById: new Map(vocab.map((v) => [v.id, v])),
+        kanjiById: new Map(kanji.map((k) => [k.id, k])),
+        grammarById: new Map(grammar.map((g) => [g.id, g])),
+      })),
+    );
     p.catch(() => cache.delete(id));
     cache.set(id, p);
   }

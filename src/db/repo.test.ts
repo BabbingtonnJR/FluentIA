@@ -40,7 +40,7 @@ describe('study session', () => {
       if (entry.type !== 'new') throw new Error('expected new card');
       await answerCard(startCard(entry.ref, now), Rating.Good, 1000, now, db);
     }
-    expect(await introducedToday('ja', settings, now, db)).toEqual({ recognition: 3, production: 0 });
+    expect(await introducedToday('ja', settings, now, db)).toEqual({ recognition: 3, production: 0, grammar: 0 });
 
     const later = await buildSession(pack, settings, now + 60 * 60_000, db);
     expect(later.newCount).toBe(1);
@@ -50,7 +50,7 @@ describe('study session', () => {
   it('does not count bulk "known" cards as learned today', async () => {
     const added = await markLevelKnown(pack, 5, Date.now(), db);
     expect(added).toBe(pack.vocab.filter((v) => v.level === 5).length + pack.kanji.filter((k) => k.level === 5).length);
-    expect(await introducedToday('ja', settings, Date.now(), db)).toEqual({ recognition: 0, production: 0 });
+    expect(await introducedToday('ja', settings, Date.now(), db)).toEqual({ recognition: 0, production: 0, grammar: 0 });
     const s = await buildSession(pack, settings, Date.now(), db);
     expect(s.newCount).toBe(0);
     expect(s.dueCount).toBe(0);

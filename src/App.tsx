@@ -6,6 +6,7 @@ import { Study } from './pages/Study';
 import { Listen } from './pages/Listen';
 import { Quiz } from './pages/Quiz';
 import { Read } from './pages/Read';
+import { GrammarDetail } from './pages/GrammarDetail';
 import { Library } from './pages/Library';
 import { KanjiDetail } from './pages/KanjiDetail';
 import { Progress } from './pages/Progress';
@@ -55,6 +56,7 @@ export function App() {
                 <Route path="/read" element={<Read />} />
                 <Route path="/library" element={<Library />} />
                 <Route path="/kanji/:char" element={<KanjiDetail />} />
+                <Route path="/grammar/:id" element={<GrammarDetail />} />
                 <Route path="/progress" element={<Progress />} />
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="*" element={<Today />} />

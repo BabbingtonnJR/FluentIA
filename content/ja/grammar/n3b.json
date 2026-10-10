@@ -1,0 +1,623 @@
+[
+  {
+    "id": "wakeda",
+    "pattern": "〜わけだ",
+    "meaning": "that's why; no wonder; so it means",
+    "formation": [
+      "Plain form + わけだ",
+      "な-adj + なわけだ / Noun + というわけだ"
+    ],
+    "notes": "A natural conclusion from the facts: 寒いわけだ、雪が降っている (No wonder it's cold — it's snowing).",
+    "match": "(わけ)(?=だ|です)",
+    "examples": [
+      [
+        "雪が降っている。寒い{わけだ}。",
+        "It's snowing. No wonder it's cold."
+      ],
+      [
+        "彼は十年アメリカに住んでいた。英語が上手な{わけだ}。",
+        "He lived in America for ten years. That's why his English is good."
+      ],
+      [
+        "つまり、明日は休みという{わけです}ね。",
+        "So that means tomorrow is a day off."
+      ]
+    ]
+  },
+  {
+    "id": "wakedewanai",
+    "pattern": "〜わけではない",
+    "meaning": "it doesn't mean that; not necessarily",
+    "formation": [
+      "Plain form + わけではない",
+      "な-adj + なわけではない"
+    ],
+    "notes": "Denies a conclusion the listener might draw: 嫌いなわけではない (It's not that I dislike it). Casual: 〜わけじゃない.",
+    "match": "(わけで(?:は|も)(?:ない|ありません|なかっ)|わけじゃない)",
+    "examples": [
+      [
+        "肉が嫌いな{わけではない}が、あまり食べない。",
+        "It's not that I dislike meat, but I don't eat much of it."
+      ],
+      [
+        "日本人がみんな寿司が好きな{わけではない}。",
+        "Not all Japanese people like sushi."
+      ],
+      [
+        "忙しい{わけじゃない}けど、今日は行きたくない。",
+        "It's not that I'm busy; I just don't want to go today."
+      ]
+    ]
+  },
+  {
+    "id": "wakeganai",
+    "pattern": "〜わけがない",
+    "meaning": "there's no way that; it can't be",
+    "formation": [
+      "Plain form + わけがない",
+      "な-adj + なわけがない"
+    ],
+    "notes": "Strong denial based on the speaker's conviction. Synonym: 〜はずがない.",
+    "match": "(わけが(?:ない|ありません))",
+    "examples": [
+      [
+        "あの優しい人が嘘をつく{わけがない}。",
+        "There's no way that kind person would lie."
+      ],
+      [
+        "[一日|いちにち]で[覚|おぼ]えられる{わけがない}。",
+        "There's no way you could learn it in a day."
+      ],
+      [
+        "こんなに安い{わけがない}よ。",
+        "It can't possibly be this cheap."
+      ]
+    ]
+  },
+  {
+    "id": "wakeniwaikanai",
+    "pattern": "〜わけにはいかない",
+    "meaning": "can't (for social or moral reasons)",
+    "formation": [
+      "Verb dictionary form + わけにはいかない",
+      "Verb ない-form + わけにはいかない (have to)"
+    ],
+    "notes": "You physically could, but circumstances, duty or conscience stop you: 明日は試験だから、遊ぶわけにはいかない. With ない it means 'can't not': 行かないわけにはいかない (I can't not go).",
+    "match": "(わけにはいか(?:ない|ず|なかっ|ん))",
+    "examples": [
+      [
+        "明日は試験だから、遊んでいる{わけにはいかない}。",
+        "I have an exam tomorrow, so I can't afford to fool around."
+      ],
+      [
+        "約束したから、行かない{わけにはいかない}。",
+        "I promised, so I can't not go."
+      ],
+      [
+        "車で来たので、お酒を飲む{わけにはいかない}。",
+        "I came by car, so I can't drink."
+      ]
+    ]
+  },
+  {
+    "id": "hazuganai",
+    "pattern": "〜はずがない",
+    "meaning": "it can't be that; there's no way",
+    "formation": [
+      "Plain form + はずがない",
+      "な-adj + なはずがない / Noun + のはずがない"
+    ],
+    "notes": "A logical impossibility based on what you know: 彼は今日休みだから、会社にいるはずがない.",
+    "match": "(はずが(?:ない|ありません))",
+    "examples": [
+      [
+        "彼は今日休みだから、会社にいる{はずがない}。",
+        "He's off today, so he can't be at the office."
+      ],
+      [
+        "そんな簡単な問題を間違える{はずがない}。",
+        "There's no way he'd get such an easy question wrong."
+      ],
+      [
+        "鍵をかけたから、ドアが開いている{はずがない}。",
+        "I locked it, so the door can't be open."
+      ]
+    ]
+  },
+  {
+    "id": "nichigainai",
+    "pattern": "〜に違いない",
+    "meaning": "must be; there's no doubt that",
+    "formation": [
+      "Plain form + に違いない",
+      "な-adj / Noun + に違いない (no だ)"
+    ],
+    "notes": "A confident guess, stronger than だろう. Rather written; in conversation 〜はずだ or きっと〜 are more common.",
+    "match": "(に(?:違|ちが)い(?:ない|ありません))",
+    "examples": [
+      [
+        "電気がついている。誰かいる{に違いない}。",
+        "The light is on. Someone must be in."
+      ],
+      [
+        "彼女の顔を見ると、何かいいことがあった{に違いない}。",
+        "Judging by her face, something good must have happened."
+      ],
+      [
+        "これは高い{に違いない}。",
+        "This must be expensive."
+      ]
+    ]
+  },
+  {
+    "id": "nikimatteiru",
+    "pattern": "〜に決まっている",
+    "meaning": "certainly; it's bound to be",
+    "formation": [
+      "Plain form + に決まっている",
+      "な-adj / Noun + に決まっている (no だ)"
+    ],
+    "notes": "A very confident, subjective judgement, often in conversation: そんなの嘘に決まってる (That's obviously a lie).",
+    "match": "(に決まって(?:いる|います|る))",
+    "examples": [
+      [
+        "そんな話、嘘{に決まっている}。",
+        "A story like that is bound to be a lie."
+      ],
+      [
+        "練習しなければ、負ける{に決まっている}。",
+        "If we don't practise, we're sure to lose."
+      ],
+      [
+        "子どもはお菓子が好き{に決まってる}よ。",
+        "Of course children like sweets."
+      ]
+    ]
+  },
+  {
+    "id": "beki",
+    "pattern": "〜べきだ",
+    "meaning": "should; ought to (moral duty)",
+    "formation": [
+      "Verb dictionary form + べきだ (する → するべき / すべき)",
+      "Negative: 〜べきではない (should not)",
+      "Past: 〜べきだった (should have)"
+    ],
+    "notes": "Strong advice based on duty or common sense. To a superior, 〜たほうがいい is safer.",
+    "match": "(べき)(?=だ|です|では|じゃ|で|。)",
+    "examples": [
+      [
+        "約束は守る{べきだ}。",
+        "You should keep your promises."
+      ],
+      [
+        "もっと早く連絡す{べきでした}。",
+        "I should have contacted you sooner."
+      ],
+      [
+        "人の悪口を言う{べきではない}。",
+        "You shouldn't speak ill of others."
+      ]
+    ]
+  },
+  {
+    "id": "kotoda",
+    "pattern": "〜ことだ (advice)",
+    "meaning": "you should; the best thing is to",
+    "formation": [
+      "Verb dictionary form + ことだ",
+      "Verb ない-form + ことだ"
+    ],
+    "notes": "Advice from someone with more experience or authority: 上手になりたければ、毎日練習することだ.",
+    "examples": [
+      [
+        "上手になりたければ、毎日練習する{ことだ}。",
+        "If you want to improve, practise every day."
+      ],
+      [
+        "風邪のときは、ゆっくり休む{ことです}。",
+        "When you have a cold, the best thing is to rest."
+      ],
+      [
+        "人の話は最後まで聞く{ことだ}。",
+        "You should listen to people until they finish."
+      ]
+    ]
+  },
+  {
+    "id": "kotowanai",
+    "pattern": "〜ことはない",
+    "meaning": "there's no need to",
+    "formation": [
+      "Verb dictionary form + ことはない"
+    ],
+    "notes": "Reassurance: 心配することはない (There's no need to worry). Don't confuse with 〜たことはない (have never done).",
+    "examples": [
+      [
+        "心配する{ことはない}よ。",
+        "There's no need to worry."
+      ],
+      [
+        "わざわざ来る{ことはありません}。",
+        "There's no need to come all this way."
+      ],
+      [
+        "そんなに急ぐ{ことはない}。",
+        "There's no need to hurry so much."
+      ]
+    ]
+  },
+  {
+    "id": "naikotowanai",
+    "pattern": "〜ないことはない",
+    "meaning": "it's not that ... not; it is possible (but)",
+    "formation": [
+      "Verb / い-adj ない-form + ことはない"
+    ],
+    "notes": "A cautious double negative: 食べられないことはない (It's not that I can't eat it — I can, but...).",
+    "match": "(ないことは(?:ない|ありません))",
+    "examples": [
+      [
+        "辛いものは食べられ{ないことはない}けど、あまり好きじゃない。",
+        "It's not that I can't eat spicy food, but I don't really like it."
+      ],
+      [
+        "急げば、間に合わ{ないことはない}。",
+        "If we hurry, we might just make it."
+      ],
+      [
+        "行け{ないことはない}が、少し遠い。",
+        "I could go, but it's a bit far."
+      ]
+    ]
+  },
+  {
+    "id": "shikanai",
+    "pattern": "〜しかない",
+    "meaning": "have no choice but to",
+    "formation": [
+      "Verb dictionary form + しかない"
+    ],
+    "notes": "There is only one option left: 電車がないから、歩くしかない. Formal: 〜ほかない.",
+    "match": "(?<=[るうくすつぬむぶぐ])(しか(?:ない|ありません))",
+    "examples": [
+      [
+        "電車がないから、歩いて帰る{しかない}。",
+        "There are no trains, so I have no choice but to walk home."
+      ],
+      [
+        "自分で決めたことだから、頑張る{しかない}。",
+        "It was my own decision, so all I can do is try my best."
+      ],
+      [
+        "[誰|だれ]も[手伝|てつだ]ってくれないなら、[一人|ひとり]でやる{しかありません}。",
+        "If nobody will help, I'll just have to do it alone."
+      ]
+    ]
+  },
+  {
+    "id": "youganai",
+    "pattern": "〜ようがない",
+    "meaning": "there's no way to; can't possibly",
+    "formation": [
+      "Verb ます-stem + ようがない"
+    ],
+    "notes": "There is no method available: 連絡先が分からないから、連絡しようがない.",
+    "match": "(?<=[きぎしちにびみりえけげせてねべめれ])(ようが(?:ない|ありません))",
+    "examples": [
+      [
+        "住所が分からないから、手紙の出し{ようがない}。",
+        "I don't know the address, so there's no way to send a letter."
+      ],
+      [
+        "こんなに壊れていたら、直し{ようがない}。",
+        "If it's this broken, there's no way to fix it."
+      ],
+      [
+        "何も言い{ようがありません}。",
+        "I don't know what to say."
+      ]
+    ]
+  },
+  {
+    "id": "tetamaranai",
+    "pattern": "〜てたまらない",
+    "meaning": "unbearably; extremely (feeling)",
+    "formation": [
+      "い-adj: 〜くてたまらない",
+      "な-adj: 〜でたまらない",
+      "Verb て-form + たまらない (with feeling verbs)"
+    ],
+    "notes": "An overwhelming physical or emotional feeling of the speaker: 暑くてたまらない, 会いたくてたまらない.",
+    "match": "([てで](?:たまらない|たまりません|たまらなかっ))",
+    "examples": [
+      [
+        "今日は暑く{てたまらない}。",
+        "It's unbearably hot today."
+      ],
+      [
+        "家族に会いたく{てたまりません}。",
+        "I miss my family terribly."
+      ],
+      [
+        "試験の結果が心配{でたまらない}。",
+        "I'm extremely worried about the exam results."
+      ]
+    ]
+  },
+  {
+    "id": "teshouganai",
+    "pattern": "〜てしょうがない",
+    "meaning": "extremely; can't help feeling",
+    "formation": [
+      "い-adj: 〜くてしょうがない",
+      "な-adj: 〜でしょうがない",
+      "Verb て-form + しょうがない",
+      "Also: 〜てしかたがない"
+    ],
+    "notes": "Like 〜てたまらない but more conversational. Don't confuse with 〜てもしょうがない (it's no use).",
+    "match": "([てで](?:しょうがない|しょうがなかっ|しかたがない|仕方がない))",
+    "examples": [
+      [
+        "眠く{てしょうがない}。",
+        "I'm so sleepy I can't stand it."
+      ],
+      [
+        "新しいゲームがほしく{てしょうがない}。",
+        "I want the new game so badly."
+      ],
+      [
+        "彼のことが気になっ{てしかたがない}。",
+        "I can't stop thinking about him."
+      ]
+    ]
+  },
+  {
+    "id": "temoshikataganai",
+    "pattern": "〜てもしかたがない",
+    "meaning": "it's no use; there's no point",
+    "formation": [
+      "Verb て-form + もしかたがない / もしょうがない"
+    ],
+    "notes": "Doing X won't help: 今さら後悔してもしかたがない (There's no point regretting it now).",
+    "match": "([てで]も(?:しかたがない|仕方がない|しょうがない|仕方ない|しかたない))",
+    "examples": [
+      [
+        "今さら後悔し{てもしかたがない}。",
+        "There's no point regretting it now."
+      ],
+      [
+        "ここで待っ{ていてもしょうがない}。",
+        "There's no use waiting here."
+      ],
+      [
+        "文句を言っ{てもしかたがない}よ。",
+        "Complaining won't do any good."
+      ]
+    ]
+  },
+  {
+    "id": "bayokatta",
+    "pattern": "〜ばよかった",
+    "meaning": "I should have; I wish I had",
+    "formation": [
+      "Verb ば-form + よかった",
+      "Negative: 〜なければよかった (I wish I hadn't)",
+      "Also: 〜たらよかった"
+    ],
+    "notes": "Regret about something you did or didn't do. Often ends with のに or なあ: もっと勉強すればよかったなあ.",
+    "match": "(ばよかった)",
+    "examples": [
+      [
+        "もっと勉強すれ{ばよかった}。",
+        "I should have studied more."
+      ],
+      [
+        "傘を持ってくれ{ばよかった}。",
+        "I wish I'd brought an umbrella."
+      ],
+      [
+        "あんなこと言わなけれ{ばよかった}。",
+        "I wish I hadn't said that."
+      ]
+    ]
+  },
+  {
+    "id": "hazudatta",
+    "pattern": "〜はずだった",
+    "meaning": "was supposed to (but didn't)",
+    "formation": [
+      "Plain form + はずだった",
+      "Noun + のはずだった"
+    ],
+    "notes": "An expectation that turned out wrong: 今日は晴れるはずだったのに、雨だ.",
+    "match": "(はずだった|はずでした)",
+    "examples": [
+      [
+        "電車は十時に着く{はずだった}のに、まだ来ない。",
+        "The train was supposed to arrive at ten, but it's still not here."
+      ],
+      [
+        "今日は休みの{はずだった}けど、仕事が入った。",
+        "Today was supposed to be my day off, but work came up."
+      ],
+      [
+        "彼も来る{はずでした}が、急に来られなくなった。",
+        "He was supposed to come too, but suddenly couldn't."
+      ]
+    ]
+  },
+  {
+    "id": "furiwosuru",
+    "pattern": "〜ふりをする",
+    "meaning": "to pretend to",
+    "formation": [
+      "Plain form + ふりをする",
+      "な-adj + なふり / Noun + のふり"
+    ],
+    "notes": "Acting as if something were true: 寝ているふりをする (pretend to be asleep), 知らないふりをする (play dumb).",
+    "match": "(ふりを(?:する|した|して|し))",
+    "examples": [
+      [
+        "彼は聞こえない{ふりをした}。",
+        "He pretended not to hear."
+      ],
+      [
+        "弟は寝ている{ふりをしている}。",
+        "My little brother is pretending to be asleep."
+      ],
+      [
+        "分からないのに、分かった{ふりをして}しまった。",
+        "I didn't understand, but I pretended I did."
+      ]
+    ]
+  },
+  {
+    "id": "kotoninatteiru",
+    "pattern": "〜ことになっている",
+    "meaning": "it's the rule that; it's arranged that",
+    "formation": [
+      "Verb dictionary / ない-form + ことになっている"
+    ],
+    "notes": "A rule, custom or arrangement that already exists: この寮では十時までに帰ることになっている.",
+    "match": "(?<=[るうくすつぬむぶぐ])(ことになって(?:いる|います|いた|る))",
+    "examples": [
+      [
+        "この寮では、夜十時までに帰る{ことになっている}。",
+        "In this dorm, you're supposed to be back by 10 p.m."
+      ],
+      [
+        "会議は来週の月曜日に行う{ことになっています}。",
+        "The meeting is scheduled for next Monday."
+      ],
+      [
+        "ここでは靴を脱ぐ{ことになっている}。",
+        "The rule here is that you take off your shoes."
+      ]
+    ]
+  },
+  {
+    "id": "kotonishiteiru",
+    "pattern": "〜ことにしている",
+    "meaning": "to make it a rule to; to make a habit of",
+    "formation": [
+      "Verb dictionary / ない-form + ことにしている"
+    ],
+    "notes": "A personal rule the speaker decided and keeps: 毎朝、水を一杯飲むことにしている.",
+    "match": "(ことにして(?:いる|います|いた|る))",
+    "examples": [
+      [
+        "毎朝、水を一杯飲む{ことにしている}。",
+        "I make a point of drinking a glass of water every morning."
+      ],
+      [
+        "夜はスマホを見ない{ことにしています}。",
+        "I make it a rule not to look at my phone at night."
+      ],
+      [
+        "週末は家族と過ごす{ことにしている}。",
+        "I always spend weekends with my family."
+      ]
+    ]
+  },
+  {
+    "id": "youniiu",
+    "pattern": "〜ように言う",
+    "meaning": "to tell (someone) to",
+    "formation": [
+      "Verb dictionary / ない-form + ように言う",
+      "Also with 頼む (ask), 注意する (warn), 伝える (pass on)"
+    ],
+    "notes": "Reports an instruction or request indirectly: 先生に早く来るように言われた (The teacher told me to come early).",
+    "match": "(ように(?:言|いっ|いわ|頼|たの|伝え))",
+    "examples": [
+      [
+        "先生に、明日早く来る{ように言われました}。",
+        "The teacher told me to come early tomorrow."
+      ],
+      [
+        "弟に部屋を片付ける{ように言った}。",
+        "I told my little brother to tidy his room."
+      ],
+      [
+        "田中さんに、後で電話する{ように伝えてください}。",
+        "Please tell Tanaka to call me later."
+      ]
+    ]
+  },
+  {
+    "id": "masuyouni",
+    "pattern": "〜ますように",
+    "meaning": "I hope; may (a wish or prayer)",
+    "formation": [
+      "Verb ます-form + ように",
+      "Negative: 〜ませんように"
+    ],
+    "notes": "Used for wishes, prayers and greetings: 合格できますように (I hope I pass), 早く元気になりますように (Get well soon).",
+    "match": "((?:ます|ません)ように)",
+    "examples": [
+      [
+        "試験に合格でき{ますように}。",
+        "I hope I pass the exam."
+      ],
+      [
+        "明日、雨が降り{ませんように}。",
+        "I hope it doesn't rain tomorrow."
+      ],
+      [
+        "早く元気になり{ますように}。",
+        "I hope you get well soon."
+      ]
+    ]
+  },
+  {
+    "id": "kigasuru",
+    "pattern": "〜気がする",
+    "meaning": "to have a feeling that",
+    "formation": [
+      "Plain form + 気がする",
+      "Often: 〜ような気がする"
+    ],
+    "notes": "An intuition without clear evidence: どこかで会ったような気がする (I feel like we've met somewhere).",
+    "match": "(気が(?:する|します|した|しました|して))",
+    "examples": [
+      [
+        "どこかで会ったような{気がする}。",
+        "I feel like I've met you somewhere."
+      ],
+      [
+        "明日は雨が降るような{気がします}。",
+        "I have a feeling it will rain tomorrow."
+      ],
+      [
+        "今日はいいことがありそうな{気がする}。",
+        "I have a feeling something good will happen today."
+      ]
+    ]
+  },
+  {
+    "id": "towakagiranai",
+    "pattern": "〜とは限らない",
+    "meaning": "not necessarily; not always",
+    "formation": [
+      "Plain form + とは限らない",
+      "Often with 必ずしも / いつも"
+    ],
+    "notes": "Denies that something is always true: 高いものがいいものだとは限らない (Expensive things aren't necessarily good).",
+    "match": "(とは(?:限ら|かぎら)(?:ない|なかっ)|とは限りません)",
+    "examples": [
+      [
+        "高いものがいいものだ{とは限らない}。",
+        "Expensive things aren't necessarily good."
+      ],
+      [
+        "日本人が必ずしも敬語が上手だ{とは限らない}。",
+        "Japanese people aren't necessarily good at keigo."
+      ],
+      [
+        "天気予報がいつも正しい{とは限りません}。",
+        "The weather forecast isn't always right."
+      ]
+    ]
+  }
+]

@@ -32,8 +32,12 @@ export async function introducedToday(lang: string, settings: Settings, now = Da
       .filter((r) => r.prevState === State.New)
       .map((r) => r.cardId),
   );
-  const out = { recognition: 0, production: 0 };
-  for (const c of cards) if (studied.has(c.id)) out[c.direction]++;
+  const out = { recognition: 0, production: 0, grammar: 0 };
+  for (const c of cards) {
+    if (!studied.has(c.id)) continue;
+    if (c.kind === 'grammar') out.grammar++;
+    else out[c.direction]++;
+  }
   return out;
 }
 
@@ -86,6 +90,7 @@ export async function markLevelKnown(pack: Pack, level: number, now = Date.now()
   const refs: CardRef[] = [
     ...pack.vocab.filter((v) => v.level === level).map((v) => ({ lang, kind: 'vocab' as const, direction: 'recognition' as const, itemId: v.id, level })),
     ...pack.kanji.filter((k) => k.level === level).map((k) => ({ lang, kind: 'kanji' as const, direction: 'recognition' as const, itemId: k.id, level })),
+    ...pack.grammar.filter((g) => g.level === level).map((g) => ({ lang, kind: 'grammar' as const, direction: 'recognition' as const, itemId: g.id, level })),
   ];
   const cards = refs.map((r) => knownCard(r, now)).filter((c) => !existing.has(c.id));
   await d.cards.bulkPut(cards);
