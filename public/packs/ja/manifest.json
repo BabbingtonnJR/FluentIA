@@ -1,0 +1,29 @@
+{
+  "id": "ja",
+  "name": "Japanese",
+  "nativeName": "日本語",
+  "ttsLocale": "ja-JP",
+  "levels": [
+    {
+      "id": 5,
+      "label": "N5"
+    },
+    {
+      "id": 4,
+      "label": "N4"
+    },
+    {
+      "id": 3,
+      "label": "N3"
+    }
+  ],
+  "kinds": [
+    "vocab",
+    "kanji"
+  ],
+  "counts": {
+    "vocab": 3526,
+    "kanji": 612
+  },
+  "builtAt": "2026-10-10"
+}

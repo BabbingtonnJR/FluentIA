@@ -141,3 +141,12 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Fluentia
+.content-cache
+dev-dist
+.env.local
+
+# claude-mem / agent tooling
+.cmem-projects
+agent-transcripts
