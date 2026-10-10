@@ -32,6 +32,15 @@ export interface KanjiItem {
   freq: number | null;
 }
 
+/** A reading sentence from Tatoeba (sentences.json), kept short in the file since there are thousands. */
+export interface Sentence {
+  i: number; // Tatoeba sentence ID, for attribution links
+  r: string; // Japanese with furigana markup: [漢字|かん|じ]
+  e: string; // English translation
+  w: number[]; // indexes into Pack.vocab of the words it uses
+  l: number; // JLPT level of its hardest word
+}
+
 export interface Pack {
   manifest: PackManifest;
   vocab: VocabItem[];

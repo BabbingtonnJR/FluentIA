@@ -18,11 +18,13 @@ export interface QuestInput {
 }
 
 export const LISTEN_GOAL_MINUTES = 5;
+export const READING_GOAL = 8;
 
 /** Today's activities. They reset at the start of each study day. */
 export function dailyQuests(q: QuestInput): Quest[] {
   const quizzes = q.activitiesToday.filter((a) => a.type === 'quiz');
   const listened = q.activitiesToday.filter((a) => a.type === 'handsfree').reduce((s, a) => s + a.minutes, 0);
+  const sentencesRead = q.activitiesToday.filter((a) => a.type === 'reading').reduce((s, a) => s + a.score, 0);
   const learnGoal = Math.min(q.newPerDay, q.learnedToday + q.newLeft);
   return [
     {
@@ -45,6 +47,13 @@ export function dailyQuests(q: QuestInput): Quest[] {
       detail: quizzes.length ? `Best: ${Math.max(...quizzes.map((a) => a.score))}/${quizzes[0].total}` : '10 quick questions',
       done: quizzes.length > 0,
       to: '/quiz',
+    },
+    {
+      id: 'read',
+      title: `Read ${READING_GOAL} sentences`,
+      detail: sentencesRead ? `${sentencesRead} read today` : 'Built from words you know',
+      done: sentencesRead >= READING_GOAL,
+      to: '/read',
     },
     {
       id: 'listen',

@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { exportBackup, importBackup, markLevelKnown, saveSettings, type Backup } from '../db/repo';
 import type { Theme } from '../db/types';
 import { usePack, useSettings } from '../hooks';
+import { FURIGANA_LABEL } from '../reading/furigana';
 import { speak, voicesFor } from '../speech/tts';
 import { signIn, signOut, signUp, syncNow, useSyncStatus } from '../sync/sync';
 
@@ -152,13 +153,24 @@ export function SettingsPage() {
       </div>
 
       <div className="section-title">Appearance</div>
-      <div className="card">
+      <div className="card stack">
         <div className="segmented" role="group" aria-label="Theme">
           {(['auto', 'light', 'dark'] as Theme[]).map((t) => (
             <button key={t} className={settings.theme === t ? 'on' : ''} onClick={() => void saveSettings({ theme: t })}>
               {t === 'auto' ? 'System' : t === 'light' ? 'Light' : 'Dark'}
             </button>
           ))}
+        </div>
+        <div className="field">
+          <span className="label">Furigana in readings</span>
+          <div className="segmented" role="group" aria-label="Furigana">
+            {(['all', 'unknown', 'none'] as const).map((f) => (
+              <button key={f} className={settings.furigana === f ? 'on' : ''} onClick={() => void saveSettings({ furigana: f })}>
+                {FURIGANA_LABEL[f]}
+              </button>
+            ))}
+          </div>
+          <span className="faint">“New kanji” shows readings only over kanji you have not studied yet.</span>
         </div>
       </div>
 

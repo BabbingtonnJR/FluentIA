@@ -10,5 +10,7 @@ and derived data (`public/packs/ja/*.json`) stays under the same terms.
 | Kanji JLPT levels | Jonathan Waller's JLPT lists, via kanji-data | CC BY |
 | Stroke order | [KanjiVG](https://kanjivg.tagaini.net/) by Ulrich Apel | CC BY-SA 3.0 |
 | Spaced repetition | [ts-fsrs](https://github.com/open-spaced-repetition/ts-fsrs) (FSRS algorithm) | MIT |
+| Reading sentences, English translations and furigana | [Tatoeba](https://tatoeba.org/) contributors (each sentence keeps its Tatoeba ID and links back to it in the app) | CC BY 2.0 FR |
+| Word segmentation (build time only, not shipped) | [kuromoji.js](https://github.com/takuyaa/kuromoji.js) with the IPADIC dictionary | Apache 2.0; IPADIC license |
 
 WaniKani fields present in the kanji-data source are not used.

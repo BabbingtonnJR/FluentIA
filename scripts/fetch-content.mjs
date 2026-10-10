@@ -5,6 +5,7 @@
 //   - JLPT vocab lists: jamsinclair/open-anki-jlpt-decks (MIT, based on tanos.co.uk lists)
 //   - Kanji data: davidluzgouveia/kanji-data (KANJIDIC, CC BY-SA 4.0; JLPT levels from tanos.co.uk)
 //   - Stroke order: KanjiVG (CC BY-SA 3.0)
+//   - Example sentences and furigana: Tatoeba per-language exports (CC BY 2.0 FR)
 import { mkdir, writeFile, readFile, access } from 'node:fs/promises';
 import path from 'node:path';
 
@@ -41,9 +42,16 @@ export function kanjivgHex(char) {
 }
 
 await mkdir(path.join(outDir, 'kanjivg'), { recursive: true });
+await mkdir(path.join(outDir, 'tatoeba'), { recursive: true });
 
 for (const n of LEVELS) await download(VOCAB_URL(n), path.join(outDir, `n${n}.csv`));
 await download(KANJI_URL, path.join(outDir, 'kanji.json'));
+
+// Tatoeba exports stay bzip2-compressed; build-sentences.mjs reads them directly (~34 MB).
+const TATOEBA_URL = (f) => `https://downloads.tatoeba.org/exports/per_language/${f}.tsv.bz2`;
+for (const f of ['jpn/jpn_sentences', 'jpn/jpn_transcriptions', 'jpn/jpn-eng_links', 'eng/eng_sentences']) {
+  await download(TATOEBA_URL(f), path.join(outDir, 'tatoeba', `${path.basename(f)}.tsv.bz2`));
+}
 
 const kanji = JSON.parse(await readFile(path.join(outDir, 'kanji.json'), 'utf8'));
 // 流 is also used for the app icon.

@@ -38,7 +38,7 @@ export interface ReviewRecord extends Synced {
   durationMs: number;
 }
 
-export type ActivityType = 'quiz' | 'handsfree';
+export type ActivityType = 'quiz' | 'handsfree' | 'reading';
 
 export interface ActivityRecord extends Synced {
   lang: string;
@@ -73,6 +73,8 @@ export interface Settings {
   theme: Theme;
   /** Hour at which a new study day begins (like Anki), so late-night reviews count for the same day. */
   dayStartHour: number;
+  /** Readings over kanji: always, only over kanji not studied yet, or never. */
+  furigana: 'all' | 'unknown' | 'none';
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -85,4 +87,5 @@ export const DEFAULT_SETTINGS: Settings = {
   speechRate: 0.9,
   theme: 'auto',
   dayStartHour: 4,
+  furigana: 'unknown',
 };

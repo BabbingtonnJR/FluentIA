@@ -926,6 +926,92 @@ details summary {
   stroke-linejoin: round;
 }
 
+/* ---- Reading ---------------------------------------------------------------- */
+
+.sentence {
+  margin: 0;
+  font-family: var(--font-jp);
+  font-size: clamp(1.5rem, 6.5vw, 2rem);
+  line-height: 2.1; /* room for furigana without lines colliding */
+  max-width: 22em;
+  line-break: strict; /* Japanese wraps between characters, but never before 。、っ etc. */
+}
+
+.sentence ruby {
+  ruby-position: over;
+}
+
+.sentence rt {
+  font-family: var(--font-ui);
+  font-size: 0.42em;
+  font-weight: 500;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+}
+
+.word-list {
+  list-style: none;
+  margin: 8px 0 4px;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.word-list .word {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.22s var(--ease-spring, ease), background-color 0.2s ease;
+}
+
+.word-list .word:active {
+  transform: scale(0.98);
+}
+
+.word-list .jp {
+  font-size: 1.15rem;
+  flex: none;
+}
+
+.word-list .reading-sm {
+  font-family: var(--font-jp);
+  font-size: 0.8rem;
+  color: var(--ink-3);
+  flex: none;
+}
+
+.word-list .gloss {
+  flex: 1;
+  min-width: 0;
+  color: var(--ink-2);
+  font-size: 0.85rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.word-list li {
+  animation: rise 0.3s var(--ease-out) backwards;
+  animation-delay: calc(var(--i, 0) * 45ms + 120ms);
+}
+
+.topbar .chip {
+  flex: none;
+  min-height: 32px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+}
+
 /* ---- Motion ----------------------------------------------------------------
    Short, physical, and never in the way: entrances rise like ink settling,
    presses give, and celebrations are brief. Entrances use `backwards` fill so

@@ -74,7 +74,8 @@ export function retention(reviews: ReviewRecord[]): number | null {
 export function computeXp(reviews: ReviewRecord[], activities: ActivityRecord[]): number {
   let xp = 0;
   for (const r of reviews) xp += r.prevState === State.New ? 3 : 1;
-  for (const a of activities) xp += a.type === 'quiz' ? a.score * 2 : a.minutes * 2;
+  // Quiz answers and sentences read count by score; hands-free listening by minutes.
+  for (const a of activities) xp += a.type === 'handsfree' ? a.minutes * 2 : a.score * 2;
   return xp;
 }
 

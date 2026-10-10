@@ -10,7 +10,8 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "content:fetch": "node scripts/fetch-content.mjs .content-cache",
-    "content:build": "node scripts/build-content.mjs .content-cache public/packs/ja",
+    "content:build": "node scripts/build-content.mjs .content-cache public/packs/ja && npm run content:sentences",
+    "content:sentences": "node scripts/build-sentences.mjs .content-cache public/packs/ja",
     "icons": "pwa-assets-generator"
   },
   "dependencies": {
@@ -29,6 +30,8 @@
     "@vite-pwa/assets-generator": "^2.0.0",
     "@vitejs/plugin-react": "^6.1.2",
     "fake-indexeddb": "^6.2.5",
+    "kuromoji": "^0.1.2",
+    "seek-bzip": "^2.0.0",
     "typescript": "^7.0.2",
     "vite": "^8.3.4",
     "vite-plugin-pwa": "^2.0.0",

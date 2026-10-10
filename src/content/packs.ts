@@ -1,10 +1,11 @@
-import type { KanjiItem, Pack, PackManifest, VocabItem } from './types';
+import type { KanjiItem, Pack, PackManifest, Sentence, VocabItem } from './types';
 
 export const AVAILABLE_PACKS = ['ja'] as const;
 export type PackId = (typeof AVAILABLE_PACKS)[number];
 
 const cache = new Map<string, Promise<Pack>>();
 const strokeCache = new Map<string, Promise<Record<string, string[]>>>();
+const sentenceCache = new Map<string, Promise<Sentence[]>>();
 
 async function getJson<T>(url: string): Promise<T> {
   const res = await fetch(url);
@@ -40,6 +41,17 @@ export function loadStrokes(id: string): Promise<Record<string, string[]>> {
     p = getJson<Record<string, string[]>>(`/packs/${id}/strokes.json`);
     p.catch(() => strokeCache.delete(id));
     strokeCache.set(id, p);
+  }
+  return p;
+}
+
+/** Reading sentences are loaded separately since only the reading page needs them. */
+export function loadSentences(id: string): Promise<Sentence[]> {
+  let p = sentenceCache.get(id);
+  if (!p) {
+    p = getJson<Sentence[]>(`/packs/${id}/sentences.json`);
+    p.catch(() => sentenceCache.delete(id));
+    sentenceCache.set(id, p);
   }
   return p;
 }

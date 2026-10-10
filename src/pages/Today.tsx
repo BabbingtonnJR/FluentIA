@@ -88,6 +88,16 @@ export function Today() {
         <span className="btn primary block">{total ? 'Start studying' : 'All caught up'}</span>
       </Link>
 
+      <Link to="/read" className="card link" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div className="jp" style={{ fontSize: '2rem', color: 'var(--accent)', lineHeight: 1 }} aria-hidden="true">
+          読
+        </div>
+        <div style={{ flex: 1 }}>
+          <strong>Daily reading</strong>
+          <div className="faint">Real sentences built from the words you know, with furigana</div>
+        </div>
+      </Link>
+
       <div className="grid-2">
         <Link to="/listen" className="card link">
           <div className="jp" style={{ fontSize: '1.6rem', color: 'var(--indigo)' }}>
