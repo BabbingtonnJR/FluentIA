@@ -95,6 +95,8 @@ export function BarChart({
           const top = datum.values.reduce((last, v, s) => (v > 0 ? s : last), -1);
           return (
             <g key={datum.label}>
+              {/* bars grow from the baseline on mount, left to right; the hit area stays put */}
+              <g className="bar" style={{ ['--i' as string]: i }}>
               {datum.values.map((v, s) => {
                 if (v <= 0) return null;
                 const y0 = y(base);
@@ -108,6 +110,7 @@ export function BarChart({
                   <rect key={s} x={x} y={y0 - h} width={barW} height={h} fill={series[s].color} />
                 );
               })}
+              </g>
               <rect
                 className={`hit${shown === i && active !== null ? ' active' : ''}`}
                 x={PAD_L + i * slot}

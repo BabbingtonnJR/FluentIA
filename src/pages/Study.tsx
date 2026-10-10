@@ -1,11 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { Icon } from '../components/Icon';
+import { Petals } from '../components/Petals';
 import { cardFace } from '../content/faces';
 import { db } from '../db/db';
 import { answerCard, buildSession, markItemKnown, startCard } from '../db/repo';
 import type { CardRecord } from '../db/types';
 import { usePack, useSettings } from '../hooks';
+import { afterMotion } from '../lib/motion';
 import { formatInterval } from '../lib/time';
 import { speak, stopSpeaking } from '../speech/tts';
 import { GRADE_LABELS, GRADES, previewIntervals, Rating, State, type Grade } from '../srs/scheduler';
@@ -27,6 +29,9 @@ export function Study() {
   const [card, setCard] = useState<CardRecord | null>(null);
   const [revealed, setRevealed] = useState(false);
   const [stats, setStats] = useState({ reviewed: 0, learned: 0, again: 0 });
+  // `seq` re-keys the card so each one plays its entrance; `leaving` holds the grade while it exits.
+  const [seq, setSeq] = useState(0);
+  const [leaving, setLeaving] = useState<Grade | 'skip' | null>(null);
   const shownAt = useRef(Date.now());
   const busy = useRef(false);
 
@@ -53,6 +58,8 @@ export function Study() {
       if (!alive) return;
       setCard(rec ?? null);
       setRevealed(false);
+      setLeaving(null);
+      setSeq((n) => n + 1);
       shownAt.current = Date.now();
       if (!rec) setCursor((c) => c + 1); // card disappeared (e.g. deleted by sync); skip it
     };
@@ -92,6 +99,8 @@ export function Study() {
         q.splice(requeuePosition(q.length, cursor), 0, { type: 'review', cardId: next.id });
         setQueue(q);
       }
+      setLeaving(g);
+      await afterMotion(200);
       setCursor((c) => c + 1);
       busy.current = false;
     },
@@ -99,9 +108,13 @@ export function Study() {
   );
 
   const alreadyKnown = useCallback(async () => {
-    if (!entry || entry.type !== 'new') return;
+    if (!entry || entry.type !== 'new' || busy.current) return;
+    busy.current = true;
     await markItemKnown(entry.ref);
+    setLeaving('skip');
+    await afterMotion(200);
     setCursor((c) => c + 1);
+    busy.current = false;
   }, [entry]);
 
   // Keyboard: space/enter reveals, 1–4 grade.
@@ -123,8 +136,9 @@ export function Study() {
   if (!entry) {
     return (
       <div className="stack">
+        {stats.reviewed + stats.learned > 0 && <Petals />}
         <div className="empty">
-          <span className="jp">{queue.length ? 'お疲れ様' : '完了'}</span>
+          <span className="jp stamp">{queue.length ? 'お疲れ様' : '完了'}</span>
           {queue.length ? (
             <>
               <h2 style={{ margin: '0 0 8px' }}>Session complete</h2>
@@ -167,7 +181,10 @@ export function Study() {
         </span>
       </div>
 
-      <div className="card flashcard" onClick={reveal} role="button" tabIndex={0} aria-label={revealed ? undefined : 'Show answer'}>
+      <div
+        key={seq}
+        className={`card flashcard${leaving ? ` leaving ${leaving === 'skip' ? 'skip' : GRADE_CLASS[leaving]}` : ''}`}
+        onClick={reveal} role="button" tabIndex={0} aria-label={revealed ? undefined : 'Show answer'}>
         <div className="row" style={{ gap: 6 }}>
           {isNew && <span className="badge new">New</span>}
           <span className="badge">
@@ -216,15 +233,20 @@ export function Study() {
             )}
           </div>
         ) : (
-          <div className="faint">Tap to reveal</div>
+          <div className="faint hint">Tap to reveal</div>
         )}
       </div>
 
       <div className="study-footer">
         {revealed && intervals ? (
           <div className="grades">
-            {GRADES.map((g) => (
-              <button key={g} className={`grade ${GRADE_CLASS[g]}`} onClick={() => void grade(g)}>
+            {GRADES.map((g, n) => (
+              <button
+                key={g}
+                className={`grade ${GRADE_CLASS[g]}${leaving === g ? ' chosen' : ''}`}
+                style={{ '--i': n } as CSSProperties}
+                onClick={() => void grade(g)}
+              >
                 {GRADE_LABELS[g]}
                 <small>{formatInterval(intervals[g])}</small>
               </button>

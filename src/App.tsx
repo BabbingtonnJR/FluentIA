@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { NavLink, Route, Routes, useLocation } from 'react-router';
 import { PackContext, SettingsContext, useLiveSettings, useLoadedPack, useTheme } from './hooks';
 import { Today } from './pages/Today';
@@ -25,6 +26,7 @@ export function App() {
   const { pack, error } = useLoadedPack(settings?.lang);
   const location = useLocation();
   const focus = FOCUS_ROUTES.some((r) => location.pathname.startsWith(r));
+  const activeTab = TABS.findIndex((t) => (t.to === '/' ? location.pathname === '/' : location.pathname.startsWith(t.to)));
 
   return (
     <>
@@ -42,24 +44,28 @@ export function App() {
         ) : (
           <SettingsContext.Provider value={settings}>
           <PackContext.Provider value={pack}>
-            <Routes>
-              <Route path="/" element={<Today />} />
-              <Route path="/study" element={<Study />} />
-              <Route path="/listen" element={<Listen />} />
-              <Route path="/quiz" element={<Quiz />} />
-              <Route path="/library" element={<Library />} />
-              <Route path="/kanji/:char" element={<KanjiDetail />} />
-              <Route path="/progress" element={<Progress />} />
-              <Route path="/settings" element={<SettingsPage />} />
-              <Route path="*" element={<Today />} />
-            </Routes>
+            {/* keyed by path so every navigation replays the page entrance */}
+            <div className="page" key={location.pathname}>
+              <Routes>
+                <Route path="/" element={<Today />} />
+                <Route path="/study" element={<Study />} />
+                <Route path="/listen" element={<Listen />} />
+                <Route path="/quiz" element={<Quiz />} />
+                <Route path="/library" element={<Library />} />
+                <Route path="/kanji/:char" element={<KanjiDetail />} />
+                <Route path="/progress" element={<Progress />} />
+                <Route path="/settings" element={<SettingsPage />} />
+                <Route path="*" element={<Today />} />
+              </Routes>
+            </div>
           </PackContext.Provider>
           </SettingsContext.Provider>
         )}
       </main>
       {!focus && (
         <nav className="nav" aria-label="Main">
-          <ul>
+          <ul style={{ '--tab': activeTab } as CSSProperties}>
+            {activeTab >= 0 && <li className="nav-ink" aria-hidden="true" />}
             {TABS.map((t) => (
               <li key={t.to}>
                 <NavLink to={t.to} end={t.to === '/'}>

@@ -1,5 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks';
+import type { CSSProperties } from 'react';
 import { Link } from 'react-router';
+import { CountUp } from '../components/CountUp';
 import { Icon } from '../components/Icon';
 import { db } from '../db/db';
 import { buildSession } from '../db/repo';
@@ -60,8 +62,8 @@ export function Today() {
           </h1>
         </div>
         <div className="center" title={`Best streak: ${streak.best} days`}>
-          <div className="big-number" style={{ color: streak.doneToday ? 'var(--accent)' : 'var(--ink-3)' }}>
-            {streak.current}
+          <div className={`big-number${streak.doneToday ? ' lit' : ''}`} style={{ color: streak.doneToday ? 'var(--accent)' : 'var(--ink-3)' }}>
+            <CountUp value={streak.current} />
           </div>
           <div className="stat-label">day streak</div>
         </div>
@@ -71,12 +73,14 @@ export function Today() {
         <div className="stat-label">Study session</div>
         <div className="row" style={{ alignItems: 'baseline', gap: 20, margin: '6px 0 14px' }}>
           <div>
-            <div className="big-number">{session.dueCount}</div>
+            <div className="big-number">
+              <CountUp value={session.dueCount} />
+            </div>
             <div className="stat-label">reviews</div>
           </div>
           <div>
             <div className="big-number" style={{ color: 'var(--accent)' }}>
-              {session.newCount}
+              <CountUp value={session.newCount} />
             </div>
             <div className="stat-label">new</div>
           </div>
@@ -103,8 +107,13 @@ export function Today() {
 
       <div className="section-title">Daily activities · 毎日</div>
       <div className="card" style={{ paddingTop: 6, paddingBottom: 6 }}>
-        {quests.map((q) => (
-          <Link key={q.id} to={q.to} className={`quest${q.done ? ' done' : ''}`} style={{ textDecoration: 'none' }}>
+        {quests.map((q, n) => (
+          <Link
+            key={q.id}
+            to={q.to}
+            className={`quest${q.done ? ' done' : ''}`}
+            style={{ textDecoration: 'none', '--i': n } as CSSProperties}
+          >
             <span className="check">{q.done && <Icon name="check" />}</span>
             <span style={{ flex: 1 }}>
               <div className="quest-title" style={{ fontWeight: 600 }}>

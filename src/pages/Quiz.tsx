@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { Icon } from '../components/Icon';
+import { Petals } from '../components/Petals';
 import { db } from '../db/db';
 import { logActivity } from '../db/repo';
 import { usePack, useSettings } from '../hooks';
@@ -73,8 +74,9 @@ export function Quiz() {
     const pct = Math.round((score / questions.length) * 100);
     return (
       <div className="stack">
+        {pct >= 50 && <Petals count={pct >= 80 ? 28 : 14} />}
         <div className="empty">
-          <span className="jp">{pct >= 80 ? '素晴らしい' : pct >= 50 ? 'いいね' : '頑張って'}</span>
+          <span className="jp stamp">{pct >= 80 ? '素晴らしい' : pct >= 50 ? 'いいね' : '頑張って'}</span>
           <h2 style={{ margin: '0 0 8px' }}>
             {score} / {questions.length}
           </h2>
@@ -104,10 +106,10 @@ export function Quiz() {
         </span>
       </div>
 
-      <div className="card center stack" style={{ padding: '28px 16px' }}>
+      <div key={`q${round}-${i}`} className="card center stack question-card" style={{ padding: '28px 16px' }}>
         <div className="faint">{QUESTION_TITLES[q.type]}</div>
         {q.type === 'listening' ? (
-          <button className="icon-btn" style={{ margin: '12px auto', width: 72, height: 72 }} onClick={() => q.speak && void say(q.speak)} aria-label="Play again">
+          <button className="icon-btn pulse-ring" style={{ margin: '12px auto', width: 72, height: 72 }} onClick={() => q.speak && void say(q.speak)} aria-label="Play again">
             <Icon name="speaker" />
           </button>
         ) : (
@@ -117,11 +119,17 @@ export function Quiz() {
         )}
       </div>
 
-      <div className="options">
+      <div key={`o${round}-${i}`} className={`options${picked !== null ? ' answered' : ''}`}>
         {q.options.map((o, n) => {
           const state = picked === null ? '' : n === q.answer ? ' correct' : n === picked ? ' wrong' : '';
           return (
-            <button key={o} className={`option${q.optionsJp ? ' jp' : ''}${state}`} lang={q.optionsJp ? 'ja' : 'en'} onClick={() => pick(n)}>
+            <button
+              key={o}
+              className={`option${q.optionsJp ? ' jp' : ''}${state}`}
+              style={{ '--i': n } as CSSProperties}
+              lang={q.optionsJp ? 'ja' : 'en'}
+              onClick={() => pick(n)}
+            >
               {o}
             </button>
           );
@@ -129,7 +137,7 @@ export function Quiz() {
       </div>
 
       {picked !== null && (
-        <button className="btn primary block" onClick={next}>
+        <button className="btn primary block rise-in" onClick={next}>
           {i + 1 >= questions.length ? 'See results' : 'Next'}
         </button>
       )}

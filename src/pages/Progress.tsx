@@ -1,6 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import type { CSSProperties } from 'react';
 import { BarChart } from '../components/BarChart';
+import { CountUp } from '../components/CountUp';
 import { db } from '../db/db';
 import { usePack, useSettings } from '../hooks';
 import { DAY, dayKey, dayStart } from '../lib/time';
@@ -69,19 +70,25 @@ export function Progress() {
 
       <div className="grid-2">
         <div className="card">
-          <div className="big-number">{data.streak.current}</div>
+          <div className="big-number">
+            <CountUp value={data.streak.current} />
+          </div>
           <div className="stat-label">day streak · best {data.streak.best}</div>
         </div>
         <div className="card">
-          <div className="big-number">{known}</div>
+          <div className="big-number">
+            <CountUp value={known} />
+          </div>
           <div className="stat-label">words & kanji started</div>
         </div>
         <div className="card">
-          <div className="big-number">{data.retention === null ? '—' : `${Math.round(data.retention * 100)}%`}</div>
+          <div className="big-number">{data.retention === null ? '—' : <CountUp value={Math.round(data.retention * 100)} suffix="%" />}</div>
           <div className="stat-label">retention, last 30 days</div>
         </div>
         <div className="card">
-          <div className="big-number">Lv {level.level}</div>
+          <div className="big-number">
+            Lv <CountUp value={level.level} />
+          </div>
           <div className="stat-label">
             {data.xp} XP · {data.totalReviews} reviews
           </div>
