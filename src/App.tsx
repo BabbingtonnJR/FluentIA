@@ -15,6 +15,8 @@ import { LitReader } from './pages/LitReader';
 import { ComicReader } from './pages/ComicReader';
 import { VideoImport } from './pages/VideoImport';
 import { VideoPlayer } from './pages/VideoPlayer';
+import { MangaImport } from './pages/MangaImport';
+import { MangaReader } from './pages/MangaReader';
 import { Library } from './pages/Library';
 import { KanjiDetail } from './pages/KanjiDetail';
 import { Progress } from './pages/Progress';
@@ -28,7 +30,7 @@ const TABS = [
 ];
 
 /** Full-screen activities hide the tab bar so nothing distracts from studying. */
-const FOCUS_ROUTES = ['/study', '/listen', '/quiz', '/read', '/mock', '/wordle', '/crossword', '/literature/', '/comics/', '/videos/'];
+const FOCUS_ROUTES = ['/study', '/listen', '/quiz', '/read', '/mock', '/wordle', '/crossword', '/literature/', '/comics/', '/videos/', '/manga/'];
 
 export function App() {
   const settings = useLiveSettings();
@@ -70,6 +72,8 @@ export function App() {
                 <Route path="/comics/:id" element={<ComicReader />} />
                 <Route path="/videos/new" element={<VideoImport />} />
                 <Route path="/videos/:id" element={<VideoPlayer />} />
+                <Route path="/manga/new" element={<MangaImport />} />
+                <Route path="/manga/:id" element={<MangaReader />} />
                 <Route path="/library" element={<Library />} />
                 <Route path="/kanji/:char" element={<KanjiDetail />} />
                 <Route path="/grammar/:id" element={<GrammarDetail />} />

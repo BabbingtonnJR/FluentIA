@@ -133,7 +133,7 @@ export function Today() {
         </div>
         <div style={{ flex: 1 }}>
           <strong>Literature</strong>
-          <div className="faint">Stories, a comic and your own videos, every line broken down</div>
+          <div className="faint">Stories, comics, your manga and videos, every line broken down</div>
         </div>
       </Link>
 

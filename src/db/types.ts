@@ -1,6 +1,6 @@
 import type { VideoLine } from '../video/analyse';
 import type { Grade, State } from 'ts-fsrs';
-import type { ItemKind } from '../content/types';
+import type { ItemKind, LitSentence } from '../content/types';
 
 export type Direction = 'recognition' | 'production';
 
@@ -108,4 +108,30 @@ export interface VideoRecord {
   /** The video itself, if the learner chose to keep it in the app. */
   video?: Blob;
   videoName?: string;
+}
+
+/** A speech bubble in an imported manga: where it is (as a share of the page) and its breakdown. */
+export interface MangaBlock {
+  /** [left, top, right, bottom], each between 0 and 1. */
+  box: [number, number, number, number];
+  s: LitSentence;
+}
+
+/** A manga volume imported from mokuro's output, kept on this device only. */
+export interface MangaRecord {
+  id: string;
+  lang: string;
+  title: string;
+  createdAt: number;
+  /** The file it was imported from. */
+  source: string;
+  pages: { b: MangaBlock[] }[];
+}
+
+/** One page image of an imported manga. */
+export interface MangaImage {
+  id: string; // `${mangaId}:${page}`
+  mangaId: string;
+  page: number;
+  blob: Blob;
 }

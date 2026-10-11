@@ -1608,6 +1608,26 @@ select.input {
   padding-bottom: 62vh;
 }
 
+/* ---- Imported manga -------------------------------------------------------- */
+
+.manga-placeholder {
+  aspect-ratio: 0.7;
+}
+
+.manga-box {
+  position: absolute;
+  padding: 0;
+  border: 2px solid color-mix(in srgb, var(--indigo) 55%, transparent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--indigo) 6%, transparent);
+  cursor: pointer;
+}
+
+.manga-box.on {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
 /* ---- Charts ---------------------------------------------------------------- */
 
 .chart {

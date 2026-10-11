@@ -86,21 +86,32 @@ export function loadTokenizer(): Promise<Tokenizer> {
   return tokenizer;
 }
 
-/** Breaks down each subtitle line, yielding to the page now and then so progress can show. */
-export async function analyseCues(cues: Cue[], pack: Pack, onProgress?: (done: number) => void): Promise<VideoLine[]> {
+/**
+ * Breaks down each text (a subtitle line, a speech bubble), yielding to the page now and then so
+ * progress can show. Line breaks are layout only, so the words run on.
+ */
+export async function analyseTexts(texts: string[], pack: Pack, onProgress?: (done: number) => void): Promise<LitSentence[]> {
   const t = await loadTokenizer();
   const lookup = vocabLookup(pack.vocab);
   const matchers: GrammarMatcher[] = pack.grammar.flatMap((g) => (g.match ? [{ id: g.id, re: new RegExp(g.match, 'u') }] : []));
-  const out: VideoLine[] = [];
-  for (let i = 0; i < cues.length; i++) {
-    const c = cues[i];
-    // Line breaks in a subtitle are layout only; the words run on.
-    out.push({ start: c.start, end: c.end, s: analyse(c.text.replace(/\n/g, ''), t, lookup, matchers) });
+  const out: LitSentence[] = [];
+  for (let i = 0; i < texts.length; i++) {
+    out.push(analyse(texts[i].replace(/\n/g, ''), t, lookup, matchers));
     if (i % 40 === 39) {
       onProgress?.(i + 1);
       await new Promise((r) => setTimeout(r, 0));
     }
   }
-  onProgress?.(cues.length);
+  onProgress?.(texts.length);
   return out;
+}
+
+/** Breaks down each subtitle line. */
+export async function analyseCues(cues: Cue[], pack: Pack, onProgress?: (done: number) => void): Promise<VideoLine[]> {
+  const sentences = await analyseTexts(
+    cues.map((c) => c.text),
+    pack,
+    onProgress,
+  );
+  return cues.map((c, i) => ({ start: c.start, end: c.end, s: sentences[i] }));
 }
