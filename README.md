@@ -50,15 +50,21 @@ Abra o app uma vez com internet para ele guardar o conteúdo; depois funciona of
 
 Para o áudio em japonês, o iPhone precisa da voz japonesa: Ajustes → Acessibilidade → Conteúdo Falado → Vozes → Japonês.
 
-## Sincronizar PC e celular (opcional, grátis)
+## Contas (grátis)
 
-Sem isso, o progresso fica salvo em cada aparelho (dá para exportar/importar em Settings → Backup).
+Com o Supabase configurado, o app abre numa tela de login: cada pessoa cria a própria conta e o progresso
+fica salvo nela, em qualquer aparelho. Ao sair da conta, o progresso é apagado do aparelho (continua na conta),
+então dá para dividir um computador. Sem o Supabase, o app funciona sem login e o progresso fica em cada aparelho.
 
 1. Crie um projeto grátis no [Supabase](https://supabase.com).
 2. No SQL Editor, rode o conteúdo de [`supabase/schema.sql`](supabase/schema.sql).
-3. Em Project Settings → API, copie a **Project URL** e a chave **anon public**.
-4. Coloque as duas em `.env.local` (veja `.env.example`) e, na Vercel, em Settings → Environment Variables.
-5. No app, vá em Settings → Sync, crie a conta com e-mail e senha e entre com a mesma conta nos outros aparelhos.
+3. Em Authentication → Sign In / Providers → Email, **desligue "Confirm email"**: o e-mail grátis do Supabase
+   envia só poucos e-mails por hora, o que não dá para uma turma inteira se cadastrar.
+4. Em Authentication → URL Configuration, coloque em **Site URL** o endereço do site (por exemplo
+   `https://fluentia.vercel.app`), para o link de "Forgot your password?" voltar para o app.
+5. Em Project Settings → API, copie a **Project URL** e a chave **anon public**.
+6. Coloque as duas em `.env.local` (veja `.env.example`) e, na Vercel, em Settings → Environment Variables
+   (depois, faça um novo deploy).
 
 Observação: o plano grátis do Supabase pausa projetos parados por 1 semana. Com uso diário isso não acontece;
 se pausar, basta reativar no painel.
