@@ -104,11 +104,33 @@ const outDir = path.join(packDir, 'literature');
 await mkdir(outDir, { recursive: true });
 
 const CONTENT = (pos) => !/^(sym|p|aux|name|num|prefix|suffix|filler|noun-dep|verb-aux|adj-aux)/.test(pos);
+
+// Graded readers written for Fluentia (graded.json next to works.json): paragraphs of
+// [Japanese, English] sentence pairs. Readings for numbers are given Aozora-style: 三《みっ》つ.
+const graded = JSON.parse(await readFile(path.join(path.dirname(worksJson), 'graded.json'), 'utf8').catch(() => '[]'));
+const sources = [
+  ...graded.map((g) => ({
+    ...g,
+    author: 'Fluentia',
+    authorEn: 'graded reader',
+    credit: {},
+    body: async () => g.text.map((para) => ({ s: para.map(([jp, en]) => ({ ...analyse(jp, tokenizer, lookup, matchers), e: en })) })),
+  })),
+  ...works.map((w) => ({
+    ...w,
+    body: async function () {
+      const text = new TextDecoder('shift_jis').decode(readZipText(await readFile(path.join(rawDir, 'aozora', `${w.id}.zip`))));
+      const { paragraphs, credit } = parseAozora(text);
+      this.credit = credit;
+      return paragraphs.map((p) => (p.heading ? { h: splitRuby(p.text).plain } : { s: splitSentences(p.text).map((m) => analyse(m, tokenizer, lookup, matchers)) }));
+    },
+  })),
+];
+
 const index = [];
-for (const w of works) {
-  const text = new TextDecoder('shift_jis').decode(readZipText(await readFile(path.join(rawDir, 'aozora', `${w.id}.zip`))));
-  const { paragraphs, credit } = parseAozora(text);
-  const body = paragraphs.map((p) => (p.heading ? { h: splitRuby(p.text).plain } : { s: splitSentences(p.text).map((m) => analyse(m, tokenizer, lookup, matchers)) }));
+for (const w of sources) {
+  const body = await w.body();
+  const credit = w.credit;
 
   // Share of content words in the N5–N3 list (the app shows the learner's own share too).
   const all = body.flatMap((p) => p.s ?? []);
@@ -127,7 +149,7 @@ for (const w of works) {
     authorEn: w.authorEn,
     // A rough guide set by hand in works.json; the stories are listed easiest first.
     level: w.level,
-    url: `https://www.aozora.gr.jp/cards/${w.url.match(/cards\/(\d+)/)[1]}/card${w.aozora}.html`,
+    ...(w.text ? { graded: true } : { url: `https://www.aozora.gr.jp/cards/${w.url.match(/cards\/(\d+)/)[1]}/card${w.aozora}.html` }),
     credit,
     sentences: all.length,
     chars,

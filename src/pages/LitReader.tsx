@@ -96,7 +96,7 @@ export function LitReader() {
       <header className="lit-head">
         <h1 lang="ja">{work.title}</h1>
         <div className="faint">
-          {work.titleEn} · <span lang="ja">{work.author}</span> ({work.authorEn}) · ≈{work.level}
+          {work.titleEn} · <span lang="ja">{work.author}</span> ({work.authorEn}) · {work.graded ? work.level : `≈${work.level}`}
         </div>
         <div className="faint">Tap a sentence to see how it is built.</div>
         {player.available && player.chapter === null && (
@@ -160,7 +160,13 @@ export function LitReader() {
           </button>
         )}
         <p className="faint" style={{ fontSize: '0.8rem', margin: 0 }}>
-          From <a href={work.url}>Aozora Bunko (青空文庫)</a>
+          {work.graded ? (
+            'A graded reader written for Fluentia with the words and grammar of its level. Tap a sentence for its translation.'
+          ) : (
+            <>
+              From <a href={work.url}>Aozora Bunko (青空文庫)</a>
+            </>
+          )}
           {work.credit.source && (
             <>
               . Source: <span lang="ja">{work.credit.source}</span>

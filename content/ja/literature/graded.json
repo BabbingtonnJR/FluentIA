@@ -1,0 +1,429 @@
+[
+  {
+    "id": "g5-hajimemashite",
+    "title": "はじめまして",
+    "titleEn": "Nice to Meet You",
+    "level": "N5",
+    "text": [
+      [
+        ["はじめまして。わたしはルーカスです。", "Nice to meet you. I'm Lucas."],
+        ["ブラジルから来ました。", "I came from Brazil."],
+        ["二十歳《はたち》です。", "I'm twenty years old."],
+        ["今、東京の大学で日本語を勉強しています。", "Now I'm studying Japanese at a university in Tokyo."]
+      ],
+      [
+        ["わたしの家は大学の近くにあります。", "My home is near the university."],
+        ["小さいですが、きれいな部屋です。", "It's small, but it's a nice room."],
+        ["まどから公園が見えます。", "I can see a park from the window."]
+      ],
+      [
+        ["わたしは音楽が好きです。", "I like music."],
+        ["ギターをひきます。", "I play the guitar."],
+        ["日本の歌も少し歌います。", "I also sing a few Japanese songs."],
+        ["でも、日本語はまだ上手じゃありません。", "But my Japanese isn't good yet."],
+        ["毎日がんばっています。", "I'm working hard every day."],
+        ["どうぞよろしくおねがいします。", "I look forward to getting to know you."]
+      ]
+    ]
+  },
+  {
+    "id": "g5-ichinichi",
+    "title": "ルーカスさんの一日",
+    "titleEn": "A Day in Lucas's Life",
+    "level": "N5",
+    "text": [
+      [
+        ["ルーカスさんは毎朝｜七時《しちじ》に起きます。", "Lucas gets up at seven every morning."],
+        ["顔を洗って、朝ごはんを食べます。", "He washes his face and eats breakfast."],
+        ["朝ごはんはいつもパンとコーヒーです。", "Breakfast is always bread and coffee."],
+        ["八時半《はちじはん》に家を出ます。", "He leaves home at half past eight."],
+        ["大学まで自転車で十五分《じゅうごふん》ぐらいです。", "It's about fifteen minutes to the university by bicycle."]
+      ],
+      [
+        ["午前中は日本語のクラスがあります。", "In the morning he has Japanese class."],
+        ["山田先生のクラスはとてもおもしろいです。", "Ms. Yamada's class is very interesting."],
+        ["昼ごはんは友だちと食堂で食べます。", "He eats lunch with friends in the cafeteria."],
+        ["午後は図書館で勉強します。", "In the afternoon he studies in the library."]
+      ],
+      [
+        ["夕方、スーパーで買い物をしてから、家に帰ります。", "In the evening he shops at the supermarket, then goes home."],
+        ["夜は料理を作って、テレビを見ます。", "At night he cooks and watches TV."],
+        ["ときどき、ブラジルの家族に電話をかけます。", "Sometimes he calls his family in Brazil."],
+        ["十一時《じゅういちじ》ごろねます。", "He goes to bed around eleven."]
+      ]
+    ]
+  },
+  {
+    "id": "g5-panya",
+    "title": "日曜日のパン屋",
+    "titleEn": "The Sunday Bakery",
+    "level": "N5",
+    "text": [
+      [
+        ["日曜日の朝、ルーカスさんは駅の前のパン屋へ行きました。", "On Sunday morning, Lucas went to the bakery in front of the station."],
+        ["店の中はあたたかかったです。", "It was warm inside the shop."],
+        ["パンがたくさんありました。", "There was a lot of bread."]
+      ],
+      [
+        ["「いらっしゃいませ。」", "“Welcome.”"],
+        ["「すみません、このパンはいくらですか。」", "“Excuse me, how much is this bread?”"],
+        ["「百五十円《ひゃくごじゅうえん》です。」", "“It's 150 yen.”"],
+        ["「じゃあ、これを三《みっ》つください。」", "“Then three of these, please.”"],
+        ["「それから、牛乳も一本《いっぽん》ください。」", "“And a bottle of milk too, please.”"],
+        ["「ぜんぶで六百円《ろっぴゃくえん》です。」", "“That's 600 yen in total.”"],
+        ["「ありがとうございました。」", "“Thank you very much.”"]
+      ],
+      [
+        ["ルーカスさんは公園でパンを食べました。", "Lucas ate the bread in the park."],
+        ["とてもおいしかったです。", "It was very good."],
+        ["来週の日曜日もまた行きたいです。", "He wants to go again next Sunday too."]
+      ]
+    ]
+  },
+  {
+    "id": "g5-ame",
+    "title": "雨の日",
+    "titleEn": "A Rainy Day",
+    "level": "N5",
+    "text": [
+      [
+        ["今日は朝から雨がふっています。", "It's been raining since this morning."],
+        ["外は寒くて、暗いです。", "Outside it's cold and dark."],
+        ["ルーカスさんはどこへも行きません。", "Lucas isn't going anywhere."]
+      ],
+      [
+        ["部屋で温かいお茶を飲みました。", "He drank some warm tea in his room."],
+        ["それから、ハナさんにもらった本を読みました。", "Then he read the book he got from Hana."],
+        ["本は少しむずかしかったですが、おもしろかったです。", "The book was a little difficult, but interesting."],
+        ["わからない言葉は、辞書で意味を見ました。", "He looked up the words he didn't know in the dictionary."]
+      ],
+      [
+        ["夕方、ハナさんから電話がありました。", "In the evening, Hana called."],
+        ["「あしたは天気がいいですよ。いっしょにさんぽしませんか。」", "“The weather will be nice tomorrow. Would you like to go for a walk together?”"],
+        ["「いいですね。行きましょう。」", "“Sounds good. Let's go.”"],
+        ["雨の日も、いい日でした。", "Even the rainy day was a good day."]
+      ]
+    ]
+  },
+  {
+    "id": "g5-kazoku",
+    "title": "ハナさんの家族",
+    "titleEn": "Hana's Family",
+    "level": "N5",
+    "text": [
+      [
+        ["ハナさんは四人《よにん》家族です。", "There are four people in Hana's family."],
+        ["お父さんとお母さんと弟さんがいます。", "She has a father, a mother and a younger brother."],
+        ["家は横浜にあります。", "Their home is in Yokohama."]
+      ],
+      [
+        ["お父さんは銀行で働いています。", "Her father works at a bank."],
+        ["せが高くて、やさしい人です。", "He is tall and kind."],
+        ["お母さんは高校の先生です。", "Her mother is a high school teacher."],
+        ["料理がとても上手です。", "She is very good at cooking."]
+      ],
+      [
+        ["弟さんは十二歳《じゅうにさい》です。", "Her younger brother is twelve."],
+        ["サッカーが大好きで、毎日練習しています。", "He loves soccer and practices every day."],
+        ["ハナさんは「弟はうるさいです。」と言います。", "Hana says, “My brother is noisy.”"],
+        ["でも、二人《ふたり》はとてもなかがいいです。", "But the two of them get along very well."]
+      ],
+      [
+        ["先月、ルーカスさんはハナさんの家へ行きました。", "Last month, Lucas went to Hana's house."],
+        ["みんなでばんごはんを食べて、たくさん話しました。", "They all ate dinner together and talked a lot."]
+      ]
+    ]
+  },
+  {
+    "id": "g5-michi",
+    "title": "駅はどこですか",
+    "titleEn": "Where Is the Station?",
+    "level": "N5",
+    "text": [
+      [
+        ["ある日、ルーカスさんは新しい町へ行きました。", "One day, Lucas went to a new town."],
+        ["帰るとき、駅がわかりませんでした。", "When it was time to go home, he couldn't find the station."],
+        ["道で、おばあさんに聞きました。", "He asked an old woman on the street."]
+      ],
+      [
+        ["「すみません。駅はどこですか。」", "“Excuse me. Where is the station?”"],
+        ["「駅ですか。この道をまっすぐ行ってください。」", "“The station? Please go straight down this street.”"],
+        ["「二《ふた》つ目の角《かど》を右にまがってください。」", "“Please turn right at the second corner.”"],
+        ["「銀行のとなりに、大きいビルがあります。」", "“Next to the bank there's a big building.”"],
+        ["「駅はそのビルの前ですよ。」", "“The station is in front of that building.”"],
+        ["「ありがとうございます。」", "“Thank you.”"],
+        ["「いいえ。気をつけてね。」", "“Not at all. Take care.”"]
+      ],
+      [
+        ["ルーカスさんはまっすぐ歩いて、右にまがりました。", "Lucas walked straight ahead and turned right."],
+        ["駅はすぐ近くにありました。", "The station was very close."],
+        ["日本の人はやさしいなあと思いました。", "He thought, “Japanese people are so kind.”"]
+      ]
+    ]
+  },
+  {
+    "id": "g5-tanjoubi",
+    "title": "誕生日のケーキ",
+    "titleEn": "The Birthday Cake",
+    "level": "N5",
+    "text": [
+      [
+        ["きのうはハナさんの誕生日でした。", "Yesterday was Hana's birthday."],
+        ["ルーカスさんとクラスの友だちは、ハナさんの部屋でパーティーをしました。", "Lucas and their classmates had a party in Hana's room."]
+      ],
+      [
+        ["ルーカスさんはケーキを作りました。", "Lucas made a cake."],
+        ["はじめてでしたから、とてもたいへんでした。", "It was his first time, so it was really hard."],
+        ["でも、ケーキはきれいにできました。", "But the cake turned out beautifully."]
+      ],
+      [
+        ["パーティーでは、みんなで歌を歌ったり、ゲームをしたりしました。", "At the party, everyone sang songs, played games and so on."],
+        ["ハナさんはケーキを見て、「わあ、すごい！」と言いました。", "Hana saw the cake and said, “Wow, amazing!”"],
+        ["「これ、ルーカスさんが作りましたか。」", "“Did you make this, Lucas?”"],
+        ["「はい。ブラジルのケーキです。」", "“Yes. It's a Brazilian cake.”"],
+        ["ケーキはあまくて、とてもおいしかったです。", "The cake was sweet and very good."],
+        ["みんなは「また作ってください。」と言いました。", "Everyone said, “Please make it again.”"],
+        ["楽しい夜でした。", "It was a fun night."]
+      ]
+    ]
+  },
+  {
+    "id": "g5-natsuyasumi",
+    "title": "夏休みの計画",
+    "titleEn": "Summer Vacation Plans",
+    "level": "N5",
+    "text": [
+      [
+        ["もうすぐ夏休みです。", "Summer vacation is almost here."],
+        ["ルーカスさんは旅行に行きたいです。", "Lucas wants to go on a trip."],
+        ["京都と北海道と、どちらがいいか、まだわかりません。", "He doesn't know yet which is better, Kyoto or Hokkaido."]
+      ],
+      [
+        ["ハナさんに聞きました。", "He asked Hana."],
+        ["「京都と北海道と、どちらが好きですか。」", "“Which do you like better, Kyoto or Hokkaido?”"],
+        ["「わたしは北海道のほうが好きです。」", "“I like Hokkaido better.”"],
+        ["「夏も、東京よりすずしいですから。」", "“Because it's cooler than Tokyo, even in summer.”"],
+        ["「でも、京都には古いお寺がたくさんありますよ。」", "“But Kyoto has lots of old temples, you know.”"]
+      ],
+      [
+        ["ルーカスさんは少し考えました。", "Lucas thought for a moment."],
+        ["「じゃあ、両方に行きます！」", "“Then I'll go to both!”"],
+        ["ハナさんはわらいました。", "Hana laughed."],
+        ["「いいですね。おみやげをおねがいします。」", "“Sounds good. Bring me a souvenir, please.”"],
+        ["夏休みが楽しみです。", "He's looking forward to summer vacation."]
+      ]
+    ]
+  },
+  {
+    "id": "g4-arubaito",
+    "title": "初めてのアルバイト",
+    "titleEn": "The First Part-Time Job",
+    "level": "N4",
+    "text": [
+      [
+        ["ルーカスさんは先月から、駅の近くのカフェでアルバイトをしている。", "Since last month, Lucas has been working part-time at a café near the station."],
+        ["初めての仕事なので、最初はとても緊張した。", "It was his first job, so he was very nervous at first."]
+      ],
+      [
+        ["店長の木村さんは、仕事のやり方をていねいに教えてくれた。", "The manager, Mr. Kimura, carefully taught him how to do the work."],
+        ["「お客様が来たら、すぐに『いらっしゃいませ』と言ってね。」", "“When a customer comes in, say ‘Irasshaimase’ right away.”"],
+        ["「注文は、まちがえないように、もう一度確認してください。」", "“Check each order once more so you don't get it wrong.”"]
+      ],
+      [
+        ["一日目《いちにちめ》、ルーカスさんはコーヒーをこぼしてしまった。", "On his first day, Lucas spilled some coffee."],
+        ["お客様の服はよごれなかったが、とてもはずかしかった。", "The customer's clothes didn't get dirty, but he was very embarrassed."],
+        ["木村さんは「だいじょうぶ。だれでも最初は失敗するよ。」と言ってくれた。", "Mr. Kimura told him, “It's fine. Everyone makes mistakes at first.”"]
+      ],
+      [
+        ["今では、仕事にもだいぶ慣れてきた。", "Now he's gotten quite used to the job."],
+        ["よく来るおばあさんは、いつも「日本語が上手になったね」とほめてくれる。", "An old lady who comes often always praises him: “Your Japanese has gotten good.”"],
+        ["アルバイトをして、教室では習えない日本語をたくさん覚えた。", "Working there, he has learned a lot of Japanese you can't learn in a classroom."]
+      ]
+    ]
+  },
+  {
+    "id": "g4-saifu",
+    "title": "なくした財布",
+    "titleEn": "The Lost Wallet",
+    "level": "N4",
+    "text": [
+      [
+        ["金曜日の夜、ルーカスさんは財布をなくしたことに気がついた。", "On Friday night, Lucas noticed that he had lost his wallet."],
+        ["かばんの中を何度も探したが、どこにもなかった。", "He searched his bag again and again, but it wasn't anywhere."],
+        ["財布には、お金と学生証が入っていた。", "His money and his student ID were in the wallet."]
+      ],
+      [
+        ["「電車の中で落としたのかもしれない。」", "“Maybe I dropped it on the train.”"],
+        ["ルーカスさんは急いで駅へ行《い》って、駅員さんに聞いてみた。", "Lucas hurried to the station and asked a station attendant."],
+        ["しかし、財布はとどいていなかった。", "But the wallet hadn't been handed in."],
+        ["駅員さんは「交番にも行ったほうがいいですよ」と教えてくれた。", "The attendant told him, “You should go to the police box too.”"]
+      ],
+      [
+        ["交番で、おまわりさんに財布の色や形を説明した。", "At the police box, he described the wallet's color and shape to the officer."],
+        ["次の日の朝、交番から電話がかかってきた。", "The next morning, the police box called."],
+        ["「財布がとどきましたよ。」", "“Your wallet has been handed in.”"],
+        ["「高校生が公園で拾って、持ってきてくれたそうです。」", "“Apparently a high school student found it in a park and brought it in.”"],
+        ["財布の中のお金は、一円《いちえん》もなくなっていなかった。", "Not a single yen was missing from the wallet."],
+        ["ルーカスさんは、その高校生にお礼を言いたいと思った。", "Lucas wished he could thank that high school student."]
+      ]
+    ]
+  },
+  {
+    "id": "g4-fujisan",
+    "title": "富士山に登る",
+    "titleEn": "Climbing Mt. Fuji",
+    "level": "N4",
+    "text": [
+      [
+        ["ルーカスさんは、日本にいる間に富士山に登ろうと思っていた。", "Lucas had been planning to climb Mt. Fuji while he was in Japan."],
+        ["八月《はちがつ》のある日、ハナさんと二人《ふたり》で登ることにした。", "One day in August, he decided to climb it with Hana."]
+      ],
+      [
+        ["登る前に、二人《ふたり》は必要な物をいろいろ準備した。", "Before the climb, the two of them got all kinds of things ready."],
+        ["山の上は夏でも寒いので、暖かい服を持っていかなければならない。", "It's cold at the top even in summer, so you have to bring warm clothes."],
+        ["夜に登り始めて、山の上で朝日を見る予定だった。", "The plan was to start climbing at night and watch the sunrise from the top."]
+      ],
+      [
+        ["登り始めたときは元気だったが、だんだん足が痛くなってきた。", "They felt great when they started, but little by little their legs began to hurt."],
+        ["「もうだめだ。少し休もう。」", "“I can't go on. Let's rest a little.”"],
+        ["ハナさんも疲れているようだったが、「あと少しだから、がんばろう」と言った。", "Hana looked tired too, but she said, “It's not much farther, let's keep going.”"]
+      ],
+      [
+        ["朝の四時半《よじはん》ごろ、やっと山の上に着いた。", "Around half past four in the morning, they finally reached the top."],
+        ["しばらく待つと、雲の向こうから太陽が出てきた。", "After waiting a while, the sun came up beyond the clouds."],
+        ["その景色は、写真で見るより、ずっときれいだった。", "The view was far more beautiful than in photos."],
+        ["二人《ふたり》は何も言わずに、ずっと空を見ていた。", "The two of them watched the sky for a long time without saying a word."]
+      ]
+    ]
+  },
+  {
+    "id": "g4-kaze",
+    "title": "風邪をひいた日",
+    "titleEn": "The Day I Caught a Cold",
+    "level": "N4",
+    "text": [
+      [
+        ["ある朝、ルーカスさんは頭が痛くて、のども変だった。", "One morning, Lucas had a headache and his throat felt strange too."],
+        ["熱を測ってみると、三十八度《さんじゅうはちど》あった。", "When he took his temperature, it was 38 degrees."],
+        ["今日は大事な授業があるのに、とても行けそうにない。", "There was an important class today, but there was no way he could go."]
+      ],
+      [
+        ["ルーカスさんは山田先生にメールを送った。", "Lucas sent an email to Ms. Yamada."],
+        ["「熱があるので、今日は休ませてください。」", "“I have a fever, so please let me take today off.”"],
+        ["先生からすぐに返事が来た。", "A reply came from the teacher right away."],
+        ["「無理をしないで、ゆっくり休んでくださいね。」", "“Don't push yourself. Get plenty of rest.”"],
+        ["「病院にも行ったほうがいいですよ。」", "“You should go to the hospital too.”"]
+      ],
+      [
+        ["病院で、医者は「ただの風邪でしょう」と言った。", "At the hospital, the doctor said, “It's probably just a cold.”"],
+        ["薬を飲んで、たくさん寝なければならない。", "He has to take his medicine and sleep a lot."],
+        ["夕方、ハナさんがりんごとスポーツドリンクを持ってきてくれた。", "In the evening, Hana brought him apples and a sports drink."],
+        ["「授業のノートもコピーしておいたよ。」", "“I made a copy of the class notes for you too.”"],
+        ["ルーカスさんは、いい友だちがいて本当によかったと思った。", "Lucas thought how lucky he was to have a good friend."]
+      ]
+    ]
+  },
+  {
+    "id": "g4-obaachan",
+    "title": "おばあちゃんの村",
+    "titleEn": "Grandma's Village",
+    "level": "N4",
+    "text": [
+      [
+        ["冬休みに、ルーカスさんはハナさんのおばあちゃんの家に行った。", "During winter vacation, Lucas went to Hana's grandmother's house."],
+        ["おばあちゃんは長野の小さい村に住んでいる。", "Her grandmother lives in a small village in Nagano."],
+        ["東京から電車とバスで四時間《よじかん》もかかる。", "It takes all of four hours by train and bus from Tokyo."]
+      ],
+      [
+        ["村は雪で真っ白だった。", "The village was white with snow."],
+        ["ルーカスさんは、こんなにたくさんの雪を見たことがなかった。", "Lucas had never seen so much snow."],
+        ["「ブラジルでは雪がふらないの？」とおばあちゃんが聞いた。", "“Doesn't it snow in Brazil?” the grandmother asked."],
+        ["「ぼくの町ではふりません。」", "“It doesn't snow in my town.”"],
+        ["「だから、とてもうれしいです。」", "“So I'm really happy.”"]
+      ],
+      [
+        ["夜、おばあちゃんは手作りのそばを食べさせてくれた。", "That night, the grandmother served them homemade soba."],
+        ["ルーカスさんはおばあちゃんに、そばの作り方を教えてもらった。", "Lucas had her teach him how to make soba."],
+        ["「また夏にも来なさい。」とおばあちゃんは言った。", "“Come again in summer too,” the grandmother said."],
+        ["ルーカスさんは、日本におばあちゃんができたようで、うれしかった。", "Lucas was happy; it felt like he had a grandmother in Japan now."]
+      ]
+    ]
+  },
+  {
+    "id": "g4-shiken",
+    "title": "日本語のテスト",
+    "titleEn": "The Japanese Test",
+    "level": "N4",
+    "text": [
+      [
+        ["十二月《じゅうにがつ》に、日本語能力試験がある。", "In December, there's the Japanese-Language Proficiency Test."],
+        ["ルーカスさんはN4を受けることにした。", "Lucas decided to take N4."],
+        ["合格するために、毎日｜二時間《にじかん》勉強している。", "To pass, he studies two hours every day."]
+      ],
+      [
+        ["漢字は覚えやすいものもあるが、覚えにくいものも多い。", "Some kanji are easy to remember, but many are hard."],
+        ["聞く練習のために、日本のドラマを見るようにしている。", "To practise listening, he makes a habit of watching Japanese dramas."],
+        ["最初は全然わからなかったが、少しずつわかるようになってきた。", "At first he didn't understand anything, but little by little he has started to understand."]
+      ],
+      [
+        ["試験の日、会場にはいろいろな国の人がいた。", "On the day of the test, there were people from all kinds of countries at the venue."],
+        ["問題はむずかしかったが、ルーカスさんは最後まであきらめなかった。", "The questions were difficult, but Lucas didn't give up until the end."]
+      ],
+      [
+        ["二《に》か月《げつ》後《ご》、結果がとどいた。", "Two months later, the results arrived."],
+        ["「合格」という字を見て、ルーカスさんは大きい声を出してしまった。", "When he saw the word “Passed,” Lucas shouted out loud."],
+        ["次はN3だ。", "Next comes N3."]
+      ]
+    ]
+  },
+  {
+    "id": "g4-omatsuri",
+    "title": "お祭りの夜",
+    "titleEn": "Festival Night",
+    "level": "N4",
+    "text": [
+      [
+        ["七月《しちがつ》の終わりに、近所の神社でお祭りがあった。", "At the end of July, there was a festival at the neighborhood shrine."],
+        ["ハナさんはゆかたを着てきた。", "Hana came wearing a yukata."],
+        ["ルーカスさんも、ハナさんのお父さんに借りたゆかたを着てみた。", "Lucas tried on a yukata too, one he had borrowed from Hana's father."]
+      ],
+      [
+        ["神社の前には、店がたくさん並んでいた。", "Lots of stalls were lined up in front of the shrine."],
+        ["二人《ふたり》は、やきそばを食べながら、店を見て歩いた。", "The two of them walked around the stalls while eating yakisoba."],
+        ["金魚すくいは思ったよりむずかしくて、一匹《いっぴき》も取れなかった。", "Goldfish scooping was harder than he expected, and he didn't catch a single one."],
+        ["店のおじさんが笑いながら、小さい金魚を一匹《いっぴき》くれた。", "The man at the stall laughed and gave him one small goldfish."]
+      ],
+      [
+        ["夜｜九時《くじ》、花火が始まった。", "At nine in the evening, the fireworks began."],
+        ["大きな音がして、空がいろいろな色に光った。", "There was a loud bang, and the sky lit up in all kinds of colors."],
+        ["「花火を見ると、夏が来たと思うね。」とハナさんが言った。", "“When I see fireworks, I feel like summer is here,” Hana said."],
+        ["金魚は今、ルーカスさんの部屋で元気に泳いでいる。", "The goldfish now swims happily in Lucas's room."]
+      ]
+    ]
+  },
+  {
+    "id": "g4-sayonara",
+    "title": "また会う日まで",
+    "titleEn": "Until We Meet Again",
+    "level": "N4",
+    "text": [
+      [
+        ["ルーカスさんが日本に来てから、もうすぐ一年《いちねん》になる。", "It will soon be a year since Lucas came to Japan."],
+        ["来月、ブラジルに帰らなければならない。", "Next month, he has to go back to Brazil."]
+      ],
+      [
+        ["来たばかりのころは、電車の乗り方もわからなかった。", "When he had just arrived, he didn't even know how to take the train."],
+        ["日本語で話すのがこわくて、店で何も言えなかったこともある。", "There were times he was too scared to speak Japanese and couldn't say anything in shops."],
+        ["でも今は、友だちと冗談を言って笑えるようになった。", "But now he can joke and laugh with his friends."]
+      ],
+      [
+        ["最後の日、クラスのみんなが駅まで見送りに来てくれた。", "On his last day, everyone from class came to the station to see him off."],
+        ["山田先生は「日本語の勉強を続けてくださいね」と言った。", "Ms. Yamada said, “Please keep studying Japanese.”"],
+        ["ハナさんは泣かないようにしていたが、目が赤かった。", "Hana was trying not to cry, but her eyes were red."],
+        ["「ブラジルに遊びに行くから、待っていてね。」", "“I'll come visit you in Brazil, so wait for me.”"],
+        ["「うん。ぼくも、またきっと日本に来るよ。」", "“Yeah. I'll definitely come back to Japan too.”"],
+        ["電車が動きだしても、ルーカスさんはずっと手をふっていた。", "Even after the train started moving, Lucas kept waving."]
+      ]
+    ]
+  }
+]

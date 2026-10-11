@@ -94,7 +94,7 @@ function Stories({ known }: { known: Known | null }) {
                 </span>
                 <span className="lit-tags">
                   {w.audio && <span className="lit-level">audio</span>}
-                  <span className="lit-level">≈{w.level}</span>
+                  <span className="lit-level">{w.graded ? w.level : `≈${w.level}`}</span>
                 </span>
               </div>
               <div className="faint">
@@ -110,7 +110,8 @@ function Stories({ known }: { known: Known | null }) {
         })}
       </div>
       <p className="faint" style={{ fontSize: '0.8rem' }}>
-        Texts from <a href="https://www.aozora.gr.jp/">Aozora Bunko (青空文庫)</a>, typed and proofread by volunteers. Levels are a rough guide.
+        The N5 and N4 stories are graded readers written for Fluentia, with a translation for every sentence. The others come from{' '}
+        <a href="https://www.aozora.gr.jp/">Aozora Bunko (青空文庫)</a>, typed and proofread by volunteers. Levels are a rough guide.
       </p>
     </>
   );

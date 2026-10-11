@@ -97,6 +97,8 @@ export interface LitSentence {
   r: string; // furigana markup
   w: LitWord[];
   g?: [grammarId: string, start: number, end: number][];
+  /** English translation, where the text has one (graded readers). */
+  e?: string;
 }
 
 /** A heading ({ h }) or a paragraph of sentences ({ s }). */
@@ -110,7 +112,10 @@ export interface LitMeta {
   authorEn: string;
   /** Rough JLPT level, set by hand. */
   level: string;
-  url: string;
+  /** Aozora Bunko card; absent for the graded readers written for Fluentia. */
+  url?: string;
+  /** A graded reader written for Fluentia, with an English translation of every sentence. */
+  graded?: boolean;
   credit: { source?: string; input?: string; proof?: string };
   sentences: number;
   chars: number;

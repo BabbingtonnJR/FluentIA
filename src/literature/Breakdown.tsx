@@ -57,6 +57,7 @@ export function Breakdown({ sentence, pack, known, onSpeak, onClose, onPrev, onN
         <p className="breakdown-sentence" lang="ja">
           <Ruby markup={sentence.r} mode="all" cloze={grammar[0]?.span} />
         </p>
+        {sentence.e && <p className="breakdown-translation faint">{sentence.e}</p>}
 
         {grammar.length > 0 && (
           <div className="breakdown-grammar">

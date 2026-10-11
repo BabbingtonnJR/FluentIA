@@ -2414,3 +2414,8 @@ body {
 .welcome .page-head h1 {
   font-size: 2rem;
 }
+
+.breakdown-translation {
+  margin: -4px 0 12px;
+  font-size: 0.95rem;
+}
