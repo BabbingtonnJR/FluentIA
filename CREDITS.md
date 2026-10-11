@@ -16,6 +16,7 @@ and derived data (`public/packs/ja/*.json`) stays under the same terms.
 | Literature texts | [Aozora Bunko (青空文庫)](https://www.aozora.gr.jp/), typed and proofread by volunteers (each story credits its source edition, input and proofreading staff in the app) | Public domain (authors died before 1968) |
 | Comic | [Pepper&Carrot](https://www.peppercarrot.com/) by David Revoy, Japanese translation by its volunteer translators (named on each episode in the app). Page images load from peppercarrot.com; the text comes from the translation's SVG files | CC BY 4.0 |
 | Story audio | [LibriVox](https://librivox.org/) volunteer readings of ごん狐, 杜子春 and 赤い蝋燭と人魚, streamed from archive.org | Public domain |
+| Anki deck import (in the app) | [sql.js](https://github.com/sql-js/sql.js) (SQLite in WebAssembly) and [fzstd](https://github.com/101arrowz/fzstd) (zstd decoder) | MIT |
 
 WaniKani fields present in the kanji-data source are not used.
 
@@ -28,3 +29,5 @@ original ruby where the text has it, otherwise generated with kuromoji; the word
 
 The graded readers (`content/ja/literature/graded.json`, the N5 and N4 stories about Lucas and Hana) were written for
 Fluentia, with their English translations, and are under the project's MIT license.
+
+The test decks in `src/anki/fixtures/` are built from open-anki-jlpt-decks (MIT) with a few cards written for the tests.

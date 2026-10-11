@@ -3,10 +3,12 @@ import { Link, useNavigate } from 'react-router';
 import { Icon } from '../components/Icon';
 import { Petals } from '../components/Petals';
 import { Ruby } from '../components/Ruby';
+import { customFace, type SideMedia } from '../anki/convert';
 import { cardFace } from '../content/faces';
+import type { CardFace } from '../content/types';
 import { db } from '../db/db';
 import { answerCard, buildSession, markItemKnown, startCard } from '../db/repo';
-import type { CardRecord } from '../db/types';
+import type { CardRecord, Direction, NoteRecord } from '../db/types';
 import { usePack, useSettings } from '../hooks';
 import { afterMotion } from '../lib/motion';
 import { formatInterval } from '../lib/time';
@@ -28,6 +30,9 @@ export function Study() {
   const [queue, setQueue] = useState<QueueEntry[] | null>(null);
   const [cursor, setCursor] = useState(0);
   const [card, setCard] = useState<CardRecord | null>(null);
+  // Cards from imported decks: their content lives in a note, pictures and sounds as object URLs.
+  const [custom, setCustom] = useState<CustomCard | null>(null);
+  const audio = useRef<HTMLAudioElement | null>(null);
   const [revealed, setRevealed] = useState(false);
   const [stats, setStats] = useState({ reviewed: 0, learned: 0, again: 0 });
   // `seq` re-keys the card so each one plays its entrance; `leaving` holds the grade while it exits.
@@ -56,8 +61,15 @@ export function Study() {
     let alive = true;
     const load = async () => {
       const rec = entry.type === 'review' ? await db.cards.get(entry.cardId) : startCard(entry.ref);
-      if (!alive) return;
+      const note = rec?.kind === 'custom' ? await db.notes.get(rec.itemId) : undefined;
+      const next = note && rec ? await loadCustom(note, rec.direction) : null;
+      if (!alive) {
+        next?.urls.forEach((u) => URL.revokeObjectURL(u));
+        return;
+      }
+      setCustom(next);
       setCard(rec ?? null);
+      if (next && settings.autoplay) playSounds(next.question.sounds);
       setRevealed(false);
       setLeaving(null);
       setSeq((n) => n + 1);
@@ -70,23 +82,50 @@ export function Study() {
     };
   }, [entry]);
 
-  const face = card ? cardFace(pack, card.kind, card.direction, card.itemId, card.reps) : null;
+  // Release the previous card's pictures and sounds.
+  useEffect(() => () => custom?.urls.forEach((u) => URL.revokeObjectURL(u)), [custom]);
+
+  /** Plays a card's own recordings one after another. */
+  function playSounds(urls: string[]) {
+    audio.current?.pause();
+    const play = (i: number) => {
+      if (i >= urls.length) return;
+      const a = new Audio(urls[i]);
+      audio.current = a;
+      a.onended = () => play(i + 1);
+      void a.play().catch(() => {});
+    };
+    play(0);
+  }
+
+  const stopAll = useCallback(() => {
+    stopSpeaking();
+    audio.current?.pause();
+  }, []);
+  useEffect(() => stopAll, [stopAll]);
+
+  const face = !card ? null : card.kind === 'custom' ? (custom?.face ?? null) : cardFace(pack, card.kind, card.direction, card.itemId, card.reps);
   const say = useCallback(
     (text: string) => speak(text, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate }),
     [pack, settings.voiceURI, settings.speechRate],
   );
+  /** The answer's audio: the deck's own recording if it has one, otherwise the synthetic voice. */
+  const sayAnswer = useCallback(() => {
+    if (custom?.answer.sounds.length) playSounds(custom.answer.sounds);
+    else if (face?.speak) void say(face.speak);
+  }, [custom, face, say]);
 
   const reveal = useCallback(() => {
     if (!face || revealed) return;
     setRevealed(true);
-    if (settings.autoplay) void say(face.speak);
-  }, [face, revealed, settings.autoplay, say]);
+    if (settings.autoplay) sayAnswer();
+  }, [face, revealed, settings.autoplay, sayAnswer]);
 
   const grade = useCallback(
     async (g: Grade) => {
       if (!card || !queue || busy.current) return;
       busy.current = true;
-      stopSpeaking();
+      stopAll();
       const now = Date.now();
       const wasNew = card.state === State.New;
       const next = await answerCard(card, g, Math.min(now - shownAt.current, 120_000), now);
@@ -105,7 +144,7 @@ export function Study() {
       setCursor((c) => c + 1);
       busy.current = false;
     },
-    [card, queue, cursor],
+    [card, queue, cursor, stopAll],
   );
 
   const alreadyKnown = useCallback(async () => {
@@ -189,8 +228,9 @@ export function Study() {
         <div className="row" style={{ gap: 6 }}>
           {isNew && <span className="badge new">New</span>}
           <span className="badge">
-            {pack.manifest.levels.find((l) => l.id === card.level)?.label} ·{' '}
-            {face.cloze ? 'Grammar' : isKanji ? 'Kanji' : card.direction === 'production' ? 'Say it in Japanese' : 'Word'}
+            {custom
+              ? `${custom.deck}${card.direction === 'production' ? ' · Reverse' : ''}`
+              : `${pack.manifest.levels.find((l) => l.id === card.level)?.label} · ${face.cloze ? 'Grammar' : isKanji ? 'Kanji' : card.direction === 'production' ? 'Say it in Japanese' : 'Word'}`}
           </span>
         </div>
 
@@ -210,6 +250,23 @@ export function Study() {
           <div className={face.promptIsTarget ? (isKanji ? 'prompt-kanji' : 'prompt-jp') : 'prompt-en'} lang={face.promptIsTarget ? 'ja' : 'en'}>
             {face.prompt}
           </div>
+        )}
+        {custom && custom.question.images.length > 0 && <CardImages urls={custom.question.images} />}
+        {custom && !face.prompt && (
+          custom.question.sounds.length ? (
+            <button
+              className="icon-btn listen-prompt"
+              onClick={(e) => {
+                e.stopPropagation();
+                playSounds(custom.question.sounds);
+              }}
+              aria-label="Play the question again"
+            >
+              <Icon name="speaker" />
+            </button>
+          ) : (
+            !custom.question.images.length && <div className="faint">This card's audio is not on this device. Import the deck again here to get it.</div>
+          )
         )}
 
         {revealed && face.cloze ? (
@@ -246,6 +303,7 @@ export function Study() {
               </div>
             )}
             {face.promptIsTarget && <div className="meaning">{face.answer}</div>}
+            {custom && custom.answer.images.length > 0 && <CardImages urls={custom.answer.images} />}
             {face.details?.map((d) => (
               <div key={d} className="muted jp" lang="ja">
                 {d}
@@ -255,7 +313,7 @@ export function Study() {
               className="icon-btn"
               onClick={(e) => {
                 e.stopPropagation();
-                void say(face.speak);
+                sayAnswer();
               }}
               aria-label="Play audio"
               style={{ marginTop: 8 }}
@@ -301,6 +359,41 @@ export function Study() {
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+/** A card from an imported deck, with its pictures and sounds ready to show and play. */
+interface CustomCard {
+  face: CardFace;
+  deck: string;
+  question: { images: string[]; sounds: string[] };
+  answer: { images: string[]; sounds: string[] };
+  /** Object URLs to release when the card goes. */
+  urls: string[];
+}
+
+async function loadCustom(note: NoteRecord, direction: Direction): Promise<CustomCard> {
+  const face = customFace(note, direction);
+  const deck = await db.decks.get(note.deckId);
+  const names = [...new Set([...face.question.images, ...face.question.sounds, ...face.answerMedia.images, ...face.answerMedia.sounds])];
+  const files = await db.media.bulkGet(names);
+  const url = new Map<string, string>();
+  names.forEach((name, i) => {
+    const file = files[i];
+    if (file) url.set(name, URL.createObjectURL(file.blob));
+  });
+  // Media missing on this device (imported elsewhere) is simply left out.
+  const side = (m: SideMedia) => ({ images: m.images.flatMap((n) => url.get(n) ?? []), sounds: m.sounds.flatMap((n) => url.get(n) ?? []) });
+  return { face, deck: deck?.name ?? 'Your deck', question: side(face.question), answer: side(face.answerMedia), urls: [...url.values()] };
+}
+
+function CardImages({ urls }: { urls: string[] }) {
+  return (
+    <div className="card-images">
+      {urls.map((u) => (
+        <img key={u} src={u} alt="" />
+      ))}
     </div>
   );
 }

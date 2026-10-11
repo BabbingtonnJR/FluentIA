@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 import { exportBackup, importBackup, markLevelKnown, saveSettings, type Backup } from '../db/repo';
 import type { Theme } from '../db/types';
 import { usePack, useSettings } from '../hooks';
@@ -127,6 +128,15 @@ export function SettingsPage() {
           </div>
         </div>
       </div>
+
+      <div className="section-title">Anki</div>
+      <Link to="/decks" className="card spread" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <span>
+          <strong>Your decks</strong>
+          <div className="faint">Import Anki decks, with your progress.</div>
+        </span>
+        <span aria-hidden="true">→</span>
+      </Link>
 
       <div className="section-title">Audio</div>
       <div className="card stack">

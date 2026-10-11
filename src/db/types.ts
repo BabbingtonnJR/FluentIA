@@ -10,9 +10,12 @@ export interface Synced {
   updatedAt: number;
 }
 
+/** Built-in study items, or a card from a deck the learner imported (its itemId is a NoteRecord id). */
+export type CardKind = ItemKind | 'custom';
+
 export interface CardRecord extends Synced {
   lang: string;
-  kind: ItemKind;
+  kind: CardKind;
   direction: Direction;
   itemId: string;
   level: number;
@@ -27,6 +30,45 @@ export interface CardRecord extends Synced {
   state: State;
   lastReview: number | null;
   createdAt: number;
+  /** Removed with its deck; kept as a tombstone so the removal syncs to other devices. */
+  deleted?: boolean;
+}
+
+/** A deck of the learner's own cards, imported from Anki. Synced. */
+export interface DeckRecord extends Synced {
+  lang: string;
+  name: string;
+  /** New cards from this deck per day, on top of the built-in ones. */
+  newPerDay: number;
+  createdAt: number;
+  deleted?: boolean;
+}
+
+/** One card's content in an imported deck. Synced. */
+export interface NoteRecord extends Synced {
+  lang: string;
+  deckId: string;
+  /** Front, as plain text (shown as the question). */
+  front: string;
+  /** Furigana markup for the front ([漢字|かんじ]), when the deck has readings. */
+  reading?: string;
+  /** Back: the answer, plain text with line breaks. */
+  back: string;
+  /** Position in the deck: new cards are introduced in this order. */
+  order: number;
+  /** The deck also asks it the other way round (back → front), like Anki's reversed cards. */
+  reverse?: boolean;
+  /** Pictures and sounds on each side, by file name (see MediaRecord). */
+  media?: { front?: string[]; back?: string[] };
+  createdAt: number;
+  deleted?: boolean;
+}
+
+/** A picture or sound from an imported deck. Kept on this device only: media can be large. */
+export interface MediaRecord {
+  /** The file name the notes use (neko.mp3). */
+  id: string;
+  blob: Blob;
 }
 
 export interface ReviewRecord extends Synced {
