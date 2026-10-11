@@ -190,9 +190,6 @@ export function Today() {
 
       {sync.phase !== 'unconfigured' && (
         <div className="faint center">
-          {sync.phase === 'signed-out' && (
-            <Link to="/settings">Sign in to sync between your devices</Link>
-          )}
           {sync.phase === 'syncing' && 'Syncing…'}
           {sync.phase === 'offline' && 'Offline — your progress is saved on this device'}
           {sync.phase === 'error' && `Sync error: ${sync.error}`}

@@ -2405,3 +2405,12 @@ body {
     display: none;
   }
 }
+
+/* Sign-in screen: centred a little below the top, like a title page. */
+.welcome {
+  padding-top: 8vh;
+}
+
+.welcome .page-head h1 {
+  font-size: 2rem;
+}

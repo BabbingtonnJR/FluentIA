@@ -21,6 +21,8 @@ import { Library } from './pages/Library';
 import { KanjiDetail } from './pages/KanjiDetail';
 import { Progress } from './pages/Progress';
 import { SettingsPage } from './pages/Settings';
+import { NewPassword, Welcome } from './pages/Welcome';
+import { useSyncStatus } from './sync/sync';
 
 const TABS = [
   { to: '/', label: 'Today', jp: '今日' },
@@ -37,7 +39,10 @@ export function App() {
   useTheme(settings?.theme);
   const { pack, error } = useLoadedPack(settings?.lang);
   const location = useLocation();
-  const focus = FOCUS_ROUTES.some((r) => location.pathname.startsWith(r));
+  const sync = useSyncStatus();
+  // With accounts configured, nothing opens until someone signs in: progress belongs to an account.
+  const gate = sync.phase === 'checking' ? 'wait' : sync.recovering ? 'recover' : sync.phase === 'signed-out' ? 'sign-in' : null;
+  const focus = !!gate || FOCUS_ROUTES.some((r) => location.pathname.startsWith(r));
   const activeTab = TABS.findIndex((t) => (t.to === '/' ? location.pathname === '/' : location.pathname.startsWith(t.to)));
 
   return (
@@ -49,10 +54,14 @@ export function App() {
             Could not load the study content. Open the app once while online so it can be saved for offline use.
             <div className="faint">{error}</div>
           </div>
-        ) : !pack || !settings ? (
+        ) : !pack || !settings || gate === 'wait' ? (
           <div className="empty">
             <span className="jp">…</span>
           </div>
+        ) : gate ? (
+          <PackContext.Provider value={pack}>
+            <div className="page">{gate === 'recover' ? <NewPassword /> : <Welcome />}</div>
+          </PackContext.Provider>
         ) : (
           <SettingsContext.Provider value={settings}>
           <PackContext.Provider value={pack}>

@@ -1,6 +1,7 @@
 import { createClient, type Session, type SupabaseClient } from '@supabase/supabase-js';
 import { useSyncExternalStore } from 'react';
 import { db, SYNCED_TABLES, type SyncedTable } from '../db/db';
+import { claimDevice, getMeta, setMeta, unsyncedCount, wipeLocal } from './device';
 import type { Synced } from '../db/types';
 import { onLocalChange } from './events';
 import { pullFrom, recordsToApply } from './merge';
@@ -10,20 +11,24 @@ const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
 
 export const supabase: SupabaseClient | null = url && anonKey ? createClient(url, anonKey) : null;
 
-export type SyncPhase = 'unconfigured' | 'signed-out' | 'idle' | 'syncing' | 'offline' | 'error';
+/** `checking` until the saved session (if any) has been read; then the app either opens or asks to sign in. */
+export type SyncPhase = 'unconfigured' | 'checking' | 'signed-out' | 'idle' | 'syncing' | 'offline' | 'error';
 
 export interface SyncStatus {
   phase: SyncPhase;
   email: string | null;
   lastSyncedAt: number | null;
   error: string | null;
+  /** Opened from a password reset email: the user must choose a new password. */
+  recovering: boolean;
 }
 
 let status: SyncStatus = {
-  phase: supabase ? 'signed-out' : 'unconfigured',
+  phase: supabase ? 'checking' : 'unconfigured',
   email: null,
   lastSyncedAt: null,
   error: null,
+  recovering: false,
 };
 const listeners = new Set<() => void>();
 
@@ -43,14 +48,6 @@ export function useSyncStatus(): SyncStatus {
 }
 
 const PAGE = 500;
-
-async function getMeta<T>(key: string): Promise<T | null> {
-  return ((await db.meta.get(key))?.value as T) ?? null;
-}
-
-async function setMeta(key: string, value: unknown) {
-  await db.meta.put({ key, value });
-}
 
 async function push(client: SupabaseClient, table: SyncedTable) {
   const cursorKey = `push:${table}`;
@@ -116,11 +113,13 @@ export function syncNow(): Promise<void> {
       setStatus({ phase: 'signed-out', email: null });
       return;
     }
+    const email = data.session.user.email ?? null;
+    await claimDevice(data.session.user.id);
     if (!navigator.onLine) {
-      setStatus({ phase: 'offline' });
+      setStatus({ phase: 'offline', email });
       return;
     }
-    setStatus({ phase: 'syncing', email: data.session.user.email ?? null, error: null });
+    setStatus({ phase: 'syncing', email, error: null });
     try {
       await pull(client);
       for (const t of SYNCED_TABLES) await push(client, t);
@@ -135,30 +134,59 @@ export function syncNow(): Promise<void> {
   return running;
 }
 
-export async function signIn(email: string, password: string) {
-  if (!supabase) throw new Error('Sync is not configured.');
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) throw new Error(error.message);
+/** A sync that starts after any one in progress, so it sees the session that was just created. */
+async function freshSync() {
+  if (running) await running;
   await syncNow();
 }
 
+export async function signIn(email: string, password: string) {
+  if (!supabase) throw new Error('Accounts are not configured.');
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) throw new Error(error.message);
+  await freshSync();
+}
+
 export async function signUp(email: string, password: string): Promise<'signed-in' | 'confirm-email'> {
-  if (!supabase) throw new Error('Sync is not configured.');
+  if (!supabase) throw new Error('Accounts are not configured.');
   const { data, error } = await supabase.auth.signUp({ email, password });
   if (error) throw new Error(error.message);
   if (data.session) {
-    await syncNow();
+    await freshSync();
     return 'signed-in';
   }
   return 'confirm-email';
 }
 
-export async function signOut() {
-  if (!supabase) return;
-  await supabase.auth.signOut();
-  // Keep local data, but make the next account sync everything from scratch.
-  await db.meta.clear();
-  setStatus({ phase: 'signed-out', email: null, lastSyncedAt: null });
+/**
+ * Signs out after a last sync and removes this account's data from the device (it stays on the
+ * server). Returns how many changes would be lost because they could not be synced; with `force`
+ * unset and changes pending, nothing happens so the caller can ask first.
+ */
+export async function signOut({ force = false } = {}): Promise<number> {
+  if (!supabase) return 0;
+  if (navigator.onLine) await syncNow();
+  const pending = await unsyncedCount();
+  if (pending && !force) return pending;
+  await supabase.auth.signOut({ scope: 'local' });
+  await wipeLocal();
+  setStatus({ phase: 'signed-out', email: null, lastSyncedAt: null, error: null });
+  return 0;
+}
+
+/** Sends a link that opens the app to choose a new password. */
+export async function sendPasswordReset(email: string) {
+  if (!supabase) throw new Error('Accounts are not configured.');
+  const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: location.origin });
+  if (error) throw new Error(error.message);
+}
+
+export async function setNewPassword(password: string) {
+  if (!supabase) throw new Error('Accounts are not configured.');
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) throw new Error(error.message);
+  setStatus({ recovering: false });
+  await syncNow();
 }
 
 let started = false;
@@ -170,8 +198,9 @@ export function startAutoSync() {
   const client = supabase;
 
   getMeta<number>('lastSyncedAt').then((t) => t && setStatus({ lastSyncedAt: t }));
-  client.auth.onAuthStateChange((_event, session: Session | null) => {
+  client.auth.onAuthStateChange((event, session: Session | null) => {
     setStatus({ email: session?.user.email ?? null, phase: session ? status.phase : 'signed-out' });
+    if (event === 'PASSWORD_RECOVERY') setStatus({ recovering: true });
   });
 
   let timer: ReturnType<typeof setTimeout> | undefined;

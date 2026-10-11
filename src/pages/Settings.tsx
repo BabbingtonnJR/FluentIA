@@ -1,10 +1,10 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useState } from 'react';
 import { exportBackup, importBackup, markLevelKnown, saveSettings, type Backup } from '../db/repo';
 import type { Theme } from '../db/types';
 import { usePack, useSettings } from '../hooks';
 import { FURIGANA_LABEL } from '../reading/furigana';
 import { speak, voicesFor } from '../speech/tts';
-import { signIn, signOut, signUp, syncNow, useSyncStatus } from '../sync/sync';
+import { signOut, syncNow, useSyncStatus } from '../sync/sync';
 
 const NEW_PER_DAY = [10, 15, 20, 25, 30, 40];
 const GRAMMAR_PER_DAY = [0, 1, 2, 3, 5];
@@ -189,7 +189,7 @@ export function SettingsPage() {
         </div>
       </div>
 
-      <div className="section-title">Sync between devices</div>
+      <div className="section-title">Account</div>
       <SyncSection />
 
       <div className="section-title">Backup</div>
@@ -224,64 +224,25 @@ export function SettingsPage() {
 
 function SyncSection() {
   const sync = useSyncStatus();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
-  const [note, setNote] = useState<string | null>(null);
 
   if (sync.phase === 'unconfigured') {
     return (
       <div className="card faint">
-        Sync is not set up yet. Everything works offline on this device; see the README to connect a free Supabase project.
+        Accounts are not set up yet. Everything works offline on this device; see the README to connect a free Supabase project.
       </div>
     );
   }
 
-  async function submit(e: FormEvent, mode: 'in' | 'up') {
-    e.preventDefault();
+  async function leave() {
     setBusy(true);
-    setNote(null);
     try {
-      if (mode === 'in') await signIn(email, password);
-      else if ((await signUp(email, password)) === 'confirm-email') setNote('Check your email to confirm the account, then sign in here.');
-    } catch (err) {
-      setNote(err instanceof Error ? err.message : String(err));
+      const pending = await signOut();
+      const lose = pending > 0 && confirm(`${pending} changes could not be saved to your account yet (no connection). Sign out anyway and lose them?`);
+      if (lose) await signOut({ force: true });
     } finally {
       setBusy(false);
     }
-  }
-
-  if (sync.phase === 'signed-out') {
-    return (
-      <form className="card stack" onSubmit={(e) => void submit(e, 'in')}>
-        <div className="field">
-          <label htmlFor="email">Email</label>
-          <input id="email" className="input" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-        </div>
-        <div className="field">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            className="input"
-            type="password"
-            autoComplete="current-password"
-            minLength={6}
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        {note && <div className="notice">{note}</div>}
-        <div className="grid-2">
-          <button className="btn primary" type="submit" disabled={busy}>
-            Sign in
-          </button>
-          <button className="btn" type="button" disabled={busy || !email || password.length < 6} onClick={(e) => void submit(e, 'up')}>
-            Create account
-          </button>
-        </div>
-      </form>
-    );
   }
 
   return (
@@ -302,13 +263,14 @@ function SyncSection() {
       </div>
       {sync.phase === 'error' && <div className="notice error">{sync.error}</div>}
       <div className="grid-2">
-        <button className="btn" onClick={() => void syncNow()} disabled={sync.phase === 'syncing'}>
+        <button className="btn" onClick={() => void syncNow()} disabled={busy || sync.phase === 'syncing'}>
           Sync now
         </button>
-        <button className="btn ghost" onClick={() => void signOut()}>
+        <button className="btn ghost" onClick={() => void leave()} disabled={busy}>
           Sign out
         </button>
       </div>
+      <span className="faint">Signing out removes your progress from this device; it stays in your account.</span>
     </div>
   );
 }
