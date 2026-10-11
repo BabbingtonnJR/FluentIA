@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
-import { readApkg, type AnkiCollection } from '../anki/apkg';
+import { readApkg, type AnkiCollection, type MediaFiles } from '../anki/apkg';
 import { cleanField, guessRoles, planImport, type ImportPlan, type Roles } from '../anki/convert';
 import { applyImport } from '../anki/store';
 import { Icon } from '../components/Icon';
@@ -14,7 +14,7 @@ import { usePack } from '../hooks';
 export function AnkiImport() {
   const pack = usePack();
   const navigate = useNavigate();
-  const [col, setCol] = useState<AnkiCollection | null>(null);
+  const [col, setCol] = useState<(AnkiCollection & { media: MediaFiles }) | null>(null);
   const [fileName, setFileName] = useState('');
   const [deckIds, setDeckIds] = useState<Set<string>>(new Set());
   const [roles, setRoles] = useState<Map<string, Roles>>(new Map());
@@ -70,7 +70,7 @@ export function AnkiImport() {
     if (!plan) return;
     setBusy('Saving…');
     try {
-      const { cards } = await applyImport(plan);
+      const { cards } = await applyImport(plan, col?.media);
       setDone({ plan, cards });
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
@@ -241,8 +241,14 @@ export function AnkiImport() {
                   {plan.custom} cards become your own deck{plan.decks.length === 1 ? '' : 's'}
                   {plan.decks.length > 0 && `: ${plan.decks.map((d) => d.name).join(', ')}`}.
                 </div>
-                {plan.suspended > 0 && <div className="faint">{plan.suspended} suspended cards are left out.</div>}
-                {plan.empty > 0 && <div className="faint">{plan.empty} cards with an empty front or back are left out.</div>}
+                {plan.reverse > 0 && <div>{plan.reverse === 1 ? '1 of them is' : `${plan.reverse} of them are`} also asked the other way round (reversed cards).</div>}
+                {plan.media.length > 0 && (
+                  <div>
+                    {plan.media.length} pictures and sounds are saved on this device only: on another device, import the deck again to get them.
+                  </div>
+                )}
+                {plan.suspended > 0 && <div className="faint">{plan.suspended === 1 ? '1 suspended card is' : `${plan.suspended} suspended cards are`} left out.</div>}
+                {plan.empty > 0 && <div className="faint">{plan.empty === 1 ? '1 card with an empty side is' : `${plan.empty} cards with an empty side are`} left out.</div>}
               </div>
 
               <button className="btn primary block" disabled={!!busy || plan.custom + plan.matched === 0} onClick={() => void save()}>

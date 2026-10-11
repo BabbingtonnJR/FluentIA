@@ -56,8 +56,19 @@ export interface NoteRecord extends Synced {
   back: string;
   /** Position in the deck: new cards are introduced in this order. */
   order: number;
+  /** The deck also asks it the other way round (back → front), like Anki's reversed cards. */
+  reverse?: boolean;
+  /** Pictures and sounds on each side, by file name (see MediaRecord). */
+  media?: { front?: string[]; back?: string[] };
   createdAt: number;
   deleted?: boolean;
+}
+
+/** A picture or sound from an imported deck. Kept on this device only: media can be large. */
+export interface MediaRecord {
+  /** The file name the notes use (neko.mp3). */
+  id: string;
+  blob: Blob;
 }
 
 export interface ReviewRecord extends Synced {

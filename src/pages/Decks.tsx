@@ -20,11 +20,11 @@ export function Decks() {
     return Promise.all(
       all.map(async (deck) => {
         const notes = (await db.notes.where('deckId').equals(deck.id).toArray()).filter((n) => !n.deleted);
-        const cards = (await db.cards.bulkGet(notes.map((n) => noteCardId(lang, n.id)))).filter((c) => c && !c.deleted);
+        const cards = (await db.cards.bulkGet(notes.flatMap((n) => [noteCardId(lang, n.id), noteCardId(lang, n.id, 'production')]))).filter((c) => c && !c.deleted);
         return {
           deck,
           total: notes.length,
-          studied: cards.filter((c) => c!.state !== State.New).length,
+          studied: cards.filter((c) => c!.direction === 'recognition' && c!.state !== State.New).length,
           due: cards.filter((c) => c!.due <= now).length,
         };
       }),

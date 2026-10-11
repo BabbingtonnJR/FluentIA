@@ -61,13 +61,26 @@ export async function buildSession(pack: Pack, settings: Settings, now = Date.no
     graduatedVocab,
     introducedToday: await introducedToday(lang, settings, now, d),
   });
-  fresh.push(...(await customNew(lang, existing, settings, now, d)));
+  const graduatedNotes = new Set(
+    all.filter((c) => c.kind === 'custom' && c.direction === 'recognition' && c.state === State.Review).map((c) => c.itemId),
+  );
+  fresh.push(...(await customNew(lang, existing, graduatedNotes, settings, now, d)));
   const queue: QueueEntry[] = buildQueue(due, fresh);
   return { queue, dueCount: due.length, newCount: fresh.length };
 }
 
-/** New cards from imported decks: each deck's notes in order, up to its own daily limit. */
-async function customNew(lang: string, existing: Set<string>, settings: Settings, now: number, d: FluentiaDB): Promise<CardRef[]> {
+/**
+ * New cards from imported decks: each deck's notes in order, up to its own daily limit. A note
+ * the deck also asks the other way round gets that card once its front → back card is learnt.
+ */
+async function customNew(
+  lang: string,
+  existing: Set<string>,
+  graduatedNotes: Set<string>,
+  settings: Settings,
+  now: number,
+  d: FluentiaDB,
+): Promise<CardRef[]> {
   const decks = (await d.decks.where('lang').equals(lang).toArray()).filter((k) => !k.deleted);
   if (!decks.length) return [];
   const prefix = `${lang}:custom:`;
@@ -79,12 +92,22 @@ async function customNew(lang: string, existing: Set<string>, settings: Settings
 
   const out: CardRef[] = [];
   for (const deck of decks) {
-    const left = deck.newPerDay - (introduced.get(deck.id) ?? 0);
+    let left = deck.newPerDay - (introduced.get(deck.id) ?? 0);
     if (left <= 0) continue;
-    const notes = (await d.notes.where('deckId').equals(deck.id).sortBy('order')).filter(
-      (n) => !n.deleted && !existing.has(cardId(lang, 'custom', 'recognition', n.id)),
-    );
-    for (const n of notes.slice(0, left)) out.push({ lang, kind: 'custom', direction: 'recognition', itemId: n.id, level: 0 });
+    const notes = (await d.notes.where('deckId').equals(deck.id).sortBy('order')).filter((n) => !n.deleted);
+    const ref = (n: { id: string }, direction: 'recognition' | 'production'): CardRef => ({ lang, kind: 'custom', direction, itemId: n.id, level: 0 });
+    for (const n of notes) {
+      if (left === 0) break;
+      if (existing.has(cardId(lang, 'custom', 'recognition', n.id))) continue;
+      out.push(ref(n, 'recognition'));
+      left--;
+    }
+    for (const n of notes) {
+      if (left === 0) break;
+      if (!n.reverse || !graduatedNotes.has(n.id) || existing.has(cardId(lang, 'custom', 'production', n.id))) continue;
+      out.push(ref(n, 'production'));
+      left--;
+    }
   }
   return out;
 }

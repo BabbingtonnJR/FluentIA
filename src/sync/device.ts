@@ -1,7 +1,7 @@
 import { db, SYNCED_TABLES, type FluentiaDB } from '../db/db';
 
 /** Every table holding one person's study data; all of it belongs to the signed-in account. */
-const LOCAL_TABLES = [...SYNCED_TABLES, 'meta', 'videos', 'manga', 'mangaPages'] as const;
+const LOCAL_TABLES = [...SYNCED_TABLES, 'meta', 'videos', 'manga', 'mangaPages', 'media'] as const;
 const OWNER_KEY = 'owner';
 
 export async function getMeta<T>(key: string, d: FluentiaDB = db): Promise<T | null> {

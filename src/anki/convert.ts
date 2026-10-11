@@ -1,5 +1,5 @@
 import type { CardFace, Pack } from '../content/types';
-import type { CardRecord, DeckRecord, NoteRecord } from '../db/types';
+import type { CardRecord, DeckRecord, Direction, NoteRecord } from '../db/types';
 import { toHiragana } from '../lang/romaji';
 import { DAY } from '../lib/time';
 import { cardId, newCard, State, type CardRef } from '../srs/scheduler';
@@ -167,11 +167,15 @@ export interface ImportPlan {
   decks: DeckRecord[];
   notes: NoteRecord[];
   cards: CardRecord[];
+  /** Picture and sound files the imported notes use. */
+  media: string[];
   /** Notes that became the app's own words or kanji. */
   matched: number;
   /** …of which already studied in Anki (their progress comes along). */
   matchedStudied: number;
   custom: number;
+  /** Notes asked both ways (Anki's reversed cards). */
+  reverse: number;
   suspended: number;
   empty: number;
 }
@@ -184,34 +188,72 @@ function wordRuby(word: string, kana: string): string | undefined {
   return `[${word}|${kana}]`;
 }
 
+/** Pictures and sounds in a field: <img src="neko.png"> and [sound:neko.mp3]. */
+export function fieldMedia(html: string): string[] {
+  const names = [
+    ...[...html.matchAll(/<img[^>]*?\ssrc\s*=\s*(?:"([^"]+)"|'([^']+)'|([^\s>]+))/gi)].map((m) => m[1] ?? m[2] ?? m[3]),
+    ...[...html.matchAll(/\[sound:([^\]]+)\]/g)].map((m) => m[1]),
+  ];
+  return names.map((n) => cleanField(n)).filter(Boolean);
+}
+
+export const isSound = (name: string) => /\.(mp3|m4a|aac|ogg|oga|opus|wav|webm|flac)$/i.test(name);
+
+/**
+ * Which card templates ask front → back and which ask back → front (Anki's reversed card),
+ * from the fields each template's question shows. Others (e.g. listening-only) are left out.
+ */
+export function templateDirections(type: AnkiNoteType, roles: Roles): Map<number, Direction> {
+  const out = new Map<number, Direction>();
+  const front = type.fields[roles.front];
+  const back = new Set(roles.back.map((i) => type.fields[i]));
+  for (const t of type.templates) {
+    // {{Field}}, {{furigana:Field}}, {{text:Field}}; not {{#Field}} sections or {{FrontSide}}.
+    const shown = [...t.question.matchAll(/\{\{(?![#/^!])([^}]+)\}\}/g)].map((m) => m[1].split(':').pop()!.trim());
+    if (shown.includes(front)) out.set(t.ord, 'recognition');
+    else if (shown.some((f) => back.has(f))) out.set(t.ord, 'production');
+  }
+  return out;
+}
+
 /** Decides what each note becomes. Pure: nothing is written until applyImport. */
 export function planImport(col: AnkiCollection, pack: Pack, opts: ImportOptions): ImportPlan {
   const { lang, now } = opts;
   const match = itemMatcher(pack);
-  // Each note's main card: the first template (usually front → back).
-  const mainCard = new Map<string, AnkiCard>();
-  for (const c of col.cards) {
-    const prev = mainCard.get(c.noteId);
-    if (!prev || c.ord < prev.ord) mainCard.set(c.noteId, c);
-  }
+  const cardsOf = new Map<string, AnkiCard[]>();
+  for (const c of col.cards) cardsOf.set(c.noteId, [...(cardsOf.get(c.noteId) ?? []), c]);
 
-  const plan: ImportPlan = { decks: [], notes: [], cards: [], matched: 0, matchedStudied: 0, custom: 0, suspended: 0, empty: 0 };
+  const plan: ImportPlan = { decks: [], notes: [], cards: [], media: [], matched: 0, matchedStudied: 0, custom: 0, reverse: 0, suspended: 0, empty: 0 };
   const builtIn = new Map<string, CardRecord>();
   const usedDecks = new Set<string>();
+  const media = new Set<string>();
+  const directions = new Map<string, Map<number, Direction>>();
   let order = 0;
 
   for (const note of col.notes) {
-    const card = mainCard.get(note.id);
     const roles = opts.roles.get(note.typeId);
-    if (!card || !roles || !opts.deckIds.has(card.deckId)) continue;
+    const type = col.noteTypes.get(note.typeId);
+    const cards = (cardsOf.get(note.id) ?? []).sort((a, b) => a.ord - b.ord);
+    if (!roles || !type || !cards.length) continue;
+    if (!directions.has(type.id)) directions.set(type.id, templateDirections(type, roles));
+    const dirs = directions.get(type.id)!;
+    // Without template info, the first card is taken as front → back.
+    const card = dirs.size ? cards.find((c) => dirs.get(c.ord) === 'recognition') : cards[0];
+    const reverseCard = cards.find((c) => dirs.get(c.ord) === 'production' && c.queue !== -1);
+    if (!card || !opts.deckIds.has(card.deckId)) continue;
     if (card.queue === -1) {
       plan.suspended++;
       continue;
     }
-    const front = ankiFurigana(cleanField(note.fields[roles.front] ?? ''));
+
+    const frontHtml = note.fields[roles.front] ?? '';
+    const backHtml = roles.back.map((i) => note.fields[i] ?? '');
+    const front = ankiFurigana(cleanField(frontHtml));
     const readingField = roles.reading == null ? null : ankiFurigana(cleanField(note.fields[roles.reading] ?? ''));
-    const back = roles.back.map((i) => ankiFurigana(cleanField(note.fields[i] ?? '')).plain).filter(Boolean).join('\n');
-    if (!front.plain || !back) {
+    const back = backHtml.map((h) => ankiFurigana(cleanField(h)).plain).filter(Boolean).join('\n');
+    const frontMedia = fieldMedia(frontHtml);
+    const backMedia = backHtml.flatMap(fieldMedia);
+    if ((!front.plain && !frontMedia.length) || (!back && !backMedia.length)) {
       plan.empty++;
       continue;
     }
@@ -221,26 +263,32 @@ export function planImport(col: AnkiCollection, pack: Pack, opts: ImportOptions)
     let readingKana: string | undefined;
     if (readingField?.plain) {
       if (readingField.markup && readingField.plain === front.plain) ruby = readingField.markup;
-      else if (!JAPANESE.test(readingField.plain) || HAN.test(readingField.plain)) readingKana = undefined;
-      else readingKana = readingField.plain;
+      else if (JAPANESE.test(readingField.plain) && !HAN.test(readingField.plain)) readingKana = readingField.plain;
       ruby ??= readingKana ? wordRuby(front.plain, readingKana) : undefined;
     }
     readingKana ??= ruby ? markupReading(ruby) : undefined;
 
     const schedule = opts.withProgress ? scheduleFromAnki(card, col.crt, now) : null;
-    const item = opts.useBuiltIn ? match(front.plain, readingKana) : null;
+    const reverseSchedule = opts.withProgress && reverseCard ? scheduleFromAnki(reverseCard, col.crt, now) : null;
+    const item = opts.useBuiltIn && front.plain ? match(front.plain, readingKana) : null;
     if (item) {
       plan.matched++;
-      if (!schedule) continue; // not studied yet: the app introduces it in its own order
-      plan.matchedStudied++;
-      const rec: CardRecord = { ...newCard({ lang, direction: 'recognition', ...item }, now), ...schedule };
-      const prev = builtIn.get(rec.id);
-      if (!prev || prev.reps < rec.reps) builtIn.set(rec.id, rec);
+      if (schedule) plan.matchedStudied++;
+      const keep = (rec: CardRecord) => {
+        const prev = builtIn.get(rec.id);
+        if (!prev || prev.reps < rec.reps) builtIn.set(rec.id, rec);
+      };
+      // Not studied yet: the app introduces it in its own order.
+      if (schedule) keep({ ...newCard({ lang, direction: 'recognition', ...item }, now), ...schedule });
+      // A reversed card is the app's "Say it in Japanese" card (words only).
+      if (reverseSchedule && item.kind === 'vocab') keep({ ...newCard({ lang, direction: 'production', ...item }, now), ...reverseSchedule });
       continue;
     }
 
     plan.custom++;
+    if (reverseCard) plan.reverse++;
     usedDecks.add(card.deckId);
+    for (const m of [...frontMedia, ...backMedia]) media.add(m);
     const noteId = `anki:${note.guid}`;
     // A reading that could not become ruby is shown on the back instead.
     const shownReading = readingKana && !ruby && readingKana !== front.plain ? readingKana : undefined;
@@ -252,13 +300,18 @@ export function planImport(col: AnkiCollection, pack: Pack, opts: ImportOptions)
       ...(ruby ? { reading: ruby } : {}),
       back: shownReading ? `${shownReading}\n${back}` : back,
       order: order++,
+      ...(reverseCard ? { reverse: true } : {}),
+      ...(frontMedia.length || backMedia.length ? { media: { front: frontMedia, back: backMedia } } : {}),
       createdAt: now,
       updatedAt: now,
     });
-    if (schedule) plan.cards.push({ ...newCard({ lang, kind: 'custom', direction: 'recognition', itemId: noteId, level: 0 }, now), ...schedule });
+    const ref = { lang, kind: 'custom' as const, itemId: noteId, level: 0 };
+    if (schedule) plan.cards.push({ ...newCard({ ...ref, direction: 'recognition' }, now), ...schedule });
+    if (reverseSchedule) plan.cards.push({ ...newCard({ ...ref, direction: 'production' }, now), ...reverseSchedule });
   }
 
   plan.cards.push(...builtIn.values());
+  plan.media = [...media];
   for (const ankiId of usedDecks) {
     plan.decks.push({
       id: `anki:${ankiId}`,
@@ -274,20 +327,47 @@ export function planImport(col: AnkiCollection, pack: Pack, opts: ImportOptions)
 
 // --- Studying a custom card ------------------------------------------------------------------
 
-/** The flashcard for a note from an imported deck. */
-export function customFace(note: NoteRecord): CardFace {
+/** What one side of a custom card shows besides text: picture and sound file names. */
+export interface SideMedia {
+  images: string[];
+  sounds: string[];
+}
+
+const splitMedia = (names: string[] = []): SideMedia => ({ images: names.filter((n) => !isSound(n)), sounds: names.filter(isSound) });
+
+/**
+ * The flashcard for a note from an imported deck, asked front → back or, for reversed cards,
+ * back → front. `question` and `answerMedia` list the pictures and sounds of each side; the
+ * front's sounds play with the question only front → back (a listening card).
+ */
+export function customFace(note: NoteRecord, direction: Direction = 'recognition'): CardFace & { question: SideMedia; answerMedia: SideMedia } {
   const reading = note.reading ? markupReading(note.reading) : undefined;
-  const promptIsTarget = JAPANESE.test(note.front);
-  const japanese = promptIsTarget ? (reading ?? note.front) : (note.back.split('\n').find((l) => JAPANESE.test(l)) ?? '');
+  const front = splitMedia(note.media?.front);
+  const back = splitMedia(note.media?.back);
+  if (direction === 'production') {
+    return {
+      prompt: note.back,
+      promptIsTarget: JAPANESE.test(note.back) && !JAPANESE.test(note.front),
+      answer: note.front,
+      reading: reading && reading !== note.front ? reading : undefined,
+      speak: reading ?? note.front,
+      meaning: note.back,
+      question: { images: back.images, sounds: [] },
+      answerMedia: { images: front.images, sounds: [...front.sounds, ...back.sounds] },
+    };
+  }
   return {
     prompt: note.front,
-    promptIsTarget,
+    promptIsTarget: JAPANESE.test(note.front) || (!note.front && front.sounds.length > 0),
     answer: note.back,
     reading: reading && reading !== note.front ? reading : undefined,
-    speak: japanese,
+    speak: JAPANESE.test(note.front) ? (reading ?? note.front) : (note.back.split('\n').find((l) => JAPANESE.test(l)) ?? ''),
     meaning: note.back,
+    question: front,
+    answerMedia: { images: back.images, sounds: back.sounds.length ? back.sounds : front.sounds },
   };
 }
 
 /** Card id of a note's card. */
-export const noteCardId = (lang: string, noteId: string) => cardId(lang, 'custom', 'recognition', noteId);
+export const noteCardId = (lang: string, noteId: string, direction: Direction = 'recognition') => cardId(lang, 'custom', direction, noteId);
+

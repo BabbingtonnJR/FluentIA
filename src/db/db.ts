@@ -1,5 +1,5 @@
 import Dexie, { type EntityTable } from 'dexie';
-import type { ActivityRecord, CardRecord, DeckRecord, KvRecord, MangaImage, MangaRecord, MetaRecord, NoteRecord, ReviewRecord, VideoRecord } from './types';
+import type { ActivityRecord, CardRecord, DeckRecord, KvRecord, MangaImage, MangaRecord, MediaRecord, MetaRecord, NoteRecord, ReviewRecord, VideoRecord } from './types';
 
 export class FluentiaDB extends Dexie {
   cards!: EntityTable<CardRecord, 'id'>;
@@ -12,6 +12,7 @@ export class FluentiaDB extends Dexie {
   mangaPages!: EntityTable<MangaImage, 'id'>;
   decks!: EntityTable<DeckRecord, 'id'>;
   notes!: EntityTable<NoteRecord, 'id'>;
+  media!: EntityTable<MediaRecord, 'id'>;
 
   constructor(name = 'fluentia') {
     super(name);
@@ -28,6 +29,8 @@ export class FluentiaDB extends Dexie {
     this.version(3).stores({ manga: 'id, [lang+createdAt]', mangaPages: 'id, mangaId' });
     // Decks imported from Anki and their notes (synced with the account).
     this.version(4).stores({ decks: 'id, lang, updatedAt', notes: 'id, deckId, updatedAt' });
+    // Their pictures and sounds, on this device only.
+    this.version(5).stores({ media: 'id' });
   }
 }
 
