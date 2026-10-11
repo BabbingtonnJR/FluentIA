@@ -1,0 +1,592 @@
+[
+  {
+    "id": "masu",
+    "pattern": "〜ます / 〜ません",
+    "meaning": "(polite verb: do / will do; don't / won't)",
+    "formation": [
+      "Verb stem + ます (食べる → 食べます, 行く → 行きます)",
+      "Negative: stem + ません",
+      "する → します, 来る → 来ます"
+    ],
+    "notes": "The polite form used with people you don't know well, teachers and in shops. It covers both present habits and the future: 毎日行きます (I go every day), あした行きます (I'll go tomorrow).",
+    "examples": [
+      [
+        "毎朝コーヒーを飲み{ます}。",
+        "I drink coffee every morning."
+      ],
+      [
+        "あしたは学校へ行き{ません}。",
+        "I won't go to school tomorrow."
+      ],
+      [
+        "日曜日にテニスをし{ます}。",
+        "I play tennis on Sundays."
+      ]
+    ]
+  },
+  {
+    "id": "mashita",
+    "pattern": "〜ました / 〜ませんでした",
+    "meaning": "(polite past: did; didn't)",
+    "formation": [
+      "Verb stem + ました",
+      "Negative: stem + ませんでした"
+    ],
+    "notes": "The past of 〜ます. ませんでした is one unit: ません + でした.",
+    "examples": [
+      [
+        "きのう、本を読み{ました}。",
+        "I read a book yesterday."
+      ],
+      [
+        "けさは朝ごはんを食べ{ませんでした}。",
+        "I didn't eat breakfast this morning."
+      ],
+      [
+        "週末、友だちに会い{ました}。",
+        "I met a friend on the weekend."
+      ]
+    ]
+  },
+  {
+    "id": "i-adj",
+    "pattern": "い-adjectives (高い / 高くない / 高かった)",
+    "meaning": "(describing words ending in い, and their forms)",
+    "formation": [
+      "Negative: 〜い → 〜くない (高くない)",
+      "Past: 〜い → 〜かった (高かった)",
+      "Past negative: 〜くなかった",
+      "いい is irregular: よくない, よかった"
+    ],
+    "notes": "い-adjectives change their own ending; add です to be polite: 高くないです, 高かったです. They go straight before a noun: 高い山.",
+    "examples": [
+      [
+        "このかばんは{高くない}です。",
+        "This bag isn't expensive."
+      ],
+      [
+        "きのうは{寒かった}です。",
+        "It was cold yesterday."
+      ],
+      [
+        "その映画はあまり{よくなかった}です。",
+        "That movie wasn't very good."
+      ]
+    ]
+  },
+  {
+    "id": "na-adj",
+    "pattern": "な-adjectives (しずかな / しずかだ)",
+    "meaning": "(describing words that take な before a noun)",
+    "formation": [
+      "Before a noun: 〜な + Noun (しずかな町)",
+      "At the end: 〜です / 〜だ",
+      "Negative: 〜じゃない, past: 〜でした / 〜だった"
+    ],
+    "notes": "な-adjectives work like nouns: they take です, じゃない and でした. Before a noun they need な. Watch out for きれい and きらい: they end in い but are な-adjectives.",
+    "examples": [
+      [
+        "ここは{しずかな}町です。",
+        "This is a quiet town."
+      ],
+      [
+        "この部屋は{きれい}です。",
+        "This room is clean."
+      ],
+      [
+        "田中さんは{親切な}人です。",
+        "Mr. Tanaka is a kind person."
+      ]
+    ]
+  },
+  {
+    "id": "adj-te",
+    "pattern": "〜くて / 〜で (joining adjectives)",
+    "meaning": "… and … (two descriptions)",
+    "formation": [
+      "い-adj: 〜い → 〜くて (安くて)",
+      "な-adj / Noun: + で (しずかで)"
+    ],
+    "notes": "To say two things about something, join them with the て-form: 安くて、おいしい (cheap and tasty). Use these for descriptions; と only joins nouns.",
+    "match": "(?<=[^な]く)(て)(?!も)(?=[、\\p{Script=Han}\\p{Script=Hiragana}])",
+    "examples": [
+      [
+        "この店は安{くて}、おいしいです。",
+        "This shop is cheap and good."
+      ],
+      [
+        "この部屋は広{くて}、明るいです。",
+        "This room is spacious and bright."
+      ],
+      [
+        "わたしの町はしずか{で}、きれいです。",
+        "My town is quiet and pretty."
+      ]
+    ]
+  },
+  {
+    "id": "adverb",
+    "pattern": "〜く / 〜に + verb (adverbs)",
+    "meaning": "…ly (how something is done)",
+    "formation": [
+      "い-adj: 〜い → 〜く (早く起きる)",
+      "な-adj: + に (しずかに話す)"
+    ],
+    "notes": "Adjectives become adverbs that describe a verb: 早く起きました (I got up early), きれいに書いてください (Please write neatly).",
+    "examples": [
+      [
+        "けさ{早く}起きました。",
+        "I got up early this morning."
+      ],
+      [
+        "字を{きれいに}書いてください。",
+        "Please write neatly."
+      ],
+      [
+        "図書館では{しずかに}してください。",
+        "Please be quiet in the library."
+      ]
+    ]
+  },
+  {
+    "id": "plain",
+    "pattern": "Plain forms (〜る / 〜ない / 〜た / 〜なかった)",
+    "meaning": "(casual verb forms: do / don't / did / didn't)",
+    "formation": [
+      "Dictionary form: 食べる, 行く",
+      "Negative: 食べない, 行かない (う-verbs: u → a + ない; ある → ない)",
+      "Past: 食べた, 行った (like the て-form, with た)",
+      "Past negative: 食べなかった"
+    ],
+    "notes": "Used with friends and family, and inside longer sentences before words like から, と思う and 前に. The polite and plain forms mean the same thing; only the politeness changes.",
+    "examples": [
+      [
+        "あした、映画を見に{行く}？",
+        "Are you going to see a movie tomorrow?"
+      ],
+      [
+        "今日は何も{食べない}。",
+        "I'm not eating anything today."
+      ],
+      [
+        "きのう、早く{ねた}。",
+        "I went to bed early yesterday."
+      ]
+    ]
+  },
+  {
+    "id": "te-form",
+    "pattern": "〜て、〜 (and then)",
+    "meaning": "…and (then)… (joining actions in order)",
+    "formation": [
+      "る-verb: 食べる → 食べて",
+      "う-verb: 書く → 書いて, 泳ぐ → 泳いで, 話す → 話して, 待つ・帰る・会う → 待って・帰って・会って, 飲む・遊ぶ・死ぬ → 飲んで・遊んで・死んで",
+      "行く → 行って, する → して, 来る → 来て"
+    ],
+    "notes": "The て-form joins actions in the order they happen: 朝起きて、顔を洗って、学校へ行きます. Only the last verb shows the tense. The て-form is also the base of many patterns (〜てください, 〜ている).",
+    "examples": [
+      [
+        "朝{起きて}、シャワーをあびます。",
+        "I get up in the morning and take a shower."
+      ],
+      [
+        "デパートへ{行って}、くつを買いました。",
+        "I went to the department store and bought shoes."
+      ],
+      [
+        "家に{帰って}、ばんごはんを作りました。",
+        "I went home and made dinner."
+      ]
+    ]
+  },
+  {
+    "id": "tekudasai",
+    "pattern": "〜てください",
+    "meaning": "please do …",
+    "formation": [
+      "Verb て-form + ください"
+    ],
+    "notes": "A polite request or instruction. For things, use Noun + をください.",
+    "match": "(?<!ない)([てで]ください)",
+    "examples": [
+      [
+        "ここに名前を書い{てください}。",
+        "Please write your name here."
+      ],
+      [
+        "ちょっと待っ{てください}。",
+        "Please wait a moment."
+      ],
+      [
+        "この本を読ん{でください}。",
+        "Please read this book."
+      ]
+    ]
+  },
+  {
+    "id": "naidekudasai",
+    "pattern": "〜ないでください",
+    "meaning": "please don't …",
+    "formation": [
+      "Verb ない-form + でください"
+    ],
+    "notes": "A polite way to ask someone not to do something. Plain form among friends: 〜ないで.",
+    "match": "(ないでください)",
+    "examples": [
+      [
+        "ここで写真をとら{ないでください}。",
+        "Please don't take photos here."
+      ],
+      [
+        "わすれ{ないでください}。",
+        "Please don't forget."
+      ],
+      [
+        "教室で食べ{ないでください}。",
+        "Please don't eat in the classroom."
+      ]
+    ]
+  },
+  {
+    "id": "wokudasai",
+    "pattern": "Noun + をください",
+    "meaning": "please give me …; I'll have …",
+    "formation": [
+      "Noun + を + ください"
+    ],
+    "notes": "How to ask for things in shops and restaurants: コーヒーをください. Compare 〜てください, which asks for an action.",
+    "match": "(?<=を)(ください)",
+    "examples": [
+      [
+        "水を{ください}。",
+        "Water, please."
+      ],
+      [
+        "このりんごを{ください}。",
+        "I'll take this apple, please."
+      ],
+      [
+        "メニューを{ください}。",
+        "Could I have the menu, please?"
+      ]
+    ]
+  },
+  {
+    "id": "teiru",
+    "pattern": "〜ている",
+    "meaning": "is …ing; (a state that continues) has …ed",
+    "formation": [
+      "Verb て-form + いる / います"
+    ],
+    "notes": "With action verbs it means 'is doing now' (食べています). With verbs of change it means the result still holds: 結婚しています (is married), 知っています (knows), 住んでいます (lives). It also describes habits: 毎日走っています.",
+    "match": "([てで]い(?:る|ます|ません|た|ました|ない|なかった))",
+    "examples": [
+      [
+        "いま、ごはんを食べ{ています}。",
+        "I'm eating now."
+      ],
+      [
+        "姉は東京に住ん{でいます}。",
+        "My older sister lives in Tokyo."
+      ],
+      [
+        "田中さんの電話番号を知っ{ています}か。",
+        "Do you know Mr. Tanaka's phone number?"
+      ]
+    ]
+  },
+  {
+    "id": "tekara",
+    "pattern": "〜てから",
+    "meaning": "after …ing; once …",
+    "formation": [
+      "Verb て-form + から"
+    ],
+    "notes": "Stresses that one action is finished before the next starts: 手を洗ってから、食べます (I'll eat after washing my hands).",
+    "match": "([てで]から)(?!で)",
+    "examples": [
+      [
+        "手を洗っ{てから}、食べましょう。",
+        "Let's eat after washing our hands."
+      ],
+      [
+        "しゅくだいをし{てから}、テレビを見ます。",
+        "I'll watch TV after doing my homework."
+      ],
+      [
+        "日本に来{てから}、日本語を勉強しています。",
+        "I've been studying Japanese since I came to Japan."
+      ]
+    ]
+  },
+  {
+    "id": "tai",
+    "pattern": "〜たい",
+    "meaning": "want to …",
+    "formation": [
+      "Verb stem + たい (食べたい, 行きたい)",
+      "It works like an い-adjective: たくない, たかった"
+    ],
+    "notes": "For your own wishes, or to ask someone else's: 何が食べたいですか. The object can take を or が: 水が飲みたい. For what other people want, use たがる (N4).",
+    "match": "(?<=[いきしちにびみりえけせてねべめれぎじ])(たい|たく|たかった)(?!へん|せつ)",
+    "examples": [
+      [
+        "日本へ行き{たい}です。",
+        "I want to go to Japan."
+      ],
+      [
+        "今日は何も食べ{たく}ないです。",
+        "I don't want to eat anything today."
+      ],
+      [
+        "子どものとき、先生になり{たかった}です。",
+        "When I was a child, I wanted to become a teacher."
+      ]
+    ]
+  },
+  {
+    "id": "hoshii",
+    "pattern": "〜がほしい",
+    "meaning": "want (something)",
+    "formation": [
+      "Noun + が + ほしい",
+      "It works like an い-adjective: ほしくない, ほしかった"
+    ],
+    "notes": "For wanting things; for wanting to do something use 〜たい. Like 〜たい, it is about the speaker (or a question to the listener).",
+    "match": "(?<=が)(ほしい|欲しい|ほしく|欲しく|ほしかった|欲しかった)",
+    "examples": [
+      [
+        "新しいパソコンが{ほしい}です。",
+        "I want a new computer."
+      ],
+      [
+        "何が{ほしい}ですか。",
+        "What do you want?"
+      ],
+      [
+        "子どものとき、犬が{ほしかった}です。",
+        "When I was a kid, I wanted a dog."
+      ]
+    ]
+  },
+  {
+    "id": "mashou",
+    "pattern": "〜ましょう",
+    "meaning": "let's …",
+    "formation": [
+      "Verb stem + ましょう",
+      "Plain: volitional form (行こう, 食べよう)"
+    ],
+    "notes": "Suggests doing something together, or agrees to a suggestion: ええ、行きましょう.",
+    "match": "(ましょう)(?!か)",
+    "examples": [
+      [
+        "いっしょに帰り{ましょう}。",
+        "Let's go home together."
+      ],
+      [
+        "少し休み{ましょう}。",
+        "Let's take a short break."
+      ],
+      [
+        "ええ、そうし{ましょう}。",
+        "Yes, let's do that."
+      ]
+    ]
+  },
+  {
+    "id": "mashouka",
+    "pattern": "〜ましょうか",
+    "meaning": "shall I …? / shall we …?",
+    "formation": [
+      "Verb stem + ましょうか"
+    ],
+    "notes": "Offers to do something for someone (にもつを持ちましょうか: Shall I carry your bag?) or asks whether to do something together.",
+    "match": "(ましょうか)",
+    "examples": [
+      [
+        "にもつを持ち{ましょうか}。",
+        "Shall I carry your bags?"
+      ],
+      [
+        "まどを開け{ましょうか}。",
+        "Shall I open the window?"
+      ],
+      [
+        "どこで会い{ましょうか}。",
+        "Where shall we meet?"
+      ]
+    ]
+  },
+  {
+    "id": "masenka",
+    "pattern": "〜ませんか",
+    "meaning": "won't you …? / would you like to …?",
+    "formation": [
+      "Verb stem + ませんか"
+    ],
+    "notes": "A polite invitation. Asking in the negative leaves room for the other person to say no, so it sounds softer than 〜ましょう.",
+    "match": "(ませんか)",
+    "examples": [
+      [
+        "いっしょに映画を見{ませんか}。",
+        "Would you like to watch a movie together?"
+      ],
+      [
+        "お茶を飲み{ませんか}。",
+        "Won't you have some tea?"
+      ],
+      [
+        "週末、うちに来{ませんか}。",
+        "Would you like to come over on the weekend?"
+      ]
+    ]
+  },
+  {
+    "id": "tari",
+    "pattern": "〜たり〜たりする",
+    "meaning": "do things like … and …",
+    "formation": [
+      "Verb た-form + り, Verb た-form + り + する"
+    ],
+    "notes": "Lists a few examples of actions, not all of them and not in order: 週末は本を読んだり、映画を見たりします.",
+    "match": "(?<=[っいきしちにびみりえけせてねべめれんぎじ])(たり|だり)",
+    "examples": [
+      [
+        "週末は本を読ん{だり}、映画を見たりします。",
+        "On weekends I do things like reading books and watching movies."
+      ],
+      [
+        "休みの日は、そうじをし{たり}、買い物に行ったりします。",
+        "On my days off I clean, go shopping and so on."
+      ],
+      [
+        "パーティーで歌っ{たり}、おどったりしました。",
+        "At the party we sang, danced and so on."
+      ]
+    ]
+  },
+  {
+    "id": "naru",
+    "pattern": "〜くなる / 〜になる",
+    "meaning": "become …; get …",
+    "formation": [
+      "い-adj: 〜い → 〜く + なる (高くなる)",
+      "な-adj / Noun + に + なる (きれいになる, 医者になる)"
+    ],
+    "notes": "Describes a change: 寒くなりました (It's gotten cold), 先生になりたい (I want to become a teacher).",
+    "match": "(?<=く|に)(なる|なります|なった|なりました|なって|なりたい)",
+    "examples": [
+      [
+        "だんだん寒く{なりました}。",
+        "It's gradually gotten colder."
+      ],
+      [
+        "しょうらい、医者に{なりたい}です。",
+        "I want to become a doctor in the future."
+      ],
+      [
+        "部屋がきれいに{なりました}。",
+        "The room has become clean."
+      ]
+    ]
+  },
+  {
+    "id": "ni-iku",
+    "pattern": "〜に行く / 〜に来る",
+    "meaning": "go / come (in order) to do …",
+    "formation": [
+      "Verb stem + に + 行く / 来る / 帰る",
+      "Noun of action + に + 行く (買い物に行く)"
+    ],
+    "notes": "Gives the purpose of going somewhere: 映画を見に行きます (I'm going to see a movie).",
+    "match": "(?<=[いきしにびみりえけせてねべめれぎじ見物])(に)(?=行|い[きくっ]|来|き[まてた]|く[るれ]|帰|かえ)",
+    "examples": [
+      [
+        "デパートへくつを買い{に}行きます。",
+        "I'm going to the department store to buy shoes."
+      ],
+      [
+        "友だちが日本へあそび{に}来ました。",
+        "A friend came to Japan to have fun."
+      ],
+      [
+        "いっしょに昼ごはんを食べ{に}行きませんか。",
+        "Would you like to go eat lunch together?"
+      ]
+    ]
+  },
+  {
+    "id": "aru-iru",
+    "pattern": "〜があります / 〜がいます",
+    "meaning": "there is / there are; have",
+    "formation": [
+      "Place + に + thing + が + ある / あります",
+      "Place + に + person / animal + が + いる / います"
+    ],
+    "notes": "ある is for things and plants; いる is for people and animals. The negative of ある is ない. With は it says where something is: 本はつくえの上にあります.",
+    "match": "(?:(?<=[がも])|(?<=(?<!で)は))(あります|ありません|ありました|ある|います|いません|いました)",
+    "examples": [
+      [
+        "駅の前にコンビニが{あります}。",
+        "There's a convenience store in front of the station."
+      ],
+      [
+        "庭に犬が{います}。",
+        "There's a dog in the yard."
+      ],
+      [
+        "今日は時間が{ありません}。",
+        "I don't have time today."
+      ]
+    ]
+  },
+  {
+    "id": "ga-suki",
+    "pattern": "〜が好き / 〜が上手 / 〜がわかる",
+    "meaning": "like …; be good at …; understand …",
+    "formation": [
+      "Noun + が + 好き / きらい / 上手 / 下手",
+      "Noun + が + わかる / できる"
+    ],
+    "notes": "With likes, skills, understanding and ability, the thing takes が, not を: わたしは日本語がわかります. To like doing something, add の: 料理を作るのが好きです.",
+    "match": "(?<=が)(好き|すき|嫌い|きらい|上手|じょうず|下手|へた|わかる|わかります|わかりません|分かる|分かります|分かりません|できる|できます|できません)",
+    "examples": [
+      [
+        "わたしは犬が{好き}です。",
+        "I like dogs."
+      ],
+      [
+        "マリアさんは料理が{上手}です。",
+        "Maria is good at cooking."
+      ],
+      [
+        "日本語が少し{わかります}。",
+        "I understand a little Japanese."
+      ]
+    ]
+  },
+  {
+    "id": "nisuru",
+    "pattern": "〜にする",
+    "meaning": "decide on …; I'll have …",
+    "formation": [
+      "Noun + に + する / します"
+    ],
+    "notes": "Used when choosing: 何にしますか (What will you have?) → コーヒーにします (I'll have coffee).",
+    "examples": [
+      [
+        "わたしはコーヒーに{します}。",
+        "I'll have coffee."
+      ],
+      [
+        "何に{します}か。",
+        "What will you have?"
+      ],
+      [
+        "プレゼントは花に{しました}。",
+        "I decided on flowers for the present."
+      ]
+    ]
+  }
+]

@@ -1,0 +1,400 @@
+[
+  {
+    "id": "yori",
+    "pattern": "AはBより〜",
+    "meaning": "A is more … than B",
+    "formation": [
+      "A + は + B + より + adjective"
+    ],
+    "notes": "より marks what you compare against ('than'). Japanese adjectives have no 'more' form; より does the job: 東京は大阪より大きいです.",
+    "match": "(より)(?=[^。]*?(?:[いな]|です|ます))",
+    "examples": [
+      [
+        "東京は大阪{より}大きいです。",
+        "Tokyo is bigger than Osaka."
+      ],
+      [
+        "今日はきのう{より}暑いです。",
+        "Today is hotter than yesterday."
+      ],
+      [
+        "わたしは兄{より}せが高いです。",
+        "I'm taller than my older brother."
+      ]
+    ]
+  },
+  {
+    "id": "houga",
+    "pattern": "AよりBのほうが〜",
+    "meaning": "B is more … (than A)",
+    "formation": [
+      "(A + より) + B + の + ほうが + adjective"
+    ],
+    "notes": "ほう means 'side': the side of B is more …. It is the usual answer to a どちら question: 肉と魚とどちらが好きですか → 魚のほうが好きです.",
+    "match": "(のほうが|の方が)",
+    "examples": [
+      [
+        "バスより電車{のほうが}早いです。",
+        "The train is faster than the bus."
+      ],
+      [
+        "肉より魚{のほうが}好きです。",
+        "I like fish more than meat."
+      ],
+      [
+        "夏より冬{のほうが}好きです。",
+        "I prefer winter to summer."
+      ]
+    ]
+  },
+  {
+    "id": "dochira",
+    "pattern": "AとBとどちらが〜",
+    "meaning": "which is more …, A or B?",
+    "formation": [
+      "A + と + B + と + どちらが + adjective + ですか",
+      "Casual: どっち"
+    ],
+    "notes": "Asks someone to choose between two things. Answer with 〜のほうが: コーヒーのほうが好きです. If both are the same: どちらも好きです.",
+    "match": "(どちらが|どっちが)",
+    "examples": [
+      [
+        "コーヒーとお茶と{どちらが}好きですか。",
+        "Which do you like better, coffee or tea?"
+      ],
+      [
+        "山と海と{どちらが}好きですか。",
+        "Which do you like better, the mountains or the sea?"
+      ],
+      [
+        "バスと電車と{どっちが}安い？",
+        "Which is cheaper, the bus or the train?"
+      ]
+    ]
+  },
+  {
+    "id": "ichiban",
+    "pattern": "〜の中で〜が一番",
+    "meaning": "the most … (out of a group)",
+    "formation": [
+      "Group + の中で + X + が + 一番 + adjective",
+      "Question: 〜の中で何 / だれ / どこが一番〜か"
+    ],
+    "notes": "一番 (number one) before an adjective makes the superlative: 一番高い (the most expensive). The group is marked with の中で or just で: クラスでだれが一番せが高いですか.",
+    "match": "(一番|いちばん)",
+    "examples": [
+      [
+        "くだものの中でりんごが{一番}好きです。",
+        "Of all fruits, I like apples the most."
+      ],
+      [
+        "クラスでだれが{一番}せが高いですか。",
+        "Who is the tallest in the class?"
+      ],
+      [
+        "日本で富士山が{一番}高いです。",
+        "Mt. Fuji is the highest in Japan."
+      ]
+    ]
+  },
+  {
+    "id": "amari",
+    "pattern": "あまり〜ない",
+    "meaning": "not very; not much",
+    "formation": [
+      "あまり + negative (〜ない / 〜ません)"
+    ],
+    "notes": "あまり softens a negative: あまり好きじゃない (I don't like it much). With a positive verb it means something else (too much), so at N5 always pair it with a negative.",
+    "match": "(あまり)(?=[^。]*(?:ない|ません|なかった))",
+    "examples": [
+      [
+        "この映画は{あまり}おもしろくないです。",
+        "This movie isn't very interesting."
+      ],
+      [
+        "わたしは{あまり}テレビを見ません。",
+        "I don't watch TV much."
+      ],
+      [
+        "きのうは{あまり}寝ませんでした。",
+        "I didn't sleep much last night."
+      ]
+    ]
+  },
+  {
+    "id": "zenzen",
+    "pattern": "ぜんぜん〜ない",
+    "meaning": "not at all",
+    "formation": [
+      "ぜんぜん (全然) + negative"
+    ],
+    "notes": "A strong negative: ぜんぜんわかりません (I don't understand at all). Compare あまり〜ない (not very).",
+    "match": "(全然|ぜんぜん)(?=[^。]*(?:ない|ません|なかった))",
+    "examples": [
+      [
+        "フランス語は{ぜんぜん}わかりません。",
+        "I don't understand French at all."
+      ],
+      [
+        "このケーキは{ぜんぜん}あまくないです。",
+        "This cake isn't sweet at all."
+      ],
+      [
+        "きのうは{ぜんぜん}勉強しませんでした。",
+        "I didn't study at all yesterday."
+      ]
+    ]
+  },
+  {
+    "id": "mou-mada",
+    "pattern": "もう〜ました / まだ〜ていません",
+    "meaning": "already did / haven't … yet",
+    "formation": [
+      "もう + past (〜ました / 〜た)",
+      "まだ + 〜ていません / 〜ていない",
+      "Short answers: はい、もう〜ました / いいえ、まだです"
+    ],
+    "notes": "もう with the past means 'already'; まだ with 〜ていません means 'not yet'. Note that 'not yet' uses 〜ていません, not 〜ませんでした. まだ with a positive means 'still': まだ雨がふっています.",
+    "match": "(もう|まだ)(?=[^。]*(?:ました|ていません|ていない|でいません|でいない))",
+    "examples": [
+      [
+        "{もう}昼ごはんを食べましたか。",
+        "Have you already eaten lunch?"
+      ],
+      [
+        "いいえ、{まだ}食べていません。",
+        "No, I haven't eaten yet."
+      ],
+      [
+        "しゅくだいは{もう}おわりました。",
+        "I've already finished my homework."
+      ]
+    ]
+  },
+  {
+    "id": "toki",
+    "pattern": "〜とき",
+    "meaning": "when …; at the time of …",
+    "formation": [
+      "Verb (plain) + とき",
+      "い-adj + とき",
+      "な-adj + な + とき",
+      "Noun + の + とき"
+    ],
+    "notes": "とき (時) marks when something happens: ひまなとき、本を読みます. Like any noun, it can take に: 子どものときに.",
+    "match": "(?<=[るいたうくぐすつぬぶむなの])(時|とき)(?=[、にはも])",
+    "examples": [
+      [
+        "ひまな{とき}、本を読みます。",
+        "I read books when I'm free."
+      ],
+      [
+        "子どもの{とき}、よく海で泳ぎました。",
+        "When I was a child, I often swam in the sea."
+      ],
+      [
+        "日本へ行く{とき}、カメラを買いました。",
+        "I bought a camera when I was going to Japan."
+      ]
+    ]
+  },
+  {
+    "id": "maeni",
+    "pattern": "〜前に",
+    "meaning": "before …",
+    "formation": [
+      "Verb (dictionary form) + 前に",
+      "Noun + の + 前に"
+    ],
+    "notes": "The verb before 前に is always the dictionary form, even when the sentence is about the past: ねる前に、歯をみがきました.",
+    "match": "(?<=[るうくぐすつぬぶむ]|の)(前に)",
+    "examples": [
+      [
+        "ねる{前に}、歯をみがきます。",
+        "I brush my teeth before going to bed."
+      ],
+      [
+        "ごはんの{前に}、手を洗いましょう。",
+        "Let's wash our hands before the meal."
+      ],
+      [
+        "日本へ来る{前に}、日本語を勉強しました。",
+        "I studied Japanese before coming to Japan."
+      ]
+    ]
+  },
+  {
+    "id": "atode",
+    "pattern": "〜たあとで",
+    "meaning": "after …",
+    "formation": [
+      "Verb た-form + あとで",
+      "Noun + の + あとで"
+    ],
+    "notes": "The verb before あとで is always the た-form, even for the future: しゅくだいをしたあとで、あそびます. Compare 〜てから, which stresses the order more.",
+    "match": "((?:た|だ|の)(?:あと|後)(?:で|に)?)",
+    "examples": [
+      [
+        "ごはんを食べ{たあとで}、さんぽします。",
+        "I go for a walk after eating."
+      ],
+      [
+        "じゅぎょうの{あとで}、図書館へ行きます。",
+        "I'm going to the library after class."
+      ],
+      [
+        "映画を見{たあとで}、レストランに行きました。",
+        "After watching the movie, we went to a restaurant."
+      ]
+    ]
+  },
+  {
+    "id": "goro-gurai",
+    "pattern": "〜ごろ / 〜ぐらい",
+    "meaning": "around (a point in time) / about (an amount)",
+    "formation": [
+      "Point in time + ごろ: 七時ごろ",
+      "Amount / length + ぐらい (くらい): 一時間ぐらい"
+    ],
+    "notes": "ごろ is for a moment on the clock or calendar; ぐらい is for how much or how long.",
+    "match": "(ごろ|頃|ぐらい|くらい)",
+    "examples": [
+      [
+        "[毎晩|まいばん][十一時|じゅういちじ]{ごろ}ねます。",
+        "I go to bed around eleven every night."
+      ],
+      [
+        "[駅|えき]まで[歩|ある]いて[十分|じゅっぷん]{ぐらい}です。",
+        "It's about ten minutes on foot to the station."
+      ],
+      [
+        "[毎日|まいにち][一時間|いちじかん]{ぐらい}[日本語|にほんご]を[勉強|べんきょう]します。",
+        "I study Japanese for about an hour every day."
+      ]
+    ]
+  },
+  {
+    "id": "dou-ikaga",
+    "pattern": "どうですか / いかがですか",
+    "meaning": "how is …? / how about …?",
+    "formation": [
+      "Noun + は + どうですか",
+      "Polite: いかがですか"
+    ],
+    "notes": "Asks for an opinion (日本の生活はどうですか: How is life in Japan?) or offers something (お茶はいかがですか: Would you like some tea?). いかが is the polite word.",
+    "match": "(?<!ら)(どうですか|いかがですか|どうでしたか|いかがでしたか)",
+    "examples": [
+      [
+        "日本の生活は{どうですか}。",
+        "How is life in Japan?"
+      ],
+      [
+        "コーヒーは{いかがですか}。",
+        "Would you like some coffee?"
+      ],
+      [
+        "りょこうは{どうでしたか}。",
+        "How was the trip?"
+      ]
+    ]
+  },
+  {
+    "id": "doushite",
+    "pattern": "どうして / なぜ",
+    "meaning": "why",
+    "formation": [
+      "どうして / なぜ + question",
+      "Answer: 〜からです"
+    ],
+    "notes": "どうして is common in speech; なぜ is a little more formal. The answer usually ends in 〜から(です).",
+    "match": "(どうして|なぜ)",
+    "examples": [
+      [
+        "{どうして}きのう休みましたか。",
+        "Why were you absent yesterday?"
+      ],
+      [
+        "{どうして}日本語を勉強していますか。",
+        "Why are you studying Japanese?"
+      ],
+      [
+        "{なぜ}おくれたんですか。",
+        "Why were you late?"
+      ]
+    ]
+  },
+  {
+    "id": "to-omou",
+    "pattern": "〜と思います",
+    "meaning": "I think (that) …",
+    "formation": [
+      "Plain form + と思う / と思います",
+      "Noun / な-adj + だ + と思う"
+    ],
+    "notes": "Gives your opinion or a guess. Put the plain form before と: あしたは雨だと思います. To say you don't think so, make the first part negative: 来ないと思います.",
+    "match": "(?<!う)(と(?:思う|思います|思いました|おもう|おもいます))",
+    "examples": [
+      [
+        "あしたは雨だ{と思います}。",
+        "I think it will rain tomorrow."
+      ],
+      [
+        "この本はおもしろい{と思います}。",
+        "I think this book is interesting."
+      ],
+      [
+        "田中さんは来ない{と思います}。",
+        "I don't think Mr. Tanaka will come."
+      ]
+    ]
+  },
+  {
+    "id": "to-iu-say",
+    "pattern": "〜と言います",
+    "meaning": "say …; (is) called …",
+    "formation": [
+      "Words + と + 言う / 言います",
+      "Japanese name of something: 〜は日本語で何と言いますか"
+    ],
+    "notes": "と marks the words that are said: 「ありがとう」と言いました. It is also how to ask what something is called: これは日本語で何と言いますか.",
+    "match": "(と(?:言|い)(?:います|いました|った))",
+    "examples": [
+      [
+        "これは日本語で何{と言います}か。",
+        "What is this called in Japanese?"
+      ],
+      [
+        "先生は「おはよう」{と言いました}。",
+        "The teacher said, \"Good morning.\""
+      ],
+      [
+        "わたしは田中{と言います}。",
+        "My name is Tanaka."
+      ]
+    ]
+  },
+  {
+    "id": "relative",
+    "pattern": "Verb + Noun (describing a noun)",
+    "meaning": "the … that …; the … who …",
+    "formation": [
+      "Plain verb + Noun: きのう買った本 (the book I bought yesterday)",
+      "The subject inside takes が (or の): 母が作ったケーキ"
+    ],
+    "notes": "To describe a noun with an action, put the plain form right before it; there is no word like 'that' or 'who'. The describing part always comes first.",
+    "examples": [
+      [
+        "これはきのう{買った}本です。",
+        "This is the book I bought yesterday."
+      ],
+      [
+        "あそこで{話している}人はだれですか。",
+        "Who is the person talking over there?"
+      ],
+      [
+        "母が{作った}ケーキはおいしいです。",
+        "The cake my mother made is delicious."
+      ]
+    ]
+  }
+]
