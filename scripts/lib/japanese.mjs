@@ -72,7 +72,8 @@ export function annotate(tokenizer, text) {
 const E_TO_U = { け: 'く', げ: 'ぐ', せ: 'す', て: 'つ', ね: 'ぬ', べ: 'ぶ', め: 'む', れ: 'る', え: 'う' };
 // i-row → u-row, for nouns made from a verb stem (願い → 願う).
 const I_TO_U = { き: 'く', ぎ: 'ぐ', し: 'す', ち: 'つ', に: 'ぬ', び: 'ぶ', み: 'む', り: 'る', い: 'う' };
-const ALIASES = { 出来る: 'できる', 子ども: '子供', 有る: 'ある', 下さい: 'ください', 解る: '分かる', 判る: '分かる' };
+// いる / ある are listed under kanji, which the reading alone can't pick (いる is also 要る).
+const ALIASES = { いる: '居る', ある: '在る', 出来る: 'できる', 子ども: '子供', 有る: 'ある', 下さい: 'ください', 解る: '分かる', 判る: '分かる' };
 
 /** Forms a dictionary word may be listed under, most specific first. */
 function variants(base) {

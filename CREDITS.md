@@ -13,6 +13,7 @@ and derived data (`public/packs/ja/*.json`) stays under the same terms.
 | Reading sentences, English translations and furigana | [Tatoeba](https://tatoeba.org/) contributors (each sentence keeps its Tatoeba ID and links back to it in the app) | CC BY 2.0 FR |
 | Word segmentation (build time only, not shipped) | [kuromoji.js](https://github.com/takuyaa/kuromoji.js) with the IPADIC dictionary | Apache 2.0; IPADIC license |
 | Literature texts | [Aozora Bunko (青空文庫)](https://www.aozora.gr.jp/), typed and proofread by volunteers (each story credits its source edition, input and proofreading staff in the app) | Public domain (authors died before 1968) |
+| Comic | [Pepper&Carrot](https://www.peppercarrot.com/) by David Revoy, Japanese translation by its volunteer translators (named on each episode in the app). Page images load from peppercarrot.com; the text comes from the translation's SVG files | CC BY 4.0 |
 
 WaniKani fields present in the kanji-data source are not used.
 

@@ -31,6 +31,19 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,svg,png,ico,json}'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         navigateFallback: '/index.html',
+        // Comic pages (Pepper&Carrot) load from peppercarrot.com; each page is kept once seen, so
+        // an episode read online can be reread offline. They are too many to precache (~130 MB).
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/www\.peppercarrot\.com\/0_sources\/.+\.jpg$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'comic-pages',
+              expiration: { maxEntries: 200, maxAgeSeconds: 365 * 24 * 60 * 60 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+        ],
       },
     }),
   ],

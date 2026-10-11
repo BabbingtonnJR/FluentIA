@@ -1336,6 +1336,98 @@ select.input {
   color: var(--ink-2);
 }
 
+/* ---- Comics ---------------------------------------------------------------- */
+
+.comic-page {
+  display: grid;
+  gap: 8px;
+}
+
+.comic-image {
+  position: relative;
+  margin: 0 -16px;
+  background: var(--surface-2);
+  min-height: 200px;
+}
+
+.comic-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.comic-marker {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  opacity: 0.8;
+  padding: 0;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--indigo) 85%, transparent);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 30%);
+  transition: transform 0.15s var(--ease-out);
+}
+
+.comic-marker.on {
+  opacity: 1;
+  background: var(--accent);
+  transform: scale(1.2);
+}
+
+.comic-lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.comic-line {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  width: 100%;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  text-align: left;
+  font-family: var(--font-jp);
+  font-size: 1.1rem;
+  line-height: 2;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.comic-line rt {
+  font-size: 0.5em;
+  color: var(--ink-3);
+}
+
+.comic-line.on {
+  background: color-mix(in srgb, var(--indigo) 14%, transparent);
+}
+
+.comic-num {
+  flex: none;
+  min-width: 1.6em;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--indigo);
+}
+
+.comic-reader.with-sheet {
+  padding-bottom: 62vh;
+}
+
 /* ---- Charts ---------------------------------------------------------------- */
 
 .chart {

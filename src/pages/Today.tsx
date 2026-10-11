@@ -133,7 +133,7 @@ export function Today() {
         </div>
         <div style={{ flex: 1 }}>
           <strong>Literature</strong>
-          <div className="faint">Real stories with every sentence broken down · N3 and up</div>
+          <div className="faint">Stories and a comic, every sentence broken down</div>
         </div>
       </Link>
 

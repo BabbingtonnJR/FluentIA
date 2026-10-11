@@ -1,4 +1,4 @@
-import type { GrammarPoint, KanjiItem, LitIndexEntry, LitWork, Pack, PackManifest, Sentence, VocabItem } from './types';
+import type { ComicEpisode, ComicIndexEntry, GrammarPoint, KanjiItem, LitIndexEntry, LitWork, Pack, PackManifest, Sentence, VocabItem } from './types';
 
 export const AVAILABLE_PACKS = ['ja'] as const;
 export type PackId = (typeof AVAILABLE_PACKS)[number];
@@ -92,3 +92,12 @@ export const loadLiteratureIndex = (lang: string) => cached(litIndexCache, lang,
 
 /** One story with its sentences and word breakdowns, loaded when opened. */
 export const loadLiteratureWork = (lang: string, id: string) => cached(litWorkCache, `${lang}/${id}`, `/packs/${lang}/literature/${id}.json`);
+
+const comicIndexCache = new Map<string, Promise<ComicIndexEntry[]>>();
+const comicCache = new Map<string, Promise<ComicEpisode>>();
+
+/** Pepper&Carrot episodes (comics/index.json). */
+export const loadComicsIndex = (lang: string) => cached(comicIndexCache, lang, `/packs/${lang}/comics/index.json`);
+
+/** One episode with its pages and bubbles; page images come from peppercarrot.com. */
+export const loadComicEpisode = (lang: string, id: string) => cached(comicCache, `${lang}/${id}`, `/packs/${lang}/comics/${id}.json`);

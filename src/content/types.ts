@@ -125,3 +125,35 @@ export interface LitIndexEntry extends LitMeta {
 export interface LitWork extends LitMeta {
   body: LitBlock[];
 }
+
+// --- Comics (Pepper&Carrot, comics/*.json) -----------------------------------------------
+
+export interface ComicBubble {
+  /** Centre of the bubble as a share of the page's width and height. */
+  x: number;
+  y: number;
+  s: LitSentence;
+}
+
+export interface ComicPage {
+  img: string;
+  b: ComicBubble[];
+}
+
+export interface ComicMeta {
+  id: string;
+  number: number;
+  title: string;
+  published?: string;
+  credit: { art: string; translation: string[] };
+  pages: number;
+  bubbles: number;
+}
+
+export interface ComicIndexEntry extends ComicMeta {
+  words: number[];
+}
+
+export interface ComicEpisode extends Omit<ComicMeta, 'pages'> {
+  pages: ComicPage[];
+}

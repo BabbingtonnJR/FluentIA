@@ -12,6 +12,7 @@ import { Wordle } from './pages/Wordle';
 import { Crossword } from './pages/Crossword';
 import { Literature } from './pages/Literature';
 import { LitReader } from './pages/LitReader';
+import { ComicReader } from './pages/ComicReader';
 import { Library } from './pages/Library';
 import { KanjiDetail } from './pages/KanjiDetail';
 import { Progress } from './pages/Progress';
@@ -25,7 +26,7 @@ const TABS = [
 ];
 
 /** Full-screen activities hide the tab bar so nothing distracts from studying. */
-const FOCUS_ROUTES = ['/study', '/listen', '/quiz', '/read', '/mock', '/wordle', '/crossword', '/literature/'];
+const FOCUS_ROUTES = ['/study', '/listen', '/quiz', '/read', '/mock', '/wordle', '/crossword', '/literature/', '/comics/'];
 
 export function App() {
   const settings = useLiveSettings();
@@ -64,6 +65,7 @@ export function App() {
                 <Route path="/crossword" element={<Crossword />} />
                 <Route path="/literature" element={<Literature />} />
                 <Route path="/literature/:id" element={<LitReader />} />
+                <Route path="/comics/:id" element={<ComicReader />} />
                 <Route path="/library" element={<Library />} />
                 <Route path="/kanji/:char" element={<KanjiDetail />} />
                 <Route path="/grammar/:id" element={<GrammarDetail />} />

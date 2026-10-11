@@ -79,3 +79,27 @@ console.log(`Kanji: ${chars.length}, stroke files downloaded now: ${fetched}, mi
 await mkdir(path.join(outDir, 'aozora'), { recursive: true });
 const works = JSON.parse(await readFile(new URL('../content/ja/literature/works.json', import.meta.url), 'utf8'));
 for (const w of works) await download(w.url, path.join(outDir, 'aozora', `${w.id}.zip`));
+
+// Pepper&Carrot (David Revoy, CC BY 4.0): the Japanese translation's SVG text layers and credits.
+// Page images are not downloaded; the app loads them from peppercarrot.com and caches them.
+const PC_API = 'https://framagit.org/api/v4/projects/peppercarrot%2Fwebcomics/repository/tree';
+const PC_RAW = 'https://framagit.org/peppercarrot/webcomics/-/raw/master';
+const pcDir = path.join(outDir, 'peppercarrot');
+await mkdir(pcDir, { recursive: true });
+const tree = async (p) => {
+  const res = await fetch(`${PC_API}?per_page=100${p ? `&path=${encodeURIComponent(p)}` : ''}`);
+  if (!res.ok) throw new Error(`${res.status} tree ${p}`);
+  return res.json();
+};
+const episodes = (await tree('')).filter((e) => e.type === 'tree' && /^ep\d+_/.test(e.name)).map((e) => e.name);
+let pcFiles = 0;
+for (const ep of episodes) {
+  await mkdir(path.join(pcDir, ep), { recursive: true });
+  const files = await tree(`${ep}/lang/ja`).catch(() => []);
+  for (const f of files) {
+    if (f.type !== 'blob' || !/\.(svg|json)$/.test(f.name)) continue;
+    if (await download(`${PC_RAW}/${ep}/lang/ja/${f.name}`, path.join(pcDir, ep, f.name))) pcFiles++;
+  }
+}
+await download('https://www.peppercarrot.com/ja/webcomics/index.html', path.join(pcDir, 'index-ja.html'));
+console.log(`Pepper&Carrot: ${episodes.length} episodes, files downloaded now: ${pcFiles}`);
