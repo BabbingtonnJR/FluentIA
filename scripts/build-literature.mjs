@@ -135,6 +135,12 @@ for (const w of works) {
     coverage: Math.round(coverage * 1000) / 1000,
     byLevel,
   };
+  // A LibriVox reading, one track per chapter: only used when its chapters line up with the headings.
+  if (w.audio) {
+    const headings = body.filter((b) => b.h).length;
+    if (headings === w.audio.chapters.length) meta.audio = w.audio;
+    else console.warn(`${w.id}: ${w.audio.chapters.length} audio chapters but ${headings} headings; audio left out`);
+  }
   // The word-list entries it uses, so the shelf can say how many the learner knows.
   index.push({ ...meta, words: [...new Set(linked.map((x) => x[4]))].sort((x, y) => x - y) });
   await writeFile(path.join(outDir, `${w.id}.json`), JSON.stringify({ ...meta, body }));
@@ -143,6 +149,6 @@ for (const w of works) {
 await writeFile(path.join(outDir, 'index.json'), JSON.stringify(index));
 
 for (const m of index) {
-  console.log(`${m.title} — ${m.sentences} sentences, ${m.chars} chars, N5–N3 words ${(m.coverage * 100).toFixed(0)}%, ≈${m.level}`);
+  console.log(`${m.title} — ${m.sentences} sentences, ${m.chars} chars, N5–N3 words ${(m.coverage * 100).toFixed(0)}%, ≈${m.level}${m.audio ? ', with audio' : ''}`);
 }
 if (unknownGaiji.size) console.warn('Unmapped gaiji (shown as 〓):', [...unknownGaiji].join(' '));

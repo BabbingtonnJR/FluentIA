@@ -1428,6 +1428,82 @@ select.input {
   padding-bottom: 62vh;
 }
 
+/* ---- Story audio ------------------------------------------------------------ */
+
+.chapter-play {
+  margin-left: 10px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--accent);
+  font-size: 0.8rem;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.lit-sentence.now {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+.audio-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 19;
+  width: min(100%, 640px);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px calc(8px + var(--safe-bottom));
+  transform: translateX(-50%);
+  border-top: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(10px);
+  animation: sheet-up 0.3s var(--ease-out);
+}
+
+.audio-bar .icon-btn {
+  flex: none;
+  font-size: 1rem;
+}
+
+.audio-info {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  line-height: 1.2;
+  font-size: 0.85rem;
+}
+
+.audio-info [lang='ja'] {
+  font-family: var(--font-jp);
+  font-size: 1rem;
+}
+
+.audio-bar .chip {
+  min-height: 32px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+}
+
+.lit-reader.with-audio {
+  padding-bottom: 80px;
+}
+
+/* The breakdown sheet sits above the player. */
+.lit-reader.with-audio .breakdown {
+  bottom: calc(60px + var(--safe-bottom));
+  max-height: calc(60vh - 60px);
+}
+
+.lit-reader.with-audio.with-sheet {
+  padding-bottom: 66vh;
+}
+
 /* ---- Charts ---------------------------------------------------------------- */
 
 .chart {

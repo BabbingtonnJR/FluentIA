@@ -14,6 +14,8 @@ interface Props {
   onClose: () => void;
   onPrev?: () => void;
   onNext?: () => void;
+  /** Plays a recording from this sentence, when the work has one. */
+  onPlayFrom?: () => void;
 }
 
 /**
@@ -21,7 +23,7 @@ interface Props {
  * appear in it, then every word with its dictionary form, part of speech, conjugation, meaning
  * (from the word list) or what it does (particles and auxiliaries).
  */
-export function Breakdown({ sentence, pack, known, onSpeak, onClose, onPrev, onNext }: Props) {
+export function Breakdown({ sentence, pack, known, onSpeak, onClose, onPrev, onNext, onPlayFrom }: Props) {
   const grammar = (sentence.g ?? []).flatMap(([id, start, end]) => {
     const g = pack.grammarById.get(id);
     return g ? [{ g, span: [start, end] as [number, number] }] : [];
@@ -41,6 +43,11 @@ export function Breakdown({ sentence, pack, known, onSpeak, onClose, onPrev, onN
           ›
         </button>
         <span style={{ flex: 1 }} />
+        {onPlayFrom && (
+          <button className="chip" onClick={onPlayFrom}>
+            ▶ Play from here
+          </button>
+        )}
         <button className="icon-btn" onClick={onClose} aria-label="Close breakdown">
           <Icon name="close" />
         </button>

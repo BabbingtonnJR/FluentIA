@@ -4,11 +4,12 @@ import { Icon } from '../components/Icon';
 import { Petals } from '../components/Petals';
 import { Ruby } from '../components/Ruby';
 import { loadLiteratureWork } from '../content/packs';
-import type { LitSentence, LitWork } from '../content/types';
+import type { LitBlock, LitSentence, LitWork } from '../content/types';
 import { logActivity, saveSettings } from '../db/repo';
 import type { Settings } from '../db/types';
 import { usePack, useSettings } from '../hooks';
 import { loadLocal, saveLocal } from '../lib/local';
+import { AudioBar, chapterName, useChapterAudio } from '../literature/AudioBar';
 import { Breakdown } from '../literature/Breakdown';
 import { useKnown } from '../literature/known';
 import { FURIGANA_LABEL } from '../reading/furigana';
@@ -18,6 +19,7 @@ const FURIGANA_NEXT: Record<Settings['furigana'], Settings['furigana']> = { all:
 
 /** Sentences per point of score when a story is finished (a short story is worth a quiz or so). */
 const SENTENCES_PER_POINT = 10;
+const NO_BODY: LitBlock[] = [];
 
 /** Reads one story. Tap a sentence for its breakdown; the place you stopped is remembered. */
 export function LitReader() {
@@ -40,6 +42,15 @@ export function LitReader() {
 
   // Every sentence in reading order, for numbering and prev / next.
   const sentences = useMemo(() => (work ? work.body.flatMap((b): LitSentence[] => ('s' in b ? b.s : [])) : []), [work]);
+
+  const player = useChapterAudio(work?.audio, work?.body ?? NO_BODY, work?.title ?? '');
+
+  // While following along, keep the sentence being read in view (unless a breakdown is open).
+  useEffect(() => {
+    if (player.now === null || !player.follow || selected !== null) return;
+    document.querySelector(`[data-s="${player.now}"]`)?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    if (player.now > (loadLocal<number>(posKey) ?? -1)) saveLocal(posKey, player.now);
+  }, [player.now, player.follow, selected, posKey]);
 
   // Back where you left off.
   useEffect(() => {
@@ -68,8 +79,9 @@ export function LitReader() {
   }
 
   let n = 0;
+  let chapterIndex = 0;
   return (
-    <div className={`stack lit-reader${selected !== null ? ' with-sheet' : ''}`}>
+    <div className={`stack lit-reader${selected !== null ? ' with-sheet' : ''}${player.chapter !== null ? ' with-audio' : ''}`}>
       {finished && <Petals count={24} />}
       <div className="topbar">
         <button className="icon-btn" onClick={() => navigate('/literature')} aria-label="Back to the shelf">
@@ -87,11 +99,28 @@ export function LitReader() {
           {work.titleEn} · <span lang="ja">{work.author}</span> ({work.authorEn}) · ≈{work.level}
         </div>
         <div className="faint">Tap a sentence to see how it is built.</div>
+        {player.available && player.chapter === null && (
+          <button className="btn block" style={{ marginTop: 10 }} onClick={() => player.playFrom(Math.max(0, loadLocal<number>(posKey) ?? 0))}>
+            ▶ Listen along · LibriVox reading
+          </button>
+        )}
       </header>
 
       <article className="lit-text" lang="ja">
         {work.body.map((block, b) => {
-          if ('h' in block) return <h2 key={b}>{block.h}</h2>;
+          if ('h' in block) {
+            const c = chapterIndex++;
+            return (
+              <h2 key={b}>
+                {block.h}
+                {player.available && (
+                  <button className="chapter-play" onClick={() => player.playChapter(c)} aria-label={`Play chapter ${chapterName(c)}`}>
+                    ▶
+                  </button>
+                )}
+              </h2>
+            );
+          }
           return (
             <p key={b}>
               {block.s.map((s) => {
@@ -100,7 +129,7 @@ export function LitReader() {
                   <span
                     key={index}
                     data-s={index}
-                    className={`lit-sentence${selected === index ? ' on' : ''}`}
+                    className={`lit-sentence${selected === index ? ' on' : ''}${player.now === index ? ' now' : ''}`}
                     role="button"
                     tabIndex={0}
                     onClick={() => select(selected === index ? null : index)}
@@ -148,6 +177,12 @@ export function LitReader() {
             </>
           )}
           . Furigana is partly generated, so a few readings may be off.
+          {work.audio && (
+            <>
+              {' '}
+              Audio: <a href={work.audio.page}>LibriVox</a> volunteer reading (public domain); following along is estimated, so it can be a sentence off.
+            </>
+          )}
         </p>
         <Link to="/literature" className="btn block">
           Back to the shelf
@@ -164,8 +199,10 @@ export function LitReader() {
           onClose={() => select(null)}
           onPrev={selected > 0 ? () => select(selected - 1) : undefined}
           onNext={selected < sentences.length - 1 ? () => select(selected + 1) : undefined}
+          onPlayFrom={player.available ? () => player.playFrom(selected) : undefined}
         />
       )}
+      <AudioBar player={player} />
     </div>
   );
 }

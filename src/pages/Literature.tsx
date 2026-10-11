@@ -88,7 +88,10 @@ function Stories({ known }: { known: Known | null }) {
                 <span className="jp" lang="ja">
                   {w.title}
                 </span>
-                <span className="lit-level">≈{w.level}</span>
+                <span className="lit-tags">
+                  {w.audio && <span className="lit-level">audio</span>}
+                  <span className="lit-level">≈{w.level}</span>
+                </span>
               </div>
               <div className="faint">
                 {w.titleEn} · <span lang="ja">{w.author}</span>

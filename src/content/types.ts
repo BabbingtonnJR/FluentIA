@@ -115,6 +115,7 @@ export interface LitMeta {
   /** Share of content words found in the N5–N3 word list. */
   coverage: number;
   byLevel: Record<number, number>;
+  audio?: LitAudio;
 }
 
 /** Shelf entry: also the vocab indexes the story uses. */
@@ -156,4 +157,11 @@ export interface ComicIndexEntry extends ComicMeta {
 
 export interface ComicEpisode extends Omit<ComicMeta, 'pages'> {
   pages: ComicPage[];
+}
+
+/** A LibriVox reading of a story, one track per chapter (heading). */
+export interface LitAudio {
+  librivox: number;
+  page: string;
+  chapters: { url: string; seconds: number }[];
 }
