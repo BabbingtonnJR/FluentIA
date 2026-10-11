@@ -74,3 +74,8 @@ async function worker() {
 await Promise.all(Array.from({ length: 8 }, worker));
 
 console.log(`Kanji: ${chars.length}, stroke files downloaded now: ${fetched}, missing: ${missing.join('') || 'none'}`);
+
+// Aozora Bunko public-domain stories for the literature reader (content/ja/literature/works.json).
+await mkdir(path.join(outDir, 'aozora'), { recursive: true });
+const works = JSON.parse(await readFile(new URL('../content/ja/literature/works.json', import.meta.url), 'utf8'));
+for (const w of works) await download(w.url, path.join(outDir, 'aozora', `${w.id}.zip`));

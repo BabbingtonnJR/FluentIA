@@ -1,0 +1,13 @@
+[
+  {"id":"tebukuro","title":"手袋を買いに","titleEn":"Buying Mittens","author":"新美南吉","authorEn":"Niimi Nankichi","level":"N3","aozora":637,"url":"https://www.aozora.gr.jp/cards/000121/files/637_ruby_4095.zip"},
+  {"id":"gongitsune","title":"ごん狐","titleEn":"Gon the Fox","author":"新美南吉","authorEn":"Niimi Nankichi","level":"N3","aozora":628,"url":"https://www.aozora.gr.jp/cards/000121/files/628_ruby_649.zip"},
+  {"id":"yodaka","title":"よだかの星","titleEn":"The Nighthawk Star","author":"宮沢賢治","authorEn":"Miyazawa Kenji","level":"N3","aozora":473,"url":"https://www.aozora.gr.jp/cards/000081/files/473_ruby_467.zip"},
+  {"id":"chumon","title":"注文の多い料理店","titleEn":"The Restaurant of Many Orders","author":"宮沢賢治","authorEn":"Miyazawa Kenji","level":"N3","aozora":43754,"url":"https://www.aozora.gr.jp/cards/000081/files/43754_ruby_17594.zip"},
+  {"id":"yamanashi","title":"やまなし","titleEn":"Wild Pears","author":"宮沢賢治","authorEn":"Miyazawa Kenji","level":"N3","aozora":46605,"url":"https://www.aozora.gr.jp/cards/000081/files/46605_ruby_29758.zip"},
+  {"id":"ningyo","title":"赤い蝋燭と人魚","titleEn":"The Red Candles and the Mermaid","author":"小川未明","authorEn":"Ogawa Mimei","level":"N2","aozora":54372,"url":"https://www.aozora.gr.jp/cards/001475/files/54372_ruby_46181.zip"},
+  {"id":"torokko","title":"トロッコ","titleEn":"The Handcart","author":"芥川竜之介","authorEn":"Akutagawa Ryūnosuke","level":"N2","aozora":43016,"url":"https://www.aozora.gr.jp/cards/000879/files/43016_ruby_16663.zip"},
+  {"id":"kumo","title":"蜘蛛の糸","titleEn":"The Spider's Thread","author":"芥川竜之介","authorEn":"Akutagawa Ryūnosuke","level":"N2","aozora":92,"url":"https://www.aozora.gr.jp/cards/000879/files/92_ruby_164.zip"},
+  {"id":"merosu","title":"走れメロス","titleEn":"Run, Melos!","author":"太宰治","authorEn":"Dazai Osamu","level":"N2","aozora":1567,"url":"https://www.aozora.gr.jp/cards/000035/files/1567_ruby_4948.zip"},
+  {"id":"toshishun","title":"杜子春","titleEn":"Tu Tze-chun","author":"芥川竜之介","authorEn":"Akutagawa Ryūnosuke","level":"N2","aozora":43015,"url":"https://www.aozora.gr.jp/cards/000879/files/43015_ruby_17393.zip"},
+  {"id":"yume","title":"夢十夜","titleEn":"Ten Nights of Dreams","author":"夏目漱石","authorEn":"Natsume Sōseki","level":"N1","aozora":799,"url":"https://www.aozora.gr.jp/cards/000148/files/799_ruby_6024.zip"}
+]

@@ -6,10 +6,9 @@
 // matches inside とても).
 //
 // Usage: node scripts/build-grammar.mjs <srcDir> <packDir>   (packDir must hold sentences.json)
-import { readdir, readFile, writeFile } from 'node:fs/promises';
-import { createRequire } from 'node:module';
+import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import kuromoji from 'kuromoji';
+import { annotate as annotateWith, createTokenizer, grammarFiles, grammarSpan, plainText } from './lib/japanese.mjs';
 
 const [srcDir, packDir] = process.argv.slice(2);
 if (!srcDir || !packDir) {
@@ -19,67 +18,12 @@ if (!srcDir || !packDir) {
 
 const MAX_BORROWED = 4;
 
-const require = createRequire(import.meta.url);
-const dicPath = path.join(path.dirname(require.resolve('kuromoji/package.json')), 'dict');
-const tokenizer = await new Promise((resolve, reject) =>
-  kuromoji.builder({ dicPath }).build((err, t) => (err ? reject(err) : resolve(t))),
-);
-
-const toHiragana = (s) => s.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60));
-const hasKanji = (s) => /\p{Script=Han}/u.test(s);
-const plainText = (markup) => markup.replace(/\[([^|\]]+)\|[^\]]*\]/g, '$1');
-
-/** Furigana markup for one token: kana around the kanji is left outside the brackets (降っ → [降|ふ]っ). */
-function tokenRuby(surface, readingKatakana) {
-  if (!hasKanji(surface) || !readingKatakana || readingKatakana === '*') return surface;
-  const s = [...surface];
-  const r = [...toHiragana(readingKatakana)];
-  let head = '';
-  let tail = '';
-  while (s.length > 1 && r.length > 1 && !hasKanji(s.at(-1)) && toHiragana(s.at(-1)) === r.at(-1)) {
-    tail = s.pop() + tail;
-    r.pop();
-  }
-  while (s.length > 1 && r.length > 1 && !hasKanji(s[0]) && toHiragana(s[0]) === r[0]) {
-    head += s.shift();
-    r.shift();
-  }
-  return `${head}[${s.join('')}|${r.join('')}]${tail}`;
-}
-
-// IPADIC picks the wrong reading for a few common words; fix them in context (katakana readings).
-const READING_FIXES = [
-  { surface: /^日本(人|語)?$/, reading: (s) => s.replace('日本', 'ニホン').replace('人', 'ジン').replace('語', 'ゴ') },
-  { surface: /^間$/, reading: () => 'アイダ' }, // standalone 間 in 〜間に / 長い間 (間に合う is one token)
-  { surface: /^辛$/, reading: () => 'カラ' },
-  { surface: /^降り/, when: /[雨雪]/, reading: (s) => s.replace('降', 'フ').replace('り', 'リ') },
-  { surface: /^開[きいくけ]/, reading: (s) => `ア${[...s].slice(1).join('')}` }, // 開く (open, intransitive) — 開かれる stays ひら
-];
-
-function fixedReading(token, sentence) {
-  const fix = READING_FIXES.find((f) => f.surface.test(token.surface_form) && (!f.when || f.when.test(sentence)));
-  return fix ? fix.reading(token.surface_form) : token.reading;
-}
-
-/** Furigana markup for a whole sentence, plus the character offsets where tokens start and end. */
-function annotate(text) {
-  const tokens = tokenizer.tokenize(text);
-  const bounds = new Set([0]);
-  let pos = 0;
-  let markup = '';
-  for (const t of tokens) {
-    markup += tokenRuby(t.surface_form, fixedReading(t, text));
-    pos += t.surface_form.length;
-    bounds.add(pos);
-  }
-  return { markup, bounds };
-}
+const tokenizer = await createTokenizer();
+const annotate = (text) => annotateWith(tokenizer, text);
 
 // --- Source points -------------------------------------------------------------
 // n4a.json, n4b.json, … : easiest level first, then file order, which is teaching order.
-const files = (await readdir(srcDir))
-  .filter((f) => /^n\d[a-z]?\.json$/.test(f))
-  .sort((a, b) => Number(b[1]) - Number(a[1]) || a.localeCompare(b));
+const files = await grammarFiles(srcDir);
 const points = [];
 const ids = new Set();
 const problems = [];
@@ -119,14 +63,9 @@ for (const p of points) {
   const hits = [];
   for (const { s, plain } of plainSentences) {
     if (own.has(plain)) continue;
-    const m = re.exec(plain);
-    if (!m) continue;
-    // Cloze on the first capture group if there is one, else the whole match.
-    const text = m[1] ?? m[0];
-    const start = m.index + m[0].indexOf(text);
-    const end = start + text.length;
-    const { bounds } = annotate(plain);
-    if (!bounds.has(start) || !bounds.has(end)) continue;
+    const span = grammarSpan(re, plain, annotate(plain).bounds);
+    if (!span) continue;
+    const [start, end] = span;
     hits.push({ s, start, end });
   }
   // Easier and shorter sentences make clearer examples.

@@ -127,6 +127,16 @@ export function Today() {
         </Link>
       )}
 
+      <Link to="/literature" className="card link" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div className="jp" style={{ fontSize: '2rem', color: 'var(--accent)', lineHeight: 1 }} aria-hidden="true">
+          文
+        </div>
+        <div style={{ flex: 1 }}>
+          <strong>Literature</strong>
+          <div className="faint">Real stories with every sentence broken down · N3 and up</div>
+        </div>
+      </Link>
+
       <div className="section-title">Games · 遊び</div>
       <div className="grid-2">
         <Link to="/wordle" className="card link">

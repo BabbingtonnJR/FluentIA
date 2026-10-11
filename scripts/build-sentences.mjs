@@ -6,10 +6,9 @@
 // Usage: node scripts/build-sentences.mjs <rawDir> <packDir>
 //   rawDir/tatoeba/*.tsv.bz2 come from fetch-content.mjs; packDir must already hold vocab.json.
 import { readFile, writeFile } from 'node:fs/promises';
-import { createRequire } from 'node:module';
 import path from 'node:path';
-import kuromoji from 'kuromoji';
 import Bunzip from 'seek-bzip';
+import { createTokenizer, isFunctionToken, vocabLookup } from './lib/japanese.mjs';
 
 const [rawDir, packDir] = process.argv.slice(2);
 if (!rawDir || !packDir) {
@@ -26,78 +25,9 @@ async function tsv(name) {
   return Bunzip.decode(buf).toString('utf8').split('\n').filter(Boolean).map((l) => l.split('\t'));
 }
 
-const toHiragana = (s) => s.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60));
-const isKana = (s) => /^[\p{Script=Hiragana}\p{Script=Katakana}ー]+$/u.test(s);
-
 // --- Vocabulary lookup ---------------------------------------------------------
-// Tokens are matched by dictionary form; words usually written in kana (分かる → わかる)
-// fall back to matching the reading, preferring kana-only entries, then the easiest level.
 const vocab = JSON.parse(await readFile(path.join(packDir, 'vocab.json'), 'utf8'));
-const byWord = new Map();
-const byReading = new Map();
-const bySkeleton = new Map();
-const splitForms = (s) => s.split(/[、,;・]/).map((x) => x.trim()).filter(Boolean);
-// Okurigana varies (終る / 終わる): kanji plus the final kana identifies a word well enough.
-const skeleton = (w) => (/\p{Script=Han}/u.test(w) ? w.replace(/[\p{Script=Hiragana}]+(?=\p{Script=Han})|[\p{Script=Hiragana}]+(?=[\p{Script=Hiragana}]$)/gu, '') : null);
-vocab.forEach((v, i) => {
-  for (const form of splitForms(v.word)) {
-    if (!byWord.has(form)) byWord.set(form, i);
-    const sk = skeleton(form);
-    if (sk && !bySkeleton.has(sk)) bySkeleton.set(sk, i);
-  }
-  for (const reading of splitForms(v.reading)) {
-    const r = toHiragana(reading);
-    const prev = byReading.get(r);
-    const better = prev === undefined || (isKana(v.word) && !isKana(vocab[prev].word)) || (isKana(v.word) === isKana(vocab[prev].word) && v.level > vocab[prev].level);
-    if (better) byReading.set(r, i);
-  }
-});
-
-// e-row → u-row, to turn potential verbs back into their dictionary form (行ける → 行く).
-const E_TO_U = { け: 'く', げ: 'ぐ', せ: 'す', て: 'つ', ね: 'ぬ', べ: 'ぶ', め: 'む', れ: 'る', え: 'う' };
-// i-row → u-row, for nouns made from a verb stem (願い → 願う).
-const I_TO_U = { き: 'く', ぎ: 'ぐ', し: 'す', ち: 'つ', に: 'ぬ', び: 'ぶ', み: 'む', り: 'る', い: 'う' };
-const ALIASES = { 出来る: 'できる', 子ども: '子供', 有る: 'ある', 下さい: 'ください', 解る: '分かる', 判る: '分かる' };
-
-/** Forms a dictionary word may be listed under, most specific first. */
-function variants(base) {
-  const out = [base];
-  if (ALIASES[base]) out.push(ALIASES[base]);
-  if (/^[御ごお]/.test(base) && base.length > 1) out.push(base.slice(1), `御${base.slice(1)}`, `ご${base.slice(1)}`, `お${base.slice(1)}`);
-  if (base.endsWith('々')) out.push(base.slice(0, -1));
-  if (base.endsWith('に')) out.push(base.slice(0, -1));
-  else out.push(`${base}に`);
-  if (base.endsWith('く')) out.push(`${base.slice(0, -1)}い`); // 多く → 多い
-  if (base.endsWith('す')) out.push(`${base}る`); // 愛す → 愛する
-  // Stem guesses are only safe with a kanji anchor; on kana words they hit unrelated entries.
-  if (/\p{Script=Han}/u.test(base)) {
-    const last = base.at(-1);
-    if (base.endsWith('る') && E_TO_U[base.at(-2)]) out.push(base.slice(0, -2) + E_TO_U[base.at(-2)]);
-    if (I_TO_U[last]) out.push(base.slice(0, -1) + I_TO_U[last]);
-    out.push(`${base}る`); // 助け → 助ける
-  }
-  return out;
-}
-
-function lookup(token) {
-  for (const form of [...variants(token.basic_form), token.surface_form]) {
-    if (byWord.has(form)) return byWord.get(form);
-    if (isKana(form) && form.length > 1 && byReading.has(toHiragana(form))) return byReading.get(toHiragana(form));
-  }
-  // Okurigana variant: also require the reading to start the same, so 上がる never links to 上る (のぼる).
-  const sk = skeleton(token.basic_form);
-  const idx = sk ? bySkeleton.get(sk) : undefined;
-  if (idx !== undefined && token.reading && toHiragana(vocab[idx].reading).startsWith(toHiragana(token.reading).slice(0, 2))) return idx;
-  return undefined;
-}
-
-/** Grammar glue and names do not need to be in the word list. */
-function isFunctionToken(t) {
-  if (['助詞', '助動詞', '記号', 'フィラー', '接頭詞', '感動詞'].includes(t.pos)) return true;
-  if (['非自立', '接尾', '代名詞', '数', '固有名詞'].includes(t.pos_detail_1)) return true;
-  // Light verbs and copula-like words used as grammar.
-  return ['する', 'ある', 'いる', 'なる', 'できる', 'くる', '来る', 'いう', 'ない', 'よう', 'こと', 'もの', 'の', 'そう', 'これ', 'それ', 'あれ', 'どれ', 'ここ', 'そこ', 'あそこ', 'どこ', 'しれる'].includes(t.basic_form);
-}
+const lookup = vocabLookup(vocab);
 
 // --- Tatoeba -------------------------------------------------------------------
 const links = new Map();
@@ -132,11 +62,7 @@ const english = new Map();
 for (const [id, , text] of await tsv('eng_sentences')) if (engNeeded.has(id)) english.set(id, text);
 
 // --- Filter by vocabulary coverage --------------------------------------------
-const require = createRequire(import.meta.url);
-const dicPath = path.join(path.dirname(require.resolve('kuromoji/package.json')), 'dict');
-const tokenizer = await new Promise((resolve, reject) =>
-  kuromoji.builder({ dicPath }).build((err, t) => (err ? reject(err) : resolve(t))),
-);
+const tokenizer = await createTokenizer();
 
 const missing = new Map();
 const kept = [];

@@ -44,3 +44,23 @@ export function showRuby(seg: RubySegment, mode: FuriganaMode, knownKanji: Reado
   if (mode === 'all') return true;
   return (seg.text.match(KANJI) ?? []).some((c) => !knownKanji.has(c));
 }
+
+const toHira = (s: string) => s.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60));
+const isHan = (c: string) => /\p{Script=Han}/u.test(c);
+
+/** Markup for one word and its whole reading, with kana outside the kanji left bare (知ら, しら → [知|し]ら). */
+export function wordMarkup(surface: string, reading: string): string {
+  const s = [...surface];
+  const r = [...toHira(reading)];
+  let head = '';
+  let tail = '';
+  while (s.length > 1 && r.length > 1 && !isHan(s[s.length - 1]) && toHira(s[s.length - 1]) === r[r.length - 1]) {
+    tail = s.pop() + tail;
+    r.pop();
+  }
+  while (s.length > 1 && r.length > 1 && !isHan(s[0]) && toHira(s[0]) === r[0]) {
+    head += s.shift();
+    r.shift();
+  }
+  return `${head}[${s.join('')}|${r.join('')}]${tail}`;
+}

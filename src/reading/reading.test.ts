@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Sentence } from '../content/types';
-import { parseRuby, plainText, showRuby } from './furigana';
+import { parseRuby, plainText, showRuby, wordMarkup } from './furigana';
 import { MIN_KNOWN_WORDS, pickReading, unknownWords } from './select';
 
 describe('parseRuby', () => {
@@ -67,5 +67,13 @@ describe('pickReading', () => {
     const picked = pickReading(sentences, few, 'seed', 8);
     expect(picked).toHaveLength(8);
     expect(picked.every((s) => s.l === 5)).toBe(true);
+  });
+});
+
+describe('wordMarkup', () => {
+  it('keeps okurigana and leading kana outside the reading', () => {
+    expect(wordMarkup('知ら', 'しら')).toBe('[知|し]ら');
+    expect(wordMarkup('お母さん', 'おかあさん')).toBe('お[母|かあ]さん');
+    expect(wordMarkup('子供', 'こども')).toBe('[子供|こども]');
   });
 });

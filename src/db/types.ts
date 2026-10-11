@@ -38,7 +38,7 @@ export interface ReviewRecord extends Synced {
   durationMs: number;
 }
 
-export type ActivityType = 'quiz' | 'handsfree' | 'reading' | 'mock' | 'wordle' | 'crossword';
+export type ActivityType = 'quiz' | 'handsfree' | 'reading' | 'mock' | 'wordle' | 'crossword' | 'literature';
 
 export interface ActivityRecord extends Synced {
   lang: string;

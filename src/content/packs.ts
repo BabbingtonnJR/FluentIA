@@ -1,4 +1,4 @@
-import type { GrammarPoint, KanjiItem, Pack, PackManifest, Sentence, VocabItem } from './types';
+import type { GrammarPoint, KanjiItem, LitIndexEntry, LitWork, Pack, PackManifest, Sentence, VocabItem } from './types';
 
 export const AVAILABLE_PACKS = ['ja'] as const;
 export type PackId = (typeof AVAILABLE_PACKS)[number];
@@ -73,3 +73,22 @@ export function vocabWithKanji(pack: Pack, kanji: string, limit = 12): VocabItem
     .sort((a, b) => b.level - a.level)
     .slice(0, limit);
 }
+
+const litIndexCache = new Map<string, Promise<LitIndexEntry[]>>();
+const litWorkCache = new Map<string, Promise<LitWork>>();
+
+function cached<T>(cache: Map<string, Promise<T>>, key: string, url: string): Promise<T> {
+  let p = cache.get(key);
+  if (!p) {
+    p = getJson<T>(url);
+    p.catch(() => cache.delete(key));
+    cache.set(key, p);
+  }
+  return p;
+}
+
+/** The literature shelf: stories with their metadata (literature/index.json). */
+export const loadLiteratureIndex = (lang: string) => cached(litIndexCache, lang, `/packs/${lang}/literature/index.json`);
+
+/** One story with its sentences and word breakdowns, loaded when opened. */
+export const loadLiteratureWork = (lang: string, id: string) => cached(litWorkCache, `${lang}/${id}`, `/packs/${lang}/literature/${id}.json`);

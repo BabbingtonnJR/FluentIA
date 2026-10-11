@@ -81,3 +81,47 @@ export interface CardFace {
   /** Grammar cards: a sentence with the grammar blanked out, revealed on the back. */
   cloze?: { example: GrammarExample; pattern: string };
 }
+
+// --- Literature (public-domain stories, literature/*.json) ---------------------------
+
+/**
+ * One word of a story sentence, kept as a short array since stories have thousands:
+ * [surface, dictionary form if different, part of speech, reading if it has kanji, vocab index, conjugation].
+ * Trailing empty fields are left out.
+ */
+export type LitWord = [surface: string, base?: string, pos?: string, kana?: string, vocab?: number, form?: string];
+
+export interface LitSentence {
+  r: string; // furigana markup
+  w: LitWord[];
+  g?: [grammarId: string, start: number, end: number][];
+}
+
+/** A heading ({ h }) or a paragraph of sentences ({ s }). */
+export type LitBlock = { h: string } | { s: LitSentence[] };
+
+export interface LitMeta {
+  id: string;
+  title: string;
+  titleEn: string;
+  author: string;
+  authorEn: string;
+  /** Rough JLPT level, set by hand. */
+  level: string;
+  url: string;
+  credit: { source?: string; input?: string; proof?: string };
+  sentences: number;
+  chars: number;
+  /** Share of content words found in the N5–N3 word list. */
+  coverage: number;
+  byLevel: Record<number, number>;
+}
+
+/** Shelf entry: also the vocab indexes the story uses. */
+export interface LitIndexEntry extends LitMeta {
+  words: number[];
+}
+
+export interface LitWork extends LitMeta {
+  body: LitBlock[];
+}
