@@ -1,3 +1,4 @@
+import type { VideoLine } from '../video/analyse';
 import type { Grade, State } from 'ts-fsrs';
 import type { ItemKind } from '../content/types';
 
@@ -94,3 +95,17 @@ export const DEFAULT_SETTINGS: Settings = {
   furigana: 'unknown',
   grammarPerDay: 2,
 };
+
+/** A video the learner imported with its subtitles, kept on this device only. */
+export interface VideoRecord {
+  id: string;
+  lang: string;
+  title: string;
+  createdAt: number;
+  subtitleName: string;
+  /** Subtitle lines with their breakdowns. */
+  lines: VideoLine[];
+  /** The video itself, if the learner chose to keep it in the app. */
+  video?: Blob;
+  videoName?: string;
+}

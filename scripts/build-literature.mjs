@@ -10,8 +10,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { inflateRawSync } from 'node:zlib';
-import { analyse, splitRuby } from './lib/breakdown.mjs';
-import { createTokenizer, grammarMatchers, vocabLookup } from './lib/japanese.mjs';
+import { analyse, createTokenizer, grammarMatchers, splitRuby, vocabLookup } from './lib/japanese.mjs';
 
 const [worksJson, rawDir, grammarDir, packDir] = process.argv.slice(2);
 if (!worksJson || !rawDir || !grammarDir || !packDir) {

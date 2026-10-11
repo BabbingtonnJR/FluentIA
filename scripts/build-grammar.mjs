@@ -81,7 +81,8 @@ if (problems.length) {
   process.exit(1);
 }
 
-const out = points.map(({ match, ...p }) => p);
+// The match regex ships too, so the app can spot grammar points in imported subtitles.
+const out = points;
 await writeFile(path.join(packDir, 'grammar.json'), JSON.stringify(out));
 
 // Record grammar in the manifest so the app knows the pack has it.

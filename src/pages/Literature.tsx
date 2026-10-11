@@ -1,7 +1,9 @@
+import { useLiveQuery } from 'dexie-react-hooks';
 import { useEffect, useState, type CSSProperties } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { loadComicsIndex, loadLiteratureIndex } from '../content/packs';
 import type { ComicIndexEntry, LitIndexEntry } from '../content/types';
+import { db } from '../db/db';
 import { usePack } from '../hooks';
 import { loadLocal } from '../lib/local';
 import { useKnown, type Known } from '../literature/known';
@@ -14,6 +16,7 @@ const FEW_BUBBLES = 5;
 const TABS = [
   { id: 'stories', label: 'Stories', jp: '物語' },
   { id: 'comic', label: 'Comic', jp: '漫画' },
+  { id: 'video', label: 'Videos', jp: '動画' },
 ] as const;
 type Tab = (typeof TABS)[number]['id'];
 
@@ -23,7 +26,7 @@ export function Literature() {
   const known = useKnown(pack);
   // The tab lives in the URL so "back" from a story or episode returns to it.
   const [params, setParams] = useSearchParams();
-  const tab: Tab = params.get('tab') === 'comic' ? 'comic' : 'stories';
+  const tab: Tab = TABS.find((t) => t.id === params.get('tab'))?.id ?? 'stories';
 
   return (
     <div className="stack">
@@ -50,7 +53,7 @@ export function Literature() {
         ))}
       </div>
 
-      {tab === 'stories' ? <Stories known={known} /> : <Comics known={known} />}
+      {tab === 'stories' ? <Stories known={known} /> : tab === 'comic' ? <Comics known={known} /> : <Videos />}
     </div>
   );
 }
@@ -147,6 +150,43 @@ function Comics({ known }: { known: Known | null }) {
         <a href="https://www.peppercarrot.com/ja/">Pepper&amp;Carrot</a> by David Revoy, Japanese translation by its volunteer translators, licensed{' '}
         <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Word breakdowns added by Fluentia.
       </p>
+    </>
+  );
+}
+
+/** Videos the learner imported with Japanese subtitles (kept on this device). */
+function Videos() {
+  const pack = usePack();
+  const lang = pack.manifest.id;
+  const videos = useLiveQuery(() => db.videos.where('[lang+createdAt]').between([lang, -Infinity], [lang, Infinity]).reverse().toArray(), [lang]);
+  return (
+    <>
+      <p className="faint" style={{ margin: 0 }}>
+        Your own anime episodes, clips or shows, with a Japanese subtitle file. Watch line by line and tap any line to see how it is
+        built. Videos stay on this device.
+      </p>
+      <Link to="/videos/new" className="btn primary block">
+        Import a video
+      </Link>
+      {videos && videos.length > 0 && (
+        <div className="list">
+          {videos.map((v, i) => {
+            const pos = loadLocal<number>(`video:pos:${v.id}`) ?? -1;
+            return (
+              <Link key={v.id} to={`/videos/${v.id}`} className="lit-shelf-item" style={{ '--i': i } as CSSProperties}>
+                <div className="lit-shelf-title">
+                  <span>{v.title}</span>
+                  {!v.video && <span className="lit-level">subtitles only</span>}
+                </div>
+                <div className="faint">
+                  {v.lines.length} lines · {v.subtitleName}
+                </div>
+                {pos > 0 && <Progress share={Math.min(1, (pos + 1) / v.lines.length)} />}
+              </Link>
+            );
+          })}
+        </div>
+      )}
     </>
   );
 }

@@ -1,5 +1,5 @@
 import Dexie, { type EntityTable } from 'dexie';
-import type { ActivityRecord, CardRecord, KvRecord, MetaRecord, ReviewRecord } from './types';
+import type { ActivityRecord, CardRecord, KvRecord, MetaRecord, ReviewRecord, VideoRecord } from './types';
 
 export class FluentiaDB extends Dexie {
   cards!: EntityTable<CardRecord, 'id'>;
@@ -7,6 +7,7 @@ export class FluentiaDB extends Dexie {
   activities!: EntityTable<ActivityRecord, 'id'>;
   kv!: EntityTable<KvRecord, 'id'>;
   meta!: EntityTable<MetaRecord, 'key'>;
+  videos!: EntityTable<VideoRecord, 'id'>;
 
   constructor(name = 'fluentia') {
     super(name);
@@ -17,6 +18,8 @@ export class FluentiaDB extends Dexie {
       kv: 'id, updatedAt',
       meta: 'key',
     });
+    // Imported videos and their subtitles stay on this device (not synced: videos are large).
+    this.version(2).stores({ videos: 'id, [lang+createdAt]' });
   }
 }
 

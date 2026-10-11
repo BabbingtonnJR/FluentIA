@@ -8,8 +8,7 @@
 //   rawDir/peppercarrot/ comes from fetch-content.mjs; packDir must already hold vocab.json.
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { analyse } from './lib/breakdown.mjs';
-import { createTokenizer, grammarMatchers, vocabLookup } from './lib/japanese.mjs';
+import { analyse, createTokenizer, grammarMatchers, vocabLookup } from './lib/japanese.mjs';
 
 const [rawDir, grammarDir, packDir] = process.argv.slice(2);
 if (!rawDir || !grammarDir || !packDir) {

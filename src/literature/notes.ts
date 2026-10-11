@@ -148,6 +148,26 @@ export function wordNote(w: LitWord): string | null {
     };
     return helper[base || surface] ?? null;
   }
+  if (pos === 'suffix') {
+    const suffix: Record<string, string> = {
+      そう: '"looks like / seems about to" (after a stem)',
+      さん: 'polite title: Mr / Ms',
+      ちゃん: 'affectionate title, for children and close friends',
+      くん: 'title for boys or juniors',
+      様: 'very polite title',
+      さま: 'very polite title',
+      たち: 'plural for people: "… and others"',
+      達: 'plural for people: "… and others"',
+      ら: 'plural: "… and others"',
+      屋: '"shop" or "person who …"',
+      的: '"-ic / -al": makes a na-adjective',
+      中: '"during / throughout"',
+      ごろ: '"around" (a time)',
+      頃: '"around" (a time)',
+      目: 'ordinal: "-th"',
+    };
+    return suffix[base || surface] ?? null;
+  }
   if (pos === 'noun-dep') {
     const formal: Record<string, string> = {
       の: 'turns the clause before it into a noun; のだ explains',

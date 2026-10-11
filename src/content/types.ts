@@ -56,6 +56,8 @@ export interface GrammarPoint {
   meaning: string;
   formation: string[];
   notes?: string;
+  /** Regex that finds the pattern in a sentence (group 1, or the whole match, is the pattern). */
+  match?: string;
   examples: GrammarExample[];
 }
 

@@ -1510,6 +1510,104 @@ select.input {
   padding-bottom: 66vh;
 }
 
+/* ---- Videos ---------------------------------------------------------------- */
+
+.field {
+  display: grid;
+  gap: 6px;
+  font-size: 0.92rem;
+}
+
+.field > span:first-child {
+  font-weight: 600;
+}
+
+.video-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.video-el {
+  display: block;
+  width: calc(100% + 32px);
+  margin: 0 -16px;
+  max-height: 45vh;
+  background: #000;
+}
+
+.video-pick {
+  padding: 14px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+}
+
+.video-line {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+}
+
+.video-line-text {
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  font-family: var(--font-jp);
+  font-size: 1.35rem;
+  line-height: 2.1;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.video-line-text rt {
+  font-size: 0.5em;
+  color: var(--ink-3);
+}
+
+.video-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.video-controls .icon-btn {
+  font-size: 1.3rem;
+}
+
+.video-controls .chip {
+  min-height: 32px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+}
+
+.video-count {
+  flex: 1;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.video-lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.video-lines .comic-num {
+  min-width: 2.8em;
+  font-weight: 500;
+  color: var(--ink-3);
+}
+
+.video-player.with-sheet {
+  padding-bottom: 62vh;
+}
+
 /* ---- Charts ---------------------------------------------------------------- */
 
 .chart {
