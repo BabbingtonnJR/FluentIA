@@ -25,3 +25,6 @@ Tatoeba ID come from Tatoeba under CC BY 2.0 FR.
 
 The stories in the literature reader (`content/ja/literature/works.json`) are public-domain works from Aozora Bunko. Their furigana is the
 original ruby where the text has it, otherwise generated with kuromoji; the word breakdowns are generated.
+
+The graded readers (`content/ja/literature/graded.json`, the N5 and N4 stories about Lucas and Hana) were written for
+Fluentia, with their English translations, and are under the project's MIT license.
