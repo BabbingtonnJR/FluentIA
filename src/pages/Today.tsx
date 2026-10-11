@@ -127,6 +127,16 @@ export function Today() {
         </Link>
       )}
 
+      <Link to="/practice" className="card link" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div className="jp" style={{ fontSize: '2rem', color: 'var(--indigo)', lineHeight: 1 }} aria-hidden="true">
+          練
+        </div>
+        <div style={{ flex: 1 }}>
+          <strong>Practice</strong>
+          <div className="faint">Pick grammar and words to drill, e.g. ように vs ために</div>
+        </div>
+      </Link>
+
       <Link to="/literature" className="card link" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
         <div className="jp" style={{ fontSize: '2rem', color: 'var(--accent)', lineHeight: 1 }} aria-hidden="true">
           文

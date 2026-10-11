@@ -2447,3 +2447,21 @@ body {
   height: 72px;
   margin: 12px auto;
 }
+
+/* Practice: search results are buttons that add the item. */
+.practice-result {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.practice-add {
+  margin-left: auto;
+  font-size: 1.3rem;
+  color: var(--accent);
+  padding-left: 12px;
+}
