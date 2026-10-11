@@ -16,6 +16,7 @@ const FEW_BUBBLES = 5;
 const TABS = [
   { id: 'stories', label: 'Stories', jp: '物語' },
   { id: 'comic', label: 'Comic', jp: '漫画' },
+  { id: 'manga', label: 'Manga', jp: '本' },
   { id: 'video', label: 'Videos', jp: '動画' },
 ] as const;
 type Tab = (typeof TABS)[number]['id'];
@@ -53,7 +54,7 @@ export function Literature() {
         ))}
       </div>
 
-      {tab === 'stories' ? <Stories known={known} /> : tab === 'comic' ? <Comics known={known} /> : <Videos />}
+      {tab === 'stories' ? <Stories known={known} /> : tab === 'comic' ? <Comics known={known} /> : tab === 'manga' ? <Mangas /> : <Videos />}
     </div>
   );
 }
@@ -182,6 +183,43 @@ function Videos() {
                   {v.lines.length} lines · {v.subtitleName}
                 </div>
                 {pos > 0 && <Progress share={Math.min(1, (pos + 1) / v.lines.length)} />}
+              </Link>
+            );
+          })}
+        </div>
+      )}
+    </>
+  );
+}
+
+/** Manga volumes the learner imported from mokuro (kept on this device). */
+function Mangas() {
+  const pack = usePack();
+  const lang = pack.manifest.id;
+  const volumes = useLiveQuery(() => db.manga.where('[lang+createdAt]').between([lang, -Infinity], [lang, Infinity]).reverse().toArray(), [lang]);
+  return (
+    <>
+      <p className="faint" style={{ margin: 0 }}>
+        Manga you own, read with mokuro (free OCR) on your computer. Every speech bubble becomes tappable, with the same breakdown as the
+        stories. Volumes stay on this device.
+      </p>
+      <Link to="/manga/new" className="btn primary block">
+        Import a manga
+      </Link>
+      {volumes && volumes.length > 0 && (
+        <div className="list">
+          {volumes.map((m, i) => {
+            const pos = loadLocal<number>(`manga:pos:${m.id}`) ?? -1;
+            const bubbles = m.pages.reduce((n, p) => n + p.b.length, 0);
+            return (
+              <Link key={m.id} to={`/manga/${m.id}`} className="lit-shelf-item" style={{ '--i': i } as CSSProperties}>
+                <div className="lit-shelf-title">
+                  <span lang="ja">{m.title}</span>
+                </div>
+                <div className="faint">
+                  {m.pages.length} pages · {bubbles} bubbles
+                </div>
+                {pos > 0 && <Progress share={Math.min(1, (pos + 1) / m.pages.length)} />}
               </Link>
             );
           })}

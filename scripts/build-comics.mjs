@@ -67,6 +67,9 @@ const JP_EDGE = '\\p{Script=Hiragana}\\p{Script=Katakana}\\p{Script=Han}ー…�
 const tidy = (s) =>
   s
     .replace(/\s+/g, ' ')
+    // English left over from the source translation after the Japanese ("…のPepper", "…にfor me."),
+    // but not sound effects in latin letters ("iiipppp!!!").
+    .replace(/(?<=[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}ー])\s*(?:[A-Z][A-Za-z]{2,}|[A-Za-z]+ [A-Za-z]).*$/u, '')
     .replace(new RegExp(`\\s+(?=[${JP_EDGE}])|(?<=[${JP_EDGE}])\\s+`, 'gu'), '')
     .trim();
 
@@ -125,7 +128,7 @@ function readingOrder(bubbles) {
 }
 
 // Credits pages list supporters, mostly in English.
-const isCredits = (texts) => /Creative Commons|CC[- ]BY|Patreon|patron|ライセンス/i.test(texts.join(' '));
+const isCredits = (texts) => /Creative Commons|CC[- ]BY|Patreon|patron|パトロン|ライセンス/i.test(texts.join(' '));
 
 // --- Build ---------------------------------------------------------------------------------
 const vocab = JSON.parse(await readFile(path.join(packDir, 'vocab.json'), 'utf8'));

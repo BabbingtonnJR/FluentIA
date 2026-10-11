@@ -12,6 +12,7 @@ and derived data (`public/packs/ja/*.json`) stays under the same terms.
 | Spaced repetition | [ts-fsrs](https://github.com/open-spaced-repetition/ts-fsrs) (FSRS algorithm) | MIT |
 | Reading sentences, English translations and furigana | [Tatoeba](https://tatoeba.org/) contributors (each sentence keeps its Tatoeba ID and links back to it in the app) | CC BY 2.0 FR |
 | Word segmentation (at build time, and in the app for imported subtitles) | [kuromoji.js](https://github.com/takuyaa/kuromoji.js) with the IPADIC dictionary | Apache 2.0; IPADIC license |
+| Manga text recognition (on your own computer, not shipped) | [mokuro](https://github.com/kha-white/mokuro) and manga-ocr by Maciej Budyś, used by tools/manga-to-fluentia.ps1 | GPL-3.0 (mokuro), Apache 2.0 (manga-ocr) |
 | Literature texts | [Aozora Bunko (青空文庫)](https://www.aozora.gr.jp/), typed and proofread by volunteers (each story credits its source edition, input and proofreading staff in the app) | Public domain (authors died before 1968) |
 | Comic | [Pepper&Carrot](https://www.peppercarrot.com/) by David Revoy, Japanese translation by its volunteer translators (named on each episode in the app). Page images load from peppercarrot.com; the text comes from the translation's SVG files | CC BY 4.0 |
 | Story audio | [LibriVox](https://librivox.org/) volunteer readings of ごん狐, 杜子春 and 赤い蝋燭と人魚, streamed from archive.org | Public domain |
