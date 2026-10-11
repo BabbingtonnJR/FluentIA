@@ -1,6 +1,5 @@
 import { createEmptyCard, fsrs, generatorParameters, Rating, State, type Card, type Grade } from 'ts-fsrs';
-import type { ItemKind } from '../content/types';
-import type { CardRecord, Direction, ReviewRecord } from '../db/types';
+import type { CardKind, CardRecord, Direction, ReviewRecord } from '../db/types';
 import { DAY, uid } from '../lib/time';
 
 export { Rating, State, type Grade };
@@ -15,13 +14,13 @@ export const GRADE_LABELS: Record<Grade, string> = {
   [Rating.Easy]: 'Easy',
 };
 
-export function cardId(lang: string, kind: ItemKind, direction: Direction, itemId: string): string {
+export function cardId(lang: string, kind: CardKind, direction: Direction, itemId: string): string {
   return `${lang}:${kind}:${direction}:${itemId}`;
 }
 
 export interface CardRef {
   lang: string;
-  kind: ItemKind;
+  kind: CardKind;
   direction: Direction;
   itemId: string;
   level: number;

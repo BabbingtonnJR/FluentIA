@@ -3,7 +3,9 @@ import { Link, useNavigate } from 'react-router';
 import { Icon } from '../components/Icon';
 import { Petals } from '../components/Petals';
 import { Ruby } from '../components/Ruby';
+import { customFace } from '../anki/convert';
 import { cardFace } from '../content/faces';
+import type { CardFace } from '../content/types';
 import { db } from '../db/db';
 import { answerCard, buildSession, markItemKnown, startCard } from '../db/repo';
 import type { CardRecord } from '../db/types';
@@ -28,6 +30,8 @@ export function Study() {
   const [queue, setQueue] = useState<QueueEntry[] | null>(null);
   const [cursor, setCursor] = useState(0);
   const [card, setCard] = useState<CardRecord | null>(null);
+  // Cards from imported decks: their content lives in a note.
+  const [custom, setCustom] = useState<{ face: CardFace; deck: string } | null>(null);
   const [revealed, setRevealed] = useState(false);
   const [stats, setStats] = useState({ reviewed: 0, learned: 0, again: 0 });
   // `seq` re-keys the card so each one plays its entrance; `leaving` holds the grade while it exits.
@@ -56,7 +60,10 @@ export function Study() {
     let alive = true;
     const load = async () => {
       const rec = entry.type === 'review' ? await db.cards.get(entry.cardId) : startCard(entry.ref);
+      const note = rec?.kind === 'custom' ? await db.notes.get(rec.itemId) : undefined;
+      const deck = note ? await db.decks.get(note.deckId) : undefined;
       if (!alive) return;
+      setCustom(note ? { face: customFace(note), deck: deck?.name ?? 'Your deck' } : null);
       setCard(rec ?? null);
       setRevealed(false);
       setLeaving(null);
@@ -70,7 +77,7 @@ export function Study() {
     };
   }, [entry]);
 
-  const face = card ? cardFace(pack, card.kind, card.direction, card.itemId, card.reps) : null;
+  const face = !card ? null : card.kind === 'custom' ? (custom?.face ?? null) : cardFace(pack, card.kind, card.direction, card.itemId, card.reps);
   const say = useCallback(
     (text: string) => speak(text, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate }),
     [pack, settings.voiceURI, settings.speechRate],
@@ -189,8 +196,9 @@ export function Study() {
         <div className="row" style={{ gap: 6 }}>
           {isNew && <span className="badge new">New</span>}
           <span className="badge">
-            {pack.manifest.levels.find((l) => l.id === card.level)?.label} ·{' '}
-            {face.cloze ? 'Grammar' : isKanji ? 'Kanji' : card.direction === 'production' ? 'Say it in Japanese' : 'Word'}
+            {custom
+              ? custom.deck
+              : `${pack.manifest.levels.find((l) => l.id === card.level)?.label} · ${face.cloze ? 'Grammar' : isKanji ? 'Kanji' : card.direction === 'production' ? 'Say it in Japanese' : 'Word'}`}
           </span>
         </div>
 

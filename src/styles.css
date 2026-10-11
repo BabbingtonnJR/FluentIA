@@ -2419,3 +2419,8 @@ body {
   margin: -4px 0 12px;
   font-size: 0.95rem;
 }
+
+/* Answers from imported decks can span several lines. */
+.flashcard .meaning {
+  white-space: pre-line;
+}

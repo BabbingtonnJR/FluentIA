@@ -57,7 +57,7 @@ export default defineConfig({
       },
       workbox: {
         // Content packs are precached so every study feature works offline.
-        globPatterns: ['**/*.{js,css,html,svg,png,ico,json}'],
+        globPatterns: ['**/*.{js,css,html,svg,png,ico,json,wasm}'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         navigateFallback: '/index.html',
         runtimeCaching: [
