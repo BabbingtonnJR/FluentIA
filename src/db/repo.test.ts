@@ -31,7 +31,8 @@ describe('study session', () => {
   const settings = { ...DEFAULT_SETTINGS, levels: [5], newPerDay: 4, production: false };
 
   it('offers new cards up to the daily limit and counts what was learned', async () => {
-    const now = Date.now();
+    // Midday, so "an hour later" stays on the same study day (days start at 4am).
+    const now = new Date().setHours(12, 0, 0, 0);
     const first = await buildSession(pack, settings, now, db);
     expect(first.newCount).toBe(4);
     expect(first.dueCount).toBe(0);
