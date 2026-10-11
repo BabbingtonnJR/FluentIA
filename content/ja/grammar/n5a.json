@@ -1,0 +1,309 @@
+[
+  {
+    "id": "desu",
+    "pattern": "〜です / 〜だ",
+    "meaning": "is; am; are (X is Y)",
+    "formation": ["Noun + です (polite) / だ (plain)", "な-adj + です / だ", "い-adj + です (polite only: 高いです)"],
+    "notes": "The basic way to say what something is. です is polite; だ is the plain form used with friends and in writing. い-adjectives never take だ: say 高い or 高いです, not 高いだ.",
+    "examples": [
+      ["わたしは学生{です}。", "I am a student."],
+      ["これは日本の本{です}。", "This is a Japanese book."],
+      ["今日は休み{だ}。", "Today is a day off."]
+    ]
+  },
+  {
+    "id": "janai",
+    "pattern": "〜じゃないです / 〜ではありません",
+    "meaning": "is not; am not; are not",
+    "formation": ["Noun / な-adj + じゃないです (casual polite)", "Noun / な-adj + ではありません (formal)", "Plain: じゃない / ではない"],
+    "notes": "The negative of です. じゃ is the spoken form of では. All four forms mean the same; ではありません sounds most formal.",
+    "match": "(じゃない|ではない|じゃありません|ではありません)(?!か)",
+    "examples": [
+      ["わたしは先生{じゃないです}。", "I'm not a teacher."],
+      ["あれは駅{ではありません}。", "That is not the station."],
+      ["この部屋はしずか{じゃない}。", "This room isn't quiet."]
+    ]
+  },
+  {
+    "id": "deshita",
+    "pattern": "〜でした / 〜だった",
+    "meaning": "was; were",
+    "formation": ["Noun / な-adj + でした (polite) / だった (plain)", "Negative: じゃなかったです / ではありませんでした"],
+    "notes": "The past of です / だ. For い-adjectives use 〜かったです instead (高かったです), never 高いでした.",
+    "examples": [
+      ["きのうは雨{でした}。", "It was rainy yesterday."],
+      ["テストはかんたん{でした}。", "The test was easy."],
+      ["子どものとき、元気な子{だった}。", "I was a lively kid when I was little."]
+    ]
+  },
+  {
+    "id": "wa",
+    "pattern": "は (topic)",
+    "meaning": "as for X (marks the topic)",
+    "formation": ["Noun + は", "Written は, read わ"],
+    "notes": "は tells the listener what the sentence is about; the rest of the sentence says something about it. It is also used to contrast: 肉は食べますが、魚は食べません (Meat I eat, but fish I don't).",
+    "examples": [
+      ["わたし{は}田中です。", "I'm Tanaka."],
+      ["今日{は}いい天気ですね。", "It's nice weather today, isn't it?"],
+      ["肉は食べますが、魚{は}食べません。", "I eat meat, but I don't eat fish."]
+    ]
+  },
+  {
+    "id": "ga",
+    "pattern": "が (subject)",
+    "meaning": "marks the subject (who / what does or is)",
+    "formation": ["Noun + が"],
+    "notes": "が points at the subject, often as new information or the answer to a question: だれが来ましたか → 田中さんが来ました. Question words like だれ and なに take が, never は.",
+    "examples": [
+      ["だれ{が}来ましたか。", "Who came?"],
+      ["あそこに猫{が}います。", "There's a cat over there."],
+      ["雨{が}ふっています。", "It's raining."]
+    ]
+  },
+  {
+    "id": "wa-ga",
+    "pattern": "XはYが〜",
+    "meaning": "X has a Y that is…; as for X, Y is…",
+    "formation": ["Topic + は + Subject + が + adjective / verb"],
+    "notes": "は sets the topic and が picks the part being described: 象は鼻が長い (Elephants have long trunks). Also used with likes, skills and wants: わたしは犬が好きです.",
+    "examples": [
+      ["象は鼻{が}長いです。", "Elephants have long trunks."],
+      ["この店はパン{が}おいしいです。", "This shop's bread is delicious."],
+      ["姉はかみ{が}長いです。", "My older sister has long hair."]
+    ]
+  },
+  {
+    "id": "wo",
+    "pattern": "を (object)",
+    "meaning": "marks the direct object (what is eaten, read, bought…)",
+    "formation": ["Noun + を + verb", "Written を, read お"],
+    "notes": "を marks what the action is done to. With movement verbs it marks the place you move through or leave: 公園を歩く (walk through the park), 家を出る (leave the house).",
+    "examples": [
+      ["毎朝パン{を}食べます。", "I eat bread every morning."],
+      ["新しいくつ{を}買いました。", "I bought new shoes."],
+      ["公園{を}歩きましょう。", "Let's walk through the park."]
+    ]
+  },
+  {
+    "id": "ni",
+    "pattern": "に (time / destination / place of being)",
+    "meaning": "at (a time); to (a place); in / at (where something is)",
+    "formation": ["Time + に: 七時に, 日曜日に", "Place + に + 行く / 来る / 帰る", "Place + に + いる / ある"],
+    "notes": "Times with a number or a day take に (月曜日に), but words like 今日, 明日, 毎日 don't. に also marks where something exists, and the person you give to or meet: 友だちに会う.",
+    "examples": [
+      ["日曜日{に}映画を見ます。", "I'll watch a movie on Sunday."],
+      ["来年、日本{に}行きます。", "I'm going to Japan next year."],
+      ["つくえの上{に}本があります。", "There's a book on the desk."]
+    ]
+  },
+  {
+    "id": "de",
+    "pattern": "で (place of action / means)",
+    "meaning": "at / in (where an action happens); by / with (means)",
+    "formation": ["Place + で + action verb", "Tool / transport / language + で"],
+    "notes": "Compare に and で: 図書館にいます (I am in the library: existence) but 図書館で勉強します (I study in the library: action). で also marks how: バスで (by bus), 日本語で (in Japanese), はしで (with chopsticks).",
+    "examples": [
+      ["図書館{で}勉強します。", "I study at the library."],
+      ["毎日バス{で}学校へ行きます。", "I go to school by bus every day."],
+      ["日本語{で}話してください。", "Please speak in Japanese."]
+    ]
+  },
+  {
+    "id": "he",
+    "pattern": "へ (direction)",
+    "meaning": "to; toward (a place)",
+    "formation": ["Place + へ + 行く / 来る / 帰る", "Written へ, read え"],
+    "notes": "へ points in a direction and can usually be swapped with に when going somewhere. Only に works for where something is.",
+    "examples": [
+      ["あした、京都{へ}行きます。", "I'm going to Kyoto tomorrow."],
+      ["夜おそく家{へ}帰りました。", "I went home late at night."],
+      ["こちら{へ}どうぞ。", "This way, please."]
+    ]
+  },
+  {
+    "id": "to",
+    "pattern": "と (and / with)",
+    "meaning": "and (joining nouns); with (someone)",
+    "formation": ["Noun + と + Noun (a complete list)", "Person + と + verb (together with)"],
+    "notes": "と joins nouns into a complete list: パンと卵 is exactly bread and eggs. To do something with someone: 友だちと行く. と does not join verbs or sentences; use the て-form for that.",
+    "examples": [
+      ["パン{と}卵を買いました。", "I bought bread and eggs."],
+      ["友だち{と}映画を見ました。", "I watched a movie with a friend."],
+      ["父{と}母は先生です。", "My father and mother are teachers."]
+    ]
+  },
+  {
+    "id": "mo",
+    "pattern": "も (also / too)",
+    "meaning": "also; too; (with a negative) either",
+    "formation": ["Noun + も (replaces は, が, を)", "Noun + に / で / へ + も (follows other particles)", "Xも Yも: both X and Y / neither X nor Y"],
+    "notes": "も replaces は, が and を, but goes after に, で and へ: 東京にも行きました. With a negative verb it means 'either' or 'neither': 肉も魚も食べません.",
+    "examples": [
+      ["わたし{も}学生です。", "I'm a student too."],
+      ["肉も魚{も}食べません。", "I eat neither meat nor fish."],
+      ["きのうは東京に{も}行きました。", "Yesterday I went to Tokyo as well."]
+    ]
+  },
+  {
+    "id": "no",
+    "pattern": "の (possession / description)",
+    "meaning": "'s; of; (noun describing another noun)",
+    "formation": ["Noun + の + Noun"],
+    "notes": "の links two nouns, with the first describing the second: わたしの本 (my book), 日本の車 (a Japanese car), 日本語の先生 (a Japanese teacher). The noun after の can be dropped when it's clear: これはわたしのです.",
+    "examples": [
+      ["これはわたし{の}かばんです。", "This is my bag."],
+      ["日本語{の}先生はやさしいです。", "The Japanese teacher is kind."],
+      ["その車は父{の}です。", "That car is my father's."]
+    ]
+  },
+  {
+    "id": "ka",
+    "pattern": "〜か (question)",
+    "meaning": "(turns a sentence into a question)",
+    "formation": ["Sentence + か", "Polite questions: 〜ですか / 〜ますか"],
+    "notes": "Add か to the end of a polite sentence to ask a question; no word order change and no question mark needed. In casual speech, a rising tone often replaces か: 行く？",
+    "examples": [
+      ["あなたは学生です{か}。", "Are you a student?"],
+      ["コーヒーを飲みます{か}。", "Will you drink coffee?"],
+      ["トイレはどこです{か}。", "Where is the toilet?"]
+    ]
+  },
+  {
+    "id": "ne-yo",
+    "pattern": "〜ね / 〜よ",
+    "meaning": "ね: …isn't it? (sharing); よ: …you know (telling)",
+    "formation": ["Sentence + ね / よ / よね"],
+    "notes": "ね asks for agreement about something both people know: いい天気ですね. よ gives the listener new information or a mild push: この店、おいしいですよ. よね checks something you think is true.",
+    "examples": [
+      ["今日は暑いです{ね}。", "It's hot today, isn't it?"],
+      ["このケーキ、おいしいです{よ}。", "This cake is delicious, you know."],
+      ["あした、テストです{よね}。", "There's a test tomorrow, right?"]
+    ]
+  },
+  {
+    "id": "ya",
+    "pattern": "〜や〜(など)",
+    "meaning": "…and… (among other things)",
+    "formation": ["Noun + や + Noun (+ など)"],
+    "notes": "や lists a few examples from a longer list, while と gives the complete list. など (and so on) often ends the list.",
+    "examples": [
+      ["かばんの中に本{や}ノートがあります。", "There are books, notebooks and so on in the bag."],
+      ["りんご{や}バナナなどを買いました。", "I bought apples, bananas and things like that."],
+      ["休みの日は、そうじ{や}せんたくをします。", "On my days off I do cleaning, laundry and such."]
+    ]
+  },
+  {
+    "id": "kara-made",
+    "pattern": "〜から〜まで",
+    "meaning": "from … to / until …",
+    "formation": ["Time / place + から (from)", "Time / place + まで (to, until)"],
+    "notes": "から marks the starting point and まで the end point, in time or in space. Each can be used alone: 九時から (from nine), 駅まで (as far as the station).",
+    "examples": [
+      ["月曜日{から}金曜日まで働きます。", "I work from Monday to Friday."],
+      ["家から駅{まで}歩きます。", "I walk from my house to the station."],
+      ["夏休みは来週{から}です。", "Summer vacation starts next week."]
+    ]
+  },
+  {
+    "id": "kara-reason",
+    "pattern": "〜から (because)",
+    "meaning": "because; so",
+    "formation": ["Sentence (plain or polite) + から, + result"],
+    "notes": "The reason comes first, then から, then the result: 雨だから、行きません. It can also end a sentence as an answer to どうして: 時間がないからです. から sounds more personal than ので.",
+    "match": "(?<=[ますたいるうくぐすつぬぶむだ])(から)(?=[、。！!]|ね|よ|です)",
+    "examples": [
+      ["雨がふっている{から}、出かけません。", "It's raining, so I won't go out."],
+      ["時間がない{から}、タクシーで行きましょう。", "We don't have time, so let's take a taxi."],
+      ["あしたはテストです{から}、早くねます。", "There's a test tomorrow, so I'll go to bed early."]
+    ]
+  },
+  {
+    "id": "ga-but",
+    "pattern": "〜が、〜 (but)",
+    "meaning": "but; and (softening)",
+    "formation": ["Sentence + が、+ sentence"],
+    "notes": "が between two sentences means 'but'. It is a little more formal than けど. It also softens an opening before a request or question: すみませんが、… (Excuse me, but…).",
+    "match": "(?<=です|ます|でした|ました|ません|だ|た|い)(が)(?=、)",
+    "examples": [
+      ["この店は安いです{が}、おいしくないです。", "This shop is cheap, but it isn't good."],
+      ["日本語は好きです{が}、むずかしいです。", "I like Japanese, but it's difficult."],
+      ["すみません{が}、駅はどこですか。", "Excuse me, but where is the station?"]
+    ]
+  },
+  {
+    "id": "demo",
+    "pattern": "でも (but, at the start)",
+    "meaning": "but; however",
+    "formation": ["Sentence。でも、sentence。"],
+    "notes": "でも starts a new sentence that goes against the one before it. It is a little casual; しかし is the formal word. (After a noun, でも can also mean 'even' or 'or something': お茶でも飲みましょう.)",
+    "match": "(?:^|[。！？!?「])(でも)(?=、)",
+    "examples": [
+      ["たくさん勉強しました。{でも}、テストはむずかしかったです。", "I studied a lot. But the test was hard."],
+      ["このくつは好きです。{でも}、高いです。", "I like these shoes. But they're expensive."],
+      ["行きたいです。{でも}、時間がありません。", "I want to go. But I don't have time."]
+    ]
+  },
+  {
+    "id": "dake",
+    "pattern": "〜だけ",
+    "meaning": "only; just",
+    "formation": ["Noun / number + だけ", "Verb (plain) + だけ"],
+    "notes": "だけ limits something to just that amount or thing, with a neutral feeling. Compare しか〜ない (N4), which stresses that it is not enough.",
+    "match": "(だけ)(?!でなく|じゃなく)",
+    "examples": [
+      ["水{だけ}飲みました。", "I only drank water."],
+      ["日曜日{だけ}休みです。", "I only have Sundays off."],
+      ["ちょっと見る{だけ}です。", "I'm just looking."]
+    ]
+  },
+  {
+    "id": "kosoado",
+    "pattern": "これ / それ / あれ / どれ",
+    "meaning": "this one / that one (near you) / that one over there / which one",
+    "formation": ["こ- near the speaker", "そ- near the listener", "あ- far from both", "ど- question"],
+    "notes": "The same こ・そ・あ・ど pattern gives ここ / そこ / あそこ / どこ (places) and こちら / そちら / あちら / どちら (directions, or polite 'this way'). これ and the others stand alone; they don't come before a noun.",
+    "examples": [
+      ["{これ}は何ですか。", "What is this?"],
+      ["トイレは{あそこ}です。", "The toilet is over there."],
+      ["あなたのかさは{どれ}ですか。", "Which one is your umbrella?"]
+    ]
+  },
+  {
+    "id": "kono",
+    "pattern": "この / その / あの / どの + Noun",
+    "meaning": "this … / that … / that … over there / which …",
+    "formation": ["この / その / あの / どの + Noun"],
+    "notes": "These always come right before a noun: この本 (this book). To say 'this one' alone, use これ.",
+    "examples": [
+      ["{この}本はおもしろいです。", "This book is interesting."],
+      ["{あの}人はだれですか。", "Who is that person?"],
+      ["{どの}電車に乗りますか。", "Which train will you take?"]
+    ]
+  },
+  {
+    "id": "question-ka-mo",
+    "pattern": "何か / 何も〜ない (question word + か / も)",
+    "meaning": "something / nothing; someone / no one; somewhere / nowhere",
+    "formation": ["Question word + か: 何か, だれか, どこか", "Question word + も + negative: 何も〜ない, だれも〜ない, どこも〜ない"],
+    "notes": "Adding か makes 'some-': 何か (something), だれか (someone), どこか (somewhere). Adding も with a negative verb makes 'no-': 何も食べません (I eat nothing). Note いつも means 'always', not 'never'.",
+    "match": "((?:何|なに|だれ|誰|どこ|どれ)(?:か|も))(?!の)",
+    "examples": [
+      ["{何か}飲みますか。", "Will you drink something?"],
+      ["きのうは{何も}食べませんでした。", "I didn't eat anything yesterday."],
+      ["{だれか}来ましたか。", "Did someone come?"]
+    ]
+  },
+  {
+    "id": "soshite",
+    "pattern": "そして / それから",
+    "meaning": "and; and then",
+    "formation": ["Sentence。そして / それから、sentence。"],
+    "notes": "Both join sentences. それから stresses the order ('after that'); そして just adds the next thing.",
+    "match": "(そして|それから)(?=、)",
+    "examples": [
+      ["朝ごはんを食べました。{それから}、学校へ行きました。", "I ate breakfast. After that, I went to school."],
+      ["この部屋は広いです。{そして}、明るいです。", "This room is spacious. And it's bright."],
+      ["スーパーへ行きました。{そして}、肉を買いました。", "I went to the supermarket. And I bought meat."]
+    ]
+  }
+]
