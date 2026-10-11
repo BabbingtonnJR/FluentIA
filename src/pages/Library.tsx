@@ -4,7 +4,7 @@ import { Link, useSearchParams } from 'react-router';
 import { Icon } from '../components/Icon';
 import type { VocabItem } from '../content/types';
 import { db } from '../db/db';
-import { kanaQuery, matchRank, toHiragana } from '../lang/romaji';
+import { rankBy, searcher } from '../lang/search';
 import type { CardRecord } from '../db/types';
 import { usePack, useSettings } from '../hooks';
 import { speak } from '../speech/tts';
@@ -19,32 +19,6 @@ const STATUS_LABEL: Record<CardStatus, string> = {
   young: 'Young',
   mature: 'Mature',
 };
-
-/** The better of several match ranks (lower is better, -1 is no match). */
-function best(...ranks: number[]): number {
-  return ranks.reduce((b, r) => (r >= 0 && (b < 0 || r < b) ? r : b), -1);
-}
-
-/** English glosses: a whole word or phrase between separators beats a substring. */
-function englishRank(meaning: string, q: string): number {
-  const m = meaning.toLowerCase();
-  if (!m.includes(q)) return -1;
-  const parts = m.split(/[;,()]/).map((p) => p.trim().replace(/^to /, ''));
-  if (parts.includes(q) || parts.includes(q.replace(/^to /, ''))) return 0;
-  return new RegExp(`\\b${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(m) ? 1 : 2;
-}
-
-const readingsOf = (reading: string) => reading.split(/[;、,]/).map((r) => toHiragana(r.replace(/[～~\s]/g, '')));
-
-/** Filters to matches and orders them best match first, keeping list order within a rank. */
-function rankBy<T>(items: T[], q: string, rank: (t: T) => number): T[] {
-  if (!q) return items;
-  return items
-    .map((t, i) => ({ t, i, r: rank(t) }))
-    .filter((x) => x.r >= 0)
-    .sort((a, b) => a.r - b.r || a.i - b.i)
-    .map((x) => x.t);
-}
 
 export function Library() {
   const pack = usePack();
@@ -70,45 +44,36 @@ export function Library() {
     new Map<string, CardRecord>(),
   );
 
-  const q = query.trim().toLowerCase();
-  // "matsu" also searches readings as まつ, and katakana queries match hiragana readings.
-  const kq = useMemo(() => kanaQuery(q), [q]);
-  // A half-typed romaji match ranks after English ones, so "wait" lists 待つ before ワイン.
-  const kanaRank = (texts: string[]) => {
-    if (!kq) return -1;
-    const r = best(...texts.map((t) => matchRank(t, kq.kana)));
-    return r >= 0 && kq.partial ? r + 3 : r;
-  };
+  // "matsu" also searches readings as まつ, "youni" finds 〜ように, katakana matches hiragana.
+  const search = useMemo(() => searcher(query), [query]);
+  const q = search.q;
   const vocab = useMemo(
     () =>
       rankBy(
         pack.vocab.filter((v) => level === null || v.level === level),
         q,
-        (v) => best(matchRank(v.word, q), kanaRank(readingsOf(v.reading)), englishRank(v.meaning, q)),
+        search.vocab,
       ),
-    [pack, level, q, kq],
+    [pack, level, q, search],
   );
   const kanji = useMemo(
     () =>
       rankBy(
         pack.kanji.filter((k) => level === null || k.level === level),
         q,
-        (k) =>
-          best(
-            k.id === q ? 0 : -1,
-            kanaRank([...k.on, ...k.kun].map((r) => toHiragana(r.replace(/[.-]/g, '')))),
-            englishRank(k.meanings.join('; '), q),
-          ),
+        search.kanji,
       ),
-    [pack, level, q, kq],
+    [pack, level, q, search],
   );
 
   const grammar = useMemo(
     () =>
-      pack.grammar.filter(
-        (g) => (level === null || g.level === level) && (!q || g.pattern.includes(q) || g.meaning.toLowerCase().includes(q)),
+      rankBy(
+        pack.grammar.filter((g) => level === null || g.level === level),
+        q,
+        search.grammar,
       ),
-    [pack, level, q],
+    [pack, level, q, search],
   );
 
   const say = (v: VocabItem) => speak(v.reading, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate });
