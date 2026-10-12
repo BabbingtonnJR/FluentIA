@@ -30,6 +30,16 @@ npm run icons           # gera os ícones PNG
 
 Fontes e licenças estão em [CREDITS.md](CREDITS.md).
 
+### Vídeos e mangás próprios (ferramentas no PC)
+
+As conversões pesadas rodam no PC, de graça, e usam a GPU NVIDIA quando existe. A configuração de cada uma fica
+no topo do script.
+
+- **Legenda de vídeo:** `.\tools\video-to-fluentia.ps1 "C:\videos\ep1.mp4"` gera `ep1.ja.srt` com o Whisper
+  (uma pasta inteira também funciona). No app: Literature → Videos → Import a video.
+- **Mangá:** `.\tools\manga-to-fluentia.ps1 "C:\manga\vol1"` lê os balões com o mokuro e gera
+  `vol1.fluentia.zip`. No app: Literature → Manga → Import a manga.
+
 ### Outros idiomas
 
 Cada idioma é um pacote em `public/packs/<id>/` com `manifest.json`, `vocab.json` e, opcionalmente, `kanji.json`
