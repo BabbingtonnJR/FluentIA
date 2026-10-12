@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Icon } from '../components/Icon';
 import { cardFace } from '../content/faces';
+import { primaryVocabId } from '../content/senses';
 import type { CardFace } from '../content/types';
 import { db } from '../db/db';
 import { logActivity } from '../db/repo';
@@ -9,7 +10,12 @@ import { usePack, useSettings } from '../hooks';
 import { speak, stopSpeaking } from '../speech/tts';
 import { State } from '../srs/scheduler';
 
-type Order = 'jp-en' | 'en-jp';
+type Direction = 'jp-en' | 'en-jp';
+/** Mixed alternates the two, word by word, so you both understand and produce. */
+type Order = Direction | 'mixed';
+
+/** Which way the i-th word is played. */
+const directionFor = (order: Order, i: number): Direction => (order === 'mixed' ? (i % 2 ? 'en-jp' : 'jp-en') : order);
 
 const sleep = (ms: number, signal: AbortSignal) =>
   new Promise<void>((resolve) => {
@@ -46,9 +52,11 @@ export function Listen() {
       .filter((c) => c.direction === 'recognition' && c.state !== State.New)
       .sortBy('due')
       .then((cards) => {
-        const faces = cards
+        // One entry per word, even if two of its readings were once separate cards.
+        const ids = [...new Set(cards.map((c) => primaryVocabId(pack, c.itemId)))];
+        const faces = ids
           .slice(0, 60)
-          .map((c) => cardFace(pack, 'vocab', 'recognition', c.itemId))
+          .map((id) => cardFace(pack, 'vocab', 'recognition', id))
           .filter((f): f is CardFace => !!f);
         setItems(faces);
       });
@@ -85,14 +93,15 @@ export function Listen() {
     const en = { locale: 'en-US', rate: 1 };
     for (let i = start; !ctrl.signal.aborted; i = (i + 1) % items.length) {
       const f = items[i];
+      const dir = directionFor(order, i);
       setIndex(i);
       setShowAnswer(false);
-      if (order === 'jp-en') await speak(f.speak, jp);
+      if (dir === 'jp-en') await speak(f.speak, jp);
       else await speak(f.meaning, en);
       await sleep(pause * 1000, ctrl.signal);
       if (ctrl.signal.aborted) break;
       setShowAnswer(true);
-      if (order === 'jp-en') await speak(f.meaning, en);
+      if (dir === 'jp-en') await speak(f.meaning, en);
       else await speak(f.speak, jp);
       await sleep(1200, ctrl.signal);
       // Repeat the Japanese once more to reinforce the sound.
@@ -139,7 +148,10 @@ export function Listen() {
             <div className="faint">
               {index + 1} / {items.length}
             </div>
-            {order === 'jp-en' || showAnswer ? (
+            {order === 'mixed' && (
+              <div className="faint">{directionFor(order, index) === 'jp-en' ? 'Japanese → English' : 'English → Japanese'}</div>
+            )}
+            {directionFor(order, index) === 'jp-en' || showAnswer ? (
               <div className="prompt-jp" lang="ja">
                 {current.prompt}
               </div>
@@ -169,6 +181,9 @@ export function Listen() {
                 <button className={order === 'en-jp' ? 'on' : ''} onClick={() => setOrder('en-jp')} disabled={playing}>
                   English → Japanese
                 </button>
+                <button className={order === 'mixed' ? 'on' : ''} onClick={() => setOrder('mixed')} disabled={playing}>
+                  Mixed
+                </button>
               </div>
             </div>
             <div className="field">
@@ -182,8 +197,8 @@ export function Listen() {
               </div>
             </div>
             <p className="faint" style={{ margin: 0 }}>
-              English → Japanese trains you to speak without freezing. Keep the screen on: iPhone stops web audio when
-              the phone locks.
+              English → Japanese trains you to speak without freezing; Mixed alternates both ways, word by word. Keep
+              the screen on: iPhone stops web audio when the phone locks.
             </p>
           </div>
         </>

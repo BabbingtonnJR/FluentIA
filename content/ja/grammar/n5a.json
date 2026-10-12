@@ -4,6 +4,7 @@
     "pattern": "〜です / 〜だ",
     "meaning": "is; am; are (X is Y)",
     "formation": ["Noun + です (polite) / だ (plain)", "な-adj + です / だ", "い-adj + です (polite only: 高いです)"],
+    "variants": [["です", "だ|!い"]],
     "notes": "The basic way to say what something is. です is polite; だ is the plain form used with friends and in writing. い-adjectives never take だ: say 高い or 高いです, not 高いだ.",
     "examples": [
       ["わたしは学生{です}。", "I am a student."],
@@ -13,9 +14,10 @@
   },
   {
     "id": "janai",
-    "pattern": "〜じゃないです / 〜ではありません",
+    "pattern": "〜じゃないです / 〜じゃありません / 〜ではありません",
     "meaning": "is not; am not; are not",
-    "formation": ["Noun / な-adj + じゃないです (casual polite)", "Noun / な-adj + ではありません (formal)", "Plain: じゃない / ではない"],
+    "formation": ["Noun / な-adj + じゃないです / じゃありません (spoken polite)", "Noun / な-adj + ではないです / ではありません (more formal)", "Plain: じゃない / ではない"],
+    "variants": [["じゃないです", "じゃありません", "ではないです", "ではありません"], ["じゃない", "ではない"]],
     "notes": "The negative of です. じゃ is the spoken form of では. All four forms mean the same; ではありません sounds most formal.",
     "match": "(じゃない|ではない|じゃありません|ではありません)(?!か)",
     "examples": [
@@ -28,7 +30,8 @@
     "id": "deshita",
     "pattern": "〜でした / 〜だった",
     "meaning": "was; were",
-    "formation": ["Noun / な-adj + でした (polite) / だった (plain)", "Negative: じゃなかったです / ではありませんでした"],
+    "formation": ["Noun / な-adj + でした (polite) / だった (plain)", "Negative: じゃなかったです / じゃありませんでした / ではなかったです / ではありませんでした"],
+    "variants": [["でした", "だった"], ["じゃなかったです", "じゃありませんでした", "ではなかったです", "ではありませんでした"], ["じゃなかった", "ではなかった"]],
     "notes": "The past of です / だ. For い-adjectives use 〜かったです instead (高かったです), never 高いでした.",
     "examples": [
       ["きのうは雨{でした}。", "It was rainy yesterday."],
@@ -209,6 +212,7 @@
     "pattern": "〜から (because)",
     "meaning": "because; so",
     "formation": ["Sentence (plain or polite) + から, + result"],
+    "alike": ["n4-node"],
     "notes": "The reason comes first, then から, then the result: 雨だから、行きません. It can also end a sentence as an answer to どうして: 時間がないからです. から sounds more personal than ので.",
     "match": "(?<=[ますたいるうくぐすつぬぶむだ])(から)(?=[、。！!]|ね|よ|です)",
     "examples": [
@@ -222,6 +226,7 @@
     "pattern": "〜が、〜 (but)",
     "meaning": "but; and (softening)",
     "formation": ["Sentence + が、+ sentence"],
+    "alike": ["n4-keredo"],
     "notes": "が between two sentences means 'but'. It is a little more formal than けど. It also softens an opening before a request or question: すみませんが、… (Excuse me, but…).",
     "match": "(?<=です|ます|でした|ました|ません|だ|た|い)(が)(?=、)",
     "examples": [

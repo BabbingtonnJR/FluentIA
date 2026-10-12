@@ -1,3 +1,4 @@
+import { studyVocab } from '../content/senses';
 import type { Pack } from '../content/types';
 import type { CardRecord, Settings } from '../db/types';
 import { cardId, State, type CardRef } from './scheduler';
@@ -37,7 +38,8 @@ export function selectNew(input: NewSelectionInput): CardRef[] {
   const levels = [...settings.levels].sort((a, b) => b - a);
   for (const level of levels) {
     if (recognitionLeft === 0) break;
-    const words = pack.vocab.filter(
+    // One card per written form: 十 じゅう and 十 とお are taught together.
+    const words = studyVocab(pack).filter(
       (v) => v.level === level && !existing.has(cardId(lang, 'vocab', 'recognition', v.id)),
     );
     const kanji = pack.kanji.filter(
@@ -71,7 +73,7 @@ export function selectNew(input: NewSelectionInput): CardRef[] {
 
   if (settings.production) {
     let productionLeft = Math.max(0, productionLimit(settings.newPerDay) - introducedToday.production);
-    for (const v of pack.vocab) {
+    for (const v of studyVocab(pack)) {
       if (productionLeft === 0) break;
       if (!graduatedVocab.has(v.id)) continue;
       if (existing.has(cardId(lang, 'vocab', 'production', v.id))) continue;

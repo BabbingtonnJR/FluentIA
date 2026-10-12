@@ -1,3 +1,4 @@
+import { normReading, primaryVocabId, sameWord, studyVocab } from '../content/senses';
 import type { Pack, VocabItem, KanjiItem } from '../content/types';
 
 export type QuestionType = 'meaning' | 'reading' | 'listening' | 'kanji';
@@ -89,9 +90,12 @@ export function generateQuiz(input: QuizInput): Question[] {
   const count = input.count ?? 10;
   const review = input.mode === 'review';
 
-  const levelVocab = pack.vocab.filter((v) => levels.includes(v.level));
+  const levelVocab = studyVocab(pack).filter((v) => levels.includes(v.level));
   const levelKanji = pack.kanji.filter((k) => levels.includes(k.level));
-  const studiedV = input.studiedVocab.map((id) => pack.vocabById.get(id)).filter((v): v is VocabItem => !!v);
+  // One question per written form, asked about the word's card (十, not each of its readings).
+  const studiedV = [...new Set(input.studiedVocab.map((id) => primaryVocabId(pack, id)))]
+    .map((id) => pack.vocabById.get(id))
+    .filter((v): v is VocabItem => !!v);
   const studiedK = input.studiedKanji.map((id) => pack.kanjiById.get(id)).filter((k): k is KanjiItem => !!k);
 
   const vocabPool = review
@@ -102,9 +106,12 @@ export function generateQuiz(input: QuizInput): Question[] {
     : shuffle(studiedK.length >= 3 ? studiedK : [...studiedK, ...shuffle(levelKanji, rand)], rand);
 
   // Familiar distractors are easier to tell apart; fall back to the same level when too few.
+  // Another reading of the same word (十 とお for 十 じゅう), or another spelling of it (中身 / 中味),
+  // would be a right answer, never a wrong one.
+  const differs = (x: VocabItem, v: VocabItem) => !sameWord(x, v) && normReading(x.reading) !== normReading(v.reading);
   const vocabDistractors = (v: VocabItem) => {
-    const known = studiedV.filter((x) => x.id !== v.id);
-    return review && known.length >= 6 ? known : pack.vocab.filter((x) => x.level === v.level && x.id !== v.id);
+    const known = studiedV.filter((x) => differs(x, v));
+    return review && known.length >= 6 ? known : pack.vocab.filter((x) => x.level === v.level && differs(x, v));
   };
   const kanjiDistractors = (k: KanjiItem) => {
     const known = studiedK.filter((x) => x.id !== k.id);

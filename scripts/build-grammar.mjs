@@ -48,9 +48,12 @@ for (const f of files) {
       examples.push({ r: markup, e: en, c: [m[1].length, m[1].length + m[2].length] });
     }
     if (examples.length < 2) problems.push(`${id}: needs at least 2 examples`);
-    points.push({ id, level, pattern: p.pattern, meaning: p.meaning, formation: p.formation, notes: p.notes, match: p.match, examples });
+    points.push({ id, level, pattern: p.pattern, meaning: p.meaning, formation: p.formation, notes: p.notes, match: p.match, variants: p.variants, alike: p.alike, examples });
   }
 }
+
+// alike names other points by id, so a typo would silently drop the link.
+for (const p of points) for (const other of p.alike ?? []) if (!ids.has(other)) problems.push(`${p.id}: alike names unknown point ${other}`);
 
 // --- Borrow Tatoeba examples -----------------------------------------------------
 const sentences = JSON.parse(await readFile(path.join(packDir, 'sentences.json'), 'utf8'));

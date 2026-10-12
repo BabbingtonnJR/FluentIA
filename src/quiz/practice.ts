@@ -1,4 +1,6 @@
 import type { GrammarExample, GrammarPoint, KanjiItem, Pack, Sentence, VocabItem } from '../content/types';
+import { allForms, alternativeForms, canBeRival } from '../content/grammar';
+import { normReading, sameWord } from '../content/senses';
 import { plainText } from '../reading/furigana';
 
 /** What the learner picked to practise. */
@@ -33,6 +35,8 @@ export interface PracticeQuestion {
   notes: string[];
   answer: number;
   optionsJp: boolean;
+  /** Other forms that would fill the blank just as well (じゃないです → じゃありません), shown after answering. */
+  also?: string[];
 }
 
 type Rand = () => number;
@@ -111,13 +115,15 @@ export function generatePractice({ pack, sentences, items, count, rand = Math.ra
         .map(clozeText)
         .filter((t) => !/[っッ]$/.test(t))
         .sort((a, b) => likeness(b, correct) - likeness(a, correct))[0] ?? '';
-    const picked = shuffle(grammar.filter((p) => p.id !== g.id), rand);
+    // Points that mean the same (から / ので) and the point's own other forms would also be right.
+    const own = allForms(g);
+    const picked = shuffle(grammar.filter((p) => canBeRival(g, p)), rand);
     const nearby = pack.grammar
-      .filter((p) => p.id !== g.id && !grammar.includes(p) && Math.abs(p.level - g.level) <= 1)
+      .filter((p) => canBeRival(g, p) && !grammar.includes(p) && Math.abs(p.level - g.level) <= 1)
       .map((p) => ({ p, s: likeness(formOf(p), correct) + rand() }))
       .sort((a, b) => b.s - a.s)
       .map((x) => x.p);
-    return [...picked, ...nearby].map((p) => ({ text: formOf(p), note: grammarNote(p) }));
+    return [...picked, ...nearby].map((p) => ({ text: formOf(p), note: grammarNote(p) })).filter((o) => !own.has(o.text));
   };
 
   const grammarCloze = (g: GrammarPoint, used: Set<string>): PracticeQuestion | null => {
@@ -127,7 +133,8 @@ export function generatePractice({ pack, sentences, items, count, rand = Math.ra
     if (!ex) return null;
     used.add(ex.r);
     const correct = clozeText(ex);
-    const o = options({ text: correct, note: grammarNote(g) }, grammarRivals(g, correct), rand);
+    const also = alternativeForms(g, correct, plainText(ex.r).slice(0, ex.c[0]));
+    const o = options({ text: correct, note: grammarNote(g) }, grammarRivals(g, correct).filter((x) => !also.includes(x.text)), rand);
     if (o.options.length < 2) return null;
     return {
       type: 'grammar-cloze',
@@ -136,12 +143,13 @@ export function generatePractice({ pack, sentences, items, count, rand = Math.ra
       speak: plainText(ex.r),
       ...o,
       optionsJp: true,
+      ...(also.length ? { also } : {}),
     };
   };
 
   const grammarMeaning = (g: GrammarPoint, used: Set<string>): PracticeQuestion | null => {
     if (used.has(`meaning:${g.id}`)) return null;
-    const others = [...shuffle(grammar.filter((p) => p.id !== g.id), rand), ...shuffle(pack.grammar.filter((p) => p.level === g.level && p.id !== g.id), rand)];
+    const others = [...shuffle(grammar.filter((p) => canBeRival(g, p)), rand), ...shuffle(pack.grammar.filter((p) => p.level === g.level && canBeRival(g, p)), rand)];
     const o = options({ text: g.meaning, note: g.pattern }, others.map((p) => ({ text: p.meaning, note: p.pattern })), rand);
     if (o.options.length < 4) return null;
     used.add(`meaning:${g.id}`);
@@ -149,7 +157,12 @@ export function generatePractice({ pack, sentences, items, count, rand = Math.ra
   };
 
   // --- Words -----------------------------------------------------------------------
-  const wordPool = (v: VocabItem) => [...shuffle(vocab.filter((x) => x.id !== v.id), rand), ...shuffle(pack.vocab.filter((x) => x.level === v.level && x.id !== v.id), rand)];
+  // Another reading or spelling of the word (十 とお, 中味 for 中身) would be right too, so it never is a wrong option.
+  const differs = (x: VocabItem, v: VocabItem) => !sameWord(x, v) && normReading(x.reading) !== normReading(v.reading);
+  const wordPool = (v: VocabItem) => [
+    ...shuffle(vocab.filter((x) => differs(x, v)), rand),
+    ...shuffle(pack.vocab.filter((x) => x.level === v.level && differs(x, v)), rand),
+  ];
 
   const wordMeaning = (v: VocabItem, used: Set<string>): PracticeQuestion | null => {
     if (used.has(`meaning:${v.id}`)) return null;

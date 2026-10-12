@@ -1,3 +1,4 @@
+import { primaryVocabId, studyVocab } from '../content/senses';
 import type { Pack } from '../content/types';
 import { dayKey, dayStart, uid } from '../lib/time';
 import { cardId, knownCard, newCard, review, State, type CardRef, type Grade } from '../srs/scheduler';
@@ -46,13 +47,14 @@ export async function introducedToday(lang: string, settings: Settings, now = Da
 export async function buildSession(pack: Pack, settings: Settings, now = Date.now(), d: FluentiaDB = db) {
   const lang = pack.manifest.id;
   const stored = await d.cards.where('[lang+due]').between([lang, -Infinity], [lang, Infinity]).toArray();
-  const all = stored.filter((c) => !c.deleted);
+  const all = withoutDuplicateReadings(pack, stored.filter((c) => !c.deleted));
   const due = all.filter((c) => c.due <= now);
-  const existing = new Set(all.map((c) => c.id));
+  // A card for any reading of a word counts as that word's card (see withoutDuplicateReadings).
+  const existing = new Set(all.map((c) => (c.kind === 'vocab' ? cardId(lang, 'vocab', c.direction, primaryVocabId(pack, c.itemId)) : c.id)));
   const graduatedVocab = new Set(
     all
       .filter((c) => c.kind === 'vocab' && c.direction === 'recognition' && c.state === State.Review)
-      .map((c) => c.itemId),
+      .map((c) => primaryVocabId(pack, c.itemId)),
   );
   const fresh = selectNew({
     pack,
@@ -67,6 +69,20 @@ export async function buildSession(pack: Pack, settings: Settings, now = Date.no
   fresh.push(...(await customNew(lang, existing, graduatedNotes, settings, now, d)));
   const queue: QueueEntry[] = buildQueue(due, fresh);
   return { queue, dueCount: due.length, newCount: fresh.length };
+}
+
+/**
+ * Words written the same way (十 じゅう / とお) used to be separate cards and are now one card
+ * showing every reading. Learners who studied both keep the first entry's card; the others stay
+ * stored (and synced) but are no longer shown. One studied alone is shown as the whole word.
+ */
+export function withoutDuplicateReadings(pack: Pack, cards: CardRecord[]): CardRecord[] {
+  const ids = new Set(cards.map((c) => c.id));
+  return cards.filter((c) => {
+    if (c.kind !== 'vocab') return true;
+    const primary = primaryVocabId(pack, c.itemId);
+    return primary === c.itemId || !ids.has(cardId(c.lang, 'vocab', c.direction, primary));
+  });
 }
 
 /**
@@ -137,7 +153,7 @@ export async function markLevelKnown(pack: Pack, level: number, now = Date.now()
   const lang = pack.manifest.id;
   const existing = new Set((await d.cards.where('[lang+due]').between([lang, -Infinity], [lang, Infinity]).primaryKeys()) as string[]);
   const refs: CardRef[] = [
-    ...pack.vocab.filter((v) => v.level === level).map((v) => ({ lang, kind: 'vocab' as const, direction: 'recognition' as const, itemId: v.id, level })),
+    ...studyVocab(pack).filter((v) => v.level === level).map((v) => ({ lang, kind: 'vocab' as const, direction: 'recognition' as const, itemId: v.id, level })),
     ...pack.kanji.filter((k) => k.level === level).map((k) => ({ lang, kind: 'kanji' as const, direction: 'recognition' as const, itemId: k.id, level })),
     ...pack.grammar.filter((g) => g.level === level).map((g) => ({ lang, kind: 'grammar' as const, direction: 'recognition' as const, itemId: g.id, level })),
   ];

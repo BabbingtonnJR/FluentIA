@@ -1,4 +1,6 @@
 import type { GrammarExample, Pack, Sentence, VocabItem } from '../content/types';
+import { allForms, alternativeForms, canBeRival } from '../content/grammar';
+import { normReading, sameWord } from '../content/senses';
 import { plainText } from '../reading/furigana';
 
 export type MockSection = 'vocab' | 'grammar' | 'reading' | 'listening';
@@ -24,6 +26,8 @@ export interface MockQuestion {
   options: string[];
   answer: number;
   optionsJp: boolean;
+  /** Other forms that would fill the blank just as well, shown in the review. */
+  also?: string[];
 }
 
 type Rand = () => number;
@@ -115,8 +119,10 @@ export function generateMock({ pack, sentences, level, rand = Math.random }: Moc
     if (inContext.length >= 20) break;
   }
   const withKanji = inContext.filter((x) => hasKanji(x.v.word) && firstReading(x.v) !== x.v.word);
-  const readings = levelVocab.map(firstReading).filter(cleanWord);
-  const kanjiWords = levelVocab.filter((v) => hasKanji(v.word)).map((v) => v.word);
+  // Wrong options must be wrong: never another reading of the same word (十: じゅう / とお) or
+  // another spelling of it (中身 / 中味).
+  const othersThan = (v: VocabItem) => levelVocab.filter((x) => !sameWord(x, v) && normReading(x.reading) !== normReading(v.reading));
+  const readingsBesides = (v: VocabItem) => othersThan(v).map(firstReading).filter(cleanWord);
 
   // 漢字読み: how is the underlined word read?
   for (const { v, s, at } of withKanji.slice(0, 4)) {
@@ -124,7 +130,7 @@ export function generateMock({ pack, sentences, level, rand = Math.random }: Moc
       section: 'vocab',
       title: 'How is the underlined word read?',
       prompt: { markup: s.r, mark: [at, at + v.word.length], furigana: false },
-      ...withOptions(firstReading(v), readings, rand, true),
+      ...withOptions(firstReading(v), readingsBesides(v), rand, true),
       optionsJp: true,
     });
   }
@@ -136,13 +142,17 @@ export function generateMock({ pack, sentences, level, rand = Math.random }: Moc
       section: 'vocab',
       title: 'Which is the correct way to write the underlined word?',
       prompt: { markup: plain.slice(0, at) + reading + plain.slice(at + v.word.length), mark: [at, at + reading.length], furigana: false },
-      ...withOptions(v.word, kanjiWords, rand, true),
+      ...withOptions(
+        v.word,
+        othersThan(v).filter((x) => hasKanji(x.word)).map((x) => x.word),
+        rand,
+        true,
+      ),
       optionsJp: true,
     });
   }
   // 文脈規定: which word fits the blank?
   const shown = new Set(withKanji.slice(0, 7));
-  const contextWords = levelVocab.map((v) => v.word);
   // Short sentences leave too many words that would fit, so context questions need some length.
   const contextual = inContext.filter((x) => !shown.has(x) && plainText(x.s.r).length >= 12);
   for (const { v, s, at } of contextual.slice(0, 10 - out.length)) {
@@ -150,7 +160,7 @@ export function generateMock({ pack, sentences, level, rand = Math.random }: Moc
       section: 'vocab',
       title: 'Which word best fits the blank?',
       prompt: { markup: s.r, mark: [at, at + v.word.length], blank: true, furigana: true },
-      ...withOptions(v.word, contextWords, rand),
+      ...withOptions(v.word, othersThan(v).map((x) => x.word), rand),
       optionsJp: true,
     });
   }
@@ -161,19 +171,23 @@ export function generateMock({ pack, sentences, level, rand = Math.random }: Moc
     rand,
   );
   const clozeText = (ex: GrammarExample) => plainText(ex.r).slice(ex.c[0], ex.c[1]);
-  const allClozes = points.flatMap((g) => g.examples.map(clozeText));
   for (const g of points.slice(0, 10)) {
     // Own examples first: they were written to show the pattern clearly.
     const own = g.examples.filter((e) => !e.i);
     const ex = shuffle(own.length ? own : g.examples, rand)[0];
     const correct = clozeText(ex);
-    const others = allClozes.filter((c) => c !== correct && !g.examples.some((e) => clozeText(e) === c));
+    // Wrong options come from points that don't mean the same (not ので for から), and are none of
+    // this point's own forms (not じゃありません for じゃないです).
+    const forms = new Set([...g.examples.map(clozeText), ...allForms(g)]);
+    const others = points.filter((p) => canBeRival(g, p)).flatMap((p) => p.examples.map(clozeText)).filter((c) => !forms.has(c));
+    const also = alternativeForms(g, correct, plainText(ex.r).slice(0, ex.c[0]));
     out.push({
       section: 'grammar',
       title: 'Which expression best fits the blank?',
       prompt: { markup: ex.r, mark: ex.c, blank: true, furigana: true },
       ...withOptions(correct, others, rand),
       optionsJp: true,
+      ...(also.length ? { also } : {}),
     });
   }
 

@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { Icon } from '../components/Icon';
 import { StrokeOrder } from '../components/StrokeOrder';
+import { Examples, KanjiReadings } from '../components/WordSenses';
+import { cardFace } from '../content/faces';
 import { formatKun, vocabWithKanji } from '../content/packs';
 import { db } from '../db/db';
 import { markItemKnown } from '../db/repo';
@@ -34,6 +36,7 @@ export function KanjiDetail() {
   }
 
   const words = vocabWithKanji(pack, char);
+  const face = cardFace(pack, 'kanji', 'recognition', char);
   const say = (text: string) => speak(text, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate });
   const status = cardStatus(card);
 
@@ -84,6 +87,16 @@ export function KanjiDetail() {
           )}
         </div>
       </div>
+
+      {!!face?.kanjiReadings?.length && (
+        <>
+          <div className="section-title">Readings in use</div>
+          <div className="card stack" style={{ gap: 8 }}>
+            <KanjiReadings face={face} say={(t) => void say(t)} />
+            {face.examples && <Examples examples={face.examples} mode={settings.furigana === 'none' ? 'none' : 'all'} say={(t) => void say(t)} />}
+          </div>
+        </>
+      )}
 
       {words.length > 0 && (
         <>
