@@ -313,6 +313,14 @@ export function Practice() {
               <Ruby markup={q.sentence.markup} cloze={q.sentence.mark} blank={picked === null} mode={settings.furigana === 'none' ? 'none' : 'all'} />
             </p>
             {picked !== null && <div className="muted">{q.sentence.english}</div>}
+            {picked !== null && !!q.also?.length && (
+              <div className="also-right">
+                Also right here:{' '}
+                <span className="jp" lang="ja">
+                  {q.also.join('、')}
+                </span>
+              </div>
+            )}
           </>
         ) : (
           <div className={q.type === 'kanji-meaning' ? 'prompt-kanji' : 'prompt-jp'} lang="ja">

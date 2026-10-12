@@ -55,6 +55,7 @@
       "A + と + B + と + どちらが + adjective + ですか",
       "Casual: どっち"
     ],
+    "variants": [["どちらが", "どっちが"]],
     "notes": "Asks someone to choose between two things. Answer with 〜のほうが: コーヒーのほうが好きです. If both are the same: どちらも好きです.",
     "match": "(どちらが|どっちが)",
     "examples": [
@@ -231,6 +232,7 @@
       "Verb た-form + あとで",
       "Noun + の + あとで"
     ],
+    "variants": [["たあとで", "たあと", "た後で"], ["あとで", "後で"]],
     "notes": "The verb before あとで is always the た-form, even for the future: しゅくだいをしたあとで、あそびます. Compare 〜てから, which stresses the order more.",
     "match": "((?:た|だ|の)(?:あと|後)(?:で|に)?)",
     "examples": [
@@ -256,6 +258,7 @@
       "Point in time + ごろ: 七時ごろ",
       "Amount / length + ぐらい (くらい): 一時間ぐらい"
     ],
+    "variants": [["ぐらい", "くらい"]],
     "notes": "ごろ is for a moment on the clock or calendar; ぐらい is for how much or how long.",
     "match": "(ごろ|頃|ぐらい|くらい)",
     "examples": [
@@ -281,6 +284,7 @@
       "Noun + は + どうですか",
       "Polite: いかがですか"
     ],
+    "variants": [["どうですか", "いかがですか"], ["どうでしたか", "いかがでしたか"]],
     "notes": "Asks for an opinion (日本の生活はどうですか: How is life in Japan?) or offers something (お茶はいかがですか: Would you like some tea?). いかが is the polite word.",
     "match": "(?<!ら)(どうですか|いかがですか|どうでしたか|いかがでしたか)",
     "examples": [
@@ -306,6 +310,7 @@
       "どうして / なぜ + question",
       "Answer: 〜からです"
     ],
+    "variants": [["どうして", "なぜ", "なんで"]],
     "notes": "どうして is common in speech; なぜ is a little more formal. The answer usually ends in 〜から(です).",
     "match": "(どうして|なぜ)",
     "examples": [

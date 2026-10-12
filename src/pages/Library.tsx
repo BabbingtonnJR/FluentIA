@@ -2,6 +2,9 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { useMemo, useState, type CSSProperties } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { Icon } from '../components/Icon';
+import { WordSenses } from '../components/WordSenses';
+import { cardFace } from '../content/faces';
+import { primaryVocabId, studyVocab, vocabGroup, wordKey } from '../content/senses';
 import type { VocabItem } from '../content/types';
 import { db } from '../db/db';
 import { rankBy, searcher } from '../lang/search';
@@ -38,6 +41,12 @@ export function Library() {
       const all = await db.cards.where('[lang+due]').between([lang, -Infinity], [lang, Infinity]).toArray();
       const map = new Map<string, CardRecord>();
       for (const c of all) if (c.direction === 'recognition') map.set(`${c.kind}:${c.itemId}`, c);
+      // A word's card may be stored under another of its readings (see withoutDuplicateReadings).
+      for (const c of all) {
+        if (c.kind !== 'vocab' || c.direction !== 'recognition') continue;
+        const key = `vocab:${primaryVocabId(pack, c.itemId)}`;
+        if (!map.has(key)) map.set(key, c);
+      }
       return map;
     },
     [lang],
@@ -50,9 +59,13 @@ export function Library() {
   const vocab = useMemo(
     () =>
       rankBy(
-        pack.vocab.filter((v) => level === null || v.level === level),
+        studyVocab(pack).filter((v) => level === null || v.level === level),
         q,
-        search.vocab,
+        // Any reading finds the word: とお finds 十.
+        (v) => {
+          const ranks = vocabGroup(pack, v.id).map((m) => search.vocab(m)).filter((r) => r >= 0);
+          return ranks.length ? Math.min(...ranks) : -1;
+        },
       ),
     [pack, level, q, search],
   );
@@ -76,7 +89,8 @@ export function Library() {
     [pack, level, q, search],
   );
 
-  const say = (v: VocabItem) => speak(v.reading, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate });
+  const sayText = (text: string) => void speak(text, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate });
+  const say = (v: VocabItem) => sayText(cardFace(pack, 'vocab', 'recognition', v.id)?.speak ?? v.reading);
 
   return (
     <div className="stack">
@@ -88,7 +102,7 @@ export function Library() {
 
       <div className="segmented" role="tablist">
         <button role="tab" aria-selected={tab === 'vocab'} className={tab === 'vocab' ? 'on' : ''} onClick={() => setTab('vocab')}>
-          Words · {pack.vocab.length}
+          Words · {studyVocab(pack).length}
         </button>
         <button role="tab" aria-selected={tab === 'kanji'} className={tab === 'kanji' ? 'on' : ''} onClick={() => setTab('kanji')}>
           Kanji · {pack.kanji.length}
@@ -137,22 +151,27 @@ export function Library() {
             {vocab.slice(0, limit).map((v) => {
               const status = cardStatus(cards.get(`vocab:${v.id}`));
               const isOpen = open === v.id;
+              const group = vocabGroup(pack, v.id);
+              const face = isOpen ? cardFace(pack, 'vocab', 'recognition', v.id) : null;
               return (
                 <div key={v.id}>
                   <button className="list-item" onClick={() => setOpen(isOpen ? null : v.id)} aria-expanded={isOpen}>
                     <span className={`dot ${status}`} title={STATUS_LABEL[status]} />
                     <span className="term" lang="ja">
-                      {v.word}
+                      {group.length > 1 ? wordKey(v.word) : v.word}
                     </span>
-                    <span className="gloss">{v.meaning}</span>
+                    <span className="gloss">{group.length > 1 ? group.map((m) => m.meaning).join(" / ") : v.meaning}</span>
                   </button>
                   {isOpen && (
                     <div className="row" style={{ padding: '0 14px 14px', alignItems: 'flex-start' }}>
                       <div style={{ flex: 1 }}>
-                        <div className="reading" lang="ja">
-                          {v.reading}
-                        </div>
-                        <div>{v.meaning}</div>
+                        {face?.reading && (
+                          <div className="reading" lang="ja">
+                            {face.reading}
+                          </div>
+                        )}
+                        {face?.senses && face.senses.length > 1 ? null : <div>{v.meaning}</div>}
+                        {face?.senses && <WordSenses senses={face.senses} mode={settings.furigana === 'none' ? 'none' : 'all'} say={sayText} />}
                         <div className="faint">
                           N{v.level} · {STATUS_LABEL[status]}
                         </div>

@@ -6,6 +6,8 @@
     "formation": [
       "Verb dictionary form + 一方だ"
     ],
+    "variants": [["一方だ", "一方です"]],
+    "alike": ["n3-bakarida"],
     "notes": "A change that keeps going in one direction, usually a bad one: 物価は上がる一方だ (Prices just keep rising).",
     "match": "(?<=[るうくすつぬむぶぐ])(一方)(?=だ|です)",
     "examples": [
@@ -30,6 +32,8 @@
     "formation": [
       "Verb dictionary form + ばかりだ"
     ],
+    "variants": [["ばかりだ", "ばかりです"]],
+    "alike": ["n3-ippouda"],
     "notes": "Like 一方だ: a change only in a bad direction: 病気は悪くなるばかりだ.",
     "match": "(?<=[るうくすつぬむぶぐ])(ばかり)(?=だ|です)",
     "examples": [
@@ -275,6 +279,7 @@
       "Verb dictionary form + につれて",
       "Noun (of change) + につれて"
     ],
+    "alike": ["n3-nishitagatte"],
     "notes": "Proportional change: 年をとるにつれて、体が弱くなる. Both clauses describe gradual change.",
     "match": "(につれて)(?![い行き来])|(につれ)(?=、)",
     "examples": [
@@ -299,6 +304,8 @@
     "formation": [
       "Verb dictionary form / Noun + にしたがって (従って)"
     ],
+    "variants": [["にしたがって", "に従って"]],
+    "alike": ["n3-nitsurete"],
     "notes": "Two uses: proportional change like につれて (上に行くにしたがって寒くなる), and following rules or instructions (説明書に従って組み立てる).",
     "match": "(に(?:したがっ|従っ)て)(?!いる|いた|います)",
     "examples": [
@@ -347,6 +354,7 @@
     "formation": [
       "Noun + を中心に / を中心として"
     ],
+    "variants": [["を中心に", "を中心として"]],
     "notes": "X is the core or main part: 若者を中心に人気がある (popular mainly with young people).",
     "match": "(を中心に|を中心として)",
     "examples": [
@@ -371,6 +379,7 @@
     "formation": [
       "Noun + を通して / を通じて"
     ],
+    "variants": [["を通して", "を通じて"]],
     "notes": "The means or intermediary (友達を通して知り合った), or a whole period (一年を通して暖かい).",
     "match": "(を通(?:して|じて))(?!くだ|下さ|あげ|やっ|くれ)",
     "examples": [
@@ -615,6 +624,8 @@
     "formation": [
       "Noun + なんか (casual) / など (neutral)"
     ],
+    "variants": [["なんか", "など"]],
+    "alike": ["n3-nante"],
     "notes": "Gives an example, or makes light of something: 私なんか、まだまだです (Someone like me still has a long way to go). In negatives it shows dislike: 野菜なんか嫌いだ.",
     "match": "(なんか)(?=[はをもにがじ、])",
     "examples": [
@@ -639,6 +650,7 @@
     "formation": [
       "Noun / plain form + なんて"
     ],
+    "alike": ["n3-nanka"],
     "notes": "Shows surprise, disbelief or contempt: 彼が結婚するなんて、信じられない. Also introduces exclamations: なんてきれいなんだろう (How beautiful!).",
     "match": "(?<=[るいただの]|\\p{Script=Han})(なんて)(?![いう])",
     "examples": [

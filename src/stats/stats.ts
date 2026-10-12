@@ -1,3 +1,4 @@
+import { primaryVocabId, studyVocab } from '../content/senses';
 import type { Pack } from '../content/types';
 import type { ActivityRecord, CardRecord, ReviewRecord } from '../db/types';
 import { dayKey, shiftDay } from '../lib/time';
@@ -108,9 +109,15 @@ export interface LevelBreakdown {
 /** Progress per JLPT level, counting recognition cards only (one per item). */
 export function levelBreakdown(pack: Pack, cards: CardRecord[]): LevelBreakdown[] {
   const recognition = new Map(cards.filter((c) => c.direction === 'recognition').map((c) => [c.id, c]));
+  // A word's card may be stored under another of its readings (see withoutDuplicateReadings).
+  for (const c of cards) {
+    if (c.kind !== 'vocab' || c.direction !== 'recognition') continue;
+    const id = `${pack.manifest.id}:vocab:recognition:${primaryVocabId(pack, c.itemId)}`;
+    if (!recognition.has(id)) recognition.set(id, c);
+  }
   return pack.manifest.levels.map(({ id: level, label }) => {
     const ids = [
-      ...pack.vocab.filter((v) => v.level === level).map((v) => `${pack.manifest.id}:vocab:recognition:${v.id}`),
+      ...studyVocab(pack).filter((v) => v.level === level).map((v) => `${pack.manifest.id}:vocab:recognition:${v.id}`),
       ...pack.kanji.filter((k) => k.level === level).map((k) => `${pack.manifest.id}:kanji:recognition:${k.id}`),
       ...pack.grammar.filter((g) => g.level === level).map((g) => `${pack.manifest.id}:grammar:recognition:${g.id}`),
     ];

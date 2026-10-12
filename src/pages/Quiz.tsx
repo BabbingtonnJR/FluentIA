@@ -2,6 +2,8 @@ import { useEffect, useState, type CSSProperties } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router';
 import { Icon } from '../components/Icon';
 import { Petals } from '../components/Petals';
+import { Ruby } from '../components/Ruby';
+import { vocabSenses } from '../content/senses';
 import type { Pack } from '../content/types';
 import { db } from '../db/db';
 import { logActivity } from '../db/repo';
@@ -222,6 +224,7 @@ function AnswerDetail({ pack, q, onSpeak }: { pack: Pack; q: Question; onSpeak: 
   const v = pack.vocabById.get(q.itemId);
   if (!v) return null;
   const kanji = [...new Set(v.word)].flatMap((c) => pack.kanjiById.get(c) ?? []);
+  const senses = vocabSenses(pack, v.id);
   const withKanji = /\p{Script=Han}/u.test(v.word);
   return (
     <div className="card answer-detail rise-in">
@@ -237,6 +240,23 @@ function AnswerDetail({ pack, q, onSpeak }: { pack: Pack; q: Question; onSpeak: 
       </div>
       <div className="answer-body">
         <div>{v.meaning}</div>
+        {/* The word's other readings, so 十 じゅう also teaches 十 とお. */}
+        {senses.slice(1).map((s) => (
+          <div key={s.item.id}>
+            <span lang="ja" className="jp">
+              {s.reading}
+            </span>{' '}
+            · {s.meaning}
+          </div>
+        ))}
+        {senses[0]?.examples[0] && (
+          <div className="faint">
+            <span lang="ja" className="jp">
+              <Ruby markup={senses[0].examples[0].r} />
+            </span>{' '}
+            — {senses[0].examples[0].e}
+          </div>
+        )}
         {kanji.map((k) => (
           <div key={k.id} className="faint">
             <span lang="ja">{k.id}</span> {k.meanings.slice(0, 3).join(', ')}

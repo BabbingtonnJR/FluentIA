@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router';
 import { Icon } from '../components/Icon';
 import { Petals } from '../components/Petals';
 import { Ruby } from '../components/Ruby';
+import { Examples, KanjiReadings, WordSenses } from '../components/WordSenses';
 import { customFace, type SideMedia } from '../anki/convert';
 import { cardFace } from '../content/faces';
 import type { CardFace } from '../content/types';
@@ -206,6 +207,7 @@ export function Study() {
   const intervals = revealed ? previewIntervals(card, Date.now()) : null;
   const isNew = card.state === State.New;
   const isKanji = card.kind === 'kanji';
+  const rubyMode = settings.furigana === 'none' ? 'none' : 'all';
 
   return (
     <div className="stack">
@@ -275,6 +277,14 @@ export function Study() {
               {face.cloze.pattern}
             </div>
             <div className="meaning">{face.meaning}</div>
+            {!!face.alternatives?.length && (
+              <div className="also-right">
+                Also right here:{' '}
+                <span className="jp" lang="ja">
+                  {face.alternatives.join('、')}
+                </span>
+              </div>
+            )}
             <button
               className="icon-btn"
               onClick={(e) => {
@@ -302,13 +312,17 @@ export function Study() {
                 {face.reading}
               </div>
             )}
-            {face.promptIsTarget && <div className="meaning">{face.answer}</div>}
+            {/* With several readings, each reading's block below gives its own meaning. */}
+            {face.promptIsTarget && !(face.senses && face.senses.length > 1) && <div className="meaning">{face.answer}</div>}
             {custom && custom.answer.images.length > 0 && <CardImages urls={custom.answer.images} />}
             {face.details?.map((d) => (
               <div key={d} className="muted jp" lang="ja">
                 {d}
               </div>
             ))}
+            {face.senses && <WordSenses senses={face.senses} mode={rubyMode} say={(t) => void say(t)} />}
+            <KanjiReadings face={face} say={(t) => void say(t)} />
+            {face.examples && <Examples examples={face.examples} mode={rubyMode} say={(t) => void say(t)} />}
             <button
               className="icon-btn"
               onClick={(e) => {

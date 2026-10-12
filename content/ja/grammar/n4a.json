@@ -8,6 +8,7 @@
       "い-adj: 〜かった + ら",
       "な-adj / Noun + だったら"
     ],
+    "alike": ["n4-to", "n4-ba"],
     "notes": "The most flexible conditional. Y happens after X is complete, so it also means 'when/once'. It can also describe a one-time discovery in the past: 家に帰ったら、手紙が来ていた (When I got home, a letter had come).",
     "match": "(?<=[っんいしちりきぎびみえけせてねべめれ])(たら|だら)(?![けし？?]|どう|いかが|いい|よい|なあ|な。)",
     "examples": [
@@ -36,6 +37,7 @@
       "Negative: 〜なければ",
       "な-adj / Noun: 〜なら(ば) / 〜であれば"
     ],
+    "alike": ["n4-tara"],
     "notes": "Focuses on the condition itself: if X is true, Y follows. Common in advice and general truths. The result is usually not a command or request when the subject of both clauses is the same.",
     "match": "(?<=[えけげせてねべめれ])(ば)(?!なら|いけ|いい|よい|よかっ|かり)",
     "examples": [
@@ -63,6 +65,7 @@
       "い-adj + と",
       "な-adj / Noun + だと"
     ],
+    "alike": ["n4-tara"],
     "notes": "Used for natural or automatic results, habits, directions and machines: this button → that happens. Y cannot be a request, wish or intention.",
     "examples": [
       [
@@ -87,6 +90,7 @@
       "Verb / い-adj plain form + なら",
       "な-adj / Noun + なら"
     ],
+    "alike": ["n3-toshitara"],
     "notes": "Picks up a situation (often something the other person said) and gives advice or an opinion about it: 'If you're going to Kyoto, ...'. Unlike たら, Y can happen before X: 京都に行くなら、この本を読んでおくといい.",
     "match": "(?<!よう)(なら)(?![なずばれうべ])",
     "examples": [
@@ -139,6 +143,7 @@
       "Polite: 〜てもいいですか (May I...?)",
       "Also: 〜てもかまわない (it's fine if...)"
     ],
+    "variants": [["てもいい", "てもかまわない", "ても大丈夫"], ["てもかまいません", "てもいいです"]],
     "notes": "Asks for or gives permission. 〜てもかまいません is a little more formal and sounds like 'I don't mind if...'.",
     "match": "(?<!なく)([てで]も(?:いい|よい|良い|かまわ|構わ))",
     "examples": [
@@ -165,6 +170,7 @@
       "Casual: 〜ちゃだめ / 〜ちゃいけない",
       "Formal signs: 〜てはならない"
     ],
+    "variants": [["てはいけない", "てはだめだ", "ちゃいけない", "ちゃだめ"], ["てはいけません", "てはだめです", "てはなりません"], ["ではいけません", "ではだめです", "じゃいけません"]],
     "notes": "Prohibition. Teachers, parents and rules use it; to a superior it sounds strong, so 〜ないでください is softer.",
     "match": "([てで]は(?:いけ|だめ|ダメ|なら))",
     "examples": [
@@ -191,6 +197,7 @@
       "Also: 〜なくてはいけない / 〜ないといけない",
       "Casual: 〜なきゃ / 〜なくちゃ"
     ],
+    "variants": [["なければならない", "なければいけない", "なくてはならない", "なくてはいけない", "ないといけない", "なきゃ", "なくちゃ"], ["なければなりません", "なければいけません", "なくてはなりません", "なくてはいけません", "ないといけません"]],
     "notes": "Literally 'if (I) don't, it won't do'. ならない is more about rules and duty, いけない about personal need. In speech the second half is often dropped: もう行かなきゃ (I've got to go).",
     "match": "(なければ(?:なら|いけ)|なくては(?:なら|いけ)|ないと(?:いけ|だめ))",
     "examples": [
@@ -216,6 +223,7 @@
       "Verb ない-stem + なくてもいい",
       "Formal: 〜なくてもかまいません"
     ],
+    "variants": [["なくてもいい", "なくてもかまわない", "なくても大丈夫"], ["なくてもかまいません", "なくてもいいです"]],
     "notes": "The opposite of 〜なければならない: there is no obligation.",
     "match": "(なくても(?:いい|よい|良い|かまわ|構わ))",
     "examples": [
@@ -241,6 +249,7 @@
       "Verb て-form + しまう",
       "Casual: 〜ちゃう / 〜じゃう"
     ],
+    "variants": [["てしまった", "ちゃった"], ["てしまいました", "ちゃいました"]],
     "notes": "Two nuances: finishing something completely (宿題をしてしまった), or something regrettable or unintended (財布をなくしてしまった). In speech it shortens to 〜ちゃう: 食べちゃった.",
     "match": "([てで]しま(?:った|いました|います|う))",
     "examples": [
@@ -266,6 +275,7 @@
       "Verb て-form + おく",
       "Casual: 〜とく / 〜どく (やっとく, 読んどく)"
     ],
+    "variants": [["ておいた", "といた"], ["ておきます", "ときます"], ["ておいて", "といて"]],
     "notes": "Doing something now in preparation for later, or leaving something in a state on purpose: 窓を開けておいてください (Please leave the window open).",
     "match": "([てで]お(?:く|き|い|け|こ)(?![しか]))",
     "examples": [
@@ -417,6 +427,7 @@
       "Humble: 〜ていただく",
       "Request: 〜ていただけませんか"
     ],
+    "variants": [["ていただけません", "てもらえません"]],
     "notes": "The receiver is the subject and the person who does the favour takes に: 友達に手伝ってもらった (I had my friend help me). 〜ていただけませんか is one of the politest requests.",
     "match": "([てで](?:もら|いただ|頂)(?:う|っ|い|え|わ))",
     "examples": [
@@ -468,6 +479,8 @@
       "More polite: 〜たらいかがですか",
       "Casual: 〜たら？ / 〜たらどう？"
     ],
+    "variants": [["たらどうですか", "たらいかがですか", "たらどう"], ["だらどうですか", "だらいかがですか", "だらどう"]],
+    "alike": ["n4-baii"],
     "notes": "A gentle suggestion. The casual version is just 〜たら？ with rising intonation: 休んだら？",
     "match": "([ただ]ら(?:どう(?!し)|いかが))",
     "examples": [
@@ -493,6 +506,7 @@
       "Verb た-form + ほうがいい",
       "Verb ない-form + ほうがいい"
     ],
+    "variants": [["ほうがいい", "ほうがいいです", "方がいい"]],
     "notes": "Advice. The past た-form is usual for the positive (行ったほうがいい), but the negative uses ない (行かないほうがいい).",
     "match": "((?:方|ほう)が(?:いい|よい|よかっ))",
     "examples": [
@@ -518,6 +532,7 @@
       "Verb ば-form + いい",
       "Question: どうすればいいですか (What should I do?)"
     ],
+    "alike": ["n4-taradou"],
     "notes": "Gives (or asks for) the simplest way to get a result. どうすればいいですか is the standard way to ask for advice.",
     "match": "(ばいい|ばよい)",
     "examples": [

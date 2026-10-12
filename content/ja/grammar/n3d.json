@@ -6,6 +6,8 @@
     "formation": [
       "Plain form + としたら / とすれば / とすると"
     ],
+    "variants": [["としたら", "とすれば", "とすると"]],
+    "alike": ["n4-nara"],
     "notes": "Imagines a situation that may not be true: 宝くじが当たったとしたら、何をしますか (Supposing you won the lottery, what would you do?).",
     "match": "(としたら|とすれば)",
     "examples": [
@@ -79,6 +81,7 @@
     "formation": [
       "Verb て-form + からでないと / からでなければ + negative or difficulty"
     ],
+    "variants": [["てからでないと", "てからでなければ", "てからじゃないと"]],
     "notes": "X must happen first, otherwise Y is impossible: 親に聞いてからでないと、決められない.",
     "match": "([てで]から(?:でないと|でなければ|じゃないと))",
     "examples": [
@@ -104,6 +107,7 @@
       "Verb dictionary form + ところだった",
       "Often with もう少しで"
     ],
+    "variants": [["ところだった", "ところでした"]],
     "notes": "Something (often bad) nearly happened: もう少しで車にひかれるところだった (I was nearly hit by a car). With ちょうど it simply means you were about to do something when something else happened: 出かけるところだった.",
     "match": "(?<=[るうくすつぬむぶぐ])(ところだった|ところでした)",
     "examples": [
@@ -129,6 +133,8 @@
       "Verb dictionary / た-form + とおり(に)",
       "Noun + のとおり / Noun + どおり"
     ],
+    "variants": [["とおりに", "とおり", "通りに"]],
+    "alike": ["n3-youni-as"],
     "notes": "Doing exactly as shown or said: 先生が言ったとおりにする. After a noun it becomes どおり: 予定どおり (as planned).",
     "match": "(?<=[たるの])(?<!この|その|あの|大)(とおり|通り)(?=に|、|だ|です)",
     "examples": [
@@ -154,6 +160,7 @@
       "Verb dictionary / た-form + ように",
       "Noun + のように"
     ],
+    "alike": ["n3-toori"],
     "notes": "Refers back to something known: 前にも言ったように (as I said before), 次の図のように (as in the following figure).",
     "match": "(?<=た|の)(ように)(?=、)",
     "examples": [
@@ -324,6 +331,7 @@
       "Plain form + じゃないか / ではないか",
       "Volitional + じゃないか (let's!)"
     ],
+    "variants": [["じゃないか", "ではないか"]],
     "notes": "Mild reproach or surprise (だから言ったじゃないか: I told you so!), or encouragement: やろうじゃないか (Let's do it!).",
     "match": "(?<!の)(じゃないか|ではないか)(?!と)",
     "examples": [
@@ -398,6 +406,7 @@
       "ば-form + いいのに",
       "Also: 〜たらいいのに"
     ],
+    "variants": [["ばいいのに", "たらいいのに"]],
     "notes": "A wish about something that isn't so, or advice tinged with frustration: もっと早く言えばいいのに (You should have just said so earlier).",
     "match": "((?:ば|たら)いいのに)",
     "examples": [

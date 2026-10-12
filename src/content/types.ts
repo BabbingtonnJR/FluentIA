@@ -58,7 +58,28 @@ export interface GrammarPoint {
   notes?: string;
   /** Regex that finds the pattern in a sentence (group 1, or the whole match, is the pattern). */
   match?: string;
+  /** Forms that can replace each other in a sentence: [["じゃないです", "じゃありません", …], ["じゃない", "ではない"]]. */
+  variants?: string[][];
+  /** Ids of points that mean the same in most sentences (から / ので), so neither is a wrong option for the other. */
+  alike?: string[];
   examples: GrammarExample[];
+}
+
+/** A sentence showing a word: from Tatoeba (with its ID), or written for Fluentia. */
+export interface WordExample {
+  r: string; // Japanese with furigana markup
+  e: string;
+  i?: number; // Tatoeba ID
+}
+
+/**
+ * examples.json. By vocab index: example sentences [markup, English, Tatoeba ID?], a clearer
+ * meaning, and a note on when that reading is used. By kanji: its readings with the vocab
+ * indexes of words that use each, and the readings no word in the list uses.
+ */
+export interface PackExamples {
+  words: Record<number, { x?: [string, string, number?][]; m?: string; n?: string }>;
+  kanji: Record<string, { r: [string, number[]][]; rare?: string[] }>;
 }
 
 export interface Pack {
@@ -69,6 +90,8 @@ export interface Pack {
   vocabById: Map<string, VocabItem>;
   kanjiById: Map<string, KanjiItem>;
   grammarById: Map<string, GrammarPoint>;
+  /** Example sentences and reading notes (examples.json); absent in packs built without them. */
+  examples?: PackExamples;
 }
 
 /** What a flashcard shows, independent of which kind of item it came from. */
@@ -82,6 +105,15 @@ export interface CardFace {
   meaning: string;
   /** Grammar cards: a sentence with the grammar blanked out, revealed on the back. */
   cloze?: { example: GrammarExample; pattern: string };
+  /** Grammar cards: other forms that would fit the blank just as well (じゃないです → じゃありません). */
+  alternatives?: string[];
+  /** Word cards: every reading of the word, when each is used, with example sentences. */
+  senses?: { reading?: string; meaning: string; note?: string; examples: WordExample[] }[];
+  /** Kanji cards: its readings with words that use each; rare readings no listed word uses. */
+  kanjiReadings?: { reading: string; words: { word: string; reading: string; meaning: string }[] }[];
+  rareReadings?: string[];
+  /** Kanji cards: a sentence using one of its words. */
+  examples?: WordExample[];
 }
 
 // --- Literature (public-domain stories, literature/*.json) ---------------------------

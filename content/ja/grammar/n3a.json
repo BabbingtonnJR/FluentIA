@@ -8,6 +8,7 @@
       "な-adj + なおかげで",
       "Noun + のおかげで"
     ],
+    "alike": ["n3-tame-cause"],
     "notes": "The cause led to a good result and the speaker is grateful. Used sarcastically for bad results: 君のおかげで遅刻したよ (Thanks to you, I was late).",
     "match": "(おかげ)(?=で|だ|です|さま)",
     "examples": [
@@ -35,6 +36,7 @@
       "Noun + のせいで",
       "〜せいか: perhaps because of"
     ],
+    "alike": ["n3-tame-cause"],
     "notes": "The opposite of おかげで: the cause is blamed for a bad result. 〜せいか softens it to 'maybe because...'.",
     "match": "(?<=[のたいな])(せい)(?=で|だ|です|か)",
     "examples": [
@@ -61,6 +63,8 @@
       "な-adj + なため",
       "Noun + のため(に)"
     ],
+    "variants": [["ため", "ために"]],
+    "alike": ["n3-okagede", "n3-seide"],
     "notes": "A formal way of giving a cause, common in news, notices and writing: 事故のため、電車が遅れています. With a dictionary-form verb, ために usually means 'in order to'.",
     "match": "(?<=た)(ため)(?=、|に、|で)",
     "examples": [
@@ -86,6 +90,7 @@
       "Noun + によって / により",
       "Before a noun: Noun + による + Noun"
     ],
+    "variants": [["によって", "により"]],
     "notes": "Four common uses: the agent of a passive (この絵はピカソによって描かれた), means (話し合いによって決める), variation (人によって違う: differs from person to person) and cause (台風によって被害が出た).",
     "match": "(?<!店|所|家|寄)(によって|による(?!と)|により)",
     "examples": [
@@ -137,6 +142,7 @@
       "Noun + について",
       "Before a noun: Noun + についての + Noun"
     ],
+    "alike": ["n3-nikanshite"],
     "notes": "The topic of speaking, thinking, research and so on. 〜に関して (regarding) is the more formal equivalent.",
     "match": "(について|についての)",
     "examples": [
@@ -211,6 +217,7 @@
       "Noun + に関して",
       "Before a noun: Noun + に関する + Noun"
     ],
+    "alike": ["n3-nitsuite"],
     "notes": "A formal version of について, common in business and academic language.",
     "match": "(に関し(?:て|ては)|に関する)",
     "examples": [
@@ -236,6 +243,7 @@
       "Noun + に比べて / に比べると",
       "Plain form + のに比べて"
     ],
+    "variants": [["に比べて", "に比べると", "と比べて"]],
     "notes": "Compares two things or two times: 去年に比べて、今年は雨が多い.",
     "match": "(に比べ(?:て|ると|れば))",
     "examples": [
@@ -285,6 +293,7 @@
       "Plain form + わりに(は)",
       "な-adj + なわりに / Noun + のわりに"
     ],
+    "variants": [["わりに", "わりには"]],
     "notes": "The result doesn't match what X would suggest: 値段のわりにおいしい (Delicious for the price). Can be positive or negative.",
     "match": "(わりに|割に|割には|わりには)(?!合)",
     "examples": [
@@ -310,6 +319,8 @@
       "Plain form / Noun + だけでなく (〜も)",
       "Also: 〜だけではなく"
     ],
+    "variants": [["だけでなく", "だけではなく", "だけじゃなく"]],
+    "alike": ["n3-bakaridenaku", "n3-hamochiron"],
     "notes": "Usually followed by も: 英語だけでなく、中国語も話せる.",
     "match": "(だけで(?:なく|はなく))",
     "examples": [
@@ -334,6 +345,8 @@
     "formation": [
       "Plain form / Noun + ばかりでなく (〜も)"
     ],
+    "variants": [["ばかりでなく", "ばかりではなく"]],
+    "alike": ["n3-dakedenaku", "n3-hamochiron"],
     "notes": "Means the same as だけでなく but is slightly more formal and written.",
     "match": "(ばかりで(?:なく|はなく))",
     "examples": [
@@ -358,6 +371,7 @@
     "formation": [
       "Noun + はもちろん (〜も)"
     ],
+    "alike": ["n3-dakedenaku", "n3-bakaridenaku"],
     "notes": "X is obvious, and even Y is included: 週末はもちろん、平日も混んでいる (It's busy on weekdays, never mind weekends).",
     "match": "(はもちろん)",
     "examples": [
@@ -383,6 +397,7 @@
       "Verb dictionary form + かわりに",
       "Noun + のかわりに (代わりに)"
     ],
+    "variants": [["代わりに", "かわりに"]],
     "notes": "Substitution (母のかわりに私が行く) or exchange: 英語を教えるかわりに、日本語を教えてもらう (I teach English in return for Japanese lessons).",
     "match": "(?<=[のるた])(かわりに|代わりに)",
     "examples": [
@@ -484,6 +499,7 @@
       "Verb ない-form + うちに (before ... happens)",
       "い-adj + うちに / な-adj + なうちに / Noun + のうちに"
     ],
+    "alike": ["n4-aidani"],
     "notes": "Do it while the situation lasts: 温かいうちに食べて (Eat it while it's hot). Also for changes that happen unnoticed: 話しているうちに、仲良くなった.",
     "match": "(?<=[るいな]|ない|の)(?<!近い)(うちに)(?!は)",
     "examples": [
@@ -533,6 +549,7 @@
     "formation": [
       "Verb た-form + とたん(に)"
     ],
+    "variants": [["とたん", "とたんに"]],
     "notes": "Y happens immediately after X and is usually surprising. Not used for your own deliberate actions in Y.",
     "match": "(?<=[たっだ]た|た|だ)(とたん|途端)",
     "examples": [

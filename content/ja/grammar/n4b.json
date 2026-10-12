@@ -84,6 +84,7 @@
       "Verb dictionary form + つもりだ",
       "Verb ない-form + つもりだ (intend not to)"
     ],
+    "variants": [["つもりです", "つもりだ"]],
     "notes": "A firmer plan than 〜ようと思う. Asking a superior 〜つもりですか can sound blunt; use 〜予定ですか instead.",
     "match": "(つもり)",
     "examples": [
@@ -109,6 +110,7 @@
       "Verb dictionary form + 予定だ",
       "Noun + の予定だ"
     ],
+    "variants": [["予定です", "予定だ"]],
     "notes": "An arranged schedule rather than a personal intention, so it sounds more objective and polite than つもり.",
     "match": "(予定)(?=だ|です|で)",
     "examples": [
@@ -159,6 +161,7 @@
       "Verb dictionary form + ことになる",
       "Verb ない-form + ことになる"
     ],
+    "alike": ["n3-kotoninatteiru"],
     "notes": "The decision is made by circumstances or someone else (the company, a committee). Often used to report your own news modestly: 来月から大阪で働くことになりました.",
     "match": "(ことにな(?:る|った|りま|って(?!い)))",
     "examples": [
@@ -236,6 +239,8 @@
       "な-adj / Noun + だそうだ",
       "Source: 〜によると、〜そうだ"
     ],
+    "variants": [["そうです", "そうだ"]],
+    "alike": ["n4-rashii", "n4-youda"],
     "notes": "Reports information from someone else. Unlike the 'looks like' そうだ it attaches to the full plain form and has no negative or past form of its own.",
     "match": "(?<=[るうくすつぬむぐいた]|だ)(?<!じょう)(そう)(?=だ|です)",
     "examples": [
@@ -261,6 +266,7 @@
       "Plain form + らしい",
       "な-adj / Noun + らしい (no だ)"
     ],
+    "alike": ["n4-sou-hearsay", "n4-youda"],
     "notes": "A guess based on information from outside (something heard or read). Less direct than そうだ (I hear) and more distant than ようだ.",
     "match": "(?<=[るうくすつぬむぶぐいただ])(らし(?:い|く|かっ))",
     "examples": [
@@ -287,6 +293,7 @@
       "Noun + のようだ / Noun + みたいだ",
       "な-adj + なようだ / な-adj + みたいだ"
     ],
+    "alike": ["n4-rashii", "n4-sou-hearsay"],
     "notes": "A guess from your own observation. みたいだ is the casual version. Both also mean 'like' in comparisons: 夢のようだ (It's like a dream).",
     "match": "(?<=[るうくすつぬむぶぐいただの])((?:よう|みたい)(?:だ|です))",
     "examples": [
@@ -340,6 +347,7 @@
       "な-adj / Noun + かもしれない (no だ)",
       "Casual: 〜かも"
     ],
+    "variants": [["かもしれない", "かも"], ["かもしれません", "かもしれないです"]],
     "notes": "About 50% certainty, less sure than でしょう. 〜かもしれません is the polite form.",
     "match": "(かも(?:しれ|知れ))",
     "examples": [
@@ -365,6 +373,7 @@
       "Plain form + でしょう / だろう",
       "な-adj / Noun + でしょう (no だ)"
     ],
+    "variants": [["でしょう", "だろう"]],
     "notes": "A fairly confident guess; weather forecasts use でしょう. With rising intonation it asks for agreement: 疲れたでしょう？ (You must be tired, right?).",
     "match": "(?<=[るうくすつぬむぶぐいた])(でしょう|だろう)(?![か？?])",
     "examples": [
@@ -564,6 +573,7 @@
       "Plain form + ので",
       "な-adj / Noun + なので"
     ],
+    "alike": ["n5-kara-reason"],
     "notes": "Presents the reason as an objective fact, so it sounds softer and more polite than から. Common when giving excuses or asking permission. Casual speech: 〜んで.",
     "match": "(ので)(?![はす])",
     "examples": [

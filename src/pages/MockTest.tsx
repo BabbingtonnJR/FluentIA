@@ -76,6 +76,7 @@ export function MockTest() {
     setQuestions(qs);
     setPicks(qs.map(() => null));
     setIndex(0);
+    heard.current = new Set();
     setChosen(null);
     setStartedAt(Date.now());
     setNow(Date.now());
@@ -112,11 +113,18 @@ export function MockTest() {
     if (phase === 'running' && timeLeft === 0) finish(picks);
   }, [phase, timeLeft]); // picks are read at the moment time runs out
 
-  // Listening questions play once automatically.
+  // Listening questions play once automatically, the first time they are shown.
+  const heard = useRef(new Set<number>());
   useEffect(() => {
-    if (phase === 'running' && q?.speak) void say(q.speak);
+    if (phase !== 'running' || !q?.speak || heard.current.has(index)) return;
+    heard.current.add(index);
+    void say(q.speak);
   }, [phase, index]); // only when the question changes
 
+  /**
+   * Answers can be changed until the end, as on the paper test. After answering, move on to
+   * the next question still unanswered; once all are answered, stay so the learner can check.
+   */
   async function pick(n: number) {
     if (chosen !== null) return;
     setChosen(n);
@@ -124,8 +132,14 @@ export function MockTest() {
     setPicks(next);
     await afterMotion(220);
     setChosen(null);
-    if (index + 1 >= questions.length) finish(next);
-    else setIndex(index + 1);
+    const after = next.findIndex((p, i) => i > index && p === null);
+    const to = after >= 0 ? after : next.findIndex((p) => p === null);
+    if (to >= 0) goTo(to);
+  }
+
+  function goTo(i: number) {
+    stopSpeaking();
+    setIndex(Math.max(0, Math.min(questions.length - 1, i)));
   }
 
   if (!sentences) return null;
@@ -279,6 +293,14 @@ export function MockTest() {
                   <div className="review-answer right" lang={question.optionsJp ? 'ja' : 'en'}>
                     ✓ {question.options[question.answer]}
                   </div>
+                  {!!question.also?.length && (
+                    <div className="also-right">
+                      Also right:{' '}
+                      <span className="jp" lang="ja">
+                        {question.also.join('、')}
+                      </span>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -299,6 +321,8 @@ export function MockTest() {
   if (!q) return null;
   const info = sectionInfo(q.section);
   const lowTime = timeLeft <= 60;
+  const answered = picks.filter((p) => p !== null).length;
+  const unanswered = questions.length - answered;
   return (
     <div className="stack">
       <div className="topbar">
@@ -306,7 +330,7 @@ export function MockTest() {
           <Icon name="close" />
         </button>
         <div className="progress-track" aria-hidden="true">
-          <div className="progress-fill" style={{ width: `${(index / questions.length) * 100}%` }} />
+          <div className="progress-fill" style={{ width: `${(answered / questions.length) * 100}%` }} />
         </div>
         <span className={`mock-timer${lowTime ? ' low' : ''}`} aria-label={`${formatTime(timeLeft)} left`}>
           {formatTime(timeLeft)}
@@ -338,15 +362,43 @@ export function MockTest() {
         {q.options.map((o, n) => (
           <button
             key={o}
-            className={`option${q.optionsJp ? ' jp' : ''}${chosen === n ? ' chosen' : ''}`}
+            className={`option${q.optionsJp ? ' jp' : ''}${chosen === n || (chosen === null && picks[index] === n) ? ' chosen' : ''}`}
             style={{ '--i': n } as CSSProperties}
             lang={q.optionsJp ? 'ja' : 'en'}
+            aria-pressed={picks[index] === n}
             onClick={() => void pick(n)}
           >
             {o}
           </button>
         ))}
       </div>
+
+      <div className="mock-nav">
+        <button className="btn" onClick={() => goTo(index - 1)} disabled={index === 0}>
+          <Icon name="back" /> Previous
+        </button>
+        <button className="btn" onClick={() => goTo(index + 1)} disabled={index + 1 >= questions.length}>
+          Next →
+        </button>
+      </div>
+
+      <nav className="mock-grid" aria-label="Questions">
+        {questions.map((question, i) => (
+          <button
+            key={i}
+            className={`mock-cell${picks[i] !== null ? ' done' : ''}${i === index ? ' here' : ''}`}
+            onClick={() => goTo(i)}
+            aria-current={i === index ? 'step' : undefined}
+            aria-label={`Question ${i + 1}, ${sectionInfo(question.section).label}${picks[i] !== null ? ', answered' : ''}`}
+          >
+            {i + 1}
+          </button>
+        ))}
+      </nav>
+
+      <button className={`btn block${unanswered ? '' : ' primary'}`} onClick={() => finish(picks)}>
+        {unanswered ? `Finish test · ${unanswered} unanswered` : 'Finish test'}
+      </button>
     </div>
   );
 }

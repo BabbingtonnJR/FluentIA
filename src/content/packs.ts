@@ -1,4 +1,4 @@
-import type { ComicEpisode, ComicIndexEntry, GrammarPoint, KanjiItem, LitIndexEntry, LitWork, Pack, PackManifest, Sentence, VocabItem } from './types';
+import type { ComicEpisode, ComicIndexEntry, GrammarPoint, KanjiItem, LitIndexEntry, LitWork, Pack, PackExamples, PackManifest, Sentence, VocabItem } from './types';
 
 export const AVAILABLE_PACKS = ['ja'] as const;
 export type PackId = (typeof AVAILABLE_PACKS)[number];
@@ -22,11 +22,14 @@ export function loadPack(id: string): Promise<Pack> {
         getJson<VocabItem[]>(`${base}/vocab.json`),
         getJson<KanjiItem[]>(`${base}/kanji.json`),
         manifest.kinds.includes('grammar') ? getJson<GrammarPoint[]>(`${base}/grammar.json`) : Promise.resolve([]),
-      ]).then(([vocab, kanji, grammar]) => ({
+        // Cards still work without examples, so a pack built before them keeps loading.
+        getJson<PackExamples>(`${base}/examples.json`).catch(() => undefined),
+      ]).then(([vocab, kanji, grammar, examples]) => ({
         manifest,
         vocab,
         kanji,
         grammar,
+        examples,
         vocabById: new Map(vocab.map((v) => [v.id, v])),
         kanjiById: new Map(kanji.map((k) => [k.id, k])),
         grammarById: new Map(grammar.map((g) => [g.id, g])),

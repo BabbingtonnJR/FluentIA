@@ -456,6 +456,7 @@
       "Noun + の間に",
       "い-adj + 間に"
     ],
+    "alike": ["n3-uchini"],
     "notes": "間に is a point within a period: 寝ている間に泥棒が入った. Without に, 間 means 'the whole time': 寝ている間、ずっと雨だった.",
     "match": "(?<=[のるいた])(?<!と[^、。]{0,10}の)(間に)(?!合)",
     "examples": [
@@ -581,6 +582,7 @@
       "な-adj / Noun + なんです",
       "Written: 〜のです; casual: 〜んだ / 〜の？"
     ],
+    "variants": [["んです", "のです"], ["んですか", "のですか"]],
     "notes": "Adds an 'explanation' nuance: どうしたんですか (What happened? — I can see something's up). Overusing it with simple facts can sound pushy.",
     "match": "(?<=[るうくすつぬむぶぐいただな])(?<!あなた|わた|誰)(んです|のです)",
     "examples": [
@@ -657,6 +659,7 @@
       "Noun (source) + によると / によれば",
       "Often ends with 〜そうだ or 〜らしい"
     ],
+    "variants": [["によると", "によれば"]],
     "notes": "Names the source of what you heard, read or saw: news, forecasts, a friend.",
     "match": "(によると|によれば)",
     "examples": [
@@ -682,6 +685,8 @@
       "Verb ない-stem + ずに",
       "する → せずに"
     ],
+    "variants": [["ずに", "ないで|!せ"]],
+    "alike": ["n4-naide"],
     "notes": "A more formal and written version of 〜ないで (without doing).",
     "match": "(?<=[あかがさたなばまらわせ])(ずに)(?!いられ|は)",
     "examples": [
@@ -706,6 +711,8 @@
     "formation": [
       "Verb ない-form + で"
     ],
+    "variants": [["ないで", "ずに|!し"]],
+    "alike": ["n4-zuni"],
     "notes": "Describes how something is done: 傘を持たないで出かけた (I went out without an umbrella). Also 'instead of': バスに乗らないで歩いた (I walked instead of taking the bus).",
     "examples": [
       [
@@ -781,6 +788,8 @@
     "formation": [
       "Plain or polite form + けど / けれど(も)"
     ],
+    "variants": [["けど", "けれど", "けれども"]],
+    "alike": ["n5-ga-but"],
     "notes": "Casual 'but'. Often used just to introduce a topic or soften a request: すみません、ちょっと聞きたいんですけど… (Excuse me, I'd like to ask something...).",
     "match": "(けど|けれど(?:も)?)",
     "examples": [
