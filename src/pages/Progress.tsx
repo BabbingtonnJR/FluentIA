@@ -2,6 +2,9 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import type { CSSProperties } from 'react';
 import { BarChart } from '../components/BarChart';
 import { CountUp } from '../components/CountUp';
+import { Tree } from '../components/Tree';
+import { stamps, TREE_STAGES, treeStage } from '../stats/stamps';
+import { useState } from 'react';
 import { db } from '../db/db';
 import { usePack, useSettings } from '../hooks';
 import { DAY, dayKey, dayStart } from '../lib/time';
@@ -45,6 +48,8 @@ export function Progress() {
       perDay: reviewsPerDay(reviews, today, 30, settings.dayStartHour),
       forecast: forecast(cards.filter((c) => c.state !== State.New), today, 14, settings.dayStartHour),
       totalReviews: reviews.length,
+      activities,
+      mistakes: await db.mistakes.where('[lang+at]').between([lang, -Infinity], [lang, Infinity]).toArray(),
     };
   }, [lang, settings.dayStartHour]);
 
@@ -94,6 +99,11 @@ export function Progress() {
           </div>
         </div>
       </div>
+
+      <TreeAndStamps
+        level={level.level}
+        list={stamps({ cards: data.cards, activities: data.activities, mistakes: data.mistakes, reviews: data.totalReviews, bestStreak: data.streak.best })}
+      />
 
       <div className="section-title">Road to N3 · 道</div>
       <div className="card stack">
@@ -156,5 +166,54 @@ export function Progress() {
         />
       </div>
     </div>
+  );
+}
+
+/** The learner's tree, which grows with their level, and the stamp book of milestones. */
+function TreeAndStamps({ level, list }: { level: number; list: ReturnType<typeof stamps> }) {
+  const [open, setOpen] = useState<string | null>(null);
+  const stage = treeStage(level);
+  const next = TREE_STAGES[stage + 1];
+  const earned = list.filter((s) => s.earned).length;
+  const shown = list.find((s) => s.id === open);
+  return (
+    <>
+      <div className="section-title">Your tree · 木</div>
+      <div className="card tree-card">
+        <Tree stage={stage} />
+        <div>
+          <div className="jp tree-name" lang="ja">
+            {TREE_STAGES[stage].jp}
+          </div>
+          <strong>{TREE_STAGES[stage].name}</strong>
+          <div className="faint">{next ? `Grows into a ${next.name.toLowerCase()} at level ${next.from}. Every review and practice helps.` : 'Fully grown. お疲れさま!'}</div>
+        </div>
+      </div>
+
+      <div className="section-title">
+        Stamp book · 御朱印帳 · {earned}/{list.length}
+      </div>
+      <div className="card stack" style={{ gap: 10 }}>
+        <div className="stamps">
+          {list.map((s) => (
+            <button key={s.id} className={`stamp${s.earned ? ' earned' : ''}${open === s.id ? ' on' : ''}`} onClick={() => setOpen(open === s.id ? null : s.id)} aria-label={`${s.title}${s.earned ? ', earned' : ''}`}>
+              <span className="stamp-seal jp" lang="ja">
+                {s.seal}
+              </span>
+            </button>
+          ))}
+        </div>
+        <div className="faint stamp-caption">
+          {shown ? (
+            <>
+              <b>{shown.title}</b> · {shown.how}
+              {shown.progress ? ` · ${shown.progress[0]} / ${shown.progress[1]}` : ' · earned'}
+            </>
+          ) : (
+            'Tap a seal to see how to earn it.'
+          )}
+        </div>
+      </div>
+    </>
   );
 }

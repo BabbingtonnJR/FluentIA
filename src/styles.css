@@ -3026,3 +3026,144 @@ body {
   border-left: 2px solid var(--accent);
   margin-left: -2px;
 }
+
+/* ---- Tree and stamp book ---------------------------------------------------- */
+
+.tree-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.tree {
+  width: 112px;
+  height: 112px;
+  flex: none;
+}
+
+.tree-name {
+  font-size: 1.6rem;
+  color: var(--good);
+  line-height: 1.1;
+}
+
+.tree-soil {
+  fill: none;
+  stroke: var(--ink-3);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.tree-seed {
+  fill: var(--hard);
+}
+
+.tree-stem {
+  fill: none;
+  stroke: var(--good);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.tree-leaf,
+.tree-crown {
+  fill: var(--good);
+  opacity: 0.9;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: grow-in 500ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+.tree-crown {
+  opacity: 0.8;
+}
+
+.tree-trunk {
+  fill: var(--ink-2);
+  stroke: var(--ink-2);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.tree-blossom {
+  fill: #f2b8c6;
+  stroke: var(--accent);
+  stroke-width: 0.6;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: grow-in 400ms ease-out both;
+  animation-delay: calc(300ms + var(--i, 0) * 50ms);
+}
+
+.tree-petal {
+  fill: none;
+  stroke: #f2b8c6;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+@keyframes grow-in {
+  from {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+}
+
+.stamps {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.stamp {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  border: 1.5px dashed var(--line);
+  background: transparent;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.stamp-seal {
+  font-size: 1.3rem;
+  color: var(--line);
+}
+
+.stamp.earned {
+  border: 2px solid var(--accent);
+  background: var(--accent-soft);
+  transform: rotate(-4deg);
+}
+
+.stamp.earned .stamp-seal {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.stamp.on {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.stamp-caption {
+  min-height: 2.6em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tree-leaf,
+  .tree-crown,
+  .tree-blossom {
+    animation: none;
+  }
+}
+
+.tree-branch {
+  fill: none;
+  stroke: var(--ink-2);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
