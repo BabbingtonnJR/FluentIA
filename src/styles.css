@@ -2995,3 +2995,34 @@ body {
 .more-words[open] summary::before {
   content: '▾ ';
 }
+
+/* ---- Pitch accent: a line over the high morae ------------------------------ */
+
+.pitch {
+  display: inline-flex;
+  gap: 0.35em;
+}
+
+.pitch-phrase {
+  display: inline-flex;
+}
+
+.mora {
+  border-top: 2px solid transparent;
+  padding-top: 2px;
+  line-height: 1.3;
+}
+
+.mora.hi {
+  border-top-color: var(--accent);
+}
+
+.mora.drop {
+  border-right: 2px solid var(--accent);
+  margin-right: -2px;
+}
+
+.mora.rise {
+  border-left: 2px solid var(--accent);
+  margin-left: -2px;
+}

@@ -10,7 +10,8 @@ import { db } from '../db/db';
 import { rankBy, searcher } from '../lang/search';
 import type { CardRecord } from '../db/types';
 import { usePack, useSettings } from '../hooks';
-import { speak } from '../speech/tts';
+import { speak, speakWords } from '../speech/tts';
+import { PitchReading, usePitch } from '../components/Pitch';
 import { cardStatus, type CardStatus } from '../stats/stats';
 
 const PAGE = 80;
@@ -90,7 +91,11 @@ export function Library() {
   );
 
   const sayText = (text: string) => void speak(text, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate });
-  const say = (v: VocabItem) => sayText(cardFace(pack, 'vocab', 'recognition', v.id)?.speak ?? v.reading);
+  const say = (v: VocabItem) => {
+    const face = cardFace(pack, 'vocab', 'recognition', v.id);
+    void speakWords(face?.audio ?? [], face?.speak ?? v.reading, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate });
+  };
+  const pitch = usePitch(pack.manifest.id);
 
   return (
     <div className="stack">
@@ -168,12 +173,12 @@ export function Library() {
                     <div className="row" style={{ padding: '0 14px 14px', alignItems: 'flex-start' }}>
                       <div style={{ flex: 1 }}>
                         {face?.reading && (
-                          <div className="reading" lang="ja">
-                            {face.reading}
+                          <div className="reading">
+                            {face.senses?.length === 1 ? <PitchReading reading={face.reading} phrases={pitch[face.senses[0].id]} /> : face.reading}
                           </div>
                         )}
                         {face?.senses && face.senses.length > 1 ? null : <div>{v.meaning}</div>}
-                        {face?.senses && <WordSenses senses={face.senses} mode={settings.furigana === 'none' ? 'none' : 'all'} say={sayText} />}
+                        {face?.senses && <WordSenses senses={face.senses} mode={settings.furigana === 'none' ? 'none' : 'all'} say={sayText} pitch={pitch} />}
                         <div className="faint">
                           N{v.level} · {STATUS_LABEL[status]}
                         </div>

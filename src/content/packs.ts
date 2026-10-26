@@ -113,3 +113,10 @@ export const loadSpeaking = (lang: string) => cached(speakingCache, lang, `/pack
 
 /** Reading passages with questions (passages.json). */
 export const loadPassages = (lang: string) => cached(passagesCache, lang, `/packs/${lang}/passages.json`);
+
+/** Pitch accent per word (pitch.json, from VOICEVOX's dictionary): [morae, accent] per accent phrase. */
+export type PitchData = Record<string, [number, number][]>;
+const pitchCache = new Map<string, Promise<PitchData>>();
+
+/** Pitch accents, or none when they haven't been made (see tools/voices-to-fluentia.ps1). */
+export const loadPitch = (lang: string): Promise<PitchData> => cached(pitchCache, lang, `/packs/${lang}/pitch.json`).catch(() => ({}));

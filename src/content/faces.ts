@@ -37,10 +37,11 @@ export function cardFace(pack: Pack, kind: ItemKind, direction: Direction, itemI
     // Readings that mean the same (今日 きょう / こんにち) show that meaning once.
     const meaning = many ? [...new Set(senses.map((s) => s.meaning))].join(' / ') : v.meaning;
     const face = {
+      audio: senses.map((s) => s.item.id),
       reading: readings.length ? readings.join('・') : undefined,
       speak: readings.length ? readings.join('、') : v.reading,
       meaning,
-      senses: senses.map((s) => ({ reading: s.reading !== word ? s.reading : undefined, meaning: s.meaning, note: s.note, examples: s.examples })),
+      senses: senses.map((s) => ({ id: s.item.id, reading: s.reading !== word ? s.reading : undefined, meaning: s.meaning, note: s.note, examples: s.examples })),
     };
     if (direction === 'production') return { prompt: meaning, promptIsTarget: false, answer: word, ...face };
     return { prompt: word, promptIsTarget: true, answer: meaning, ...face };

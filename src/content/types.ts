@@ -102,13 +102,15 @@ export interface CardFace {
   reading?: string;
   details?: string[];
   speak: string; // text to read aloud in the target language
+  /** Word cards: the word-list entries to play recordings of, one per reading. */
+  audio?: string[];
   meaning: string;
   /** Grammar cards: a sentence with the grammar blanked out, revealed on the back. */
   cloze?: { example: GrammarExample; pattern: string };
   /** Grammar cards: other forms that would fit the blank just as well (じゃないです → じゃありません). */
   alternatives?: string[];
   /** Word cards: every reading of the word, when each is used, with example sentences. */
-  senses?: { reading?: string; meaning: string; note?: string; examples: WordExample[] }[];
+  senses?: { id: string; reading?: string; meaning: string; note?: string; examples: WordExample[] }[];
   /** Kanji cards: its readings with words that use each; rare readings no listed word uses. */
   kanjiReadings?: { reading: string; main: boolean; when: string[]; words: { word: string; reading: string; meaning: string }[] }[];
   rareReadings?: string[];

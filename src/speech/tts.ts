@@ -1,4 +1,6 @@
-// Text-to-speech through the browser's built-in voices (free, works offline on iOS).
+// Text-to-speech through the browser's built-in voices (free, works offline on iOS), or the
+// natural recordings made with VOICEVOX where there is one (see audio.ts).
+import { loadAudioIndex, playRecording, stopRecording, textKey } from './audio';
 
 let voicesPromise: Promise<SpeechSynthesisVoice[]> | null = null;
 
@@ -66,9 +68,37 @@ function pickVoice(voices: SpeechSynthesisVoice[], opts: SpeakOptions): { voice?
   return other ? { voice: other, pitch: 1 } : { voice: main, pitch: 1.25 };
 }
 
+const langOf = (locale: string) => locale.split('-')[0];
+
+/** Plays the recording of a text if there is one; false when there isn't. */
+async function playText(text: string, opts: SpeakOptions): Promise<boolean> {
+  const lang = langOf(opts.locale);
+  const index = await loadAudioIndex(lang);
+  const key = textKey(text);
+  const file = (opts.alt ? index.alt[key] : undefined) ?? index.text[key];
+  return !!file && (await playRecording(`/audio/${lang}/${file}`, opts.rate ?? 1));
+}
+
+/**
+ * Says a word from the word list: its recording, one per reading (十: じゅう, とお), or the
+ * browser's voice reading `fallback` when a recording is missing.
+ */
+export async function speakWords(vocabIds: string[], fallback: string, opts: SpeakOptions): Promise<void> {
+  const lang = langOf(opts.locale);
+  const index = await loadAudioIndex(lang);
+  const files = vocabIds.map((id) => index.words[id]);
+  if (!files.length || files.some((f) => !f)) return speak(fallback, opts);
+  for (const [i, f] of files.entries()) {
+    if (i) await new Promise((r) => setTimeout(r, 250));
+    if (!(await playRecording(`/audio/${lang}/${f}`, opts.rate ?? 1))) return speak(fallback, opts);
+  }
+}
+
 /** Speaks text and resolves when finished (or after a timeout, since iOS sometimes never fires `end`). */
 export async function speak(text: string, opts: SpeakOptions): Promise<void> {
-  if (!ttsSupported() || !text) return;
+  if (!text) return;
+  if (await playText(text, opts)) return;
+  if (!ttsSupported()) return;
   const { voice, pitch } = pickVoice(await voicesFor(opts.locale), opts);
   const u = new SpeechSynthesisUtterance(text);
   u.lang = opts.locale;
@@ -89,5 +119,6 @@ export async function speak(text: string, opts: SpeakOptions): Promise<void> {
 }
 
 export function stopSpeaking(): void {
+  stopRecording();
   if (ttsSupported()) speechSynthesis.cancel();
 }

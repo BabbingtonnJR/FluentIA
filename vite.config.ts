@@ -72,6 +72,17 @@ export default defineConfig({
               cacheableResponse: { statuses: [0, 200] },
             },
           },
+          // Recorded voices (VOICEVOX): each one kept after it is first played, so they work offline too.
+          {
+            urlPattern: ({ url }) => url.pathname.startsWith('/audio/') && url.pathname.endsWith('.mp3'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'voices',
+              expiration: { maxEntries: 20000, maxAgeSeconds: 365 * 24 * 60 * 60 },
+              cacheableResponse: { statuses: [200] },
+              rangeRequests: true,
+            },
+          },
           // The word-analysis dictionary, kept after its first download.
           {
             urlPattern: ({ url }) => url.pathname.startsWith('/kuromoji/'),

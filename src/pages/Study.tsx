@@ -4,6 +4,7 @@ import { Icon } from '../components/Icon';
 import { Petals } from '../components/Petals';
 import { Ruby } from '../components/Ruby';
 import { Examples, KanjiReadings, WordSenses } from '../components/WordSenses';
+import { PitchReading, usePitch } from '../components/Pitch';
 import { customFace, type SideMedia } from '../anki/convert';
 import { cardFace } from '../content/faces';
 import type { CardFace } from '../content/types';
@@ -13,7 +14,7 @@ import type { CardRecord, Direction, NoteRecord } from '../db/types';
 import { usePack, useSettings } from '../hooks';
 import { afterMotion } from '../lib/motion';
 import { formatInterval } from '../lib/time';
-import { speak, stopSpeaking } from '../speech/tts';
+import { speak, speakWords, stopSpeaking } from '../speech/tts';
 import { GRADE_LABELS, GRADES, previewIntervals, Rating, State, type Grade } from '../srs/scheduler';
 import { REQUEUE_WITHIN_MS, requeuePosition, type QueueEntry } from '../srs/queue';
 import { getContext, getMemo, isLeech, saveMemo, type MinedContext } from '../study/weak';
@@ -38,6 +39,7 @@ export function Study() {
   // Built-in cards: the sentence a word was mined from, and the learner's memory hook.
   const [extras, setExtras] = useState<{ context: MinedContext | null; memo: string }>({ context: null, memo: '' });
   const audio = useRef<HTMLAudioElement | null>(null);
+  const pitch = usePitch(pack.manifest.id);
   const [revealed, setRevealed] = useState(false);
   const [stats, setStats] = useState({ reviewed: 0, learned: 0, again: 0 });
   // `seq` re-keys the card so each one plays its entrance; `leaving` holds the grade while it exits.
@@ -120,6 +122,7 @@ export function Study() {
   /** The answer's audio: the deck's own recording if it has one, otherwise the synthetic voice. */
   const sayAnswer = useCallback(() => {
     if (custom?.answer.sounds.length) playSounds(custom.answer.sounds);
+    else if (face?.audio) void speakWords(face.audio, face.speak, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate });
     else if (face?.speak) void say(face.speak);
   }, [custom, face, say]);
 
@@ -316,8 +319,8 @@ export function Study() {
               </div>
             )}
             {face.reading && (
-              <div className="reading" lang="ja">
-                {face.reading}
+              <div className="reading">
+                {face.senses?.length === 1 ? <PitchReading reading={face.reading} phrases={pitch[face.senses[0].id]} /> : face.reading}
               </div>
             )}
             {/* With several readings, each reading's block below gives its own meaning. */}
@@ -328,7 +331,7 @@ export function Study() {
                 {d}
               </div>
             ))}
-            {face.senses && <WordSenses senses={face.senses} mode={rubyMode} say={(t) => void say(t)} />}
+            {face.senses && <WordSenses senses={face.senses} mode={rubyMode} say={(t) => void say(t)} pitch={pitch} />}
             <KanjiReadings face={face} say={(t) => void say(t)} />
             {face.examples && <Examples examples={face.examples} mode={rubyMode} say={(t) => void say(t)} />}
             <button

@@ -4,6 +4,8 @@ import type { FuriganaMode } from '../reading/furigana';
 import { plainText } from '../reading/furigana';
 import { Icon } from './Icon';
 import { Ruby } from './Ruby';
+import { PitchReading } from './Pitch';
+import type { PitchData } from '../content/packs';
 
 /** Example sentences, each with its translation and a button to hear it. */
 export function Examples({ examples, mode, say }: { examples: WordExample[]; mode: FuriganaMode; say: (text: string) => void }) {
@@ -39,7 +41,7 @@ export function Examples({ examples, mode, say }: { examples: WordExample[]; mod
  * (十 じゅう / とお) are learnt together. One example sentence is shown; the rest wait behind
  * "More examples" so the card stays short.
  */
-export function WordSenses({ senses, mode, say }: { senses: NonNullable<CardFace['senses']>; mode: FuriganaMode; say: (text: string) => void }) {
+export function WordSenses({ senses, mode, say, pitch = {} }: { senses: NonNullable<CardFace['senses']>; mode: FuriganaMode; say: (text: string) => void; pitch?: PitchData }) {
   const [all, setAll] = useState(false);
   const many = senses.length > 1;
   const shown = (i: number) => (all ? senses[i].examples.slice(0, 2) : senses[i].examples.slice(0, i === firstWithExamples(senses) ? 1 : 0));
@@ -50,11 +52,7 @@ export function WordSenses({ senses, mode, say }: { senses: NonNullable<CardFace
         <div key={i} className={`sense${many ? '' : ' single'}`}>
           {many && (
             <div className="sense-head">
-              {s.reading && (
-                <span className="sense-reading" lang="ja">
-                  {s.reading}
-                </span>
-              )}
+              {s.reading && <PitchReading className="sense-reading" reading={s.reading} phrases={pitch[s.id]} />}
               <span>{s.meaning}</span>
             </div>
           )}
