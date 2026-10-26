@@ -11,7 +11,7 @@ import { newCard } from '../srs/scheduler';
 import { seeded } from '../test/fixtures';
 import { cardFace } from './faces';
 import { alternativeForms, canBeRival } from './grammar';
-import { normReading, primaryVocabId, sameWord, studyVocab, vocabSenses, wordKey } from './senses';
+import { normReading, oneKanjiWord, primaryVocabId, readingContext, sameWord, studyVocab, vocabSenses, wordKey } from './senses';
 import type { GrammarPoint, KanjiItem, Pack, PackExamples, Sentence, VocabItem } from './types';
 
 /** The real Japanese pack, as the app loads it. */
@@ -138,5 +138,46 @@ describe('mock test options', () => {
         }
       }
     }
+  });
+});
+
+describe('kanji readings as one list', () => {
+  it('names what next to the kanji changes its reading', () => {
+    expect(readingContext('一つ', '一')).toBe('〜つ');
+    expect(readingContext('一人', '一')).toBe('〜人');
+    expect(readingContext('上げる', '上')).toBe('〜げる');
+    expect(readingContext('同一', '一')).toBe('同〜');
+    expect(readingContext('一', '一')).toBeNull();
+  });
+
+  it('puts the usual reading first, in hiragana, and the others with what calls for them', () => {
+    const face = cardFace(pack, 'kanji', 'recognition', '一')!;
+    const [first, ...rest] = face.kanjiReadings!;
+    expect(first).toMatchObject({ reading: 'いち', main: true, when: [] });
+    const hito = rest.find((r) => r.reading === 'ひと')!;
+    expect(hito.when).toContain('〜つ');
+    expect(hito.words.length).toBeLessThanOrEqual(3);
+    expect(face.kanjiReadings!.every((r) => !/[ァ-ヶ]/.test(r.reading))).toBe(true);
+  });
+
+  it('one-kanji words are taught by the kanji card, not twice', async () => {
+    const ichi = pack.vocabById.get('一|いち')!;
+    expect(oneKanjiWord(pack, ichi)).toBe('一');
+    expect(oneKanjiWord(pack, pack.vocabById.get('一つ|ひとつ')!)).toBeNull();
+    const word = newCard({ lang: 'ja', kind: 'vocab', direction: 'recognition', itemId: '一|いち', level: 5 }, 0);
+    const kanji = newCard({ lang: 'ja', kind: 'kanji', direction: 'recognition', itemId: '一', level: 5 }, 0);
+    expect(withoutDuplicateReadings(pack, [word, kanji])).toEqual([kanji]);
+    expect(withoutDuplicateReadings(pack, [word])).toEqual([word]);
+    const d = new FluentiaDB(`one-kanji-${Math.random()}`);
+    const { queue } = await buildSession(pack, { ...DEFAULT_SETTINGS, levels: [5], newPerDay: 400 }, Date.now(), d);
+    const fresh = queue.flatMap((e) => (e.type === 'new' && e.ref.kind === 'vocab' ? [e.ref.itemId] : []));
+    expect(fresh).not.toContain('一|いち');
+    expect(fresh).toContain('一つ|ひとつ');
+    await d.delete();
+  });
+
+  it('meanings shared by two readings are shown once', () => {
+    const face = cardFace(pack, 'vocab', 'recognition', primaryVocabId(pack, '明日|あした'))!;
+    expect(face.meaning.split(' / ').length).toBe(new Set(face.meaning.split(' / ')).size);
   });
 });

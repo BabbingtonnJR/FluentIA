@@ -2897,3 +2897,101 @@ body {
 .mined-line .sentence {
   font-size: 1.35rem;
 }
+
+/* ---- Kanji readings: one list, the usual reading first ------------------------- */
+
+.kanji-readings {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.kr-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kr-row + .kr-row {
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+
+.kr-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.kr-reading {
+  font-family: var(--font-jp);
+  font-size: 1.3rem;
+  color: var(--accent);
+  min-width: 3.2em;
+}
+
+.kr-when {
+  font-size: 0.85rem;
+}
+
+.kr-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.kr-word {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-size: 0.9rem;
+}
+
+.kr-word .jp:first-child {
+  font-size: 1.05rem;
+}
+
+.kr-word:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.kr-meaning {
+  color: var(--ink-2);
+  font-size: 0.8rem;
+}
+
+.kr-rare {
+  font-size: 0.85rem;
+}
+
+.sense.single {
+  border-left: 0;
+  padding-left: 0;
+}
+
+.more-examples {
+  align-self: flex-start;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.more-words summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.more-words summary::before {
+  content: '▸ ';
+}
+
+.more-words[open] summary::before {
+  content: '▾ ';
+}

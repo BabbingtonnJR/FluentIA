@@ -110,7 +110,7 @@ export interface CardFace {
   /** Word cards: every reading of the word, when each is used, with example sentences. */
   senses?: { reading?: string; meaning: string; note?: string; examples: WordExample[] }[];
   /** Kanji cards: its readings with words that use each; rare readings no listed word uses. */
-  kanjiReadings?: { reading: string; words: { word: string; reading: string; meaning: string }[] }[];
+  kanjiReadings?: { reading: string; main: boolean; when: string[]; words: { word: string; reading: string; meaning: string }[] }[];
   rareReadings?: string[];
   /** Kanji cards: a sentence using one of its words. */
   examples?: WordExample[];

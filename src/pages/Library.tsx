@@ -4,7 +4,7 @@ import { Link, useSearchParams } from 'react-router';
 import { Icon } from '../components/Icon';
 import { WordSenses } from '../components/WordSenses';
 import { cardFace } from '../content/faces';
-import { primaryVocabId, studyVocab, vocabGroup, wordKey } from '../content/senses';
+import { oneKanjiWord, primaryVocabId, studyVocab, vocabGroup, wordKey } from '../content/senses';
 import type { VocabItem } from '../content/types';
 import { db } from '../db/db';
 import { rankBy, searcher } from '../lang/search';
@@ -149,7 +149,9 @@ export function Library() {
         <>
           <div className="list">
             {vocab.slice(0, limit).map((v) => {
-              const status = cardStatus(cards.get(`vocab:${v.id}`));
+              // A one-kanji word (一) is studied on its kanji card.
+              const char = oneKanjiWord(pack, v);
+              const status = cardStatus(cards.get(`vocab:${v.id}`) ?? (char ? cards.get(`kanji:${char}`) : undefined));
               const isOpen = open === v.id;
               const group = vocabGroup(pack, v.id);
               const face = isOpen ? cardFace(pack, 'vocab', 'recognition', v.id) : null;
@@ -160,7 +162,7 @@ export function Library() {
                     <span className="term" lang="ja">
                       {group.length > 1 ? wordKey(v.word) : v.word}
                     </span>
-                    <span className="gloss">{group.length > 1 ? group.map((m) => m.meaning).join(" / ") : v.meaning}</span>
+                    <span className="gloss">{group.length > 1 ? [...new Set(group.map((m) => m.meaning))].join(' / ') : v.meaning}</span>
                   </button>
                   {isOpen && (
                     <div className="row" style={{ padding: '0 14px 14px', alignItems: 'flex-start' }}>

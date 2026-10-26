@@ -1,4 +1,4 @@
-import { primaryVocabId, studyVocab } from '../content/senses';
+import { oneKanjiWord, primaryVocabId, studyVocab } from '../content/senses';
 import type { Pack } from '../content/types';
 import { dayKey, dayStart, uid } from '../lib/time';
 import { cardId, knownCard, newCard, review, State, type CardRef, type Grade } from '../srs/scheduler';
@@ -80,6 +80,10 @@ export function withoutDuplicateReadings(pack: Pack, cards: CardRecord[]): CardR
   const ids = new Set(cards.map((c) => c.id));
   return cards.filter((c) => {
     if (c.kind !== 'vocab') return true;
+    // A one-kanji word (一) studied as a word too is only shown as its kanji card.
+    const v = pack.vocabById.get(c.itemId);
+    const char = v && c.direction === 'recognition' ? oneKanjiWord(pack, v) : null;
+    if (char && ids.has(cardId(c.lang, 'kanji', 'recognition', char))) return false;
     const primary = primaryVocabId(pack, c.itemId);
     return primary === c.itemId || !ids.has(cardId(c.lang, 'vocab', c.direction, primary));
   });
