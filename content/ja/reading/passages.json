@@ -1,0 +1,176 @@
+[
+  {
+    "id": "p4-memo",
+    "level": 4,
+    "kind": "short",
+    "title": "メモ",
+    "titleEn": "A note",
+    "paragraphs": [
+      ["ルーカスさんへ"],
+      ["今日の三時《さんじ》ごろ、山田先生から電話がありました。", "明日の授業は、先生の都合で午後｜二時《にじ》からに変わったそうです。", "教室もいつもの教室ではなく、三階《さんがい》の大きい教室です。", "教科書を忘れないように、と言っていました。"],
+      ["ハナより"]
+    ],
+    "en": ["To Lucas,", "Ms. Yamada called around three today. Tomorrow's class has moved to 2 p.m. because of her schedule. It won't be in the usual room either, but in the big room on the third floor. She said not to forget your textbook.", "From Hana"],
+    "questions": [
+      { "q": "明日の授業について、正しいものはどれですか。", "options": ["午前中にある", "午後二時から始まる", "いつもの教室である", "休みになった"], "answer": 1, "why": "「午後二時からに変わった」: the class now starts at 2 p.m., in a different room." },
+      { "q": "先生はルーカスさんに何を持ってくるように言いましたか。", "options": ["教科書", "辞書", "ノート", "宿題"], "answer": 0, "why": "「教科書を忘れないように」: don't forget the textbook." }
+    ]
+  },
+  {
+    "id": "p4-gomi",
+    "level": 4,
+    "kind": "short",
+    "title": "ゴミの出し方のお知らせ",
+    "titleEn": "How to put out the rubbish",
+    "paragraphs": [
+      ["来月から、ゴミを出す日が変わります。"],
+      ["燃えるゴミは、月曜日と木曜日です。", "プラスチックは、水曜日です。", "びんとかんは、第二と第四の金曜日に出してください。"],
+      ["ゴミは朝｜八時《はちじ》までに、決められた場所に出してください。", "前の日の夜に出すのはやめてください。"]
+    ],
+    "en": ["From next month, the rubbish collection days are changing.", "Burnable rubbish: Monday and Thursday. Plastic: Wednesday. Bottles and cans: the second and fourth Friday.", "Put rubbish out at the designated place by 8 a.m. Please don't put it out the night before."],
+    "questions": [
+      { "q": "プラスチックのゴミはいつ出しますか。", "options": ["月曜日", "水曜日", "木曜日", "金曜日"], "answer": 1, "why": "「プラスチックは、水曜日です」." },
+      { "q": "してはいけないことはどれですか。", "options": ["月曜日の朝に燃えるゴミを出す", "水曜日の朝にプラスチックを出す", "前の日の夜にゴミを出す", "朝七時にゴミを出す"], "answer": 2, "why": "「前の日の夜に出すのはやめてください」: putting it out the night before is not allowed. 7 a.m. is fine, since the limit is 8." }
+    ]
+  },
+  {
+    "id": "p4-baito",
+    "level": 4,
+    "kind": "mid",
+    "title": "初めてのアルバイト",
+    "titleEn": "My first part-time job",
+    "paragraphs": [
+      ["先週から、近くのコンビニでアルバイトを始めました。", "最初の日は、とても緊張しました。", "お客さんの話すのが速くて、よくわからなかったからです。"],
+      ["「袋はご利用ですか」と聞きたかったのに、「袋はいりますか」と聞いてしまいました。", "あとで店長に「それでも大丈夫だよ。でも、お客さんには丁寧な言葉を使おうね」と言われました。"],
+      ["それから毎晩、店で使う言葉をノートに書いて、声に出して練習しています。", "今では、決まった言葉なら、考えなくても言えるようになりました。", "次は、お客さんと少し世間話ができるようになりたいです。"]
+    ],
+    "en": ["I started a part-time job at a nearby convenience store last week. On the first day I was very nervous, because the customers spoke fast and I couldn't really understand.", "I meant to ask \"Would you like a bag?\" politely, but I asked \"Do you need a bag?\" Afterwards the manager told me, \"That's okay. But let's use polite words with customers.\"", "Since then, every night I write the phrases we use in the shop in a notebook and practise them out loud. Now I can say the set phrases without thinking. Next, I'd like to be able to make a little small talk with customers."],
+    "questions": [
+      { "q": "最初の日、ルーカスさんはどうして緊張しましたか。", "options": ["店長がこわかったから", "お客さんの話がよく聞き取れなかったから", "レジの使い方を知らなかったから", "お客さんがいなかったから"], "answer": 1, "why": "「お客さんの話すのが速くて、よくわからなかったから」." },
+      { "q": "店長はルーカスさんに何と言いましたか。", "options": ["もっと速く話しなさい", "お客さんには丁寧な言葉を使ったほうがいい", "毎晩ノートに書きなさい", "袋は使わないでください"], "answer": 1, "why": "「お客さんには丁寧な言葉を使おうね」. The notebook was Lucas's own idea." },
+      { "q": "ルーカスさんがこれからしたいことは何ですか。", "options": ["決まった言葉を覚えること", "新しいノートを買うこと", "お客さんと少し世間話をすること", "別のアルバイトを探すこと"], "answer": 2, "why": "「次は、お客さんと少し世間話ができるようになりたい」. He can already say the set phrases." }
+    ]
+  },
+  {
+    "id": "p4-toshokan",
+    "level": 4,
+    "kind": "info",
+    "title": "さくら市立図書館　ご利用案内",
+    "titleEn": "Sakura City Library: how to use it",
+    "paragraphs": [
+      ["開館時間は、火曜日から金曜日までは午前｜九時《くじ》から午後｜七時《しちじ》までです。", "土曜日と日曜日は、午前｜十時《じゅうじ》から午後｜五時《ごじ》までです。"],
+      ["休館日は月曜日です。", "月曜日が祝日のときは、次の日が休みになります。"],
+      ["本は一人《ひとり》｜十冊《じゅっさつ》まで、二週間借りることができます。", "CDとDVDは一人《ひとり》｜三枚《さんまい》まで、一週間借りることができます。", "雑誌の新しい号は借りられません。"]
+    ],
+    "en": ["Opening hours: Tuesday to Friday 9 a.m. to 7 p.m.; Saturday and Sunday 10 a.m. to 5 p.m.", "Closed on Mondays. When Monday is a public holiday, the library closes the next day instead.", "You can borrow up to ten books for two weeks, and up to three CDs and DVDs for one week. The latest issue of a magazine cannot be borrowed."],
+    "questions": [
+      { "q": "ルーカスさんは土曜日の午後六時に図書館へ行きたいです。どうなりますか。", "options": ["図書館に入れる", "もう閉まっている", "その日は休館日である", "七時まで開いている"], "answer": 1, "why": "On Saturdays the library closes at 5 p.m., so at 6 it is already closed." },
+      { "q": "月曜日が祝日のとき、図書館はいつ休みですか。", "options": ["月曜日", "火曜日", "日曜日", "休みはない"], "answer": 1, "why": "「月曜日が祝日のときは、次の日が休み」: the next day, Tuesday." },
+      { "q": "ルーカスさんはDVDを五枚借りたいです。正しいものはどれですか。", "options": ["五枚借りられる", "三枚まで借りられる", "十枚まで借りられる", "DVDは借りられない"], "answer": 1, "why": "CDs and DVDs: up to three per person." }
+    ]
+  },
+  {
+    "id": "p3-shift",
+    "level": 3,
+    "kind": "short",
+    "title": "来週のシフトについて",
+    "titleEn": "About next week's shift",
+    "paragraphs": [
+      ["ルーカスさん"],
+      ["お疲れさまです。店長の木村です。", "来週の土曜日ですが、急に団体のお客様の予約が入りました。", "いつもは午後｜五時《ごじ》までのシフトですが、もし可能なら、八時《はちじ》まで延長してもらえないでしょうか。", "難しい場合はほかの人に頼みますので、遠慮なく言ってください。", "水曜日までに返事をもらえると助かります。"],
+      ["木村"]
+    ],
+    "en": ["Lucas,", "Thanks for your hard work. This is Kimura, the manager. Next Saturday, we've suddenly had a booking from a large group. Your shift usually ends at 5 p.m., but if possible, could you stay until 8? If that's difficult I'll ask someone else, so don't hesitate to say so. It would help if you could reply by Wednesday.", "Kimura"],
+    "questions": [
+      { "q": "木村さんがルーカスさんに頼んでいることは何ですか。", "options": ["土曜日に休むこと", "土曜日にいつもより遅くまで働くこと", "水曜日に働くこと", "団体の予約を受けること"], "answer": 1, "why": "「八時まで延長してもらえないでしょうか」: stay until 8 instead of 5." },
+      { "q": "ルーカスさんは何をしなければなりませんか。", "options": ["水曜日までに返事をする", "土曜日に必ず八時まで働く", "ほかの人に頼む", "団体のお客様に電話する"], "answer": 0, "why": "He only has to answer by Wednesday; saying no is fine (「遠慮なく言ってください」)." }
+    ]
+  },
+  {
+    "id": "p3-elevator",
+    "level": 3,
+    "kind": "short",
+    "title": "エレベーター点検のお知らせ",
+    "titleEn": "Elevator inspection notice",
+    "paragraphs": [
+      ["エレベーターの点検のため、次の日時はエレベーターが使えません。"],
+      ["日時は、十一月十二日《じゅういちがつじゅうににち》の午前｜十時《じゅうじ》から午後｜三時《さんじ》までです。"],
+      ["ご不便をおかけしますが、ご協力をお願いいたします。", "なお、点検中に重い荷物が届く予定の方《かた》は、前もって管理人《かんりにん》室までご連絡ください。", "管理人《かんりにん》が運ぶのをお手伝いします。"]
+    ],
+    "en": ["Because of an inspection, the elevator cannot be used at the following time.", "November 12, from 10 a.m. to 3 p.m.", "We apologize for the inconvenience and ask for your cooperation. If you are expecting a heavy delivery during the inspection, please contact the caretaker's office in advance. The caretaker will help carry it."],
+    "questions": [
+      { "q": "点検中に重い荷物が届く予定の人は、どうすればいいですか。", "options": ["その日は家にいないようにする", "前もって管理人《かんりにん》室に連絡する", "午後三時まで待ってもらう", "自分で階段で運ぶ"], "answer": 1, "why": "「前もって管理人室までご連絡ください」: tell the caretaker beforehand, and they will help." }
+    ]
+  },
+  {
+    "id": "p3-tegaki",
+    "level": 3,
+    "kind": "mid",
+    "title": "手で書くこと",
+    "titleEn": "Writing by hand",
+    "paragraphs": [
+      ["最近、手で字を書く機会がずいぶん減った。", "仕事のメールも友人への連絡も、ほとんどスマートフォンやパソコンで済ませている。"],
+      ["便利になったことは確かだが、困ることもある。", "先日、銀行で書類に住所を書こうとしたら、簡単な漢字が思い出せなかったのだ。", "読むことはできるのに、書けない。", "少し恥ずかしかった。"],
+      ["そこで、わたしは一日に一回、手帳に短い日記を書くことにした。", "最初は面倒だったが、続けているうちに、字を書く時間が楽しみになってきた。", "キーボードで打つときより、ゆっくり考えながら言葉を選ぶようになった気がする。"],
+      ["手で書くことは、ただ字を覚えるためだけではなく、自分の考えを整理するためにも役に立つのかもしれない。"]
+    ],
+    "en": ["Lately I write by hand far less often. Work emails and messages to friends are almost all done on a smartphone or computer.", "It's certainly more convenient, but it causes problems too. The other day at the bank, when I tried to write my address on a form, I couldn't remember a simple kanji. I can read it, but I can't write it. I was a little embarrassed.", "So I decided to write a short diary in my notebook once a day. It was a chore at first, but as I kept going, I began to look forward to the time spent writing. I feel I now choose my words more slowly and thoughtfully than when I type.", "Writing by hand may help not only to remember characters, but also to sort out one's own thoughts."],
+    "questions": [
+      { "q": "筆者は銀行で、どうして恥ずかしかったのですか。", "options": ["住所を忘れたから", "簡単な漢字が書けなかったから", "書類をなくしたから", "字がきたなかったから"], "answer": 1, "why": "「簡単な漢字が思い出せなかった…読むことはできるのに、書けない」." },
+      { "q": "日記を続けているうちに、筆者はどう変わりましたか。", "options": ["キーボードで速く打てるようになった", "字を書く時間が楽しみになった", "漢字をたくさん覚えた", "日記を書くのが面倒になった"], "answer": 1, "why": "「続けているうちに、字を書く時間が楽しみになってきた」. It was a chore only at first." },
+      { "q": "筆者が一番言いたいことは何ですか。", "options": ["スマートフォンは使わないほうがいい", "手で書くことは、考えを整理するのにも役に立つ", "漢字は毎日練習しなければならない", "日記は手帳に書くべきだ"], "answer": 1, "why": "The last paragraph gives the main point: writing by hand also helps organise your thoughts." }
+    ]
+  },
+  {
+    "id": "p3-aisatsu",
+    "level": 3,
+    "kind": "mid",
+    "title": "あいさつ",
+    "titleEn": "Saying hello",
+    "paragraphs": [
+      ["わたしが住んでいるマンションでは、住人同士がほとんどあいさつをしない。", "エレベーターで一緒になっても、みんな黙ってスマートフォンを見ている。"],
+      ["去年の冬、大雪の日があった。", "朝、マンションの前の道が雪でいっぱいになっていて、車も人も通れなかった。", "困っていると、隣の部屋のおじいさんがシャベルを持って出てきた。", "わたしも手伝うことにした。", "すると、ほかの部屋の人たちも次々に出てきて、一時間《いちじかん》ほどで道はきれいになった。"],
+      ["その日から、マンションの中であいさつをする人が増えた。", "名前も知らなかった隣人と、今では立ち話をするほどだ。", "小さなきっかけで、人と人との関係はこんなに変わるのだと思った。"]
+    ],
+    "en": ["In my apartment building, the residents hardly ever greet one another. Even when we share the elevator, everyone silently looks at their phone.", "Last winter there was a day of heavy snow. In the morning the road in front of the building was full of snow, and neither cars nor people could get through. While I was wondering what to do, the old man from the next apartment came out with a shovel. I decided to help. Then people from the other apartments came out one after another, and in about an hour the road was clear.", "From that day, more people in the building started greeting each other. I now even stop to chat with neighbours whose names I didn't know. I realised how much relationships between people can change from a small trigger."],
+    "questions": [
+      { "q": "大雪の日、最初に雪かきを始めたのはだれですか。", "options": ["筆者", "隣の部屋のおじいさん", "マンションの管理人", "ほかの部屋の人たち"], "answer": 1, "why": "The old man next door came out with a shovel first; the writer then decided to help." },
+      { "q": "大雪の日のあと、マンションはどう変わりましたか。", "options": ["雪かきの道具が置かれた", "あいさつをする人が増えた", "エレベーターが新しくなった", "住人が引っ越していった"], "answer": 1, "why": "「その日から、マンションの中であいさつをする人が増えた」." },
+      { "q": "筆者がこの文章で一番言いたいことは何ですか。", "options": ["雪の日は外に出ないほうがいい", "スマートフォンを見すぎてはいけない", "小さなきっかけで人間関係は変わる", "マンションより一軒家のほうがいい"], "answer": 2, "why": "The final sentence: a small trigger can change relationships this much." }
+    ]
+  },
+  {
+    "id": "p3-ryouri",
+    "level": 3,
+    "kind": "info",
+    "title": "さくら市民センター　料理教室のご案内",
+    "titleEn": "Sakura Community Centre cooking classes",
+    "paragraphs": [
+      ["和食コースは、毎週火曜日の午後｜六時半《ろくじはん》から八時半《はちじはん》までです。", "材料費は一回｜千五百円《せんごひゃくえん》です。"],
+      ["パンコースは、第一と第三土曜日の午前｜十時《じゅうじ》から十二時《じゅうにじ》までです。", "材料費は一回｜千円《せんえん》です。"],
+      ["子どもコースは、第二日曜日の午後｜一時《いちじ》から三時《さんじ》までです。", "小学生だけが参加できます。", "材料費は一回｜五百円《ごひゃくえん》です。"],
+      ["申し込みは、参加したい日の三日前《みっかまえ》までに、電話かホームページでお願いします。", "初めての方《かた》は、エプロンとタオルを持ってきてください。"]
+    ],
+    "en": ["Japanese cooking: every Tuesday, 6:30 to 8:30 p.m., ingredients 1,500 yen per class.", "Bread: first and third Saturday, 10 a.m. to 12 noon, ingredients 1,000 yen per class.", "Children's class: second Sunday, 1 to 3 p.m., primary school children only, ingredients 500 yen per class.", "Apply by phone or on the website at least three days before the day you want to attend. First-timers, please bring an apron and a towel."],
+    "questions": [
+      { "q": "ルーカスさんは平日は毎日夜七時まで働いています。どのコースに参加できますか。", "options": ["和食コース", "パンコース", "子どもコース", "どれも参加できない"], "answer": 1, "why": "Japanese cooking is on a weekday evening (Tuesday 6:30), and the children's class is for primary schoolers only, so only the Saturday bread class works." },
+      { "q": "十五日の土曜日のパンコースに参加したい場合、いつまでに申し込まなければなりませんか。", "options": ["十二日", "十三日", "十四日", "十五日"], "answer": 0, "why": "「三日前までに」: three days before the 15th is the 12th." }
+    ]
+  },
+  {
+    "id": "p3-speech",
+    "level": 3,
+    "kind": "short",
+    "title": "日本語スピーチ大会のお知らせ",
+    "titleEn": "Japanese speech contest",
+    "paragraphs": [
+      ["留学生のみなさんへ"],
+      ["日本語スピーチ大会の参加者を募集しています。", "テーマは「日本で驚いたこと」です。", "時間は一人《ひとり》｜五分以内《ごふんいない》です。"],
+      ["参加したい人は、十一月二十日《じゅういちがつはつか》までに、留学生センターの窓口で申し込んでください。", "スピーチの原稿は、大会の一週間前までにメールで提出してください。", "日本人の学生が、原稿のチェックを手伝ってくれます。"]
+    ],
+    "en": ["To all international students,", "We are looking for participants for the Japanese speech contest. The theme is \"Something that surprised me in Japan\". Each speech must be five minutes or less.", "If you want to take part, apply at the International Student Centre counter by November 20. Send your script by email at least one week before the contest. Japanese students will help check your script."],
+    "questions": [
+      { "q": "スピーチ大会に参加したい人は、まず何をしますか。", "options": ["原稿をメールで送る", "留学生センターの窓口で申し込む", "日本人の学生に相談する", "五分のスピーチを録音する"], "answer": 1, "why": "First apply at the counter by the 20th; the script comes later, a week before the contest." }
+    ]
+  }
+]

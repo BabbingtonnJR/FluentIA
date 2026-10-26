@@ -100,6 +100,16 @@ export function Today() {
         </div>
       </Link>
 
+      <Link to="/speak" className="card link" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div className="jp" style={{ fontSize: '2rem', color: 'var(--accent)', lineHeight: 1 }} aria-hidden="true">
+          話
+        </div>
+        <div style={{ flex: 1 }}>
+          <strong>Speak</strong>
+          <div className="faint">Role-plays, shadowing and quick replies, out loud</div>
+        </div>
+      </Link>
+
       <div className="grid-2">
         <Link to="/listen" className="card link">
           <div className="jp" style={{ fontSize: '1.6rem', color: 'var(--indigo)' }}>

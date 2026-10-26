@@ -204,3 +204,76 @@ export interface LitAudio {
   page: string;
   chapters: { url: string; seconds: number }[];
 }
+
+// --- Speaking and exam practice (speaking.json, passages.json) ---------------------------
+
+/** A line to say or hear: its breakdown (with translation) and the text the voice reads. */
+export interface SpokenLine {
+  s: LitSentence;
+  /** The line with numbers and other tricky words written as they are read (十分 → じゅっぷん). */
+  say: string;
+}
+
+/** A comprehension question on a dialogue, as in the JLPT listening test. */
+export interface DialogueQuestion {
+  /** 課題理解 (what will they do), ポイント理解 (a detail), 概要理解 (the gist). */
+  type: 'task' | 'point' | 'summary';
+  q: string;
+  say: string;
+  options: string[];
+  answer: number;
+}
+
+export interface Dialogue {
+  id: string;
+  level: number;
+  title: string;
+  titleEn: string;
+  situation: string;
+  roles: { jp: string; en: string }[];
+  lines: (SpokenLine & { who: number })[];
+  questions: DialogueQuestion[];
+}
+
+/**
+ * A quick-response item: something said to you (reply) or a situation described in English
+ * (situation), with the natural thing to say and two plausible but wrong ones.
+ */
+export interface QuickResponse {
+  id: string;
+  level: number;
+  kind: 'reply' | 'situation';
+  prompt?: SpokenLine;
+  situation?: string;
+  good: SpokenLine;
+  bad: SpokenLine[];
+}
+
+export interface SpeakingPack {
+  dialogues: Dialogue[];
+  responses: QuickResponse[];
+}
+
+export interface PassageQuestion {
+  q: string;
+  options: string[];
+  answer: number;
+  /** Why the answer is right, in English. */
+  why: string;
+}
+
+/** A reading passage in the style of the JLPT reading section. */
+export interface Passage {
+  id: string;
+  level: number;
+  /** 短文 / 中文 / 情報検索 */
+  kind: 'short' | 'mid' | 'info';
+  title: string;
+  titleEn: string;
+  paragraphs: LitSentence[][];
+  /** Translation, one per paragraph. */
+  en: string[];
+  questions: PassageQuestion[];
+  /** Length in characters, for the reading-time target. */
+  chars: number;
+}

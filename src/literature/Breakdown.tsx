@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router';
 import { Icon } from '../components/Icon';
 import { Ruby } from '../components/Ruby';
+import { SpeakBack } from '../components/SpeakBack';
 import type { LitSentence, LitWord, Pack } from '../content/types';
 import { db } from '../db/db';
 import { mineCustom, mineVocab, vocabCardId } from '../study/mine';
@@ -35,6 +36,7 @@ export function Breakdown({ sentence, pack, known, onSpeak, onClose, onPrev, onN
     return g ? [{ g, span: [start, end] as [number, number] }] : [];
   });
   const plain = plainText(sentence.r);
+  const [speaking, setSpeaking] = useState(false);
 
   return (
     <div className="breakdown" role="dialog" aria-label="Sentence breakdown">
@@ -49,6 +51,9 @@ export function Breakdown({ sentence, pack, known, onSpeak, onClose, onPrev, onN
           ›
         </button>
         <span style={{ flex: 1 }} />
+        <button className={`chip${speaking ? ' on' : ''}`} onClick={() => setSpeaking((v) => !v)} aria-pressed={speaking}>
+          Say it
+        </button>
         {onPlayFrom && (
           <button className="chip" onClick={onPlayFrom}>
             ▶ Play from here
@@ -64,6 +69,7 @@ export function Breakdown({ sentence, pack, known, onSpeak, onClose, onPrev, onN
           <Ruby markup={sentence.r} mode="all" cloze={grammar[0]?.span} />
         </p>
         {sentence.e && <p className="breakdown-translation faint">{sentence.e}</p>}
+        {speaking && <SpeakBack sentence={sentence} say={plain} onListen={onSpeak} shadow />}
 
         {grammar.length > 0 && (
           <div className="breakdown-grammar">

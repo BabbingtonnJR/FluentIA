@@ -2696,3 +2696,157 @@ body {
   display: block;
   margin-top: 4px;
 }
+
+/* ---- Speaking ------------------------------------------------------------- */
+
+.speakback {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.speakback-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.speakback-row .btn svg {
+  width: 16px;
+  height: 16px;
+  vertical-align: -3px;
+}
+
+.btn.rec {
+  background: var(--again);
+  border-color: var(--again);
+  color: var(--accent-ink);
+  animation: rec-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes rec-pulse {
+  50% {
+    opacity: 0.75;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn.rec {
+    animation: none;
+  }
+}
+
+.speakback-hint {
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.speakback-check {
+  font-size: 0.9rem;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--surface-2);
+}
+
+.speakback-check.good b {
+  color: var(--good);
+}
+
+.speakback-check.hard b {
+  color: var(--hard);
+}
+
+.speakback-check.again b {
+  color: var(--again);
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bubble {
+  max-width: 85%;
+  align-self: flex-start;
+  padding: 10px 14px;
+  border-radius: 16px 16px 16px 4px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  font-family: var(--font-jp);
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+
+.bubble.mine {
+  align-self: flex-end;
+  border-radius: 16px 16px 4px 16px;
+  background: var(--accent-soft);
+  border-color: transparent;
+}
+
+.bubble.speaking {
+  border-color: var(--accent);
+}
+
+.bubble-who {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-3);
+  line-height: 1.4;
+}
+
+.bubble-en {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.your-turn {
+  border-color: var(--accent);
+}
+
+.steps {
+  margin: 0;
+  padding-left: 1.3em;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.shadow-text.hidden {
+  filter: blur(8px);
+  user-select: none;
+}
+
+.memo-text.center {
+  text-align: center;
+  align-self: center;
+}
+
+.countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.countdown-ring {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  display: grid;
+  place-items: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.countdown-ring[data-urgent='true'] {
+  background: var(--accent);
+  color: var(--accent-ink);
+}

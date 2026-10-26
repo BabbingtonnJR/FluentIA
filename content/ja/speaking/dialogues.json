@@ -1,0 +1,425 @@
+[
+  {
+    "id": "d5-cafe",
+    "level": 5,
+    "title": "カフェで",
+    "titleEn": "At a café",
+    "situation": "Lucas orders at a café counter.",
+    "roles": [["ルーカス", "Lucas"], ["店員", "Clerk"]],
+    "lines": [
+      [1, "いらっしゃいませ。ご注文はお決まりですか。", "Welcome. Have you decided on your order?"],
+      [0, "えっと、コーヒーを一つお願いします。", "Um, one coffee, please."],
+      [1, "ホットとアイス、どちらになさいますか。", "Hot or iced?"],
+      [0, "アイスでお願いします。", "Iced, please."],
+      [1, "かしこまりました。ほかにご注文はございますか。", "Certainly. Anything else?"],
+      [0, "このチーズケーキもください。", "This cheesecake too, please."],
+      [1, "こちらでお召し上がりですか。", "Will you be eating here?"],
+      [0, "はい、ここで食べます。", "Yes, I'll eat here."],
+      [1, "全部で八百五十円《はっぴゃくごじゅうえん》です。", "That's 850 yen altogether."],
+      [0, "カードで払えますか。", "Can I pay by card?"],
+      [1, "はい、大丈夫です。", "Yes, that's fine."]
+    ],
+    "questions": [
+      { "type": "task", "q": "ルーカスさんは何を注文しましたか。", "options": ["アイスコーヒーとチーズケーキ", "ホットコーヒーとチーズケーキ", "アイスコーヒーだけ", "ホットコーヒーだけ"], "answer": 0 },
+      { "type": "point", "q": "ルーカスさんはどうやってお金を払いますか。", "options": ["カードで払う", "現金で払う", "スマホで払う", "あとで払う"], "answer": 0 }
+    ]
+  },
+  {
+    "id": "d5-michi",
+    "level": 5,
+    "title": "道を聞く",
+    "titleEn": "Asking the way",
+    "situation": "Lucas asks a woman on the street how to get to the station.",
+    "roles": [["ルーカス", "Lucas"], ["女の人", "Woman"]],
+    "lines": [
+      [0, "すみません、ちょっといいですか。", "Excuse me, do you have a moment?"],
+      [1, "はい、何でしょう。", "Yes, what is it?"],
+      [0, "この近くに駅はありますか。", "Is there a station near here?"],
+      [1, "ええ、ありますよ。この道をまっすぐ行ってください。", "Yes, there is. Go straight along this road."],
+      [0, "まっすぐですね。", "Straight ahead, right."],
+      [1, "二《ふた》つ目の信号を右に曲がると、左に駅があります。", "Turn right at the second traffic light and the station is on the left."],
+      [0, "二《ふた》つ目の信号を右ですね。歩いて何分ぐらいですか。", "Right at the second light. About how many minutes on foot?"],
+      [1, "十分《じゅっぷん》ぐらいですね。", "About ten minutes."],
+      [0, "わかりました。ありがとうございます。", "Got it. Thank you very much."],
+      [1, "いいえ、気をつけて。", "Not at all. Take care."]
+    ],
+    "questions": [
+      { "type": "task", "q": "ルーカスさんはどこで右に曲がりますか。", "options": ["一つ目の信号", "二つ目の信号", "駅の前", "公園の前"], "answer": 1 },
+      { "type": "point", "q": "駅まで歩いてどのぐらいかかりますか。", "options": ["五分ぐらい", "十分ぐらい", "十五分ぐらい", "二十分ぐらい"], "answer": 1 }
+    ]
+  },
+  {
+    "id": "d5-shoukai",
+    "level": 5,
+    "title": "はじめまして",
+    "titleEn": "Meeting someone new",
+    "situation": "Hana introduces Lucas to her friend Ken at a party.",
+    "roles": [["ハナ", "Hana"], ["ケン", "Ken"], ["ルーカス", "Lucas"]],
+    "lines": [
+      [0, "ケンさん、こちらはルーカスさん。大学の友だちです。", "Ken, this is Lucas. A friend from university."],
+      [2, "はじめまして、ルーカスです。どうぞよろしく。", "Nice to meet you, I'm Lucas."],
+      [1, "ケンです。よろしく。ルーカスさんはどこから来ましたか。", "I'm Ken. Nice to meet you. Where are you from, Lucas?"],
+      [2, "ブラジルから来ました。サンパウロです。", "I'm from Brazil. São Paulo."],
+      [1, "へえ、遠いですね。日本に来て、どのぐらいですか。", "Wow, that's far. How long have you been in Japan?"],
+      [2, "半年ぐらいです。", "About half a year."],
+      [1, "日本語が上手ですね。", "Your Japanese is good."],
+      [2, "いえいえ、まだまだです。ケンさんは何をしていますか。", "No, no, I've still got a long way to go. What do you do, Ken?"],
+      [1, "会社員です。コンピューターの会社で働いています。", "I work for a company. A computer company."],
+      [0, "ケンさんはサッカーが好きなんですよ。", "Ken loves soccer, you know."],
+      [2, "本当ですか。わたしも大好きです。今度、一緒にしませんか。", "Really? I love it too. Shall we play together sometime?"],
+      [1, "いいですね。ぜひ。", "Sounds good. Definitely."]
+    ],
+    "questions": [
+      { "type": "point", "q": "ルーカスさんは日本に来てどのぐらいですか。", "options": ["一か月", "三か月", "半年", "一年"], "answer": 2 },
+      { "type": "point", "q": "ケンさんの仕事は何ですか。", "options": ["学生", "先生", "会社員", "店員"], "answer": 2 }
+    ]
+  },
+  {
+    "id": "d5-shuumatsu",
+    "level": 5,
+    "title": "週末の予定",
+    "titleEn": "Weekend plans",
+    "situation": "Hana asks Lucas about his weekend.",
+    "roles": [["ハナ", "Hana"], ["ルーカス", "Lucas"]],
+    "lines": [
+      [0, "ルーカスさん、週末は何をしますか。", "Lucas, what are you doing this weekend?"],
+      [1, "土曜日はアルバイトがあります。日曜日はまだ決めていません。", "I have my part-time job on Saturday. I haven't decided about Sunday yet."],
+      [0, "じゃあ、日曜日に一緒に映画を見に行きませんか。", "Then would you like to go see a movie together on Sunday?"],
+      [1, "いいですね。何の映画ですか。", "Sounds good. What movie?"],
+      [0, "新しいアニメの映画です。とてもおもしろいそうですよ。", "A new anime movie. I hear it's really good."],
+      [1, "見たいです。何時に会いましょうか。", "I want to see it. What time shall we meet?"],
+      [0, "映画は二時《にじ》からだから、一時半《いちじはん》に駅の前はどうですか。", "The movie starts at two, so how about one thirty in front of the station?"],
+      [1, "一時半《いちじはん》ですね。わかりました。", "One thirty. Got it."],
+      [0, "映画のあとで、ご飯も食べましょう。", "Let's have dinner after the movie too."],
+      [1, "いいですね。楽しみです。", "Great. I'm looking forward to it."]
+    ],
+    "questions": [
+      { "type": "task", "q": "ふたりは何時にどこで会いますか。", "options": ["一時に駅の前", "一時半に駅の前", "二時に映画館", "一時半に映画館"], "answer": 1 },
+      { "type": "point", "q": "ルーカスさんは土曜日に何をしますか。", "options": ["映画を見る", "アルバイトをする", "ご飯を食べる", "買い物をする"], "answer": 1 }
+    ]
+  },
+  {
+    "id": "d4-konbini",
+    "level": 4,
+    "title": "コンビニで",
+    "titleEn": "At the convenience store",
+    "situation": "Lucas buys a bento and tea at a convenience store.",
+    "roles": [["店員", "Clerk"], ["ルーカス", "Lucas"]],
+    "lines": [
+      [0, "いらっしゃいませ。お弁当、温めますか。", "Welcome. Shall I heat up your bento?"],
+      [1, "はい、お願いします。", "Yes, please."],
+      [0, "お箸はおつけしますか。", "Would you like chopsticks?"],
+      [1, "はい、一《ひと》つお願いします。", "Yes, one pair, please."],
+      [0, "袋はご利用ですか。", "Will you need a bag?"],
+      [1, "いえ、大丈夫です。自分の袋がありますから。", "No, I'm fine. I have my own bag."],
+      [0, "ポイントカードはお持ちですか。", "Do you have a point card?"],
+      [1, "いいえ、持っていません。作ったほうがいいですか。", "No, I don't. Should I make one?"],
+      [0, "百円《ひゃくえん》で一《いち》ポイントたまって、次のお買い物に使えますよ。", "You get one point for every hundred yen, and you can use them next time you shop."],
+      [1, "じゃあ、今日はいいです。また今度にします。", "Then not today. I'll do it next time."],
+      [0, "かしこまりました。お弁当とお茶で六百二十円《ろっぴゃくにじゅうえん》です。", "Certainly. The bento and tea come to 620 yen."],
+      [1, "千円《せんえん》でお願いします。", "Here's a thousand yen."],
+      [0, "三百八十円《さんびゃくはちじゅうえん》のお返しです。ありがとうございました。", "Here's 380 yen change. Thank you very much."]
+    ],
+    "questions": [
+      { "type": "task", "q": "ルーカスさんがもらわなかったものはどれですか。", "options": ["温めたお弁当", "お箸", "袋", "おつり"], "answer": 2 },
+      { "type": "point", "q": "ルーカスさんはおつりをいくらもらいましたか。", "options": ["二百八十円", "三百八十円", "六百二十円", "三百二十円"], "answer": 1 }
+    ]
+  },
+  {
+    "id": "d4-byouin",
+    "level": 4,
+    "title": "病院で",
+    "titleEn": "At the doctor's",
+    "situation": "Lucas sees a doctor because he feels sick.",
+    "roles": [["医者", "Doctor"], ["ルーカス", "Lucas"]],
+    "lines": [
+      [0, "今日はどうしましたか。", "What brings you in today?"],
+      [1, "昨日の夜から頭が痛くて、熱もあるんです。", "I've had a headache since last night, and a fever too."],
+      [0, "そうですか。熱は何度ありますか。", "I see. How high is your fever?"],
+      [1, "今朝はかったら、三十八度《さんじゅうはちど》でした。", "When I took it this morning, it was 38 degrees."],
+      [0, "のどは痛くないですか。", "Does your throat hurt?"],
+      [1, "少し痛いです。せきも出ます。", "A little. I have a cough too."],
+      [0, "ちょっと口を開けてください。ああ、のどが赤いですね。かぜでしょう。", "Please open your mouth. Ah, your throat is red. It's probably a cold."],
+      [1, "そうですか。明日、大学に行ってもいいですか。", "I see. Can I go to university tomorrow?"],
+      [0, "熱が下がるまで、休んだほうがいいですね。薬を三日分《みっかぶん》出しますから、毎食後に飲んでください。", "You should rest until the fever goes down. I'll give you three days of medicine; take it after every meal."],
+      [1, "わかりました。お風呂に入ってもいいですか。", "Understood. Can I take a bath?"],
+      [0, "今日はやめておいてください。シャワーなら大丈夫ですよ。", "Please skip it today. A shower is fine."],
+      [1, "はい。ありがとうございました。", "Okay. Thank you very much."]
+    ],
+    "questions": [
+      { "type": "task", "q": "ルーカスさんは薬をいつ飲みますか。", "options": ["朝だけ", "寝る前", "ご飯を食べたあと", "ご飯を食べる前"], "answer": 2 },
+      { "type": "point", "q": "ルーカスさんは今日、何をしてはいけませんか。", "options": ["シャワーを浴びる", "お風呂に入る", "薬を飲む", "寝る"], "answer": 1 }
+    ]
+  },
+  {
+    "id": "d4-sensei",
+    "level": 4,
+    "title": "先生に相談する",
+    "titleEn": "Asking the teacher for more time",
+    "situation": "Lucas asks Ms. Yamada if he can hand in his report later.",
+    "roles": [["ルーカス", "Lucas"], ["山田先生", "Ms. Yamada"]],
+    "lines": [
+      [0, "山田先生、今ちょっとよろしいですか。", "Ms. Yamada, do you have a moment?"],
+      [1, "ええ、どうぞ。どうしたんですか。", "Yes, go ahead. What is it?"],
+      [0, "実は、来週の金曜日までのレポートのことなんですが。", "Actually, it's about the report that's due next Friday."],
+      [1, "はい。", "Yes."],
+      [0, "アルバイトが忙しくて、まだ半分しか書けていないんです。月曜日まで待っていただけないでしょうか。", "My part-time job has been busy and I've only written half of it. Could you possibly wait until Monday?"],
+      [1, "うーん、そうですか。ほかの学生はみんな金曜日に出しますからね。", "Hmm, I see. All the other students are handing it in on Friday, you know."],
+      [0, "はい、わかっています。すみません。", "Yes, I know. I'm sorry."],
+      [1, "じゃあ、今回だけですよ。月曜日の朝｜九時《くじ》までに、メールで送ってください。", "All right, just this once. Send it by email by nine on Monday morning."],
+      [0, "ありがとうございます。必ず送ります。", "Thank you so much. I'll be sure to send it."],
+      [1, "それから、次からは早めに相談してくださいね。", "And next time, please come to me earlier."],
+      [0, "はい、気をつけます。", "Yes, I'll be careful."]
+    ],
+    "questions": [
+      { "type": "task", "q": "ルーカスさんはレポートをいつまでに出しますか。", "options": ["金曜日の朝", "金曜日の夜", "月曜日の朝", "月曜日の夜"], "answer": 2 },
+      { "type": "point", "q": "レポートはどうやって出しますか。", "options": ["先生に手で渡す", "メールで送る", "事務室に出す", "郵便で送る"], "answer": 1 }
+    ]
+  },
+  {
+    "id": "d4-sasoi",
+    "level": 4,
+    "title": "バーベキューに誘う",
+    "titleEn": "An invitation",
+    "situation": "Hana invites Lucas to a barbecue. Casual speech between friends.",
+    "roles": [["ハナ", "Hana"], ["ルーカス", "Lucas"]],
+    "lines": [
+      [0, "ルーカスさん、今度の土曜日、みんなでバーベキューをするんだけど、来ない？", "Lucas, we're all having a barbecue this Saturday. Want to come?"],
+      [1, "わあ、行きたい。どこでするの？", "Wow, I'd love to. Where is it?"],
+      [0, "川の近くの公園。十一時《じゅういちじ》に集まるの。", "At the park by the river. We're meeting at eleven."],
+      [1, "あ、土曜日か。ごめん、土曜日の午前中はアルバイトなんだ。", "Oh, Saturday. Sorry, I work on Saturday mornings."],
+      [0, "そっか、残念。何時に終わるの？", "Oh, that's a shame. What time do you finish?"],
+      [1, "一時《いちじ》に終わるよ。そのあとでもいい？", "I finish at one. Is after that okay?"],
+      [0, "もちろん。夕方までやってるから、終わったら来て。", "Of course. We'll be there until the evening, so come when you're done."],
+      [1, "ありがとう。じゃあ、何か持っていこうか。", "Thanks. Shall I bring something, then?"],
+      [0, "じゃあ、飲み物をお願いしてもいい？", "Then could I ask you to bring drinks?"],
+      [1, "いいよ。ジュースとお茶を買っていくね。", "Sure. I'll pick up some juice and tea on the way."]
+    ],
+    "questions": [
+      { "type": "task", "q": "ルーカスさんはバーベキューに何を持っていきますか。", "options": ["肉", "野菜", "飲み物", "お皿"], "answer": 2 },
+      { "type": "point", "q": "ルーカスさんはどうして十一時に行けませんか。", "options": ["授業があるから", "アルバイトがあるから", "寝ているから", "公園が遠いから"], "answer": 1 }
+    ]
+  },
+  {
+    "id": "d4-yoyaku",
+    "level": 4,
+    "title": "電話で予約する",
+    "titleEn": "Booking a table by phone",
+    "situation": "Lucas calls a restaurant to book a table.",
+    "roles": [["店員", "Restaurant"], ["ルーカス", "Lucas"]],
+    "lines": [
+      [0, "お電話ありがとうございます。さくら食堂でございます。", "Thank you for calling. This is Sakura Shokudō."],
+      [1, "もしもし、予約をしたいんですが。", "Hello, I'd like to make a reservation."],
+      [0, "ありがとうございます。何日のご予約でしょうか。", "Thank you. For which day?"],
+      [1, "今週の金曜日の夜、七時《しちじ》からお願いしたいんですが。", "This Friday evening, from seven, please."],
+      [0, "何名様でしょうか。", "For how many people?"],
+      [1, "四人《よにん》です。", "Four."],
+      [0, "申し訳ございません。七時《しちじ》は満席でして。八時《はちじ》からでしたら、ご用意できますが。", "I'm very sorry, seven is fully booked. We could have a table ready from eight."],
+      [1, "そうですか。じゃあ、八時《はちじ》でお願いします。", "I see. Eight, then, please."],
+      [0, "かしこまりました。お名前とお電話番号をお願いいたします。", "Certainly. May I have your name and phone number?"],
+      [1, "ルーカスです。番号は、今かけているこの電話です。", "It's Lucas. The number is the phone I'm calling from."],
+      [0, "ルーカス様、金曜日の八時《はちじ》から四名様ですね。お待ちしております。", "Mr. Lucas, Friday from eight for four people. We look forward to seeing you."]
+    ],
+    "questions": [
+      { "type": "task", "q": "ルーカスさんたちは何時にお店に行きますか。", "options": ["六時", "七時", "八時", "九時"], "answer": 2 },
+      { "type": "point", "q": "どうして七時に予約できませんでしたか。", "options": ["店が休みだから", "席がいっぱいだから", "人数が多いから", "電話が遅かったから"], "answer": 1 }
+    ]
+  },
+  {
+    "id": "d3-mensetsu",
+    "level": 3,
+    "title": "アルバイトの面接",
+    "titleEn": "A job interview",
+    "situation": "Lucas has an interview for a part-time job at a café.",
+    "roles": [["店長", "Manager"], ["ルーカス", "Lucas"]],
+    "lines": [
+      [0, "では、面接を始めます。まず、自己紹介をお願いします。", "Let's begin the interview. First, please introduce yourself."],
+      [1, "はい。ブラジルから来たルーカスと申します。今、東京の大学で経済を勉強しています。", "Yes. My name is Lucas, and I'm from Brazil. I'm studying economics at a university in Tokyo."],
+      [0, "どうしてこのお店で働きたいと思ったんですか。", "Why did you want to work at this shop?"],
+      [1, "お客さんと話す仕事なので、日本語がもっと上手になると思ったからです。それに、前からよくこのお店に来ていて、雰囲気が好きなんです。", "It's a job where I talk with customers, so I thought my Japanese would get better. Also, I've been coming here often for a while, and I like the atmosphere."],
+      [0, "なるほど。週に何日ぐらい入れますか。", "I see. About how many days a week can you work?"],
+      [1, "授業があるので、週｜三日《みっか》なら大丈夫です。火曜日と木曜日の夕方と、土曜日は一日中《いちにちじゅう》働けます。", "I have classes, so three days a week would be fine. I can work Tuesday and Thursday evenings, and all day Saturday."],
+      [0, "日曜日はどうですか。日曜日はとても忙しいので、入ってくれる人を探しているんですが。", "How about Sundays? Sundays are very busy, so we're looking for people who can work then."],
+      [1, "日曜日は、月に二回《にかい》ぐらいなら入れると思います。", "On Sundays, I think I could work about twice a month."],
+      [0, "わかりました。レジの経験はありますか。", "Understood. Have you worked a cash register before?"],
+      [1, "ブラジルで少しやったことがありますが、日本ではまだありません。", "I did a little in Brazil, but not in Japan yet."],
+      [0, "大丈夫ですよ。最初は先輩が教えますから。結果は三日以内《みっかいない》に電話で連絡しますね。", "That's fine. A senior staff member will teach you at first. We'll call you with the result within three days."],
+      [1, "はい。よろしくお願いいたします。", "Thank you. I look forward to hearing from you."]
+    ],
+    "questions": [
+      { "type": "task", "q": "ルーカスさんは土曜日、いつ働けますか。", "options": ["夕方だけ", "午前中だけ", "一日中", "働けない"], "answer": 2 },
+      { "type": "point", "q": "ルーカスさんがこの店で働きたい理由は何ですか。", "options": ["店が家から近いから", "日本語が上手になると思ったから", "給料が高いから", "友だちが働いているから"], "answer": 1 }
+    ]
+  },
+  {
+    "id": "d3-heya",
+    "level": 3,
+    "title": "部屋を探す",
+    "titleEn": "Looking for an apartment",
+    "situation": "Lucas visits a real estate agent.",
+    "roles": [["不動産屋", "Agent"], ["ルーカス", "Lucas"]],
+    "lines": [
+      [0, "いらっしゃいませ。お部屋をお探しですか。", "Welcome. Are you looking for a place?"],
+      [1, "はい。大学の近くで、家賃が六万円《ろくまんえん》ぐらいまでの部屋を探しているんですが。", "Yes. I'm looking for a place near the university with rent up to about 60,000 yen."],
+      [0, "大学の近くですと、六万円《ろくまんえん》以下はなかなかないんですよ。駅から少し遠くてもかまいませんか。", "Near the university, there aren't many under 60,000 yen. Do you mind if it's a bit far from the station?"],
+      [1, "自転車があるので、遠くても大丈夫です。", "I have a bicycle, so far is fine."],
+      [0, "でしたら、こちらはいかがでしょう。駅から歩いて二十分《にじゅっぷん》ですが、家賃は五万五千円《ごまんごせんえん》です。", "In that case, how about this one? It's a twenty-minute walk from the station, but the rent is 55,000 yen."],
+      [1, "いいですね。日当たりはどうですか。", "That's good. How much sun does it get?"],
+      [0, "南向きなので、とても明るいですよ。ただ、建物が少し古くて、エレベーターがないんです。お部屋は四階《よんかい》なんですが。", "It faces south, so it's very bright. The building is a little old, though, and has no elevator. The room is on the fourth floor."],
+      [1, "四階《よんかい》まで階段ですか。荷物が多いときは大変ですね。", "Stairs all the way to the fourth floor? That would be hard with a lot to carry."],
+      [0, "一階《いっかい》の部屋もありますが、そちらは六万二千円《ろくまんにせんえん》になります。", "There's a ground-floor room as well, but that one is 62,000 yen."],
+      [1, "うーん、少し高いですね。やっぱり四階《よんかい》の部屋を見せていただけますか。", "Hmm, that's a bit expensive. Could I see the fourth-floor room after all?"],
+      [0, "かしこまりました。今から一緒に見に行きましょう。", "Certainly. Let's go and see it together now."]
+    ],
+    "questions": [
+      { "type": "task", "q": "ルーカスさんはこのあと、何をしますか。", "options": ["一階の部屋を見に行く", "四階の部屋を見に行く", "別の店に行く", "部屋を借りる契約をする"], "answer": 1 },
+      { "type": "point", "q": "ルーカスさんが四階の部屋について心配していることは何ですか。", "options": ["家賃が高いこと", "部屋が暗いこと", "階段しかないこと", "駅から遠いこと"], "answer": 2 }
+    ]
+  },
+  {
+    "id": "d3-chikoku",
+    "level": 3,
+    "title": "遅刻のおわび",
+    "titleEn": "Late for work",
+    "situation": "Lucas arrives late to his part-time job and apologizes to Sato, a senior coworker.",
+    "roles": [["ルーカス", "Lucas"], ["佐藤さん", "Sato"]],
+    "lines": [
+      [0, "佐藤さん、遅くなって本当にすみません。", "Sato-san, I'm really sorry I'm late."],
+      [1, "ルーカスくん、どうしたの？もう三十分《さんじゅっぷん》過ぎてるよ。", "Lucas, what happened? It's already thirty minutes past."],
+      [0, "電車が事故で止まってしまって。連絡しようと思ったんですが、スマホの電池が切れていて。", "The train stopped because of an accident. I meant to let you know, but my phone battery was dead."],
+      [1, "そうだったんだ。心配したよ。", "Oh, so that's what happened. I was worried."],
+      [0, "ご迷惑をおかけしました。", "I'm sorry for the trouble I caused."],
+      [1, "まあ、事故なら仕方ないね。でも、次からは駅の電話を借りるとか、何か方法を考えてね。", "Well, if it was an accident, it can't be helped. But next time, think of some way, like borrowing a phone at the station."],
+      [0, "はい、そうします。今日の分は、閉店のあと残って働きます。", "Yes, I will. I'll stay after closing to make up for today."],
+      [1, "ありがとう。じゃあ、まず倉庫の片付けからお願いできる？", "Thanks. Then could you start by tidying the storeroom?"],
+      [0, "わかりました。すぐやります。", "Got it. I'll do it right away."]
+    ],
+    "questions": [
+      { "type": "task", "q": "ルーカスさんはまず何をしますか。", "options": ["店長に電話する", "倉庫を片付ける", "レジに入る", "駅に戻る"], "answer": 1 },
+      { "type": "point", "q": "ルーカスさんはどうして連絡できませんでしたか。", "options": ["電話番号を忘れたから", "電車の中だったから", "スマホの電池が切れていたから", "寝坊したから"], "answer": 2 }
+    ]
+  },
+  {
+    "id": "d3-wasuremono",
+    "level": 3,
+    "title": "忘れ物",
+    "titleEn": "Left on the train",
+    "situation": "Lucas left his backpack on a train and asks a station attendant for help.",
+    "roles": [["ルーカス", "Lucas"], ["駅員", "Station staff"]],
+    "lines": [
+      [0, "すみません、電車の中に忘れ物をしてしまったんですが。", "Excuse me, I left something on the train."],
+      [1, "どの電車ですか。", "Which train?"],
+      [0, "三十分《さんじゅっぷん》ぐらい前に、この駅に着いた電車です。前から二両目《にりょうめ》に乗っていました。", "The one that arrived here about thirty minutes ago. I was in the second car from the front."],
+      [1, "何を忘れましたか。", "What did you leave?"],
+      [0, "黒いリュックです。中にパソコンと教科書が入っています。", "A black backpack. There's a laptop and textbooks in it."],
+      [1, "何か目印はありますか。", "Does it have anything distinctive on it?"],
+      [0, "ブラジルの国旗のキーホルダーがついています。", "It has a Brazilian flag keyring on it."],
+      [1, "少々お待ちください。終点の駅に届いているそうです。", "One moment, please. It seems it has been handed in at the last station on the line."],
+      [0, "よかった。今から取りに行けばいいですか。", "Thank goodness. Should I go and get it now?"],
+      [1, "はい。終点の駅の事務室で受け取ってください。身分証明書を忘れずに持っていってくださいね。", "Yes. Please collect it at the office of the last station. Don't forget to bring some ID."],
+      [0, "在留カードでいいですか。", "Is my residence card all right?"],
+      [1, "はい、大丈夫です。", "Yes, that's fine."]
+    ],
+    "questions": [
+      { "type": "task", "q": "ルーカスさんはこれからどこへ行きますか。", "options": ["この駅の事務室", "終点の駅の事務室", "警察", "大学"], "answer": 1 },
+      { "type": "point", "q": "ルーカスさんのリュックの目印は何ですか。", "options": ["名前が書いてある", "キーホルダーがついている", "赤い色をしている", "ポケットが大きい"], "answer": 1 }
+    ]
+  },
+  {
+    "id": "d3-hikkoshi",
+    "level": 3,
+    "title": "引っ越しの手伝い",
+    "titleEn": "Asking a favor",
+    "situation": "Lucas asks Hana to help him move. Casual speech between friends.",
+    "roles": [["ルーカス", "Lucas"], ["ハナ", "Hana"]],
+    "lines": [
+      [0, "ハナさん、ちょっとお願いがあるんだけど。", "Hana, there's something I'd like to ask you."],
+      [1, "うん、何？", "Sure, what is it?"],
+      [0, "来週の日曜日に引っ越すことになったんだ。もしよかったら、手伝ってもらえないかな。", "I'm moving next Sunday. If it's okay, could you help me?"],
+      [1, "来週の日曜日か。午後からなら大丈夫だよ。午前中は用事があって。", "Next Sunday, huh. I'm free from the afternoon. I have something on in the morning."],
+      [0, "本当？助かる。荷物はそんなに多くないから、三時間《さんじかん》ぐらいで終わると思う。", "Really? That'd be a big help. I don't have much stuff, so I think it'll take about three hours."],
+      [1, "車はどうするの？", "What about a car?"],
+      [0, "友だちのケンさんが車を貸してくれることになったんだ。", "My friend Ken said he'd lend me his car."],
+      [1, "よかったね。じゃあ、わたしは何をすればいい？", "That's good. So what should I do?"],
+      [0, "新しい部屋の掃除を手伝ってくれると、うれしいな。", "I'd be really glad if you could help clean the new place."],
+      [1, "わかった。掃除の道具も持っていくね。", "Okay. I'll bring cleaning things too."],
+      [0, "ありがとう。お礼に晩ご飯をごちそうするよ。", "Thanks. I'll treat you to dinner to say thank you."]
+    ],
+    "questions": [
+      { "type": "task", "q": "ハナさんは引っ越しの日に何をしますか。", "options": ["荷物を運ぶ", "車を運転する", "新しい部屋を掃除する", "晩ご飯を作る"], "answer": 2 },
+      { "type": "point", "q": "ハナさんはどうして午前中は手伝えませんか。", "options": ["アルバイトがあるから", "用事があるから", "授業があるから", "車がないから"], "answer": 1 }
+    ]
+  },
+  {
+    "id": "m4-ensoku",
+    "level": 4,
+    "title": "先生からのお知らせ",
+    "titleEn": "An announcement from the teacher",
+    "situation": "Ms. Yamada makes an announcement to the class.",
+    "roles": [["山田先生", "Ms. Yamada"]],
+    "lines": [
+      [0, "みなさん、来週の遠足のことで、お知らせがあります。", "Everyone, I have an announcement about next week's school trip."],
+      [0, "遠足は来週の水曜日の予定でしたが、天気予報によると、水曜日は雨が降るそうです。", "The trip was planned for next Wednesday, but according to the forecast it's going to rain on Wednesday."],
+      [0, "それで、遠足は木曜日に変わりました。", "So the trip has been moved to Thursday."],
+      [0, "集まる時間と場所は同じです。朝｜八時《はちじ》に、学校の前に来てください。", "The meeting time and place are the same. Please come to the front of the school at eight in the morning."],
+      [0, "お弁当と飲み物を忘れないでくださいね。", "Don't forget your lunch and something to drink."]
+    ],
+    "questions": [
+      { "type": "summary", "q": "先生が一番伝えたいことは何ですか。", "options": ["遠足の日が変わったこと", "遠足に行く場所", "集まる時間", "持っていく物"], "answer": 0 }
+    ]
+  },
+  {
+    "id": "m4-tenki",
+    "level": 4,
+    "title": "明日の天気",
+    "titleEn": "Tomorrow's weather",
+    "situation": "A weather forecast on the radio.",
+    "roles": [["アナウンサー", "Announcer"]],
+    "lines": [
+      [0, "明日の天気です。", "Here is tomorrow's weather."],
+      [0, "明日は朝から雲が多く、昼ごろから雨が降るでしょう。", "Tomorrow will be cloudy from the morning, with rain from around noon."],
+      [0, "夕方には風も強くなりますので、出かけるときは傘を持っていってください。", "The wind will also pick up in the evening, so take an umbrella when you go out."],
+      [0, "あさっては晴れて、気温も上がるでしょう。", "The day after tomorrow will be sunny and warmer."]
+    ],
+    "questions": [
+      { "type": "summary", "q": "明日の天気はどうですか。", "options": ["一日中晴れる", "朝は雨で、昼から晴れる", "昼から雨で、風も強くなる", "雪が降る"], "answer": 2 }
+    ]
+  },
+  {
+    "id": "m3-supa",
+    "level": 3,
+    "title": "スーパーの放送",
+    "titleEn": "A supermarket announcement",
+    "situation": "An announcement over the speakers in a supermarket.",
+    "roles": [["店内放送", "Announcement"]],
+    "lines": [
+      [0, "本日もさくらスーパーにご来店いただき、まことにありがとうございます。", "Thank you very much for shopping at Sakura Supermarket today."],
+      [0, "お客様にお知らせいたします。", "We have an announcement for our customers."],
+      [0, "ただ今から一時間《いちじかん》、野菜と果物がすべて二割引《にわりび》きになります。", "For the next hour, all vegetables and fruit are twenty percent off."],
+      [0, "また、本日はポイントが二倍《にばい》になる日です。", "Today is also a double-points day."],
+      [0, "レジが大変混み合っておりますので、セルフレジもどうぞご利用ください。", "The checkouts are very busy, so please feel free to use the self-checkout as well."]
+    ],
+    "questions": [
+      { "type": "summary", "q": "何についての放送ですか。", "options": ["店が閉まる時間", "安くなる商品とポイント", "新しいレジの使い方", "駐車場の場所"], "answer": 1 }
+    ]
+  },
+  {
+    "id": "m3-hanasu",
+    "level": 3,
+    "title": "話すのが怖かったころ",
+    "titleEn": "When speaking was scary",
+    "situation": "A student from abroad talks about learning to speak Japanese.",
+    "roles": [["留学生", "Student"]],
+    "lines": [
+      [0, "わたしは日本に来たばかりのころ、日本語を話すのがとても怖かったです。", "When I'd just come to Japan, I was really scared of speaking Japanese."],
+      [0, "文法を間違えたら恥ずかしいと思って、何も言えなかったんです。", "I thought it would be embarrassing to get the grammar wrong, so I couldn't say anything."],
+      [0, "でも、ある日、アルバイト先の先輩に「間違えてもいいから、たくさん話したほうがいいよ」と言われました。", "But one day, a senior coworker at my part-time job told me, \"It's fine to make mistakes, you should talk a lot.\""],
+      [0, "それから、短い文でもいいから、毎日声に出して話すようにしました。", "After that, I made a point of speaking out loud every day, even in short sentences."],
+      [0, "すると、だんだん言葉がすぐに出てくるようになりました。", "And gradually the words started coming out right away."],
+      [0, "今は、間違えることはそんなに怖くありません。", "Now, making mistakes doesn't scare me that much."]
+    ],
+    "questions": [
+      { "type": "summary", "q": "この人は何について話していますか。", "options": ["アルバイトの仕事の大変さ", "日本語の文法の勉強のしかた", "話すことが怖くなくなった理由", "先輩との思い出"], "answer": 2 }
+    ]
+  }
+]

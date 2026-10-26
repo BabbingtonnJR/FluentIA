@@ -4,7 +4,7 @@ import { exportBackup, importBackup, markLevelKnown, saveSettings, type Backup }
 import type { Theme } from '../db/types';
 import { usePack, useSettings } from '../hooks';
 import { FURIGANA_LABEL } from '../reading/furigana';
-import { speak, voicesFor } from '../speech/tts';
+import { speak, voiceQuality, voicesFor } from '../speech/tts';
 import { signOut, syncNow, useSyncStatus } from '../sync/sync';
 
 const NEW_PER_DAY = [10, 15, 20, 25, 30, 40];
@@ -148,15 +148,22 @@ export function SettingsPage() {
           <label htmlFor="voice">Japanese voice</label>
           {voices.length ? (
             <select id="voice" className="input" value={settings.voiceURI ?? ''} onChange={(e) => void saveSettings({ voiceURI: e.target.value || null })}>
-              <option value="">Default</option>
+              <option value="">Most natural available</option>
               {voices.map((v) => (
                 <option key={v.voiceURI} value={v.voiceURI}>
                   {v.name}
+                  {voiceQuality(v) >= 2 ? ' ★' : ''}
                 </option>
               ))}
             </select>
           ) : (
             <span className="faint">No Japanese voice found. On iPhone: Settings → Accessibility → Spoken Content → Voices → Japanese.</span>
+          )}
+          {voices.length > 0 && !voices.some((v) => voiceQuality(v) >= 2) && (
+            <span className="faint">
+              Sounds robotic? On iPhone, download a better voice for free: Settings → Accessibility → Spoken Content → Voices → Japanese → Kyoko
+              (Enhanced) or Otoya (Enhanced). Then reopen Fluentia and pick it here. Voices marked ★ are the natural ones.
+            </span>
           )}
         </div>
         <div className="field">
