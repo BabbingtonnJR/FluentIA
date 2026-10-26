@@ -2593,3 +2593,106 @@ body {
   outline: 2px solid var(--accent);
   outline-offset: 1px;
 }
+
+/* ---- Mining, memory hooks, weak spots -------------------------------------- */
+
+.chip.mine {
+  min-height: 30px;
+  padding: 3px 10px;
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: var(--accent);
+  border-color: var(--accent-soft);
+  display: inline-flex;
+  align-items: center;
+}
+
+.chip.mine.done {
+  color: var(--good);
+  border-color: transparent;
+  background: transparent;
+  cursor: default;
+  padding-left: 0;
+}
+
+.mine-form {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.mine-form .input {
+  min-height: 36px;
+  padding: 6px 10px;
+}
+
+.mined-line {
+  margin-top: 4px;
+  text-align: center;
+}
+
+.mined-line .sentence {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+}
+
+.memo {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.memo.leech .memo-leech {
+  color: var(--warn);
+  font-size: 0.875rem;
+}
+
+.memo .input {
+  min-height: 0;
+}
+
+.memo-text {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  white-space: normal;
+}
+
+.memo-label {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--warn);
+  margin-right: 4px;
+}
+
+.weak-item {
+  cursor: default;
+  align-items: flex-start;
+}
+
+.weak-item .gloss {
+  white-space: normal;
+}
+
+.weak-item .term a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.weak-item .memo-text {
+  display: block;
+  margin-top: 4px;
+}

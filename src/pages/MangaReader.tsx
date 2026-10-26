@@ -225,6 +225,7 @@ export function MangaReader() {
           sentence={bubbles[selected].s}
           pack={pack}
           known={known}
+          source={manga.title}
           onSpeak={say}
           onClose={() => select(null)}
           onPrev={selected > 0 ? () => select(selected - 1) : undefined}

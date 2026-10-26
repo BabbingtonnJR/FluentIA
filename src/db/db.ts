@@ -1,5 +1,5 @@
 import Dexie, { type EntityTable } from 'dexie';
-import type { ActivityRecord, CardRecord, DeckRecord, KvRecord, MangaImage, MangaRecord, MediaRecord, MetaRecord, NoteRecord, ReviewRecord, VideoRecord } from './types';
+import type { ActivityRecord, CardRecord, DeckRecord, KvRecord, MangaImage, MangaRecord, MediaRecord, MetaRecord, MistakeRecord, NoteRecord, ReviewRecord, VideoRecord } from './types';
 
 export class FluentiaDB extends Dexie {
   cards!: EntityTable<CardRecord, 'id'>;
@@ -13,6 +13,7 @@ export class FluentiaDB extends Dexie {
   decks!: EntityTable<DeckRecord, 'id'>;
   notes!: EntityTable<NoteRecord, 'id'>;
   media!: EntityTable<MediaRecord, 'id'>;
+  mistakes!: EntityTable<MistakeRecord, 'id'>;
 
   constructor(name = 'fluentia') {
     super(name);
@@ -31,11 +32,13 @@ export class FluentiaDB extends Dexie {
     this.version(4).stores({ decks: 'id, lang, updatedAt', notes: 'id, deckId, updatedAt' });
     // Their pictures and sounds, on this device only.
     this.version(5).stores({ media: 'id' });
+    // Wrong answers for the mistake notebook (synced).
+    this.version(6).stores({ mistakes: 'id, [lang+at], [lang+itemId], updatedAt' });
   }
 }
 
 export const db = new FluentiaDB();
 
 /** Tables that are synced to the server, by their remote collection name. */
-export const SYNCED_TABLES = ['cards', 'reviews', 'activities', 'kv', 'decks', 'notes'] as const;
+export const SYNCED_TABLES = ['cards', 'reviews', 'activities', 'kv', 'decks', 'notes', 'mistakes'] as const;
 export type SyncedTable = (typeof SYNCED_TABLES)[number];

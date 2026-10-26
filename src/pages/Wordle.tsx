@@ -4,6 +4,7 @@ import { Icon } from '../components/Icon';
 import { KanaKeyboard } from '../components/KanaKeyboard';
 import { Petals } from '../components/Petals';
 import { logActivity } from '../db/repo';
+import { recordMistake } from '../study/weak';
 import {
   dailyWord,
   keyMarks,
@@ -103,6 +104,7 @@ export function Wordle() {
     if (!target || !over || logged) return;
     update({ logged: true });
     void logActivity(pack.manifest.id, 'wordle', { score: wordleScore(solved, guesses.length, hintCount), total: MAX_GUESSES }, settings);
+    if (!solved) void recordMistake(pack.manifest.id, { kind: 'vocab', id: target.item.id }, 'wordle');
     void say();
   }, [over, logged, target]); // the rest is read at the moment the game ends
 

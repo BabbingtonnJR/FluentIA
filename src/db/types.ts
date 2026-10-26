@@ -81,7 +81,19 @@ export interface ReviewRecord extends Synced {
   durationMs: number;
 }
 
-export type ActivityType = 'quiz' | 'handsfree' | 'reading' | 'mock' | 'wordle' | 'crossword' | 'literature' | 'practice';
+export type ActivityType =
+  | 'quiz'
+  | 'handsfree'
+  | 'reading'
+  | 'mock'
+  | 'wordle'
+  | 'crossword'
+  | 'literature'
+  | 'practice'
+  | 'shadowing'
+  | 'roleplay'
+  | 'responses'
+  | 'passages';
 
 export interface ActivityRecord extends Synced {
   lang: string;
@@ -93,6 +105,24 @@ export interface ActivityRecord extends Synced {
   createdAt: number;
   /** Mock tests: level and correct/total per section. */
   detail?: { level: number; sections: Record<string, [number, number]> };
+}
+
+/** Where a wrong answer was given. */
+export type MistakeSource = 'quiz' | 'mock' | 'practice' | 'wordle' | 'passages';
+
+/**
+ * A wrong answer on a grammar point, word or kanji, kept for the mistake notebook. Synced.
+ * It stays open until the learner gets that item right again in a drill (`resolvedAt`).
+ */
+export interface MistakeRecord extends Synced {
+  lang: string;
+  kind: ItemKind;
+  itemId: string;
+  source: MistakeSource;
+  /** The wrong option picked, when there was one. */
+  picked?: string;
+  at: number;
+  resolvedAt?: number;
 }
 
 export interface KvRecord extends Synced {

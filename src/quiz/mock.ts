@@ -28,6 +28,8 @@ export interface MockQuestion {
   optionsJp: boolean;
   /** Other forms that would fill the blank just as well, shown in the review. */
   also?: string[];
+  /** The word or grammar point asked about, for the mistake notebook. */
+  item?: { kind: 'vocab' | 'grammar'; id: string };
 }
 
 type Rand = () => number;
@@ -132,6 +134,7 @@ export function generateMock({ pack, sentences, level, rand = Math.random }: Moc
       prompt: { markup: s.r, mark: [at, at + v.word.length], furigana: false },
       ...withOptions(firstReading(v), readingsBesides(v), rand, true),
       optionsJp: true,
+      item: { kind: 'vocab', id: v.id },
     });
   }
   // 表記: which kanji spelling is right for the underlined word?
@@ -149,6 +152,7 @@ export function generateMock({ pack, sentences, level, rand = Math.random }: Moc
         true,
       ),
       optionsJp: true,
+      item: { kind: 'vocab', id: v.id },
     });
   }
   // 文脈規定: which word fits the blank?
@@ -162,6 +166,7 @@ export function generateMock({ pack, sentences, level, rand = Math.random }: Moc
       prompt: { markup: s.r, mark: [at, at + v.word.length], blank: true, furigana: true },
       ...withOptions(v.word, othersThan(v).map((x) => x.word), rand),
       optionsJp: true,
+      item: { kind: 'vocab', id: v.id },
     });
   }
 
@@ -188,6 +193,7 @@ export function generateMock({ pack, sentences, level, rand = Math.random }: Moc
       ...withOptions(correct, others, rand),
       optionsJp: true,
       ...(also.length ? { also } : {}),
+      item: { kind: 'grammar', id: g.id },
     });
   }
 

@@ -11,6 +11,7 @@ import { State } from '../srs/scheduler';
 import { dailyQuests } from '../stats/quests';
 import { computeStreak, computeXp, levelFromXp, studyDays } from '../stats/stats';
 import { useSyncStatus } from '../sync/sync';
+import { leeches, openMistakes } from '../study/weak';
 
 export function Today() {
   const pack = usePack();
@@ -34,6 +35,7 @@ export function Today() {
       reviewedToday: todays.filter((r) => r.prevState !== State.New).length,
       learnedToday: todays.filter((r) => r.prevState === State.New).length,
       activitiesToday: activities.filter((a) => a.day === today),
+      weak: (await openMistakes(lang)).length + leeches(await db.cards.where('[lang+due]').between([lang, -Infinity], [lang, Infinity]).toArray()).length,
     };
   }, [pack, settings]);
 
@@ -136,6 +138,18 @@ export function Today() {
           <div className="faint">Pick grammar and words to drill, e.g. ように vs ために</div>
         </div>
       </Link>
+
+      {data.weak > 0 && (
+        <Link to="/weak" className="card link" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <div className="jp" style={{ fontSize: '2rem', color: 'var(--warn)', lineHeight: 1 }} aria-hidden="true">
+            弱
+          </div>
+          <div style={{ flex: 1 }}>
+            <strong>Weak spots · {data.weak}</strong>
+            <div className="faint">Your mistakes and tricky cards, ready to drill</div>
+          </div>
+        </Link>
+      )}
 
       <Link to="/literature" className="card link" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
         <div className="jp" style={{ fontSize: '2rem', color: 'var(--accent)', lineHeight: 1 }} aria-hidden="true">

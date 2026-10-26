@@ -197,6 +197,7 @@ export function VideoPlayer() {
           sentence={lines[sheet].s}
           pack={pack}
           known={known}
+          source={record.title}
           onSpeak={say}
           onClose={() => setSheet(null)}
           onPrev={sheet > 0 ? () => setSheet(sheet - 1) : undefined}

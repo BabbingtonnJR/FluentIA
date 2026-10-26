@@ -7,6 +7,7 @@ import { vocabSenses } from '../content/senses';
 import type { Pack } from '../content/types';
 import { db } from '../db/db';
 import { logActivity } from '../db/repo';
+import { recordMistake, resolveMistakes } from '../study/weak';
 import { usePack, useSettings } from '../hooks';
 import { generateQuiz, QUESTION_TITLES, REVIEW_MIN, type Question, type QuizMode } from '../quiz/generate';
 import { speak, stopSpeaking } from '../speech/tts';
@@ -100,7 +101,11 @@ export function Quiz() {
   function pick(n: number) {
     if (!q || picked !== null) return;
     setPicked(n);
-    if (n === q.answer) setScore((s) => s + 1);
+    const item = { kind: q.type === 'kanji' ? ('kanji' as const) : ('vocab' as const), id: q.itemId };
+    if (n === q.answer) {
+      setScore((s) => s + 1);
+      void resolveMistakes(pack.manifest.id, [item]);
+    } else void recordMistake(pack.manifest.id, item, 'quiz', q.options[n]);
     if (q.speak && q.type !== 'listening') void say(q.speak);
   }
 

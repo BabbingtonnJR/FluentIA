@@ -207,6 +207,7 @@ export async function exportBackup(d: FluentiaDB = db) {
     kv: await d.kv.toArray(),
     decks: await d.decks.toArray(),
     notes: await d.notes.toArray(),
+    mistakes: await d.mistakes.toArray(),
   };
 }
 
@@ -216,10 +217,10 @@ export type Backup = Awaited<ReturnType<typeof exportBackup>>;
 export async function importBackup(backup: Backup, d: FluentiaDB = db): Promise<number> {
   if (backup.app !== 'fluentia') throw new Error('This file is not a Fluentia backup.');
   let count = 0;
-  await d.transaction('rw', [d.cards, d.reviews, d.activities, d.kv, d.decks, d.notes], async () => {
-    for (const name of ['cards', 'reviews', 'activities', 'kv', 'decks', 'notes'] as const) {
+  await d.transaction('rw', [d.cards, d.reviews, d.activities, d.kv, d.decks, d.notes, d.mistakes], async () => {
+    for (const name of ['cards', 'reviews', 'activities', 'kv', 'decks', 'notes', 'mistakes'] as const) {
       const table = d.table(name);
-      // Backups from before imported decks have no decks / notes.
+      // Older backups have no decks / notes / mistakes.
       for (const rec of (backup[name] ?? []) as { id: string; updatedAt: number }[]) {
         const local = (await table.get(rec.id)) as { updatedAt: number } | undefined;
         if (!local || local.updatedAt < rec.updatedAt) {

@@ -13,6 +13,7 @@ import { usePack, useSettings } from '../hooks';
 import { afterMotion } from '../lib/motion';
 import { generateMock, likelyPass, scoreMock, SECONDS_PER_QUESTION, SECTIONS, type MockQuestion } from '../quiz/mock';
 import { speak, stopSpeaking } from '../speech/tts';
+import { recordMistake } from '../study/weak';
 
 type Phase = 'setup' | 'running' | 'done';
 
@@ -88,6 +89,9 @@ export function MockTest() {
     finished.current = true;
     stopSpeaking();
     const result = scoreMock(questions, finalPicks);
+    questions.forEach((q, i) => {
+      if (q.item && finalPicks[i] !== q.answer) void recordMistake(lang, q.item, 'mock', finalPicks[i] === null ? undefined : q.options[finalPicks[i]!]);
+    });
     setUsedSeconds(Math.min(limit, Math.round((Date.now() - startedAt) / 1000)));
     void logActivity(
       lang,

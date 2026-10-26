@@ -201,6 +201,7 @@ export function LitReader() {
           sentence={sentences[selected]}
           pack={pack}
           known={known}
+          source={work.title}
           onSpeak={say}
           onClose={() => select(null)}
           onPrev={selected > 0 ? () => select(selected - 1) : undefined}
