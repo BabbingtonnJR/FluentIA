@@ -12,6 +12,7 @@ import { dailyQuests } from '../stats/quests';
 import { computeStreak, computeXp, levelFromXp, studyDays } from '../stats/stats';
 import { useSyncStatus } from '../sync/sync';
 import { leeches, openMistakes } from '../study/weak';
+import { examDateOf, examLevelOf } from './Exam';
 
 export function Today() {
   const pack = usePack();
@@ -71,6 +72,8 @@ export function Today() {
         </div>
       </header>
 
+      <ExamCountdown level={examLevelOf(settings)} date={examDateOf(settings)} />
+
       <Link to="/study" className="card link hero">
         <div className="stat-label">Study session</div>
         <div className="row" style={{ alignItems: 'baseline', gap: 20, margin: '6px 0 14px' }}>
@@ -126,6 +129,16 @@ export function Today() {
           <div className="faint">Meaning, reading, listening</div>
         </Link>
       </div>
+
+      <Link to="/passages" className="card link" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div className="jp" style={{ fontSize: '2rem', color: 'var(--indigo)', lineHeight: 1 }} aria-hidden="true">
+          解
+        </div>
+        <div style={{ flex: 1 }}>
+          <strong>Timed reading</strong>
+          <div className="faint">Notices, emails and essays like the JLPT, against the clock</div>
+        </div>
+      </Link>
 
       {pack.grammar.length > 0 && (
         <Link to="/mock" className="card link" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
@@ -231,5 +244,24 @@ export function Today() {
         </div>
       )}
     </div>
+  );
+}
+
+/** Days to the exam, as a slim link to the plan. */
+function ExamCountdown({ level, date }: { level: number; date: string }) {
+  const days = Math.max(0, Math.ceil((new Date(`${date}T09:00:00`).getTime() - Date.now()) / 86_400_000));
+  return (
+    <Link to="/exam" className="card link exam-countdown" style={{ display: 'flex' }}>
+      <span className="jp" aria-hidden="true">
+        験
+      </span>
+      <span style={{ flex: 1 }}>
+        <strong>
+          JLPT N{level} in {days} {days === 1 ? 'day' : 'days'}
+        </strong>
+        <span className="faint"> · your plan</span>
+      </span>
+      <span aria-hidden="true">→</span>
+    </Link>
   );
 }

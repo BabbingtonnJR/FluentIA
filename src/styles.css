@@ -2850,3 +2850,50 @@ body {
   background: var(--accent);
   color: var(--accent-ink);
 }
+
+/* ---- Reading passages ------------------------------------------------------ */
+
+.passage {
+  text-align: left;
+  font-family: var(--font-jp);
+  font-size: 1.02rem;
+  line-height: 2;
+  background: var(--surface-2);
+  border-radius: 12px;
+  padding: 12px 14px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.passage p {
+  margin: 0 0 0.6em;
+  text-indent: 1em;
+}
+
+.passage p:last-child {
+  margin-bottom: 0;
+}
+
+.passage-title {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.exam-countdown {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.exam-countdown .jp {
+  font-size: 1.4rem;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.your-turn .sentence,
+.mined-line .sentence {
+  font-size: 1.35rem;
+}

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { Sentence } from '../content/types';
 import { makePack, seeded } from '../test/fixtures';
-import { generateMock, likelyPass, scoreMock, SECTIONS, type MockQuestion } from './mock';
+import { generateMock, likelyPass, scoreMock, SECTIONS, type MockExtras, type MockQuestion } from './mock';
 
 describe('generateMock', () => {
   const pack = makePack({ 5: 5, 4: 30 }, { 5: 0, 4: 0 }, { 4: 12 });
@@ -55,5 +55,75 @@ describe('scoring', () => {
     expect(likelyPass(4, scoreMock(qs, [0, 0, 0, 0, 0, 0]))).toBe(true);
     // 5/6 overall, but nothing right in listening
     expect(likelyPass(4, scoreMock(qs, [0, 0, 0, 0, 0, 1]))).toBe(false);
+  });
+});
+
+describe('exam-style reading and listening', () => {
+  const line = (say: string) => ({ s: { r: say, w: [] }, say });
+  const extras: MockExtras = {
+    dialogues: [
+      {
+        id: 'd1',
+        level: 4,
+        title: 't',
+        titleEn: 't',
+        situation: '',
+        roles: [{ jp: 'A', en: 'A' }, { jp: 'B', en: 'B' }],
+        lines: [{ who: 0, ...line('こんにちは') }, { who: 1, ...line('こんにちは') }],
+        questions: [{ type: 'task', q: '何をしますか。', say: '何をしますか。', options: ['あ', 'い', 'う', 'え'], answer: 2 }],
+      },
+      {
+        id: 'm1',
+        level: 4,
+        title: 't',
+        titleEn: 't',
+        situation: '',
+        roles: [{ jp: 'A', en: 'A' }],
+        lines: [{ who: 0, ...line('お知らせです') }],
+        questions: [{ type: 'summary', q: '何の話ですか。', say: '何の話ですか。', options: ['か', 'き', 'く', 'け'], answer: 0 }],
+      },
+    ],
+    responses: [
+      { id: 'r1', level: 4, kind: 'reply', prompt: line('お先に失礼します'), good: line('お疲れさまでした'), bad: [line('いただきます'), line('ただいま')] },
+      { id: 's1', level: 4, kind: 'situation', situation: 'You leave.', good: line('お邪魔しました'), bad: [line('お邪魔します'), line('いらっしゃい')] },
+    ],
+    passages: [
+      {
+        id: 'p1',
+        level: 4,
+        kind: 'short',
+        title: 'メモ',
+        titleEn: 'Note',
+        paragraphs: [[{ r: '明日は休みです。', w: [] }]],
+        en: ['Tomorrow is a holiday.'],
+        chars: 8,
+        questions: [
+          { q: '明日は？', options: ['休み', '授業', '試験', '旅行'], answer: 0, why: '' },
+          { q: 'だれが？', options: ['わたし', 'あなた', '先生', '友だち'], answer: 0, why: '' },
+        ],
+      },
+    ],
+  };
+  const pack = makePack({ 5: 0, 4: 30 }, { 5: 0, 4: 0 }, { 4: 4 });
+  const questions = generateMock({ pack, sentences: [], level: 4, extras, rand: seeded(3) });
+
+  it('asks about passages with the passage shown', () => {
+    const reading = questions.filter((q) => q.section === 'reading');
+    expect(reading).toHaveLength(2);
+    expect(reading.every((q) => q.passage?.id === 'p1')).toBe(true);
+    expect(reading[0].options[reading[0].answer]).toBe('休み');
+  });
+
+  it('plays conversations and asks in the formats of the real test', () => {
+    const listening = questions.filter((q) => q.section === 'listening');
+    expect(listening.map((q) => q.part)).toEqual(['課題理解', '概要理解', '発話表現', '即時応答']);
+    const task = listening[0];
+    expect(task.script).toHaveLength(2);
+    expect(task.script![1].alt).toBe(true);
+    expect(task.options[task.answer]).toBe('う');
+    const reply = listening[3];
+    expect(reply.audioOptions).toBe(true);
+    expect(reply.options).toHaveLength(3);
+    expect(reply.options[reply.answer]).toBe('お疲れさまでした');
   });
 });

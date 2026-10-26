@@ -14,7 +14,6 @@ const SOURCE_LABEL: Record<MistakeSource, string> = {
   mock: 'mock test',
   practice: 'practice',
   wordle: 'Wordle',
-  passages: 'reading',
 };
 
 const detailLink = (kind: ItemKind, id: string) =>

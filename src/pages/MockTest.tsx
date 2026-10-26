@@ -5,13 +5,13 @@ import { CountUp } from '../components/CountUp';
 import { Icon } from '../components/Icon';
 import { Petals } from '../components/Petals';
 import { Ruby } from '../components/Ruby';
-import { loadSentences } from '../content/packs';
+import { loadPassages, loadSentences, loadSpeaking } from '../content/packs';
 import type { Sentence } from '../content/types';
 import { db } from '../db/db';
 import { logActivity } from '../db/repo';
 import { usePack, useSettings } from '../hooks';
 import { afterMotion } from '../lib/motion';
-import { generateMock, likelyPass, scoreMock, SECONDS_PER_QUESTION, SECTIONS, type MockQuestion } from '../quiz/mock';
+import { generateMock, likelyPass, scoreMock, SECONDS_PER_QUESTION, SECTIONS, type MockExtras, type MockQuestion } from '../quiz/mock';
 import { speak, stopSpeaking } from '../speech/tts';
 import { recordMistake } from '../study/weak';
 
@@ -38,6 +38,7 @@ export function MockTest() {
   });
 
   const [sentences, setSentences] = useState<Sentence[] | null>(null);
+  const [extras, setExtras] = useState<MockExtras>({});
   const [phase, setPhase] = useState<Phase>('setup');
   const [questions, setQuestions] = useState<MockQuestion[]>([]);
   const [picks, setPicks] = useState<(number | null)[]>([]);
@@ -50,6 +51,9 @@ export function MockTest() {
 
   useEffect(() => {
     loadSentences(lang).then(setSentences, () => setSentences([]));
+    // Dialogues and passages make the listening and reading parts like the real test; without them the mock still works.
+    loadSpeaking(lang).then((s) => setExtras((x) => ({ ...x, dialogues: s.dialogues, responses: s.responses })), () => {});
+    loadPassages(lang).then((passages) => setExtras((x) => ({ ...x, passages })), () => {});
     return () => stopSpeaking();
   }, [lang]);
 
@@ -68,12 +72,29 @@ export function MockTest() {
   const timeLeft = Math.max(0, limit - Math.floor((now - startedAt) / 1000));
   const q = questions[index];
 
-  const say = (text: string) => speak(text, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate });
+  const say = (text: string, alt = false) => speak(text, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate, alt });
+
+  // Listening: the conversation, then the question, then (for quick replies) each option by number.
+  const playing = useRef(0);
+  async function play(question: MockQuestion) {
+    const token = ++playing.current;
+    stopSpeaking();
+    const steps: [string, boolean][] = [
+      ...(question.script ?? []).map((l): [string, boolean] => [l.say, l.alt]),
+      ...(question.speak ? [[question.speak, false] as [string, boolean]] : []),
+      ...(question.audioOptions ? question.options.map((o, n): [string, boolean] => [`${NUMBERS[n]}。${o}`, false]) : []),
+    ];
+    for (const [text, alt] of steps) {
+      if (token !== playing.current) return;
+      await say(text, alt);
+      await new Promise((r) => setTimeout(r, 350));
+    }
+  }
 
   function start() {
     if (!sentences) return;
     finished.current = false;
-    const qs = generateMock({ pack, sentences, level });
+    const qs = generateMock({ pack, sentences, level, extras });
     setQuestions(qs);
     setPicks(qs.map(() => null));
     setIndex(0);
@@ -120,9 +141,12 @@ export function MockTest() {
   // Listening questions play once automatically, the first time they are shown.
   const heard = useRef(new Set<number>());
   useEffect(() => {
-    if (phase !== 'running' || !q?.speak || heard.current.has(index)) return;
+    if (phase !== 'running' || !q || !(q.speak || q.script) || heard.current.has(index)) return;
     heard.current.add(index);
-    void say(q.speak);
+    void play(q);
+    return () => {
+      playing.current++;
+    };
   }, [phase, index]); // only when the question changes
 
   /**
@@ -275,9 +299,21 @@ export function MockTest() {
               {mistakes.map(({ question, pick: p }, i) => (
                 <div key={i} className="card example" style={{ '--i': i } as CSSProperties}>
                   <div className="faint">
-                    {sectionInfo(question.section).jp} · {question.title}
+                    {sectionInfo(question.section).jp}
+                    {question.part ? ` ${question.part}` : ''} · {question.title}
                   </div>
-                  {question.prompt ? (
+                  {question.passage ? (
+                    <div className="faint" lang="ja">
+                      「{question.passage.title}」
+                    </div>
+                  ) : question.script ? (
+                    <div className="row" style={{ margin: '6px 0' }}>
+                      <button className="icon-btn" onClick={() => void play(question)} aria-label="Play again">
+                        <Icon name="speaker" />
+                      </button>
+                      <span className="faint">Play the audio again</span>
+                    </div>
+                  ) : question.prompt ? (
                     <p className="sentence small" lang="ja">
                       <Ruby markup={question.prompt.markup} cloze={question.prompt.mark} mode={question.prompt.furigana ? 'all' : 'none'} />
                     </p>
@@ -348,10 +384,20 @@ export function MockTest() {
           </span>{' '}
           · {index + 1}/{questions.length}
         </div>
-        <div className="muted" style={{ fontWeight: 600 }}>
+        {q.part && (
+          <div className="faint jp" lang="ja">
+            {q.part}
+          </div>
+        )}
+        {q.passage && <PassageView passage={q.passage} furigana={settings.furigana !== 'none'} />}
+        <div className="muted" style={{ fontWeight: 600 }} lang={q.authored ? 'ja' : undefined}>
           {q.title}
         </div>
-        {q.prompt ? (
+        {q.passage ? null : q.script ? (
+          <button className="icon-btn pulse-ring" style={{ margin: '12px auto', width: 72, height: 72 }} onClick={() => void play(q)} aria-label="Play again">
+            <Icon name="speaker" />
+          </button>
+        ) : q.prompt ? (
           <p className="sentence" lang="ja" style={{ margin: '0 auto' }}>
             <Ruby markup={q.prompt.markup} cloze={q.prompt.mark} blank={q.prompt.blank} mode={q.prompt.furigana && settings.furigana !== 'none' ? 'all' : 'none'} />
           </p>
@@ -372,7 +418,7 @@ export function MockTest() {
             aria-pressed={picks[index] === n}
             onClick={() => void pick(n)}
           >
-            {o}
+            {q.audioOptions ? `${n + 1}` : o}
           </button>
         ))}
       </div>
@@ -403,6 +449,24 @@ export function MockTest() {
       <button className={`btn block${unanswered ? '' : ' primary'}`} onClick={() => finish(picks)}>
         {unanswered ? `Finish test · ${unanswered} unanswered` : 'Finish test'}
       </button>
+    </div>
+  );
+}
+
+const NUMBERS = ['いちばん', 'にばん', 'さんばん', 'よんばん'];
+
+/** A reading passage above its question, as on the exam paper. */
+function PassageView({ passage, furigana }: { passage: NonNullable<MockQuestion['passage']>; furigana: boolean }) {
+  return (
+    <div className="passage" lang="ja">
+      <div className="passage-title">{passage.title}</div>
+      {passage.paragraphs.map((para, i) => (
+        <p key={i}>
+          {para.map((r, j) => (
+            <Ruby key={j} markup={r} mode={furigana ? 'all' : 'none'} />
+          ))}
+        </p>
+      ))}
     </div>
   );
 }

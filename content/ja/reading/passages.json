@@ -99,7 +99,7 @@
     ],
     "en": ["Because of an inspection, the elevator cannot be used at the following time.", "November 12, from 10 a.m. to 3 p.m.", "We apologize for the inconvenience and ask for your cooperation. If you are expecting a heavy delivery during the inspection, please contact the caretaker's office in advance. The caretaker will help carry it."],
     "questions": [
-      { "q": "点検中に重い荷物が届く予定の人は、どうすればいいですか。", "options": ["その日は家にいないようにする", "前もって管理人《かんりにん》室に連絡する", "午後三時まで待ってもらう", "自分で階段で運ぶ"], "answer": 1, "why": "「前もって管理人室までご連絡ください」: tell the caretaker beforehand, and they will help." }
+      { "q": "点検中に重い荷物が届く予定の人は、どうすればいいですか。", "options": ["その日は家にいないようにする", "前もって管理人室に連絡する", "午後三時まで待ってもらう", "自分で階段で運ぶ"], "answer": 1, "why": "「前もって管理人室までご連絡ください」: tell the caretaker beforehand, and they will help." }
     ]
   },
   {
@@ -111,7 +111,7 @@
     "paragraphs": [
       ["最近、手で字を書く機会がずいぶん減った。", "仕事のメールも友人への連絡も、ほとんどスマートフォンやパソコンで済ませている。"],
       ["便利になったことは確かだが、困ることもある。", "先日、銀行で書類に住所を書こうとしたら、簡単な漢字が思い出せなかったのだ。", "読むことはできるのに、書けない。", "少し恥ずかしかった。"],
-      ["そこで、わたしは一日に一回、手帳に短い日記を書くことにした。", "最初は面倒だったが、続けているうちに、字を書く時間が楽しみになってきた。", "キーボードで打つときより、ゆっくり考えながら言葉を選ぶようになった気がする。"],
+      ["そこで、わたしは一日に一回《いっかい》、手帳に短い日記を書くことにした。", "最初は面倒だったが、続けているうちに、字を書く時間が楽しみになってきた。", "キーボードで打つときより、ゆっくり考えながら言葉を選ぶようになった気がする。"],
       ["手で書くことは、ただ字を覚えるためだけではなく、自分の考えを整理するためにも役に立つのかもしれない。"]
     ],
     "en": ["Lately I write by hand far less often. Work emails and messages to friends are almost all done on a smartphone or computer.", "It's certainly more convenient, but it causes problems too. The other day at the bank, when I tried to write my address on a form, I couldn't remember a simple kanji. I can read it, but I can't write it. I was a little embarrassed.", "So I decided to write a short diary in my notebook once a day. It was a chore at first, but as I kept going, I began to look forward to the time spent writing. I feel I now choose my words more slowly and thoughtfully than when I type.", "Writing by hand may help not only to remember characters, but also to sort out one's own thoughts."],
@@ -146,9 +146,9 @@
     "title": "さくら市民センター　料理教室のご案内",
     "titleEn": "Sakura Community Centre cooking classes",
     "paragraphs": [
-      ["和食コースは、毎週火曜日の午後｜六時半《ろくじはん》から八時半《はちじはん》までです。", "材料費は一回｜千五百円《せんごひゃくえん》です。"],
-      ["パンコースは、第一と第三土曜日の午前｜十時《じゅうじ》から十二時《じゅうにじ》までです。", "材料費は一回｜千円《せんえん》です。"],
-      ["子どもコースは、第二日曜日の午後｜一時《いちじ》から三時《さんじ》までです。", "小学生だけが参加できます。", "材料費は一回｜五百円《ごひゃくえん》です。"],
+      ["和食コースは、毎週火曜日の午後｜六時半《ろくじはん》から八時半《はちじはん》までです。", "材料費は一回《いっかい》｜千五百円《せんごひゃくえん》です。"],
+      ["パンコースは、第一と第三土曜日の午前｜十時《じゅうじ》から十二時《じゅうにじ》までです。", "材料費は一回《いっかい》｜千円《せんえん》です。"],
+      ["子どもコースは、第二日曜日の午後｜一時《いちじ》から三時《さんじ》までです。", "小学生だけが参加できます。", "材料費は一回《いっかい》｜五百円《ごひゃくえん》です。"],
       ["申し込みは、参加したい日の三日前《みっかまえ》までに、電話かホームページでお願いします。", "初めての方《かた》は、エプロンとタオルを持ってきてください。"]
     ],
     "en": ["Japanese cooking: every Tuesday, 6:30 to 8:30 p.m., ingredients 1,500 yen per class.", "Bread: first and third Saturday, 10 a.m. to 12 noon, ingredients 1,000 yen per class.", "Children's class: second Sunday, 1 to 3 p.m., primary school children only, ingredients 500 yen per class.", "Apply by phone or on the website at least three days before the day you want to attend. First-timers, please bring an apron and a towel."],

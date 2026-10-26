@@ -108,7 +108,7 @@ export interface ActivityRecord extends Synced {
 }
 
 /** Where a wrong answer was given. */
-export type MistakeSource = 'quiz' | 'mock' | 'practice' | 'wordle' | 'passages';
+export type MistakeSource = 'quiz' | 'mock' | 'practice' | 'wordle';
 
 /**
  * A wrong answer on a grammar point, word or kanji, kept for the mistake notebook. Synced.
@@ -152,6 +152,10 @@ export interface Settings {
   furigana: 'all' | 'unknown' | 'none';
   /** New grammar points per day, on top of newPerDay (grammar is slower to absorb than words). */
   grammarPerDay: number;
+  /** The JLPT level aimed for; null means the hardest level being studied. */
+  examLevel: number | null;
+  /** Exam day (YYYY-MM-DD); null means the next JLPT. */
+  examDate: string | null;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -166,6 +170,8 @@ export const DEFAULT_SETTINGS: Settings = {
   dayStartHour: 4,
   furigana: 'unknown',
   grammarPerDay: 2,
+  examLevel: null,
+  examDate: null,
 };
 
 /** A video the learner imported with its subtitles, kept on this device only. */

@@ -42,6 +42,8 @@ const problems = [];
 function checkQuestion(where, q) {
   if (q.options.length < 3 || q.answer < 0 || q.answer >= q.options.length) problems.push(`${where}: bad options or answer`);
   if (new Set(q.options).size !== q.options.length) problems.push(`${where}: repeated option`);
+  // Questions and options are shown as plain text: readings in them would show up as 《》.
+  if ([q.q, ...q.options].some((t) => /[《》｜]/.test(t))) problems.push(`${where}: reading markup in a question or option`);
 }
 
 const dialogues = (await read('speaking/dialogues.json')).map((d) => {
