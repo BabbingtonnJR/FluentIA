@@ -3167,3 +3167,29 @@ body {
   stroke-width: 2.5;
   stroke-linecap: round;
 }
+
+/* ---- Today: compact activity tiles ------------------------------------------ */
+
+.tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.card.link.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px;
+}
+
+.tile-jp {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+
+.tile .faint {
+  font-size: 0.82rem;
+  line-height: 1.3;
+}

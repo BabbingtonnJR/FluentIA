@@ -26,6 +26,7 @@ export function dailyQuests(q: QuestInput): Quest[] {
   const listened = q.activitiesToday.filter((a) => a.type === 'handsfree').reduce((s, a) => s + a.minutes, 0);
   const sentencesRead = q.activitiesToday.filter((a) => a.type === 'reading').reduce((s, a) => s + a.score, 0);
   const learnGoal = Math.min(q.newPerDay, q.learnedToday + q.newLeft);
+  const spoken = q.activitiesToday.some((a) => a.type === 'roleplay' || a.type === 'responses' || a.type === 'shadowing');
   return [
     {
       id: 'reviews',
@@ -54,6 +55,13 @@ export function dailyQuests(q: QuestInput): Quest[] {
       detail: sentencesRead ? `${sentencesRead} read today` : 'Built from words you know',
       done: sentencesRead >= READING_GOAL,
       to: '/read',
+    },
+    {
+      id: 'speak',
+      title: 'Say something out loud',
+      detail: spoken ? 'Done today. Well said!' : 'A role-play, a round of quick replies or some shadowing',
+      done: spoken,
+      to: '/speak',
     },
     {
       id: 'listen',
