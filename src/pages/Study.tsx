@@ -4,6 +4,7 @@ import { Icon } from '../components/Icon';
 import { Petals } from '../components/Petals';
 import { Ruby } from '../components/Ruby';
 import { Examples, KanjiReadings, WordSenses } from '../components/WordSenses';
+import { PitchReading, usePitch } from '../components/Pitch';
 import { customFace, type SideMedia } from '../anki/convert';
 import { cardFace } from '../content/faces';
 import type { CardFace } from '../content/types';
@@ -13,9 +14,11 @@ import type { CardRecord, Direction, NoteRecord } from '../db/types';
 import { usePack, useSettings } from '../hooks';
 import { afterMotion } from '../lib/motion';
 import { formatInterval } from '../lib/time';
-import { speak, stopSpeaking } from '../speech/tts';
+import { speak, speakWords, stopSpeaking } from '../speech/tts';
 import { GRADE_LABELS, GRADES, previewIntervals, Rating, State, type Grade } from '../srs/scheduler';
 import { REQUEUE_WITHIN_MS, requeuePosition, type QueueEntry } from '../srs/queue';
+import { getContext, getMemo, isLeech, saveMemo, type MinedContext } from '../study/weak';
+import { plainText } from '../reading/furigana';
 
 const GRADE_CLASS: Record<Grade, string> = {
   [Rating.Again]: 'again',
@@ -33,7 +36,10 @@ export function Study() {
   const [card, setCard] = useState<CardRecord | null>(null);
   // Cards from imported decks: their content lives in a note, pictures and sounds as object URLs.
   const [custom, setCustom] = useState<CustomCard | null>(null);
+  // Built-in cards: the sentence a word was mined from, and the learner's memory hook.
+  const [extras, setExtras] = useState<{ context: MinedContext | null; memo: string }>({ context: null, memo: '' });
   const audio = useRef<HTMLAudioElement | null>(null);
+  const pitch = usePitch(pack.manifest.id);
   const [revealed, setRevealed] = useState(false);
   const [stats, setStats] = useState({ reviewed: 0, learned: 0, again: 0 });
   // `seq` re-keys the card so each one plays its entrance; `leaving` holds the grade while it exits.
@@ -64,11 +70,14 @@ export function Study() {
       const rec = entry.type === 'review' ? await db.cards.get(entry.cardId) : startCard(entry.ref);
       const note = rec?.kind === 'custom' ? await db.notes.get(rec.itemId) : undefined;
       const next = note && rec ? await loadCustom(note, rec.direction) : null;
+      const item = rec && rec.kind !== 'custom' ? { kind: rec.kind, id: rec.itemId } : null;
+      const more = item ? { context: await getContext(rec!.lang, item), memo: await getMemo(rec!.lang, item) } : { context: null, memo: '' };
       if (!alive) {
         next?.urls.forEach((u) => URL.revokeObjectURL(u));
         return;
       }
       setCustom(next);
+      setExtras(more);
       setCard(rec ?? null);
       if (next && settings.autoplay) playSounds(next.question.sounds);
       setRevealed(false);
@@ -113,6 +122,7 @@ export function Study() {
   /** The answer's audio: the deck's own recording if it has one, otherwise the synthetic voice. */
   const sayAnswer = useCallback(() => {
     if (custom?.answer.sounds.length) playSounds(custom.answer.sounds);
+    else if (face?.audio) void speakWords(face.audio, face.speak, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate });
     else if (face?.speak) void say(face.speak);
   }, [custom, face, say]);
 
@@ -253,6 +263,7 @@ export function Study() {
             {face.prompt}
           </div>
         )}
+        {extras.context && (face.promptIsTarget || revealed) && <MinedLine context={extras.context} word={face.promptIsTarget ? face.prompt : face.answer} revealed={revealed} mode={rubyMode} />}
         {custom && custom.question.images.length > 0 && <CardImages urls={custom.question.images} />}
         {custom && !face.prompt && (
           custom.question.sounds.length ? (
@@ -308,8 +319,8 @@ export function Study() {
               </div>
             )}
             {face.reading && (
-              <div className="reading" lang="ja">
-                {face.reading}
+              <div className="reading">
+                {face.senses?.length === 1 ? <PitchReading reading={face.reading} phrases={pitch[face.senses[0].id]} /> : face.reading}
               </div>
             )}
             {/* With several readings, each reading's block below gives its own meaning. */}
@@ -320,7 +331,7 @@ export function Study() {
                 {d}
               </div>
             ))}
-            {face.senses && <WordSenses senses={face.senses} mode={rubyMode} say={(t) => void say(t)} />}
+            {face.senses && <WordSenses senses={face.senses} mode={rubyMode} say={(t) => void say(t)} pitch={pitch} />}
             <KanjiReadings face={face} say={(t) => void say(t)} />
             {face.examples && <Examples examples={face.examples} mode={rubyMode} say={(t) => void say(t)} />}
             <button
@@ -342,6 +353,17 @@ export function Study() {
           </div>
         ) : (
           <div className="faint hint">Tap to reveal</div>
+        )}
+        {revealed && card.kind !== 'custom' && (
+          <MemoBox
+            key={card.id}
+            leech={isLeech(card) ? card.lapses : 0}
+            memo={extras.memo}
+            onSave={(text) => {
+              setExtras((x) => ({ ...x, memo: text }));
+              void saveMemo(card.lang, { kind: card.kind as 'vocab' | 'kanji' | 'grammar', id: card.itemId }, text);
+            }}
+          />
         )}
       </div>
 
@@ -411,3 +433,73 @@ function CardImages({ urls }: { urls: string[] }) {
     </div>
   );
 }
+
+/** The sentence a word was mined from, the word marked; its translation once the card is turned. */
+function MinedLine({ context, word, revealed, mode }: { context: MinedContext; word: string; revealed: boolean; mode: 'all' | 'none' }) {
+  const plain = plainText(context.r);
+  const at = plain.indexOf(word);
+  return (
+    <div className="mined-line">
+      <p className="sentence" lang="ja">
+        <Ruby markup={context.r} mode={mode} cloze={at >= 0 ? [at, at + word.length] : undefined} />
+      </p>
+      {revealed && (
+        <div className="faint">
+          {context.e}
+          {context.source && (
+            <>
+              {context.e ? ' · ' : ''}from <i>{context.source}</i>
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * The learner's memory hook for an item. A leech (forgotten again and again) asks for one: more
+ * reviews of the same card rarely help, a new angle does.
+ */
+function MemoBox({ leech, memo, onSave }: { leech: number; memo: string; onSave: (text: string) => void }) {
+  const [editing, setEditing] = useState(false);
+  const [text, setText] = useState(memo);
+  const stop = (e: { stopPropagation: () => void }) => e.stopPropagation();
+  return (
+    <div className={`memo${leech ? ' leech' : ''}`} onClick={stop}>
+      {leech > 0 && (
+        <div className="memo-leech">
+          <b>Tricky card</b> · forgotten {leech} times. {memo ? 'Your hook:' : 'Write a memory hook: a picture, a story, or what you confuse it with.'}
+        </div>
+      )}
+      {editing ? (
+        <form
+          className="stack"
+          style={{ gap: 6 }}
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSave(text);
+            setEditing(false);
+          }}
+        >
+          <textarea className="input" rows={2} autoFocus value={text} onChange={(e) => setText(e.target.value)} aria-label="Memory hook" />
+          <div className="row" style={{ gap: 6 }}>
+            <button className="btn small primary">Save</button>
+            <button type="button" className="btn small ghost" onClick={() => setEditing(false)}>
+              Cancel
+            </button>
+          </div>
+        </form>
+      ) : memo ? (
+        <button className="memo-text" onClick={() => setEditing(true)} aria-label="Edit memory hook">
+          <span className="memo-label">Hook</span> {memo}
+        </button>
+      ) : (
+        <button className={`btn small${leech ? ' primary' : ' ghost'}`} onClick={() => setEditing(true)}>
+          {leech ? 'Write a memory hook' : '+ Memory hook'}
+        </button>
+      )}
+    </div>
+  );
+}
+

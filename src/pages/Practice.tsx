@@ -1,40 +1,27 @@
-import { useEffect, useMemo, useState, type CSSProperties } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { Icon } from '../components/Icon';
 import { Petals } from '../components/Petals';
 import { Ruby } from '../components/Ruby';
 import { loadSentences } from '../content/packs';
-import type { Pack, Sentence } from '../content/types';
+import type { Sentence } from '../content/types';
 import { db } from '../db/db';
 import { logActivity } from '../db/repo';
 import { usePack, useSettings } from '../hooks';
 import { rankBy, searcher } from '../lang/search';
 import { loadLocal, saveLocal } from '../lib/local';
 import { DAY } from '../lib/time';
-import { generatePractice, PRACTICE_TITLES, type PracticeItem, type PracticeQuestion } from '../quiz/practice';
+import { generatePractice, practiceLabel as itemLabel, PRACTICE_TITLES, type PracticeItem, type PracticeQuestion } from '../quiz/practice';
 import { notifyLocalChange } from '../sync/events';
 import { cardId, newCard, Rating } from '../srs/scheduler';
 import { speak, stopSpeaking } from '../speech/tts';
+import { recordMistake, resolveMistakes } from '../study/weak';
 
 const COUNTS = [10, 20, 30];
 const SAVED = 'practice:items';
 const RESULTS = 6;
 
 const itemKey = (i: PracticeItem) => `${i.kind}:${i.id}`;
-
-/** How an item reads in lists and chips. */
-function itemLabel(pack: Pack, i: PracticeItem): { jp: string; en: string } {
-  if (i.kind === 'grammar') {
-    const g = pack.grammarById.get(i.id);
-    return { jp: g?.pattern ?? i.id, en: g ? `N${g.level} · ${g.meaning}` : '' };
-  }
-  if (i.kind === 'kanji') {
-    const k = pack.kanjiById.get(i.id);
-    return { jp: i.id, en: k ? `N${k.level} kanji · ${k.meanings.slice(0, 2).join(', ')}` : '' };
-  }
-  const v = pack.vocabById.get(i.id);
-  return { jp: v?.word ?? i.id, en: v ? `N${v.level} · ${v.reading !== v.word ? `${v.reading} · ` : ''}${v.meaning}` : '' };
-}
 
 /**
  * A drill built from exactly what the learner picks: grammar points, words and kanji (say,
@@ -45,7 +32,9 @@ export function Practice() {
   const pack = usePack();
   const settings = useSettings();
   const navigate = useNavigate();
-  const [items, setItems] = useState<PracticeItem[]>(() => loadLocal<PracticeItem[]>(SAVED) ?? []);
+  // Weak spots opens a drill on its items straight away.
+  const handoff = (useLocation().state as { items?: PracticeItem[] } | null)?.items;
+  const [items, setItems] = useState<PracticeItem[]>(() => handoff ?? loadLocal<PracticeItem[]>(SAVED) ?? []);
   const [count, setCount] = useState(20);
   const [query, setQuery] = useState('');
   const [sentences, setSentences] = useState<Sentence[] | null>(null);
@@ -60,6 +49,12 @@ export function Practice() {
     return () => stopSpeaking();
   }, [pack]);
   useEffect(() => saveLocal(SAVED, items), [items]);
+  const autostarted = useRef(false);
+  useEffect(() => {
+    if (!handoff?.length || !sentences || autostarted.current) return;
+    autostarted.current = true;
+    start(handoff);
+  }, [sentences]); // once, when the sentences are ready
 
   const say = (text: string) => speak(text, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate });
 
@@ -107,7 +102,10 @@ export function Practice() {
   function pick(n: number) {
     if (!q || picked !== null) return;
     setPicked(n);
-    if (n !== q.answer) setWrong((w) => [...w, q]);
+    if (n !== q.answer) {
+      setWrong((w) => [...w, q]);
+      void recordMistake(pack.manifest.id, q.item, 'practice', q.options[n]);
+    } else void resolveMistakes(pack.manifest.id, [q.item]);
     if (q.speak) void say(q.speak);
   }
 

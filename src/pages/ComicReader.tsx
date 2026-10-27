@@ -173,6 +173,7 @@ export function ComicReader() {
           sentence={bubbles[selected].s}
           pack={pack}
           known={known}
+          source={`Pepper&Carrot ${episode.number}. ${episode.title}`}
           onSpeak={say}
           onClose={() => select(null)}
           onPrev={selected > 0 ? () => select(selected - 1) : undefined}

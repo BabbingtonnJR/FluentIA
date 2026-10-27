@@ -1,4 +1,4 @@
-import { studyVocab } from '../content/senses';
+import { oneKanjiWord, studyVocab } from '../content/senses';
 import type { Pack } from '../content/types';
 import type { CardRecord, Settings } from '../db/types';
 import { cardId, State, type CardRef } from './scheduler';
@@ -39,8 +39,9 @@ export function selectNew(input: NewSelectionInput): CardRef[] {
   for (const level of levels) {
     if (recognitionLeft === 0) break;
     // One card per written form: 十 じゅう and 十 とお are taught together.
+    // A word that is one kanji alone (一, 上) is taught by that kanji's card.
     const words = studyVocab(pack).filter(
-      (v) => v.level === level && !existing.has(cardId(lang, 'vocab', 'recognition', v.id)),
+      (v) => v.level === level && !existing.has(cardId(lang, 'vocab', 'recognition', v.id)) && !oneKanjiWord(pack, v),
     );
     const kanji = pack.kanji.filter(
       (k) => k.level === level && !existing.has(cardId(lang, 'kanji', 'recognition', k.id)),

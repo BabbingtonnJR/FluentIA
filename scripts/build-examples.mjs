@@ -192,9 +192,17 @@ for (const c of candidates) {
     }
     // 十 split out of 十分 (enough) shows 十 badly; that sentence is 十分's.
     if (inLongerWord(c.text, start, pos)) continue;
-    const reading = spanReading(c.text, spans, start, pos) ?? (raw.reading ? toHiragana(fixedReading(raw, c.text)) : null);
+    const given = spanReading(c.text, spans, start, pos);
+    const reading = given ?? (raw.reading ? toHiragana(fixedReading(raw, c.text)) : null);
     const entry = pickEntry(idx, reading, raw.pos_detail_1 === '接尾');
-    if (entry !== undefined) hits.push(entry);
+    if (entry === undefined) continue;
+    const word = wordKey(vocab[entry].word);
+    // A one-kanji word written in kana is too often another word: うわ (oh!) is not 上, かみ may be 紙 or 神.
+    if ([...word].length === 1 && hasKanji(word) && !hasKanji(tok.surface_form ?? raw.surface_form)) continue;
+    if (raw.pos === '感動詞' && hasKanji(word)) continue;
+    // Telling readings of the same written word apart needs furigana someone checked.
+    if (groupOf(entry).length > 1 && (!c.reviewed || given === null)) continue;
+    hits.push(entry);
   }
   c.score = unknownPenalty(unknown, c);
   c.spans = spans;
@@ -219,7 +227,10 @@ for (const [i, v] of vocab.entries()) {
     while (at >= 0) {
       // Counters follow a number (三回), not any word (迂回).
       const after = at > 0 && (!hasKanji(word) || NUMBER.test(c.text[at - 1]));
-      const ok = (!suffix || after) && (kanaOnly || spanReading(c.text, c.spans, at, at + word.length) === reading);
+      const ok =
+        (!suffix || after) &&
+        (kanaOnly || spanReading(c.text, c.spans, at, at + word.length) === reading) &&
+        (groupOf(i).length < 2 || c.reviewed);
       if (ok) {
         keep(i, c, c.score + 4);
         break;

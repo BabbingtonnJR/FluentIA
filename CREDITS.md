@@ -31,3 +31,12 @@ The graded readers (`content/ja/literature/graded.json`, the N5 and N4 stories a
 Fluentia, with their English translations, and are under the project's MIT license.
 
 The test decks in `src/anki/fixtures/` are built from open-anki-jlpt-decks (MIT) with a few cards written for the tests.
+
+The speaking practice (`content/ja/speaking/`: dialogues, quick replies and situations) and the reading passages
+(`content/ja/reading/passages.json`) were written for Fluentia, with their translations and questions, and are under
+the project's MIT license.
+
+Recorded voices (`public/audio/ja/`, made with `tools/voices-to-fluentia.ps1`) are synthesized with
+[VOICEVOX](https://voicevox.hiroshiba.jp/): VOICEVOX:冥鳴ひまり and VOICEVOX:青山龍星, used under each voice's
+terms, which ask for this credit. The pitch accents in `public/packs/ja/pitch.json` come from the same engine's
+dictionary (Open JTalk).

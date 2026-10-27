@@ -11,6 +11,8 @@ import { State } from '../srs/scheduler';
 import { dailyQuests } from '../stats/quests';
 import { computeStreak, computeXp, levelFromXp, studyDays } from '../stats/stats';
 import { useSyncStatus } from '../sync/sync';
+import { leeches, openMistakes } from '../study/weak';
+import { examDateOf, examLevelOf } from './Exam';
 
 export function Today() {
   const pack = usePack();
@@ -34,6 +36,7 @@ export function Today() {
       reviewedToday: todays.filter((r) => r.prevState !== State.New).length,
       learnedToday: todays.filter((r) => r.prevState === State.New).length,
       activitiesToday: activities.filter((a) => a.day === today),
+      weak: (await openMistakes(lang)).length + leeches(await db.cards.where('[lang+due]').between([lang, -Infinity], [lang, Infinity]).toArray()).length,
     };
   }, [pack, settings]);
 
@@ -69,6 +72,8 @@ export function Today() {
         </div>
       </header>
 
+      <ExamCountdown level={examLevelOf(settings)} date={examDateOf(settings)} />
+
       <Link to="/study" className="card link hero">
         <div className="stat-label">Study session</div>
         <div className="row" style={{ alignItems: 'baseline', gap: 20, margin: '6px 0 14px' }}>
@@ -88,81 +93,31 @@ export function Today() {
         <span className="btn primary block">{total ? 'Start studying' : 'All caught up'}</span>
       </Link>
 
-      <Link to="/read" className="card link" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-        <div className="jp" style={{ fontSize: '2rem', color: 'var(--accent)', lineHeight: 1 }} aria-hidden="true">
-          読
-        </div>
-        <div style={{ flex: 1 }}>
-          <strong>Daily reading</strong>
-          <div className="faint">Real sentences built from the words you know, with furigana</div>
-        </div>
-      </Link>
-
-      <div className="grid-2">
-        <Link to="/listen" className="card link">
-          <div className="jp" style={{ fontSize: '1.6rem', color: 'var(--indigo)' }}>
-            聞
-          </div>
-          <strong>Hands-free</strong>
-          <div className="faint">Audio review while you move</div>
-        </Link>
-        <Link to="/quiz" className="card link">
-          <div className="jp" style={{ fontSize: '1.6rem', color: 'var(--indigo)' }}>
-            試
-          </div>
-          <strong>Daily quiz</strong>
-          <div className="faint">Meaning, reading, listening</div>
-        </Link>
+      <div className="section-title">Practice · 練習</div>
+      <div className="tiles">
+        <Tile to="/speak" jp="話" title="Speak" hint="Role-plays, quick replies" tone="accent" />
+        <Tile to="/listen" jp="聞" title="Hands-free" hint="Audio while you move" />
+        <Tile to="/quiz" jp="試" title="Daily quiz" hint="10 quick questions" />
+        <Tile to="/practice" jp="練" title="Practice" hint="Drill what you pick" />
+        {data.weak > 0 && <Tile to="/weak" jp="弱" title={`Weak spots · ${data.weak}`} hint="Mistakes, tricky cards" tone="warn" />}
       </div>
 
-      {pack.grammar.length > 0 && (
-        <Link to="/mock" className="card link" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <div className="jp" style={{ fontSize: '2rem', color: 'var(--indigo)', lineHeight: 1 }} aria-hidden="true">
-            模
-          </div>
-          <div style={{ flex: 1 }}>
-            <strong>JLPT mock test</strong>
-            <div className="faint">Timed practice exam with all four sections</div>
-          </div>
-        </Link>
-      )}
+      <div className="section-title">JLPT · 試験</div>
+      <div className="tiles">
+        {pack.grammar.length > 0 && <Tile to="/mock" jp="模" title="Mock test" hint="All four sections, timed" />}
+        <Tile to="/passages" jp="解" title="Timed reading" hint="Like the reading section" />
+      </div>
 
-      <Link to="/practice" className="card link" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-        <div className="jp" style={{ fontSize: '2rem', color: 'var(--indigo)', lineHeight: 1 }} aria-hidden="true">
-          練
-        </div>
-        <div style={{ flex: 1 }}>
-          <strong>Practice</strong>
-          <div className="faint">Pick grammar and words to drill, e.g. ように vs ために</div>
-        </div>
-      </Link>
-
-      <Link to="/literature" className="card link" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-        <div className="jp" style={{ fontSize: '2rem', color: 'var(--accent)', lineHeight: 1 }} aria-hidden="true">
-          文
-        </div>
-        <div style={{ flex: 1 }}>
-          <strong>Literature</strong>
-          <div className="faint">Stories, comics, your manga and videos, every line broken down</div>
-        </div>
-      </Link>
+      <div className="section-title">Read · 読む</div>
+      <div className="tiles">
+        <Tile to="/read" jp="読" title="Daily reading" hint="Sentences from your words" tone="accent" />
+        <Tile to="/literature" jp="文" title="Literature" hint="Stories, comics, videos" />
+      </div>
 
       <div className="section-title">Games · 遊び</div>
-      <div className="grid-2">
-        <Link to="/wordle" className="card link">
-          <div className="jp" style={{ fontSize: '1.6rem', color: 'var(--good)' }}>
-            言
-          </div>
-          <strong>Wordle</strong>
-          <div className="faint">Guess the 4-kana word, with hints</div>
-        </Link>
-        <Link to="/crossword" className="card link">
-          <div className="jp" style={{ fontSize: '1.6rem', color: 'var(--good)' }}>
-            交
-          </div>
-          <strong>Crossword</strong>
-          <div className="faint">Daily kana crossword by level</div>
-        </Link>
+      <div className="tiles">
+        <Tile to="/wordle" jp="言" title="Wordle" hint="Guess the kana word" tone="good" />
+        <Tile to="/crossword" jp="交" title="Crossword" hint="Daily, by level" tone="good" />
       </div>
 
       <div className="section-title">Daily activities · 毎日</div>
@@ -207,5 +162,37 @@ export function Today() {
         </div>
       )}
     </div>
+  );
+}
+
+/** Days to the exam, as a slim link to the plan. */
+function ExamCountdown({ level, date }: { level: number; date: string }) {
+  const days = Math.max(0, Math.ceil((new Date(`${date}T09:00:00`).getTime() - Date.now()) / 86_400_000));
+  return (
+    <Link to="/exam" className="card link exam-countdown" style={{ display: 'flex' }}>
+      <span className="jp" aria-hidden="true">
+        験
+      </span>
+      <span style={{ flex: 1 }}>
+        <strong>
+          JLPT N{level} in {days} {days === 1 ? 'day' : 'days'}
+        </strong>
+        <span className="faint"> · your plan</span>
+      </span>
+      <span aria-hidden="true">→</span>
+    </Link>
+  );
+}
+
+/** A compact link to an activity: its kanji, name and a few words on what it is. */
+function Tile({ to, jp, title, hint, tone = 'indigo' }: { to: string; jp: string; title: string; hint: string; tone?: 'accent' | 'indigo' | 'good' | 'warn' }) {
+  return (
+    <Link to={to} className="card link tile">
+      <span className="jp tile-jp" style={{ color: `var(--${tone})` }} aria-hidden="true">
+        {jp}
+      </span>
+      <strong>{title}</strong>
+      <span className="faint">{hint}</span>
+    </Link>
   );
 }

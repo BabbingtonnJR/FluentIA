@@ -7,7 +7,7 @@ import type { CardFace } from '../content/types';
 import { db } from '../db/db';
 import { logActivity } from '../db/repo';
 import { usePack, useSettings } from '../hooks';
-import { speak, stopSpeaking } from '../speech/tts';
+import { speak, speakWords, stopSpeaking } from '../speech/tts';
 import { State } from '../srs/scheduler';
 
 type Direction = 'jp-en' | 'en-jp';
@@ -91,21 +91,23 @@ export function Listen() {
     startedAt.current = Date.now();
     const jp = { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate };
     const en = { locale: 'en-US', rate: 1 };
+    // The word's own recording (natural voice) when there is one.
+    const sayJp = (f: CardFace) => speakWords(f.audio ?? [], f.speak, jp);
     for (let i = start; !ctrl.signal.aborted; i = (i + 1) % items.length) {
       const f = items[i];
       const dir = directionFor(order, i);
       setIndex(i);
       setShowAnswer(false);
-      if (dir === 'jp-en') await speak(f.speak, jp);
+      if (dir === 'jp-en') await sayJp(f);
       else await speak(f.meaning, en);
       await sleep(pause * 1000, ctrl.signal);
       if (ctrl.signal.aborted) break;
       setShowAnswer(true);
       if (dir === 'jp-en') await speak(f.meaning, en);
-      else await speak(f.speak, jp);
+      else await sayJp(f);
       await sleep(1200, ctrl.signal);
       // Repeat the Japanese once more to reinforce the sound.
-      if (!ctrl.signal.aborted) await speak(f.speak, jp);
+      if (!ctrl.signal.aborted) await sayJp(f);
       await sleep(1500, ctrl.signal);
     }
   }

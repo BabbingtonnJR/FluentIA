@@ -81,7 +81,19 @@ export interface ReviewRecord extends Synced {
   durationMs: number;
 }
 
-export type ActivityType = 'quiz' | 'handsfree' | 'reading' | 'mock' | 'wordle' | 'crossword' | 'literature' | 'practice';
+export type ActivityType =
+  | 'quiz'
+  | 'handsfree'
+  | 'reading'
+  | 'mock'
+  | 'wordle'
+  | 'crossword'
+  | 'literature'
+  | 'practice'
+  | 'shadowing'
+  | 'roleplay'
+  | 'responses'
+  | 'passages';
 
 export interface ActivityRecord extends Synced {
   lang: string;
@@ -93,6 +105,24 @@ export interface ActivityRecord extends Synced {
   createdAt: number;
   /** Mock tests: level and correct/total per section. */
   detail?: { level: number; sections: Record<string, [number, number]> };
+}
+
+/** Where a wrong answer was given. */
+export type MistakeSource = 'quiz' | 'mock' | 'practice' | 'wordle';
+
+/**
+ * A wrong answer on a grammar point, word or kanji, kept for the mistake notebook. Synced.
+ * It stays open until the learner gets that item right again in a drill (`resolvedAt`).
+ */
+export interface MistakeRecord extends Synced {
+  lang: string;
+  kind: ItemKind;
+  itemId: string;
+  source: MistakeSource;
+  /** The wrong option picked, when there was one. */
+  picked?: string;
+  at: number;
+  resolvedAt?: number;
 }
 
 export interface KvRecord extends Synced {
@@ -122,6 +152,10 @@ export interface Settings {
   furigana: 'all' | 'unknown' | 'none';
   /** New grammar points per day, on top of newPerDay (grammar is slower to absorb than words). */
   grammarPerDay: number;
+  /** The JLPT level aimed for; null means the hardest level being studied. */
+  examLevel: number | null;
+  /** Exam day (YYYY-MM-DD); null means the next JLPT. */
+  examDate: string | null;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -136,6 +170,8 @@ export const DEFAULT_SETTINGS: Settings = {
   dayStartHour: 4,
   furigana: 'unknown',
   grammarPerDay: 2,
+  examLevel: null,
+  examDate: null,
 };
 
 /** A video the learner imported with its subtitles, kept on this device only. */

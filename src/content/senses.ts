@@ -97,6 +97,64 @@ export interface KanjiReading {
   words: VocabItem[];
 }
 
+/**
+ * A word that is just one kanji on its own (一, 上, 日). Its kanji card already teaches it, so it
+ * gets no word card of its own: the same character twice would only be studied twice.
+ */
+export function oneKanjiWord(pack: Pack, v: VocabItem): string | null {
+  const w = wordKey(v.word);
+  return [...w].length === 1 && pack.kanjiById.has(w) ? w : null;
+}
+
+const KANA = /[ぁ-ゖー]/;
+const toHiraganaReading = (r: string) => r.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60));
+
+/**
+ * What sits next to the kanji in a word and decides its reading: the okurigana or kanji after it
+ * (一つ → 〜つ, 一人 → 〜人, 上げる → 〜げる), or the kanji before it (同一 → 同〜). Null on its own.
+ */
+export function readingContext(word: string, kanji: string): string | null {
+  const chars = [...word];
+  const at = chars.indexOf(kanji);
+  if (at < 0 || chars.length === 1) return null;
+  if (at === 0) {
+    if (KANA.test(chars[1])) {
+      let end = 1;
+      while (end < chars.length && KANA.test(chars[end])) end++;
+      return `〜${chars.slice(1, end).join('')}`;
+    }
+    return `〜${chars[1]}`;
+  }
+  return `${chars[at - 1]}〜`;
+}
+
+/** A row of a kanji's readings: the reading, what around the kanji calls for it, and words using it. */
+export interface KanjiReadingRow {
+  reading: string;
+  /** The usual reading: the kanji alone, or in most words. */
+  main: boolean;
+  /** Neighbours that call for this reading (〜つ, 〜人, 同〜); empty for the usual reading. */
+  when: string[];
+  words: VocabItem[];
+}
+
+/**
+ * A kanji's readings as one list, in hiragana: the usual one first, then each other reading with
+ * what around the kanji makes it read that way, so 一 reads いち, but ひと before つ or 人.
+ */
+export function kanjiReadingRows(pack: Pack, k: KanjiItem, wordsPerRow = 3): { rows: KanjiReadingRow[]; rare: string[] } {
+  const { readings, rare } = kanjiReadings(pack, k);
+  if (!readings.length) return { rows: [], rare: rare.map(toHiraganaReading) };
+  const alone = readings.findIndex((r) => r.words.some((w) => wordKey(w.word) === k.id));
+  const mainAt = alone >= 0 ? alone : readings.reduce((best, r, i) => (r.words.length > readings[best].words.length ? i : best), 0);
+  const rows = readings.map((r, i): KanjiReadingRow => {
+    const main = i === mainAt;
+    const when = main ? [] : [...new Set(r.words.map((w) => readingContext(wordKey(w.word), k.id)).filter((c): c is string => !!c))].slice(0, 4);
+    return { reading: toHiraganaReading(r.reading), main, when, words: r.words.slice(0, wordsPerRow) };
+  });
+  return { rows: [rows[mainAt], ...rows.filter((_, i) => i !== mainAt)], rare: rare.map(toHiraganaReading) };
+}
+
 /** A kanji's readings with words that use each, and the readings no listed word uses. */
 export function kanjiReadings(pack: Pack, k: KanjiItem): { readings: KanjiReading[]; rare: string[] } {
   const data = pack.examples?.kanji[k.id];

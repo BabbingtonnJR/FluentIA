@@ -4,7 +4,8 @@ import { exportBackup, importBackup, markLevelKnown, saveSettings, type Backup }
 import type { Theme } from '../db/types';
 import { usePack, useSettings } from '../hooks';
 import { FURIGANA_LABEL } from '../reading/furigana';
-import { speak, voicesFor } from '../speech/tts';
+import { speak, voiceQuality, voicesFor } from '../speech/tts';
+import { loadAudioIndex } from '../speech/audio';
 import { signOut, syncNow, useSyncStatus } from '../sync/sync';
 
 const NEW_PER_DAY = [10, 15, 20, 25, 30, 40];
@@ -19,6 +20,11 @@ export function SettingsPage() {
   const pack = usePack();
   const settings = useSettings();
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+  // Recorded natural voices, when they were made (tools/voices-to-fluentia.ps1).
+  const [recorded, setRecorded] = useState<string | null>(null);
+  useEffect(() => {
+    void loadAudioIndex(pack.manifest.id).then((i) => setRecorded(Object.keys(i.words).length ? (i.credit ?? 'recorded voices') : null));
+  }, [pack]);
   const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -144,19 +150,31 @@ export function SettingsPage() {
           <strong>Play audio when revealing a card</strong>
           <input type="checkbox" checked={settings.autoplay} onChange={(e) => void saveSettings({ autoplay: e.target.checked })} />
         </label>
+        {recorded && (
+          <div className="faint">
+            Words and dialogues play recorded natural voices ({recorded}). The voice below is used for everything else.
+          </div>
+        )}
         <div className="field">
           <label htmlFor="voice">Japanese voice</label>
           {voices.length ? (
             <select id="voice" className="input" value={settings.voiceURI ?? ''} onChange={(e) => void saveSettings({ voiceURI: e.target.value || null })}>
-              <option value="">Default</option>
+              <option value="">Most natural available</option>
               {voices.map((v) => (
                 <option key={v.voiceURI} value={v.voiceURI}>
                   {v.name}
+                  {voiceQuality(v) >= 2 ? ' ★' : ''}
                 </option>
               ))}
             </select>
           ) : (
             <span className="faint">No Japanese voice found. On iPhone: Settings → Accessibility → Spoken Content → Voices → Japanese.</span>
+          )}
+          {voices.length > 0 && !voices.some((v) => voiceQuality(v) >= 2) && (
+            <span className="faint">
+              Sounds robotic? On iPhone, download a better voice for free: Settings → Accessibility → Spoken Content → Voices → Japanese → Kyoko
+              (Enhanced) or Otoya (Enhanced). Then reopen Fluentia and pick it here. Voices marked ★ are the natural ones.
+            </span>
           )}
         </div>
         <div className="field">

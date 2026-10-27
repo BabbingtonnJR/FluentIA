@@ -20,6 +20,13 @@ import { MangaReader } from './pages/MangaReader';
 import { Decks } from './pages/Decks';
 import { AnkiImport } from './pages/AnkiImport';
 import { Practice } from './pages/Practice';
+import { Weak } from './pages/Weak';
+import { Speak } from './pages/Speak';
+import { Roleplay } from './pages/Roleplay';
+import { Shadow } from './pages/Shadow';
+import { Responses } from './pages/Responses';
+import { PassageReader, Passages } from './pages/Passages';
+import { Exam } from './pages/Exam';
 import { Library } from './pages/Library';
 import { KanjiDetail } from './pages/KanjiDetail';
 import { Progress } from './pages/Progress';
@@ -35,7 +42,7 @@ const TABS = [
 ];
 
 /** Full-screen activities hide the tab bar so nothing distracts from studying. */
-const FOCUS_ROUTES = ['/study', '/listen', '/quiz', '/read', '/mock', '/practice', '/wordle', '/crossword', '/literature/', '/comics/', '/videos/', '/manga/', '/decks'];
+const FOCUS_ROUTES = ['/study', '/listen', '/quiz', '/read', '/mock', '/practice', '/weak', '/speak', '/passages', '/exam', '/wordle', '/crossword', '/literature/', '/comics/', '/videos/', '/manga/', '/decks'];
 
 export function App() {
   const settings = useLiveSettings();
@@ -78,6 +85,14 @@ export function App() {
                 <Route path="/read" element={<Read />} />
                 <Route path="/mock" element={<MockTest />} />
                 <Route path="/practice" element={<Practice />} />
+                <Route path="/weak" element={<Weak />} />
+                <Route path="/speak" element={<Speak />} />
+                <Route path="/speak/roleplay/:id" element={<Roleplay />} />
+                <Route path="/speak/shadow" element={<Shadow />} />
+                <Route path="/speak/responses" element={<Responses />} />
+                <Route path="/passages" element={<Passages />} />
+                <Route path="/passages/:id" element={<PassageReader />} />
+                <Route path="/exam" element={<Exam />} />
                 <Route path="/wordle" element={<Wordle />} />
                 <Route path="/crossword" element={<Crossword />} />
                 <Route path="/literature" element={<Literature />} />

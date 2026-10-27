@@ -39,6 +39,20 @@ export interface PracticeQuestion {
   also?: string[];
 }
 
+/** How an item reads in lists and chips. */
+export function practiceLabel(pack: Pack, i: PracticeItem): { jp: string; en: string } {
+  if (i.kind === 'grammar') {
+    const g = pack.grammarById.get(i.id);
+    return { jp: g?.pattern ?? i.id, en: g ? `N${g.level} · ${g.meaning}` : '' };
+  }
+  if (i.kind === 'kanji') {
+    const k = pack.kanjiById.get(i.id);
+    return { jp: i.id, en: k ? `N${k.level} kanji · ${k.meanings.slice(0, 2).join(', ')}` : '' };
+  }
+  const v = pack.vocabById.get(i.id);
+  return { jp: v?.word ?? i.id, en: v ? `N${v.level} · ${v.reading !== v.word ? `${v.reading} · ` : ''}${v.meaning}` : '' };
+}
+
 type Rand = () => number;
 
 function shuffle<T>(arr: T[], rand: Rand): T[] {

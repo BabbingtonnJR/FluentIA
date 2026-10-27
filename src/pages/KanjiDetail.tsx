@@ -35,8 +35,10 @@ export function KanjiDetail() {
     );
   }
 
-  const words = vocabWithKanji(pack, char);
   const face = cardFace(pack, 'kanji', 'recognition', char);
+  // Words already shown under a reading aren't listed again.
+  const shownWords = new Set(face?.kanjiReadings?.flatMap((r) => r.words.map((w) => w.word)) ?? []);
+  const words = vocabWithKanji(pack, char).filter((v) => !shownWords.has(v.word));
   const say = (text: string) => speak(text, { locale: pack.manifest.ttsLocale, voiceURI: settings.voiceURI, rate: settings.speechRate });
   const status = cardStatus(card);
 
@@ -53,31 +55,20 @@ export function KanjiDetail() {
       <StrokeOrder lang={lang} char={char} run={run} />
       <div className="row" style={{ justifyContent: 'center' }}>
         <button className="btn small" onClick={() => setRun((r) => r + 1)}>
-          <Icon name="replay" /> Replay · {k.strokes} strokes
+          <Icon name="replay" /> Replay · {k.strokes} {k.strokes === 1 ? 'stroke' : 'strokes'}
         </button>
       </div>
 
-      <div className="card stack" style={{ gap: 8 }}>
-        {k.on.length > 0 && (
-          <div>
-            <div className="stat-label">On'yomi (Chinese reading)</div>
-            <div className="jp" lang="ja" style={{ fontSize: '1.25rem' }}>
-              {k.on.join('、')}
-            </div>
+      <div className="card stack" style={{ gap: 10 }}>
+        <div>{k.meanings.join(', ')}</div>
+        {face?.kanjiReadings?.length ? (
+          <KanjiReadings face={face} say={(t) => void say(t)} />
+        ) : (
+          <div className="jp" lang="ja" style={{ fontSize: '1.2rem' }}>
+            {[...k.on, ...k.kun.map(formatKun)].join('、')}
           </div>
         )}
-        {k.kun.length > 0 && (
-          <div>
-            <div className="stat-label">Kun'yomi (Japanese reading)</div>
-            <div className="jp" lang="ja" style={{ fontSize: '1.25rem' }}>
-              {k.kun.map(formatKun).join('、')}
-            </div>
-          </div>
-        )}
-        <div>
-          <div className="stat-label">Meanings</div>
-          <div>{k.meanings.join(', ')}</div>
-        </div>
+        {face?.examples && <Examples examples={face.examples} mode={settings.furigana === 'none' ? 'none' : 'all'} say={(t) => void say(t)} />}
         <div className="spread">
           <span className="faint">{status === 'unseen' ? 'Not studied yet' : `Status: ${status}`}</span>
           {status === 'unseen' && (
@@ -88,19 +79,9 @@ export function KanjiDetail() {
         </div>
       </div>
 
-      {!!face?.kanjiReadings?.length && (
-        <>
-          <div className="section-title">Readings in use</div>
-          <div className="card stack" style={{ gap: 8 }}>
-            <KanjiReadings face={face} say={(t) => void say(t)} />
-            {face.examples && <Examples examples={face.examples} mode={settings.furigana === 'none' ? 'none' : 'all'} say={(t) => void say(t)} />}
-          </div>
-        </>
-      )}
-
       {words.length > 0 && (
-        <>
-          <div className="section-title">Words with {char}</div>
+        <details className="more-words">
+          <summary className="section-title">More words with {char} · {words.length}</summary>
           <div className="list">
             {words.map((v) => (
               <button key={v.id} className="list-item" onClick={() => void say(v.reading)}>
@@ -117,7 +98,7 @@ export function KanjiDetail() {
               </button>
             ))}
           </div>
-        </>
+        </details>
       )}
     </div>
   );

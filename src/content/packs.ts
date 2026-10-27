@@ -1,4 +1,4 @@
-import type { ComicEpisode, ComicIndexEntry, GrammarPoint, KanjiItem, LitIndexEntry, LitWork, Pack, PackExamples, PackManifest, Sentence, VocabItem } from './types';
+import type { ComicEpisode, ComicIndexEntry, GrammarPoint, KanjiItem, LitIndexEntry, LitWork, Pack, PackExamples, PackManifest, Passage, Sentence, SpeakingPack, VocabItem } from './types';
 
 export const AVAILABLE_PACKS = ['ja'] as const;
 export type PackId = (typeof AVAILABLE_PACKS)[number];
@@ -104,3 +104,19 @@ export const loadComicsIndex = (lang: string) => cached(comicIndexCache, lang, `
 
 /** One episode with its pages and bubbles; page images come from peppercarrot.com. */
 export const loadComicEpisode = (lang: string, id: string) => cached(comicCache, `${lang}/${id}`, `/packs/${lang}/comics/${id}.json`);
+
+const speakingCache = new Map<string, Promise<SpeakingPack>>();
+const passagesCache = new Map<string, Promise<Passage[]>>();
+
+/** Dialogues and quick responses for speaking practice and listening questions (speaking.json). */
+export const loadSpeaking = (lang: string) => cached(speakingCache, lang, `/packs/${lang}/speaking.json`);
+
+/** Reading passages with questions (passages.json). */
+export const loadPassages = (lang: string) => cached(passagesCache, lang, `/packs/${lang}/passages.json`);
+
+/** Pitch accent per word (pitch.json, from VOICEVOX's dictionary): [morae, accent] per accent phrase. */
+export type PitchData = Record<string, [number, number][]>;
+const pitchCache = new Map<string, Promise<PitchData>>();
+
+/** Pitch accents, or none when they haven't been made (see tools/voices-to-fluentia.ps1). */
+export const loadPitch = (lang: string): Promise<PitchData> => cached(pitchCache, lang, `/packs/${lang}/pitch.json`).catch(() => ({}));

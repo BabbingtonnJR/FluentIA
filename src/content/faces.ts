@@ -2,7 +2,7 @@ import type { Direction } from '../db/types';
 import { plainText } from '../reading/furigana';
 import { alternativeForms } from './grammar';
 import { formatKun } from './packs';
-import { kanjiReadings, normReading, vocabSenses, wordKey } from './senses';
+import { kanjiReadingRows, normReading, vocabSenses, wordKey } from './senses';
 import type { CardFace, ItemKind, Pack } from './types';
 
 /**
@@ -34,12 +34,14 @@ export function cardFace(pack: Pack, kind: ItemKind, direction: Direction, itemI
     const many = senses.length > 1;
     const word = many ? wordKey(v.word) : v.word;
     const readings = [...new Set(senses.map((s) => s.reading))].filter((r) => r !== word);
-    const meaning = many ? senses.map((s) => s.meaning).join(' / ') : v.meaning;
+    // Readings that mean the same (今日 きょう / こんにち) show that meaning once.
+    const meaning = many ? [...new Set(senses.map((s) => s.meaning))].join(' / ') : v.meaning;
     const face = {
+      audio: senses.map((s) => s.item.id),
       reading: readings.length ? readings.join('・') : undefined,
       speak: readings.length ? readings.join('、') : v.reading,
       meaning,
-      senses: senses.map((s) => ({ reading: s.reading !== word ? s.reading : undefined, meaning: s.meaning, note: s.note, examples: s.examples })),
+      senses: senses.map((s) => ({ id: s.item.id, reading: s.reading !== word ? s.reading : undefined, meaning: s.meaning, note: s.note, examples: s.examples })),
     };
     if (direction === 'production') return { prompt: meaning, promptIsTarget: false, answer: word, ...face };
     return { prompt: word, promptIsTarget: true, answer: meaning, ...face };
@@ -48,7 +50,7 @@ export function cardFace(pack: Pack, kind: ItemKind, direction: Direction, itemI
   const k = pack.kanjiById.get(itemId);
   if (!k) return null;
   const meaning = k.meanings.slice(0, 3).join(', ');
-  const { readings, rare } = kanjiReadings(pack, k);
+  const { rows: readings, rare } = kanjiReadingRows(pack, k);
   // Without word data, fall back to the dictionary's full reading lists.
   const details = readings.length
     ? []
@@ -67,6 +69,8 @@ export function cardFace(pack: Pack, kind: ItemKind, direction: Direction, itemI
     meaning,
     kanjiReadings: readings.map((r) => ({
       reading: r.reading,
+      main: r.main,
+      when: r.when,
       words: r.words.map((w) => ({ word: wordKey(w.word), reading: normReading(w.reading), meaning: w.meaning })),
     })),
     rareReadings: rare,
