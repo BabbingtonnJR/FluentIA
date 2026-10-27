@@ -168,7 +168,7 @@ export function Study() {
     busy.current = false;
   }, [entry]);
 
-  // Keyboard: space/enter reveals, 1–4 grade.
+  // Keyboard: space/enter reveals, 1–4 grade. Tapping the card again plays the audio again, as in Anki.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === ' ' || e.key === 'Enter') {
@@ -236,7 +236,7 @@ export function Study() {
       <div
         key={seq}
         className={`card flashcard${leaving ? ` leaving ${leaving === 'skip' ? 'skip' : GRADE_CLASS[leaving]}` : ''}`}
-        onClick={reveal} role="button" tabIndex={0} aria-label={revealed ? undefined : 'Show answer'}>
+        onClick={revealed ? sayAnswer : reveal} role="button" tabIndex={0} aria-label={revealed ? 'Play again' : 'Show answer'}>
         <div className="row" style={{ gap: 6 }}>
           {isNew && <span className="badge new">New</span>}
           <span className="badge">
